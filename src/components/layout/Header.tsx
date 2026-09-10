@@ -56,9 +56,6 @@ export function Header() {
               <span className="font-headline-sm text-[16px] sm:text-[18px] tracking-widest uppercase text-primary font-bold leading-none">
                 {siteConfig.name}
               </span>
-              <span className="font-urdu text-[10px] sm:text-[11px] text-tertiary font-bold -mt-0.5 leading-none">
-                {siteConfig.urduName}
-              </span>
             </div>
           </Link>
 

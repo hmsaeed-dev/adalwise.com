@@ -24,15 +24,7 @@ export function Footer() {
               <span className="font-headline-sm text-headline-sm text-primary font-bold tracking-wider uppercase leading-none">
                 {siteConfig.name}
               </span>
-              <span className="font-urdu text-[12px] text-tertiary font-bold -mt-0.5">
-                {siteConfig.urduName}
-              </span>
             </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="font-label-sm text-label-sm text-tertiary font-bold uppercase tracking-widest text-[10px]">
-              Classical Jurisprudence
-            </span>
           </div>
         </div>
 
@@ -71,26 +63,15 @@ export function Footer() {
               ))}
             </div>
           </div>
-
-          <div className="flex flex-col gap-space-xs col-span-2 md:col-span-2">
-            <span className="font-label-md text-label-md text-primary font-bold uppercase tracking-wider">
-              Mandate
-            </span>
-            <p className="font-body-sm text-on-surface-variant leading-relaxed">
-              Adalwise re-anchors contemporary constitutional and moral inquiry inside
-              classical Islamic jurisprudential methodologies—interrogating textual jurisprudence
-              with academic rigor.
-            </p>
-          </div>
         </div>
 
         {/* Copyright & Meta */}
         <div className="pt-space-md border-t border-surface-container-highest flex flex-col sm:flex-row items-center justify-between gap-space-xs text-center sm:text-left">
           <p className="font-label-sm text-label-sm text-on-surface-variant text-[11px] tracking-wide">
-            © {new Date().getFullYear()} Adalwise Institute. All rights reserved.
+            © {new Date().getFullYear()} Adalwise. All rights reserved.
           </p>
           <span className="font-urdu text-[12px] text-tertiary">
-            عدل و حکمت — ادارہ برائے تحقیقِ فقہ و قانون
+            عدل و حکمت
           </span>
         </div>
       </div>
