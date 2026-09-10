@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { BookOpen } from "lucide-react";
 
 export function FeaturedTreatiseCard() {
   return (
@@ -8,10 +9,10 @@ export function FeaturedTreatiseCard() {
       <div className="w-full bg-surface-container-lowest p-space-lg shadow-[0_2px_12px_rgba(0,0,0,0.04)] border border-surface-container-high/60 flex flex-col gap-space-md overflow-hidden rounded-[26px]">
         <div className="relative w-full h-48 sm:h-60 overflow-hidden bg-primary-container rounded-[18px]">
           <Image
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGSVHlvFd39-M2CNCXObywIl_uKQVRVf7Bfm_hJnmdJTPpZKPrT1N8Epavf-_umXLWjQ9vKEGM5zZpaSKmwLOinIeT47jz7LbxuT9Y8nuxFLcLIllenFlBQxYBluJ5OjMwLa_VkiRgOsk4MXXXriPLTPt67P9hHDZ5UR_nvgqBUX8oNXb7clJWjeETRp3cnMhFdTV9Cx6wEQf7BJ7GtAlO3sb7zLv1GfqMxbA4BzQKYfjuQnrsSNwR"
-            alt="Madrasa Courtyard"
+            src="/images/haseeb-standing.jpg"
+            alt="The Charter of Medina Treatise by Dr. Hafiz Haseeb"
             fill
-            className="object-cover opacity-85"
+            className="object-cover object-top opacity-85 hover:scale-105 transition-transform duration-500"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/40 to-transparent" />
           <div className="absolute bottom-4 left-4 right-4 text-surface">
@@ -37,7 +38,7 @@ export function FeaturedTreatiseCard() {
             className="min-h-[38px] px-space-md py-space-2xs bg-primary text-on-primary font-label-sm uppercase tracking-wider rounded-full flex items-center gap-space-2xs hover:bg-primary-container transition-colors shadow-sm"
           >
             <span>Read Treatise</span>
-            <span className="material-symbols-outlined text-[14px]">read_more</span>
+            <BookOpen className="w-3.5 h-3.5" />
           </Link>
         </div>
       </div>

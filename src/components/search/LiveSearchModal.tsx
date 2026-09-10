@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Search, X, Loader2, ArrowRight, Video, BookOpen, Scale, Users } from "lucide-react";
 import { SearchResult } from "@/lib/search/types";
 
 interface LiveSearchModalProps {
@@ -85,9 +86,7 @@ export function LiveSearchModal({ isOpen, onClose }: LiveSearchModalProps) {
           onSubmit={handleFullSearch}
           className="flex items-center px-space-md py-space-sm border-b border-surface-container-high gap-space-xs"
         >
-          <span className="material-symbols-outlined text-tertiary-container text-[22px]">
-            search
-          </span>
+          <Search className="w-5 h-5 text-tertiary-container shrink-0" />
           <input
             ref={inputRef}
             type="text"
@@ -97,26 +96,22 @@ export function LiveSearchModal({ isOpen, onClose }: LiveSearchModalProps) {
             className="w-full bg-transparent text-on-surface placeholder:text-on-surface-variant/60 font-body-md focus:outline-none"
           />
           {loading && (
-            <span className="material-symbols-outlined text-outline text-[20px] animate-spin">
-              progress_activity
-            </span>
+            <Loader2 className="w-4 h-4 animate-spin text-outline shrink-0" />
           )}
           <button
             type="button"
             onClick={onClose}
             className="p-1 text-on-surface-variant hover:text-primary rounded-full"
           >
-            <span className="material-symbols-outlined text-[20px]">close</span>
+            <X className="w-4 h-4" />
           </button>
         </form>
 
         {/* Results List */}
         <div className="overflow-y-auto flex-1 p-space-sm divide-y divide-surface-container-high/60">
           {query && results.length === 0 && !loading && (
-            <div className="py-space-xl text-center flex flex-col items-center gap-1">
-              <span className="material-symbols-outlined text-on-surface-variant/40 text-[36px]">
-                search_off
-              </span>
+            <div className="py-space-xl text-center flex flex-col items-center gap-2">
+              <Search className="w-8 h-8 text-on-surface-variant/40" />
               <p className="font-body-sm text-on-surface-variant">
                 No matching records found for “{query}”
               </p>
@@ -131,15 +126,15 @@ export function LiveSearchModal({ isOpen, onClose }: LiveSearchModalProps) {
               className="p-space-sm rounded-xl hover:bg-surface-container transition-colors flex items-start gap-space-sm group"
             >
               <div className="w-8 h-8 rounded-full bg-surface-container-high text-primary flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-primary-container group-hover:text-surface transition-colors">
-                <span className="material-symbols-outlined text-[16px]">
-                  {item.type === "media"
-                    ? "smart_display"
-                    : item.type === "article"
-                    ? "auto_stories"
-                    : item.type === "dispatch"
-                    ? "balance"
-                    : "groups_2"}
-                </span>
+                {item.type === "media" ? (
+                  <Video className="w-4 h-4" />
+                ) : item.type === "article" ? (
+                  <BookOpen className="w-4 h-4" />
+                ) : item.type === "dispatch" ? (
+                  <Scale className="w-4 h-4" />
+                ) : (
+                  <Users className="w-4 h-4" />
+                )}
               </div>
 
               <div className="flex-1 min-w-0 flex flex-col gap-0.5">
@@ -178,10 +173,10 @@ export function LiveSearchModal({ isOpen, onClose }: LiveSearchModalProps) {
             <button
               type="button"
               onClick={handleFullSearch}
-              className="text-primary font-semibold hover:underline flex items-center gap-0.5"
+              className="text-primary font-semibold hover:underline flex items-center gap-1"
             >
               <span>View all matching results</span>
-              <span className="material-symbols-outlined text-[13px]">arrow_forward</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </button>
           )}
         </div>

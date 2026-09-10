@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 import { DispatchDoc } from "@/lib/content/schemas";
 
 interface LeadDispatchCardProps {
@@ -30,12 +31,12 @@ export function LeadDispatchCard({ dispatch }: LeadDispatchCardProps) {
         </div>
 
         <div className="flex items-center gap-space-sm bg-primary/60 p-space-sm rounded-xl">
-          <div className="relative w-10 h-10 rounded-full overflow-hidden ring-2 ring-tertiary-container shrink-0 bg-primary">
+          <div className="relative w-11 h-11 rounded-full overflow-hidden ring-2 ring-tertiary-container shrink-0 bg-primary shadow-sm">
             <Image
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHUdFkOkBBnh8rj1rOIil1YM_edKeWWsoXSFd_Lcr9nhy6J9YUD82AxMDmTncS3w2ch9Vg2Tv_r0HGs2by2DuZlRG4bXHRSyef7KkDqPCf0b4hDqP42Afy1JSI00T30ZdzoUbpPPtcvHRVCwVjcLKzlgyDxQJKydP-RkLlgiTfa8yGP103pRBtJ0FE8IDyAicoce_AFRshW2VUXfzhbRC_sDduaf3X80xFVClOLssVW_62dCvWzON7"
+              src="/images/haseeb-chair.jpg"
               alt={frontmatter.author.name}
               fill
-              className="object-cover"
+              className="object-cover object-top"
             />
           </div>
           <div className="flex flex-col min-w-0">
@@ -58,7 +59,7 @@ export function LeadDispatchCard({ dispatch }: LeadDispatchCardProps) {
             className="w-full sm:w-auto px-space-md py-space-sm bg-tertiary-container text-on-tertiary-container font-label-md uppercase tracking-wider font-semibold rounded-full shadow flex items-center justify-center gap-space-xs hover:bg-tertiary-fixed transition-colors"
           >
             <span>Read Discourse</span>
-            <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+            <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </div>

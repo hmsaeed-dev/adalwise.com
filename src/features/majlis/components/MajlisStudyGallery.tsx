@@ -7,12 +7,12 @@ export function MajlisStudyGallery() {
       <div className="relative w-full overflow-hidden rounded-[24px] shadow-sm bg-surface-container border border-surface-container-high">
         <div className="relative w-full h-64 sm:h-80 overflow-hidden">
           <Image
-            src="https://lh3.googleusercontent.com/aida/AEtjO1VKEQr_bR8J4S64j-nat7xnO9iS8pj1SU2I25Tb9RTUueaSBQfL3svM5IttIOPyeu04XYQ96jpcitT_rsKQqC_vRlxW-ph3xZ3_DQ7sB5hSLM8QudXQTmCdX3-3twg8LRU7vZEihzZxkqHWvu5ACYCDIOpkuOiowPNheMVlFjzRdUBFDai2_Mej7M-8YZAO7bwnfy2DhaIRlZg9y4Lr3HeJi3ofzdc5sVHQturg7oJmGNcbXQsqUaitrfE"
-            alt="Intimate scholarly gathering at Bait al-Hikmah in Lahore"
+            src="/images/haseeb-sitting.jpg"
+            alt="Dr. Hafiz Haseeb in scholarly majlis assembly at Bait al-Hikmah in Lahore"
             fill
             className="object-cover object-center transition-transform duration-500 hover:scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/30 to-transparent" />
         </div>
 
         <div className="p-space-md bg-surface-container-low flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-xs border-t border-surface-container-high">

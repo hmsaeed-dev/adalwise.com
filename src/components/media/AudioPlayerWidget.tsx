@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import { Play, Pause, Mic, Bookmark } from "lucide-react";
 import { formatDuration } from "@/lib/utils";
 
 interface AudioPlayerWidgetProps {
@@ -104,9 +105,7 @@ export function AudioPlayerWidget({
 
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-space-xs">
-          <span className="material-symbols-outlined text-tertiary-fixed text-[18px]">
-            mic
-          </span>
+          <Mic className="w-4 h-4 text-tertiary-fixed shrink-0" />
           <span className="font-label-sm text-tertiary-fixed uppercase tracking-wider text-[11px] font-bold">
             Scholarly Audio Exegesis
           </span>
@@ -127,9 +126,11 @@ export function AudioPlayerWidget({
           onClick={togglePlay}
           className="w-10 h-10 bg-tertiary-container text-on-tertiary-container rounded-full flex items-center justify-center transition-transform active:scale-95 shrink-0 shadow-sm hover:bg-tertiary-fixed select-none"
         >
-          <span className="material-symbols-outlined text-[20px]">
-            {isPlaying ? "pause" : "play_arrow"}
-          </span>
+          {isPlaying ? (
+            <Pause className="w-5 h-5 fill-current" />
+          ) : (
+            <Play className="w-5 h-5 fill-current ml-0.5" />
+          )}
         </button>
 
         <div className="flex-1 flex flex-col gap-1 min-w-0">
@@ -165,9 +166,9 @@ export function AudioPlayerWidget({
           onClick={() => setIsBookmarked(!isBookmarked)}
           className="w-8 h-8 flex items-center justify-center text-on-primary-container hover:text-surface transition-colors"
         >
-          <span className="material-symbols-outlined text-[18px]">
-            {isBookmarked ? "bookmark" : "bookmark_add"}
-          </span>
+          <Bookmark
+            className={`w-4 h-4 ${isBookmarked ? "fill-current text-tertiary-fixed" : ""}`}
+          />
         </button>
       </div>
     </div>

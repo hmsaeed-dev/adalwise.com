@@ -12,7 +12,7 @@ interface MetadataProps {
 export function constructMetadata({
   title,
   description = siteConfig.description,
-  image = "/logo_bage.png",
+  image = "/images/logo-badge.png",
   canonicalUrl,
   noIndex = false,
 }: MetadataProps = {}): Metadata {

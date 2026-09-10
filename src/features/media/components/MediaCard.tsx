@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { Play, ArrowRight } from "lucide-react";
 import { MediaItem } from "@/lib/media/types";
 import { formatDuration, formatISODate } from "@/lib/utils";
 
@@ -37,7 +38,7 @@ export function MediaCard({ media }: MediaCardProps) {
         {/* Centered Play Icon on Hover */}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
           <div className="w-12 h-12 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center shadow-lg transform scale-90 group-hover:scale-100 transition-transform">
-            <span className="material-symbols-outlined text-[28px]">play_arrow</span>
+            <Play className="w-6 h-6 fill-current ml-0.5" />
           </div>
         </div>
       </Link>
@@ -80,7 +81,7 @@ export function MediaCard({ media }: MediaCardProps) {
             className="text-primary font-semibold hover:underline flex items-center gap-0.5 shrink-0"
           >
             <span>Watch</span>
-            <span className="material-symbols-outlined text-[13px]">arrow_forward</span>
+            <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
       </div>

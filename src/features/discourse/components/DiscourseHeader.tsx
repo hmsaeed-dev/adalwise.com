@@ -22,12 +22,13 @@ export function DiscourseHeader() {
 
         {/* Editorial Charter Box */}
         <div className="relative rounded-2xl overflow-hidden shadow-sm border border-surface-container-highest bg-surface-container-low/90 p-space-sm flex items-center gap-space-md">
-          <div className="relative w-20 h-20 rounded-xl overflow-hidden shrink-0 border border-tertiary-container/30 bg-primary-container">
+          <div className="relative w-20 h-20 rounded-xl overflow-hidden shrink-0 border border-tertiary-container/40 bg-primary flex items-center justify-center p-2 shadow-sm">
             <Image
-              src="https://lh3.googleusercontent.com/aida/AEtjO1WKpmR4zYwBic5CyKAsdIpDRa_rM2-RW5sS9tZxRswN02mpoIJSxFy0dP_5y4MYfcTAiqdBdm_z95fFlrNYPk5GVINmNyNTAiOyNIFfdmAKo5tL1HmaX5-PgasV7zNHUzheWauVML9Zm6svPn2Ic3IEcn4Os-ssudbhQ1g8RZFRDMZHpJs9LMur4GnXzjV9fKg4xZWe4hOAvWfoHeobnZDspOLYi5KCEKH4BjQRXbWA0GOs9Scq9oHmGw"
-              alt="Classical Manuscript Illustration"
-              fill
-              className="object-cover opacity-90"
+              src="/images/logo-badge.png"
+              alt="Adalwise Editorial Seal"
+              width={64}
+              height={64}
+              className="object-contain"
             />
           </div>
           <div className="flex flex-col justify-center gap-space-2xs min-w-0 pr-1">

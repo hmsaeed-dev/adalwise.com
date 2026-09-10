@@ -1,4 +1,6 @@
 import { ImageResponse } from "next/og";
+import fs from "fs";
+import path from "path";
 import { siteConfig } from "@/config/site";
 
 export const runtime = "nodejs";
@@ -10,6 +12,17 @@ export const size = {
 export const contentType = "image/png";
 
 export default async function Image() {
+  let logoBase64 = "";
+  try {
+    const logoPath = path.join(process.cwd(), "public", "images", "logo-badge.png");
+    if (fs.existsSync(logoPath)) {
+      const buf = fs.readFileSync(logoPath);
+      logoBase64 = `data:image/png;base64,${buf.toString("base64")}`;
+    }
+  } catch {
+    // Graceful fallback
+  }
+
   return new ImageResponse(
     (
       <div
@@ -45,13 +58,28 @@ export default async function Image() {
           }}
         />
 
+        {logoBase64 ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={logoBase64}
+            alt="Adalwise Crest"
+            width={120}
+            height={120}
+            style={{
+              borderRadius: "999px",
+              marginBottom: "20px",
+              border: "2px solid #cea72c",
+            }}
+          />
+        ) : null}
+
         <div
           style={{
-            fontSize: "48px",
+            fontSize: "44px",
             fontWeight: "bold",
             letterSpacing: "0.08em",
             color: "#ffe08e",
-            marginBottom: "16px",
+            marginBottom: "12px",
           }}
         >
           عدل و حکمت
@@ -59,9 +87,9 @@ export default async function Image() {
 
         <div
           style={{
-            fontSize: "64px",
+            fontSize: "58px",
             fontWeight: "bold",
-            letterSpacing: "0.1em",
+            letterSpacing: "0.12em",
             textTransform: "uppercase",
             color: "#ffffff",
             marginBottom: "16px",
@@ -72,7 +100,7 @@ export default async function Image() {
 
         <div
           style={{
-            fontSize: "24px",
+            fontSize: "22px",
             fontStyle: "italic",
             color: "#e8e2d1",
             maxWidth: "800px",

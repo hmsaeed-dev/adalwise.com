@@ -2,7 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { Search, Menu, X } from "lucide-react";
 import { mainNavItems } from "@/config/nav";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
@@ -40,12 +42,22 @@ export function Header() {
         <div className="h-16 px-gutter-mobile md:px-gutter-desktop max-w-container-max mx-auto flex items-center justify-between">
           {/* Brand Logo & Wordmark */}
           <Link href="/" className="flex items-center gap-space-xs group">
-            <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-tertiary-fixed shadow-sm">
-              <span className="material-symbols-outlined text-[18px]">balance</span>
+            <div className="relative w-9 h-9 rounded-full overflow-hidden bg-primary shadow-sm ring-1 ring-tertiary-container/40 p-0.5 flex items-center justify-center transition-transform group-hover:scale-105 shrink-0">
+              <Image
+                src="/images/logo-badge.png"
+                alt={`${siteConfig.name} Emblem`}
+                width={36}
+                height={36}
+                className="w-full h-full object-contain rounded-full"
+                priority
+              />
             </div>
             <div className="flex flex-col">
               <span className="font-headline-sm text-[17px] tracking-widest uppercase text-primary font-bold leading-none">
                 {siteConfig.name}
+              </span>
+              <span className="font-urdu text-[11px] text-tertiary font-bold -mt-0.5 leading-none">
+                {siteConfig.urduName}
               </span>
             </div>
           </Link>
@@ -87,7 +99,7 @@ export function Header() {
               aria-label="Search Archive (Ctrl+K)"
               className="w-10 h-10 flex items-center justify-center text-primary hover:bg-surface-container rounded-full transition-colors"
             >
-              <span className="material-symbols-outlined text-[20px]">search</span>
+              <Search className="w-5 h-5" strokeWidth={2} />
             </button>
 
             {/* Pinned Join CTA */}
@@ -105,7 +117,7 @@ export function Header() {
               onClick={() => setIsDrawerOpen(true)}
               className="w-10 h-10 text-primary flex lg:hidden items-center justify-center hover:bg-surface-container rounded-full transition-colors"
             >
-              <span className="material-symbols-outlined text-[24px]">menu</span>
+              <Menu className="w-6 h-6" strokeWidth={2} />
             </button>
           </div>
         </div>
@@ -125,20 +137,31 @@ export function Header() {
             <div className="flex flex-col gap-space-md">
               <div className="flex items-center justify-between pb-space-sm border-b border-surface-container-high">
                 <div className="flex items-center gap-space-xs">
-                  <div className="w-7 h-7 rounded-full bg-primary flex items-center justify-center text-tertiary-fixed">
-                    <span className="material-symbols-outlined text-[16px]">balance</span>
+                  <div className="relative w-8 h-8 rounded-full overflow-hidden bg-primary ring-1 ring-tertiary-container/30 p-0.5 shrink-0">
+                    <Image
+                      src="/images/logo-badge.png"
+                      alt={`${siteConfig.name} Emblem`}
+                      width={32}
+                      height={32}
+                      className="w-full h-full object-contain rounded-full"
+                    />
                   </div>
-                  <span className="font-headline-sm text-headline-sm tracking-wider uppercase text-primary font-bold">
-                    {siteConfig.name}
-                  </span>
+                  <div className="flex flex-col">
+                    <span className="font-headline-sm text-[16px] tracking-wider uppercase text-primary font-bold leading-none">
+                      {siteConfig.name}
+                    </span>
+                    <span className="font-urdu text-[11px] text-tertiary font-bold -mt-0.5">
+                      {siteConfig.urduName}
+                    </span>
+                  </div>
                 </div>
                 <button
                   type="button"
                   aria-label="Close Menu"
                   onClick={() => setIsDrawerOpen(false)}
-                  className="w-8 h-8 flex items-center justify-center text-on-surface-variant hover:text-primary rounded-full"
+                  className="w-8 h-8 flex items-center justify-center text-on-surface-variant hover:text-primary rounded-full transition-colors"
                 >
-                  <span className="material-symbols-outlined text-[22px]">close</span>
+                  <X className="w-5 h-5" strokeWidth={2} />
                 </button>
               </div>
 

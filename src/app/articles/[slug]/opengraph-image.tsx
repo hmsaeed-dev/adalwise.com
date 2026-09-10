@@ -1,4 +1,6 @@
 import { ImageResponse } from "next/og";
+import fs from "fs";
+import path from "path";
 import { getArticleBySlug } from "@/lib/content/client";
 
 export const runtime = "nodejs";
@@ -15,6 +17,17 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   const title = article?.frontmatter.title || "Adalwise Treatise";
   const author = article?.frontmatter.author.name || "Adalwise Institute";
   const category = article?.frontmatter.category || "Legal Treatises";
+
+  let logoBase64 = "";
+  try {
+    const logoPath = path.join(process.cwd(), "public", "images", "logo-badge.png");
+    if (fs.existsSync(logoPath)) {
+      const buf = fs.readFileSync(logoPath);
+      logoBase64 = `data:image/png;base64,${buf.toString("base64")}`;
+    }
+  } catch {
+    // Graceful fallback
+  }
 
   return new ImageResponse(
     (
@@ -43,16 +56,28 @@ export default async function Image({ params }: { params: Promise<{ slug: string
 
         {/* Header Tag */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <div
-            style={{
-              fontSize: "18px",
-              fontWeight: "bold",
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              color: "#ffe08e",
-            }}
-          >
-            ADALWISE • {category}
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            {logoBase64 ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={logoBase64}
+                alt="Adalwise"
+                width={40}
+                height={40}
+                style={{ borderRadius: "50%", border: "1px solid #cea72c" }}
+              />
+            ) : null}
+            <div
+              style={{
+                fontSize: "18px",
+                fontWeight: "bold",
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+                color: "#ffe08e",
+              }}
+            >
+              ADALWISE • {category}
+            </div>
           </div>
           <div style={{ fontSize: "28px", color: "#ffe08e", fontWeight: "bold" }}>
             عدل و حکمت

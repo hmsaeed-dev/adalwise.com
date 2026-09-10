@@ -6,10 +6,11 @@ export function MediaHero() {
     <section className="relative w-full overflow-hidden rounded-b-[2.5rem] shadow-md bg-primary">
       <div className="absolute inset-0">
         <Image
-          src="https://lh3.googleusercontent.com/aida/AEtjO1Xk-0pDNXzFI2CL53f7d6AHfYWTDtBv68u3I-GidefdS4g97lt9QqAmve4F6kGeOlTCcr8zd4VvB4qQ14X3HlMrkM_KWDzDnp0MYftyUren2xaXg2Q82NuKgkBJLoYUvghc9dp9C9takBuB6EFHDI96UmeEu909_IhRPIfCWMXjo06L4zqIUvmVGyNCx_0q-X9SUY7gD9jhVN2SKQA75sRMJh4q7p4w8ZhljZwOzKgml0vNEKl5G9dfRZ0"
-          alt="Classical library hall with antique books and manuscripts"
+          src="/images/haseeb-chair.jpg"
+          alt="Classical library study of Dr. Hafiz Haseeb"
           fill
-          className="object-cover opacity-35 mix-blend-luminosity"
+          className="object-cover opacity-25 mix-blend-luminosity"
+          priority
         />
         <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/85 to-primary/80 backdrop-blur-[1px]" />
       </div>

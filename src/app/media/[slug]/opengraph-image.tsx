@@ -1,4 +1,6 @@
 import { ImageResponse } from "next/og";
+import fs from "fs";
+import path from "path";
 import { getMediaBySlug } from "@/lib/media/client";
 import { formatDuration } from "@/lib/utils";
 
@@ -17,6 +19,17 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   const speaker = media?.speaker.name || "Dr. Hafiz Haseeb";
   const category = media?.category || "Archival Lecture";
   const duration = media ? formatDuration(media.durationSeconds) : "";
+
+  let logoBase64 = "";
+  try {
+    const logoPath = path.join(process.cwd(), "public", "images", "logo-badge.png");
+    if (fs.existsSync(logoPath)) {
+      const buf = fs.readFileSync(logoPath);
+      logoBase64 = `data:image/png;base64,${buf.toString("base64")}`;
+    }
+  } catch {
+    // Graceful fallback
+  }
 
   return new ImageResponse(
     (
@@ -45,16 +58,28 @@ export default async function Image({ params }: { params: Promise<{ slug: string
 
         {/* Top Bar */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <div
-            style={{
-              fontSize: "18px",
-              fontWeight: "bold",
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              color: "#ffe08e",
-            }}
-          >
-            LECTURE ARCHIVE • {category}
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            {logoBase64 ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={logoBase64}
+                alt="Adalwise"
+                width={40}
+                height={40}
+                style={{ borderRadius: "50%", border: "1px solid #cea72c" }}
+              />
+            ) : null}
+            <div
+              style={{
+                fontSize: "18px",
+                fontWeight: "bold",
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+                color: "#ffe08e",
+              }}
+            >
+              LECTURE ARCHIVE • {category}
+            </div>
           </div>
           {duration && (
             <div

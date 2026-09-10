@@ -59,7 +59,7 @@ export function ScholarlyArticleJsonLd({
       "@type": "WebPage",
       "@id": url,
     },
-    image: image || `${siteConfig.url}/logo_bage.png`,
+    image: image || `${siteConfig.url}/images/logo-badge.png`,
   };
 
   return (

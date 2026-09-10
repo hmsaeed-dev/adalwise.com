@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { siteConfig } from "@/config/site";
 import { footerNav } from "@/config/nav";
 
@@ -10,21 +11,29 @@ export function Footer() {
         {/* Brand Bar */}
         <div className="flex items-center justify-between pb-space-md border-b border-surface-container-highest">
           <div className="flex items-center gap-space-xs">
-            <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-tertiary-fixed">
-              <span className="material-symbols-outlined text-[16px]">balance</span>
+            <div className="relative w-9 h-9 rounded-full overflow-hidden bg-primary ring-1 ring-tertiary-container/40 p-0.5 shadow-sm shrink-0">
+              <Image
+                src="/images/logo-badge.png"
+                alt={`${siteConfig.name} Crest`}
+                width={36}
+                height={36}
+                className="w-full h-full object-contain rounded-full"
+              />
             </div>
             <div className="flex flex-col">
               <span className="font-headline-sm text-headline-sm text-primary font-bold tracking-wider uppercase leading-none">
                 {siteConfig.name}
               </span>
-              <span className="font-urdu text-[11px] text-tertiary font-bold -mt-0.5">
+              <span className="font-urdu text-[12px] text-tertiary font-bold -mt-0.5">
                 {siteConfig.urduName}
               </span>
             </div>
           </div>
-          <span className="font-label-sm text-label-sm text-tertiary font-bold uppercase tracking-widest text-[10px]">
-            Classical Jurisprudence
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="font-label-sm text-label-sm text-tertiary font-bold uppercase tracking-widest text-[10px]">
+              Classical Jurisprudence
+            </span>
+          </div>
         </div>
 
         {/* Links Grid */}
