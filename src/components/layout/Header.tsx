@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Search, Menu, X } from "lucide-react";
+import { Search, Menu, X, Home, Scale, Video, Users, BookOpen, User } from "lucide-react";
 import { mainNavItems } from "@/config/nav";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
@@ -53,10 +53,10 @@ export function Header() {
               />
             </div>
             <div className="flex flex-col">
-              <span className="font-headline-sm text-[17px] tracking-widest uppercase text-primary font-bold leading-none">
+              <span className="font-headline-sm text-[16px] sm:text-[18px] tracking-widest uppercase text-primary font-bold leading-none">
                 {siteConfig.name}
               </span>
-              <span className="font-urdu text-[11px] text-tertiary font-bold -mt-0.5 leading-none">
+              <span className="font-urdu text-[10px] sm:text-[11px] text-tertiary font-bold -mt-0.5 leading-none">
                 {siteConfig.urduName}
               </span>
             </div>
@@ -91,23 +91,23 @@ export function Header() {
           </nav>
 
           {/* Action CTAs */}
-          <div className="flex items-center gap-space-xs">
+          <div className="flex items-center gap-1 sm:gap-space-xs shrink-0">
             {/* Search Trigger Button */}
             <button
               type="button"
               onClick={() => setIsSearchOpen(true)}
               aria-label="Search Archive (Ctrl+K)"
-              className="w-10 h-10 flex items-center justify-center text-primary hover:bg-surface-container rounded-full transition-colors"
+              className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center text-primary hover:bg-surface-container rounded-full transition-colors"
             >
-              <Search className="w-5 h-5" strokeWidth={2} />
+              <Search className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2} />
             </button>
 
             {/* Pinned Join CTA */}
             <Link
               href="/join"
-              className="min-h-[40px] px-space-md py-space-2xs bg-primary-container text-surface font-label-sm uppercase tracking-wider flex items-center justify-center transition-colors hover:bg-primary rounded-full shadow-sm"
+              className="h-9 sm:h-10 px-3 sm:px-space-md bg-primary-container text-surface text-[12px] sm:font-label-sm uppercase tracking-wider flex items-center justify-center transition-colors hover:bg-primary rounded-full shadow-sm font-semibold"
             >
-              Join
+              Join Us
             </Link>
 
             {/* Mobile Hamburger Toggle */}
@@ -115,11 +115,38 @@ export function Header() {
               type="button"
               aria-label="Open Navigation Menu"
               onClick={() => setIsDrawerOpen(true)}
-              className="w-10 h-10 text-primary flex lg:hidden items-center justify-center hover:bg-surface-container rounded-full transition-colors"
+              className="w-9 h-9 sm:w-10 sm:h-10 text-primary flex lg:hidden items-center justify-center hover:bg-surface-container rounded-full transition-colors"
             >
-              <Menu className="w-6 h-6" strokeWidth={2} />
+              <Menu className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={2} />
             </button>
           </div>
+        </div>
+
+        {/* Mobile-First Stream Navigation Bar (<lg screens) */}
+        <div className="lg:hidden border-t border-surface-container-high/50 bg-surface/95 backdrop-blur-md px-gutter-mobile overflow-x-auto no-scrollbar">
+          <nav aria-label="Mobile Streams Navigation" className="flex items-center gap-1.5 py-2 min-w-max">
+            {mainNavItems.map((item) => {
+              const isActive =
+                item.href === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(item.href);
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    "px-3 py-1 text-[12px] font-sans rounded-full whitespace-nowrap transition-all select-none font-medium",
+                    isActive
+                      ? "bg-primary text-surface font-semibold shadow-xs"
+                      : "text-on-surface-variant hover:text-primary hover:bg-surface-container/70"
+                  )}
+                >
+                  {item.title}
+                </Link>
+              );
+            })}
+          </nav>
         </div>
       </header>
 
@@ -150,9 +177,6 @@ export function Header() {
                     <span className="font-headline-sm text-[16px] tracking-wider uppercase text-primary font-bold leading-none">
                       {siteConfig.name}
                     </span>
-                    <span className="font-urdu text-[11px] text-tertiary font-bold -mt-0.5">
-                      {siteConfig.urduName}
-                    </span>
                   </div>
                 </div>
                 <button
@@ -163,15 +187,6 @@ export function Header() {
                 >
                   <X className="w-5 h-5" strokeWidth={2} />
                 </button>
-              </div>
-
-              <div className="p-space-xs bg-surface-container-low rounded-xl">
-                <span className="font-urdu text-[12px] text-primary block dir-rtl text-right font-bold">
-                  عدل و حکمت — ادارہ برائے تفہیمِ دین
-                </span>
-                <span className="font-label-sm text-[10px] uppercase tracking-widest text-on-surface-variant block mt-0.5">
-                  Academic Portals
-                </span>
               </div>
 
               <nav className="flex flex-col gap-space-2xs text-body-md font-medium">
@@ -193,11 +208,12 @@ export function Header() {
                       )}
                     >
                       <div className="flex items-center gap-space-xs">
-                        {item.icon && (
-                          <span className="material-symbols-outlined text-[18px] text-tertiary-container">
-                            {item.icon}
-                          </span>
-                        )}
+                        {item.href === "/" && <Home className="w-[18px] h-[18px] text-tertiary-container shrink-0" />}
+                        {item.href === "/twasi-al-haq" && <Scale className="w-[18px] h-[18px] text-tertiary-container shrink-0" />}
+                        {item.href === "/media" && <Video className="w-[18px] h-[18px] text-tertiary-container shrink-0" />}
+                        {item.href === "/majlis" && <Users className="w-[18px] h-[18px] text-tertiary-container shrink-0" />}
+                        {item.href === "/articles" && <BookOpen className="w-[18px] h-[18px] text-tertiary-container shrink-0" />}
+                        {item.href === "/about" && <User className="w-[18px] h-[18px] text-tertiary-container shrink-0" />}
                         <span>{item.title}</span>
                       </div>
                       {item.urduTitle && (
@@ -213,9 +229,7 @@ export function Header() {
                   className="py-space-xs px-space-sm rounded-xl flex items-center justify-between text-on-surface hover:bg-surface-container transition-colors"
                 >
                   <div className="flex items-center gap-space-xs">
-                    <span className="material-symbols-outlined text-[18px] text-tertiary-container">
-                      search
-                    </span>
+                    <Search className="w-[18px] h-[18px] text-tertiary-container shrink-0" />
                     <span>Search Archive</span>
                   </div>
                 </Link>
@@ -227,11 +241,8 @@ export function Header() {
                 href="/join"
                 className="w-full py-space-sm bg-primary text-on-primary font-label-md text-center uppercase tracking-wider block rounded-full hover:bg-primary-container transition-colors shadow-sm"
               >
-                Join Fellowship
+                Join Us
               </Link>
-              <span className="text-[11px] text-center text-on-surface-variant font-label-sm uppercase tracking-wider">
-                Classical Jurisprudence
-              </span>
             </div>
           </div>
         </div>

@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react";
 import Link from "next/link";
+import { AlertCircle } from "lucide-react";
 
 export default function GlobalError({
   error,
@@ -17,7 +18,7 @@ export default function GlobalError({
   return (
     <div className="w-full max-w-md mx-auto px-gutter-mobile py-space-3xl flex flex-col items-center justify-center text-center gap-space-md min-h-[50vh]">
       <div className="w-14 h-14 rounded-full bg-error-container text-on-error-container flex items-center justify-center shadow-md">
-        <span className="material-symbols-outlined text-[28px]">error</span>
+        <AlertCircle className="w-7 h-7" />
       </div>
 
       <div className="flex flex-col gap-1">

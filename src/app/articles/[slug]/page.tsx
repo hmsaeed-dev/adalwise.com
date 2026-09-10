@@ -2,6 +2,7 @@ import React from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 import { getArticleBySlug, getAllArticles } from "@/lib/content/client";
 import { getRelatedContent } from "@/lib/content/related";
 import { MDXRenderer } from "@/components/content/MDXRenderer";
@@ -107,8 +108,14 @@ export default async function ArticleDetailPage({ params }: PageProps) {
         )}
 
         <div className="flex items-center gap-space-sm mt-space-sm pt-space-xs border-t border-surface-container-high/60">
-          <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-tertiary-fixed font-bold font-serif shadow-sm">
-            {frontmatter.author.name[0]}
+          <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-tertiary-fixed font-bold font-serif shadow-sm overflow-hidden relative shrink-0">
+            <Image
+              src="/images/haseeb-chair.jpg"
+              alt={frontmatter.author.name}
+              fill
+              sizes="40px"
+              className="object-cover"
+            />
           </div>
           <div className="flex flex-col">
             <span className="font-headline-sm text-[15px] text-primary font-semibold font-serif">
@@ -163,7 +170,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                 </div>
                 <span className="font-label-sm text-primary font-bold text-[11px] flex items-center gap-1 mt-space-sm">
                   View {item.type === "media" ? "Lecture" : "Treatise"}{" "}
-                  <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </span>
               </Link>
             ))}

@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 import Link from "next/link";
+import { Search, SearchX, ArrowRight } from "lucide-react";
 import { searchService } from "@/lib/search/service";
 import { constructMetadata } from "@/lib/seo/metadata";
 
@@ -50,9 +51,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
         action="/search"
         className="w-full max-w-2xl mx-auto flex items-center bg-surface-container-lowest p-2 rounded-full shadow-md border border-surface-container-high focus-within:ring-2 focus-within:ring-primary/20"
       >
-        <span className="material-symbols-outlined text-outline text-[22px] ml-space-sm mr-space-xs">
-          search
-        </span>
+        <Search className="w-5 h-5 text-outline ml-space-sm mr-space-xs shrink-0" />
         <input
           type="text"
           name="q"
@@ -80,9 +79,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
       {/* Results List */}
       {query && results.length === 0 ? (
         <div className="py-space-2xl text-center flex flex-col items-center justify-center gap-space-xs">
-          <span className="material-symbols-outlined text-[48px] text-on-surface-variant/40">
-            search_off
-          </span>
+          <SearchX className="w-12 h-12 text-on-surface-variant/40" />
           <h3 className="font-headline-md text-primary font-bold font-serif">
             No Records Found
           </h3>
@@ -137,7 +134,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
                   <span>{res.date}</span>
                   <span className="flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                     Open {typeLabels[res.type] || "Record"}{" "}
-                    <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </span>
                 </div>
               </Link>

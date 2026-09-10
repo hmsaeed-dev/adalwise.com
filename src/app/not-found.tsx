@@ -1,12 +1,13 @@
 import React from "react";
 import Link from "next/link";
+import { BookOpen } from "lucide-react";
 import { siteConfig } from "@/config/site";
 
 export default function NotFound() {
   return (
     <div className="w-full max-w-lg mx-auto px-gutter-mobile py-space-3xl flex flex-col items-center justify-center text-center gap-space-md min-h-[60vh]">
       <div className="w-16 h-16 rounded-full bg-surface-container-high border border-surface-container-highest flex items-center justify-center text-tertiary-container shadow-sm">
-        <span className="material-symbols-outlined text-[32px]">menu_book</span>
+        <BookOpen className="w-8 h-8 text-tertiary-container" />
       </div>
 
       <div className="flex flex-col gap-1">

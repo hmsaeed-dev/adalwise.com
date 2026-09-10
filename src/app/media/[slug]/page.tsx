@@ -1,6 +1,8 @@
 import React from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
+import { BookOpen, Play, ArrowRight } from "lucide-react";
 import { getMediaBySlug, getAllMedia, getMediaBySeries } from "@/lib/media/client";
 import { getRelatedContent } from "@/lib/content/related";
 import { YouTubeEmbed } from "@/components/media/YouTubeEmbed";
@@ -119,8 +121,14 @@ export default async function MediaDetailPage({ params }: PageProps) {
         )}
 
         <div className="flex items-center gap-space-sm mt-space-sm pt-space-xs border-t border-surface-container-high/60">
-          <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-tertiary-fixed font-bold font-serif shadow-sm">
-            {item.speaker.name[0]}
+          <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-tertiary-fixed font-bold font-serif shadow-sm overflow-hidden relative shrink-0">
+            <Image
+              src="/images/haseeb-chair.jpg"
+              alt={item.speaker.name}
+              fill
+              sizes="40px"
+              className="object-cover"
+            />
           </div>
           <div className="flex flex-col">
             <span className="font-headline-sm text-[15px] text-primary font-semibold font-serif">
@@ -136,9 +144,7 @@ export default async function MediaDetailPage({ params }: PageProps) {
       {/* Comprehensive Textual Summary & Study Notes (Discoverability Requirement #8) */}
       <section className="bg-surface-container-low p-space-lg rounded-[24px] border border-surface-container-high flex flex-col gap-space-md">
         <h2 className="font-headline-sm text-primary font-bold font-serif flex items-center gap-space-xs">
-          <span className="material-symbols-outlined text-tertiary-container text-[20px]">
-            menu_book
-          </span>
+          <BookOpen className="w-5 h-5 text-tertiary-container shrink-0" />
           <span>Discourse Synopsis &amp; Juristic Breakdown</span>
         </h2>
 
@@ -183,7 +189,7 @@ export default async function MediaDetailPage({ params }: PageProps) {
                 className="p-space-sm bg-surface-container rounded-xl flex items-center gap-space-sm hover:bg-surface-container-high transition-colors border border-surface-container-highest"
               >
                 <div className="w-8 h-8 rounded-full bg-primary text-tertiary-fixed flex items-center justify-center shrink-0">
-                  <span className="material-symbols-outlined text-[18px]">play_arrow</span>
+                  <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
                 </div>
                 <div className="flex flex-col min-w-0">
                   <span className="font-headline-sm text-[14px] text-primary font-semibold truncate">
@@ -224,7 +230,7 @@ export default async function MediaDetailPage({ params }: PageProps) {
                   </p>
                 </div>
                 <span className="font-label-sm text-primary font-bold text-[11px] flex items-center gap-1 mt-space-sm">
-                  Explore <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
+                  Explore <ArrowRight className="w-3.5 h-3.5" />
                 </span>
               </Link>
             ))}

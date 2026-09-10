@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { Send, Mail, FileText, X, CheckCircle } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { submitInquiryAction } from "@/app/actions/submit-inquiry";
 
@@ -57,7 +58,7 @@ export function AcademicConsultationSection() {
                 onClick={() => setIsModalOpen(true)}
                 className="w-full sm:w-auto min-h-[44px] bg-tertiary-container hover:bg-tertiary text-on-tertiary-container px-space-md py-space-xs flex items-center justify-center gap-space-xs transition-colors shadow-sm font-label-md uppercase tracking-wider font-semibold rounded-full select-none"
               >
-                <span className="material-symbols-outlined text-[18px]">send</span>
+                <Send className="w-4 h-4" />
                 <span>Submit Inquiry</span>
               </button>
 
@@ -65,7 +66,7 @@ export function AcademicConsultationSection() {
                 href={`mailto:${siteConfig.author.email}`}
                 className="w-full sm:w-auto min-h-[44px] bg-primary-container/80 hover:bg-surface-tint text-surface px-space-md py-space-xs flex items-center justify-center gap-space-xs transition-colors font-label-md uppercase tracking-wider rounded-full border border-primary-container"
               >
-                <span className="material-symbols-outlined text-[18px]">mail</span>
+                <Mail className="w-4 h-4" />
                 <span>{siteConfig.author.email}</span>
               </a>
             </div>
@@ -79,9 +80,7 @@ export function AcademicConsultationSection() {
           <div className="bg-surface-container-low max-w-md w-full p-space-lg rounded-[24px] shadow-2xl border border-surface-container-high relative animate-in fade-in zoom-in-95 duration-200">
             <div className="flex items-center justify-between pb-space-xs border-b border-surface-container-high">
               <div className="flex items-center gap-space-2xs">
-                <span className="material-symbols-outlined text-tertiary-container text-[20px]">
-                  edit_note
-                </span>
+                <FileText className="w-5 h-5 text-tertiary-container" />
                 <span className="font-headline-sm text-[16px] text-primary font-bold font-serif">
                   Formal Inquiry Dispatch
                 </span>
@@ -91,15 +90,13 @@ export function AcademicConsultationSection() {
                 onClick={() => setIsModalOpen(false)}
                 className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container text-on-surface-variant"
               >
-                <span className="material-symbols-outlined text-[20px]">close</span>
+                <X className="w-5 h-5" />
               </button>
             </div>
 
             {submitted ? (
               <div className="py-space-xl text-center flex flex-col items-center gap-space-xs">
-                <span className="material-symbols-outlined text-[48px] text-tertiary-container">
-                  check_circle
-                </span>
+                <CheckCircle className="w-12 h-12 text-tertiary-container" />
                 <h4 className="font-headline-sm text-primary font-bold font-serif">
                   Inquiry Dispatched
                 </h4>

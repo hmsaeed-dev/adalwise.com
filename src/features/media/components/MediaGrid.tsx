@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { ChevronLeft, ChevronRight, SearchX } from "lucide-react";
 import { MediaItem } from "@/lib/media/types";
 import { MediaCard } from "./MediaCard";
 
@@ -44,9 +45,7 @@ export function MediaGrid({
 
       {items.length === 0 ? (
         <div className="py-space-3xl text-center flex flex-col items-center justify-center gap-space-xs">
-          <span className="material-symbols-outlined text-[48px] text-on-surface-variant/40">
-            search_off
-          </span>
+          <SearchX className="w-12 h-12 text-on-surface-variant/40" />
           <h3 className="font-headline-md text-primary font-bold font-serif">
             No Lectures Found
           </h3>
@@ -64,46 +63,44 @@ export function MediaGrid({
 
       {/* Pagination Controls */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-space-sm pt-space-md">
-          {page > 1 && (
+        <nav aria-label="Catalog pagination" className="flex flex-wrap items-center justify-center gap-2 sm:gap-space-sm pt-space-lg">
+          {page > 1 ? (
             <Link
               href={buildPageUrl(page - 1)}
-              className="px-space-md py-space-xs bg-surface-container hover:bg-surface-container-high text-primary rounded-full font-label-md uppercase tracking-wider font-semibold transition-colors border border-surface-container-highest flex items-center gap-1"
+              className="px-3 sm:px-space-md py-1.5 sm:py-space-xs bg-surface-container hover:bg-surface-container-high text-primary rounded-full text-[12px] sm:text-label-md uppercase tracking-wider font-semibold transition-colors border border-surface-container-highest flex items-center gap-1"
             >
-              <span className="material-symbols-outlined text-[16px]">arrow_back</span>
-              <span>Previous</span>
+              <ChevronLeft className="w-4 h-4" />
+              <span>Prev</span>
             </Link>
+          ) : (
+            <span className="px-3 sm:px-space-md py-1.5 sm:py-space-xs bg-surface-container/40 text-on-surface-variant/40 rounded-full text-[12px] sm:text-label-md uppercase tracking-wider font-semibold cursor-not-allowed border border-surface-container-highest/40 flex items-center gap-1 select-none">
+              <ChevronLeft className="w-4 h-4" />
+              <span>Prev</span>
+            </span>
           )}
 
-          <div className="flex items-center gap-1">
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => {
-              const isCurrent = p === page;
-              return (
-                <Link
-                  key={p}
-                  href={buildPageUrl(p)}
-                  className={`w-9 h-9 rounded-full flex items-center justify-center text-label-md font-semibold transition-colors ${
-                    isCurrent
-                      ? "bg-primary text-on-primary shadow-sm"
-                      : "bg-surface-container text-on-surface-variant hover:text-primary"
-                  }`}
-                >
-                  {p}
-                </Link>
-              );
-            })}
+          <div className="flex items-center gap-1 text-[13px] font-semibold text-primary px-3 py-1 bg-surface-container-low rounded-full border border-surface-container-high">
+            <span>Page</span>
+            <span className="font-bold text-secondary">{page}</span>
+            <span className="text-on-surface-variant/70">of</span>
+            <span>{totalPages}</span>
           </div>
 
-          {hasMore && (
+          {hasMore ? (
             <Link
               href={buildPageUrl(page + 1)}
-              className="px-space-md py-space-xs bg-primary text-on-primary hover:bg-primary-container rounded-full font-label-md uppercase tracking-wider font-semibold transition-colors shadow-sm flex items-center gap-1"
+              className="px-3 sm:px-space-md py-1.5 sm:py-space-xs bg-primary text-on-primary hover:bg-primary-container rounded-full text-[12px] sm:text-label-md uppercase tracking-wider font-semibold transition-colors shadow-sm flex items-center gap-1"
             >
               <span>Next</span>
-              <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+              <ChevronRight className="w-4 h-4" />
             </Link>
+          ) : (
+            <span className="px-3 sm:px-space-md py-1.5 sm:py-space-xs bg-surface-container/40 text-on-surface-variant/40 rounded-full text-[12px] sm:text-label-md uppercase tracking-wider font-semibold cursor-not-allowed border border-surface-container-highest/40 flex items-center gap-1 select-none">
+              <span>Next</span>
+              <ChevronRight className="w-4 h-4" />
+            </span>
           )}
-        </div>
+        </nav>
       )}
     </section>
   );

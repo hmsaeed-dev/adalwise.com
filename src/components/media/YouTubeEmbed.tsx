@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { Play } from "lucide-react";
 
 interface YouTubeEmbedProps {
   youtubeId: string;
@@ -29,7 +30,7 @@ export function YouTubeEmbed({ youtubeId, title, thumbnailUrl }: YouTubeEmbedPro
             onClick={() => setIsLoaded(true)}
             className="relative z-20 w-16 h-16 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center shadow-xl transition-transform group-hover:scale-110 active:scale-95"
           >
-            <span className="material-symbols-outlined text-[36px]">play_arrow</span>
+            <Play className="w-8 h-8 fill-current ml-1" />
           </button>
         </div>
       ) : (

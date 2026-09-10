@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Search, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface CategoryCount {
@@ -60,9 +61,7 @@ export function MediaSearchFilter() {
       {/* Search Input Bar */}
       <div className="w-full relative">
         <div className="flex items-center bg-surface-container-lowest/90 backdrop-blur-md px-space-md py-space-sm rounded-[1.25rem] shadow-[0_2px_12px_rgba(0,0,0,0.03)] border border-surface-container-high focus-within:ring-2 focus-within:ring-primary/20 transition-all">
-          <span className="material-symbols-outlined text-outline text-[20px] mr-space-xs shrink-0">
-            search
-          </span>
+          <Search className="w-4 h-4 text-outline mr-space-xs shrink-0" />
           <input
             type="text"
             value={currentQuery}
@@ -77,7 +76,7 @@ export function MediaSearchFilter() {
               title="Clear search"
               className="p-1 text-on-surface-variant hover:text-primary transition-colors"
             >
-              <span className="material-symbols-outlined text-[18px]">close</span>
+              <X className="w-4 h-4" />
             </button>
           )}
         </div>

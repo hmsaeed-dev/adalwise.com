@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 
 export function DiscourseHighlight() {
   return (
@@ -12,29 +13,23 @@ export function DiscourseHighlight() {
               Active Discourse
             </span>
           </div>
-          <span className="font-label-sm text-on-surface-variant text-[11px]">
-            Twasi al-Haq
-          </span>
         </div>
 
         <h2 className="font-headline-md text-primary font-bold leading-snug font-serif mt-space-2xs">
-          The Moral Limits of Statutory Law &amp; Purposive Shariah
+          Moral Limits of Statutory Law
         </h2>
 
         <p className="font-urdu text-[15px] text-secondary font-medium leading-relaxed dir-rtl text-right">
-          ریاستی قانون کی اخلاقی حدود اور شریعت کی مقاصدی اساس
+          ریاستی قانون کی اخلاقی حدود
         </p>
 
         <div className="flex items-center justify-between pt-space-xs mt-space-xs border-t border-surface-container-high">
-          <span className="font-body-sm text-[12px] text-on-surface-variant">
-            Dr. Hafiz Haseeb • 10 min read
-          </span>
           <Link
             href="/twasi-al-haq"
             className="font-label-sm text-secondary font-bold flex items-center gap-1 hover:text-primary transition-colors uppercase tracking-wider"
           >
-            <span>Read Discourse</span>
-            <span className="material-symbols-outlined text-[14px]">chevron_right</span>
+            <span>Read</span>
+            <ChevronRight className="w-3.5 h-3.5" />
           </Link>
         </div>
       </div>

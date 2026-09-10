@@ -1,36 +1,29 @@
 import React from "react";
-import Image from "next/image";
 
 export function MediaHero() {
   return (
-    <section className="relative w-full overflow-hidden rounded-b-[2.5rem] shadow-md bg-primary">
-      <div className="absolute inset-0">
-        <Image
-          src="/images/haseeb-chair.jpg"
-          alt="Classical library study of Dr. Hafiz Haseeb"
-          fill
-          className="object-cover opacity-25 mix-blend-luminosity"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/85 to-primary/80 backdrop-blur-[1px]" />
-      </div>
-
-      <div className="relative z-10 w-full px-gutter-mobile md:px-gutter-desktop pt-16 pb-16 max-w-container-max mx-auto flex flex-col justify-center items-center text-center gap-space-xs">
-        <div className="flex items-center gap-space-2xs mb-1">
-          <span className="w-2 h-2 rounded-full bg-tertiary-fixed animate-pulse" />
-          <span className="font-label-sm text-tertiary-fixed uppercase tracking-widest text-[11px] font-bold">
-            Archival Repository
+    <section className="relative overflow-hidden pt-8 pb-10 px-gutter-mobile md:px-gutter-desktop border-b border-surface-container-highest/60 bg-gradient-to-b from-surface-container-low/70 via-surface to-surface">
+      <div className="relative z-10 flex flex-col gap-space-sm max-w-container-max mx-auto">
+        <div className="flex items-baseline justify-between gap-space-sm flex-wrap">
+          <div className="flex flex-col gap-1">
+            <div className="flex items-center gap-space-2xs">
+              <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
+              <span className="font-label-sm text-secondary uppercase tracking-widest text-[11px] font-bold">
+                Archival Repository
+              </span>
+            </div>
+            <h1 className="font-display-lg text-[28px] sm:text-[34px] md:text-display-lg text-primary tracking-tight font-bold leading-tight font-serif">
+              Lectures &amp; Discourses
+            </h1>
+          </div>
+          <span className="font-urdu text-[26px] sm:text-[32px] md:text-[36px] text-tertiary-container font-bold leading-none dir-rtl select-none">
+            دروس، خطابات و علمی مباحث
           </span>
         </div>
-        <h1 className="font-display-lg text-[34px] sm:text-display-lg text-surface tracking-tight font-bold font-serif">
-          Lectures &amp; Discourses
-        </h1>
-        <p className="font-body-md text-surface-variant max-w-md leading-relaxed opacity-90">
+        <div className="h-[2px] w-20 bg-tertiary-container/60 my-1 rounded-full" />
+        <p className="font-body-lg text-[15px] sm:text-[16px] md:text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
           Curated exegesis, jurisprudential treatises, and recorded seminars from Dr. Hafiz Haseeb.
         </p>
-        <span className="font-urdu text-[16px] text-tertiary-fixed font-semibold mt-1">
-          دروس، خطابات و علمی مباحث
-        </span>
       </div>
     </section>
   );

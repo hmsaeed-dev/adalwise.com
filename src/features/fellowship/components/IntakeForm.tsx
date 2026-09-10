@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { CheckCircle, Check, Loader2, Send } from "lucide-react";
 import { submitFellowshipAction } from "@/app/actions/submit-fellowship";
 
 export function IntakeForm() {
@@ -54,7 +55,7 @@ export function IntakeForm() {
     return (
       <div className="w-full max-w-xl mx-auto p-space-xl bg-surface-container-lowest rounded-[28px] shadow-lg border border-surface-container-high text-center flex flex-col items-center gap-space-md animate-in fade-in zoom-in-95 duration-200 my-space-xl">
         <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-tertiary-fixed shadow-md">
-          <span className="material-symbols-outlined text-[32px]">check_circle</span>
+          <CheckCircle className="w-8 h-8 text-tertiary-fixed" />
         </div>
         <div className="flex flex-col gap-1">
           <h2 className="font-headline-lg text-primary font-bold font-serif">
@@ -191,9 +192,7 @@ export function IntakeForm() {
                   >
                     <span>{interest}</span>
                     {isSelected && (
-                      <span className="material-symbols-outlined text-[16px] text-tertiary-fixed">
-                        check
-                      </span>
+                      <Check className="w-4 h-4 text-tertiary-fixed shrink-0" />
                     )}
                   </button>
                 );
@@ -234,9 +233,11 @@ export function IntakeForm() {
           className="mt-space-sm w-full py-space-sm bg-primary text-on-primary font-label-md uppercase tracking-wider rounded-full hover:bg-primary-container transition-colors font-bold shadow-md select-none flex items-center justify-center gap-space-xs disabled:opacity-70"
         >
           <span>{isPending ? "Submitting Application..." : "Submit Fellowship Application"}</span>
-          <span className="material-symbols-outlined text-[18px]">
-            {isPending ? "progress_activity" : "send"}
-          </span>
+          {isPending ? (
+            <Loader2 className="w-4 h-4 animate-spin" />
+          ) : (
+            <Send className="w-4 h-4" />
+          )}
         </button>
       </form>
     </div>

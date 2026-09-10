@@ -19,7 +19,7 @@ export default function JoinPage() {
             Circle of Inquirers
           </span>
           <h1 className="font-display-lg text-[32px] sm:text-display-lg text-primary font-bold font-serif leading-tight">
-            Join Fellowship Circle
+            Join the Circle
           </h1>
           <span className="font-urdu text-[22px] text-tertiary-container font-bold dir-rtl">
             انضمام مجلسِ رفقاء

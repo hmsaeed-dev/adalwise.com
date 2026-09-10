@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { DispatchDoc } from "@/lib/content/schemas";
 
 interface DispatchFeedProps {
@@ -53,8 +54,7 @@ export function DispatchFeed({ dispatches }: DispatchFeedProps) {
                 {d.frontmatter.author.name}
               </span>
               <span className="flex items-center gap-space-2xs group-hover:translate-x-1 transition-transform">
-                Read Dispatch{" "}
-                <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
+                Read Dispatch <ArrowRight className="w-3.5 h-3.5" />
               </span>
             </div>
           </Link>

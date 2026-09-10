@@ -29,13 +29,13 @@ export function FeaturedTreatiseCard() {
           “Justice without wisdom is sterile; wisdom without rigorous textual lineage is rudderless.”
         </p>
 
-        <div className="flex items-center justify-between pt-space-xs border-t border-surface-container-high">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs pt-space-xs border-t border-surface-container-high">
           <span className="font-body-sm text-[12px] text-on-surface-variant">
             Dr. Hafiz Haseeb • Legal Treatises
           </span>
           <Link
             href="/articles/charter-of-medina"
-            className="min-h-[38px] px-space-md py-space-2xs bg-primary text-on-primary font-label-sm uppercase tracking-wider rounded-full flex items-center gap-space-2xs hover:bg-primary-container transition-colors shadow-sm"
+            className="self-start sm:self-auto min-h-[38px] px-space-md py-space-2xs bg-primary text-on-primary font-label-sm uppercase tracking-wider rounded-full flex items-center gap-space-2xs hover:bg-primary-container transition-colors shadow-sm"
           >
             <span>Read Treatise</span>
             <BookOpen className="w-3.5 h-3.5" />

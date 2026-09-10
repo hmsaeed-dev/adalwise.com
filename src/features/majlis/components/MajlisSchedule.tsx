@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { Calendar, MapPin } from "lucide-react";
 import { MajlisSession } from "@/lib/content/schemas";
 import { formatISODate } from "@/lib/utils";
 
@@ -27,17 +28,13 @@ export function MajlisSchedule({ sessions }: MajlisScheduleProps) {
           >
             <div className="flex flex-wrap items-center justify-between gap-space-xs text-on-surface-variant text-[12px]">
               <div className="flex items-center gap-space-xs">
-                <span className="material-symbols-outlined text-tertiary-container text-[18px]">
-                  calendar_today
-                </span>
+                <Calendar className="w-4 h-4 text-tertiary-container shrink-0" />
                 <span className="font-semibold text-primary">
                   {formatISODate(session.date)}
                 </span>
               </div>
               <div className="flex items-center gap-space-xs">
-                <span className="material-symbols-outlined text-tertiary-container text-[18px]">
-                  location_on
-                </span>
+                <MapPin className="w-4 h-4 text-tertiary-container shrink-0" />
                 <span>{session.location}</span>
               </div>
             </div>
@@ -73,7 +70,7 @@ export function MajlisSchedule({ sessions }: MajlisScheduleProps) {
               </div>
             )}
 
-            <div className="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs border-t border-surface-container-high mt-space-xs">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pt-space-xs border-t border-surface-container-high mt-space-xs">
               <div className="flex items-center gap-space-xs">
                 <span className="font-label-sm uppercase tracking-wider text-on-surface-variant text-[11px]">
                   Conducted by:
@@ -84,7 +81,7 @@ export function MajlisSchedule({ sessions }: MajlisScheduleProps) {
               </div>
               <Link
                 href="/join"
-                className="px-space-md py-space-xs bg-primary text-on-primary font-label-md uppercase tracking-wider rounded-full hover:bg-primary-container transition-colors font-semibold shadow-sm"
+                className="w-full sm:w-auto text-center px-space-md py-space-xs bg-primary text-on-primary font-label-md uppercase tracking-wider rounded-full hover:bg-primary-container transition-colors font-semibold shadow-sm"
               >
                 Request Attendance / RSVP
               </Link>

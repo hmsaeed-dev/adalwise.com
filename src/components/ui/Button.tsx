@@ -6,7 +6,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   href?: string;
   variant?: "primary" | "secondary" | "gold" | "outline" | "ghost";
   size?: "sm" | "md" | "lg";
-  icon?: string;
+  icon?: React.ReactNode;
 }
 
 export function Button({
@@ -46,7 +46,7 @@ export function Button({
     return (
       <Link href={href} className={combinedClasses}>
         <span>{children}</span>
-        {icon && <span className="material-symbols-outlined text-[18px]">{icon}</span>}
+        {icon && <span className="inline-flex shrink-0">{icon}</span>}
       </Link>
     );
   }
@@ -54,7 +54,7 @@ export function Button({
   return (
     <button className={combinedClasses} {...props}>
       <span>{children}</span>
-      {icon && <span className="material-symbols-outlined text-[18px]">{icon}</span>}
+      {icon && <span className="inline-flex shrink-0">{icon}</span>}
     </button>
   );
 }

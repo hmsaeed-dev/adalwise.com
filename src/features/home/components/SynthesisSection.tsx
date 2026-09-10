@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { GraduationCap, ChevronRight } from "lucide-react";
 
 export function SynthesisSection() {
   const pillars = [
@@ -62,7 +63,7 @@ export function SynthesisSection() {
       <div className="w-full p-space-lg bg-surface-container-highest flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md mt-space-sm relative overflow-hidden rounded-[24px] border border-surface-container-high">
         <div className="flex flex-col gap-space-xs max-w-xl">
           <div className="flex items-center gap-space-2xs text-secondary">
-            <span className="material-symbols-outlined text-[18px]">school</span>
+            <GraduationCap className="w-4 h-4" />
             <span className="font-label-sm uppercase tracking-wider font-bold text-[11px]">
               Fellowship Intake
             </span>
@@ -76,19 +77,19 @@ export function SynthesisSection() {
           </p>
         </div>
 
-        <div className="flex items-center gap-space-sm shrink-0">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-space-sm w-full md:w-auto shrink-0">
           <Link
             href="/join"
-            className="px-space-md py-space-xs bg-primary text-on-primary font-label-md uppercase tracking-wider rounded-full hover:bg-primary-container transition-colors shadow-sm font-semibold"
+            className="px-space-md py-space-xs bg-primary text-on-primary font-label-md uppercase tracking-wider rounded-full hover:bg-primary-container transition-colors shadow-sm font-semibold text-center"
           >
             Apply Now
           </Link>
           <Link
             href="/about"
-            className="px-space-sm py-space-xs text-primary font-label-md uppercase tracking-wider flex items-center gap-1 hover:text-secondary font-semibold"
+            className="px-space-sm py-space-xs text-primary font-label-md uppercase tracking-wider flex items-center justify-center gap-1 hover:text-secondary font-semibold"
           >
             <span>Our Method</span>
-            <span className="material-symbols-outlined text-[16px]">chevron_right</span>
+            <ChevronRight className="w-4 h-4" />
           </Link>
         </div>
       </div>

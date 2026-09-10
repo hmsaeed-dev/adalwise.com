@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { getAllDispatches } from "@/lib/content/client";
 import {
   DiscourseHeader,
@@ -45,7 +46,7 @@ export default async function TwasiAlHaqPage() {
               className="w-full sm:w-auto inline-flex py-space-sm px-space-md bg-tertiary-container text-on-tertiary-container font-label-md uppercase tracking-wider font-bold rounded-full shadow transition-all hover:bg-tertiary-fixed items-center justify-center gap-space-xs"
             >
               <span>Join Circle</span>
-              <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
@@ -64,7 +65,7 @@ export default async function TwasiAlHaqPage() {
             className="shrink-0 font-label-sm text-primary flex items-center gap-space-2xs font-semibold hover:underline"
           >
             <span>Explore</span>
-            <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
+            <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
       </section>
