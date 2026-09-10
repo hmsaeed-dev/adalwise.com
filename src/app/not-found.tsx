@@ -17,7 +17,7 @@ export default function NotFound() {
           Record Not Found
         </h1>
         <span className="font-urdu text-[18px] text-tertiary font-bold mt-1">
-          یہ تحریر یا ورق آرکائیو میں موجود نہیں
+          یہ تحریر یا ورق موجود نہیں
         </span>
       </div>
 
@@ -30,7 +30,7 @@ export default function NotFound() {
           href="/"
           className="px-space-md py-space-xs bg-primary text-on-primary rounded-full font-label-md uppercase tracking-wider font-semibold hover:bg-primary-container transition-colors shadow-sm"
         >
-          Return to Portal
+          Return to Home
         </Link>
         <Link
           href="/search"

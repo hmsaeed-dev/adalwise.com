@@ -13,7 +13,7 @@ export const siteConfig = {
     email: "founder@adalwise.org",
   },
   links: {
-    youtube: "https://youtube.com/@adalwise",
-    twitter: "https://twitter.com/adalwise",
+    youtube: "https://youtube.com/@drhafizhaseeb",
+    twitter: "https://twitter.com/drhafizhaseeb",
   },
 };

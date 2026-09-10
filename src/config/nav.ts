@@ -20,25 +20,25 @@ export const mainNavItems: NavItem[] = [
     icon: "balance",
   },
   {
-    title: "Lectures & Media",
+    title: "Lectures",
     urduTitle: "دروس و خطابات",
     href: "/media",
     icon: "video_library",
   },
   {
-    title: "Scholarly Majlis",
-    urduTitle: "مجلسِ علم",
+    title: "Majlis",
+    urduTitle: "مجلسِ",
     href: "/majlis",
     icon: "groups_2",
   },
   {
-    title: "Articles & Treatises",
+    title: "Articles",
     urduTitle: "مقالات",
     href: "/articles",
     icon: "auto_stories",
   },
   {
-    title: "About & Faculty",
+    title: "About Us",
     urduTitle: "تعارف",
     href: "/about",
     icon: "person",
@@ -48,14 +48,14 @@ export const mainNavItems: NavItem[] = [
 export const footerNav = {
   navigation: [
     { title: "Home", href: "/" },
-    { title: "Discourses", href: "/twasi-al-haq" },
+    { title: "Twasi al-Haq", href: "/twasi-al-haq" },
     { title: "Lectures", href: "/media" },
     { title: "Majlis", href: "/majlis" },
   ],
   academy: [
-    { title: "Research Articles", href: "/articles" },
+    { title: "Articles", href: "/articles" },
     { title: "About Dr. Haseeb", href: "/about" },
-    { title: "Fellowship Circle", href: "/join" },
-    { title: "Archive Search", href: "/search" },
+    { title: "Join the Circle", href: "/join" },
+    { title: "Search", href: "/search" },
   ],
 };
