@@ -59,14 +59,11 @@ export function IntakeForm() {
         </div>
         <div className="flex flex-col gap-1">
           <h2 className="font-headline-lg text-primary font-bold font-serif">
-            Application Logged
+            Application Status
           </h2>
-          <span className="font-urdu text-[16px] text-tertiary font-bold">
-            درخواست موصول ہو گئی ہے
-          </span>
         </div>
         <p className="font-body-md text-on-surface-variant leading-relaxed max-w-md">
-          Thank you, <strong className="text-primary">{formData.fullName}</strong>. Your dossier has been submitted to the Adalwise Fellowship Admission Council. We will review your background and reach out via WhatsApp/Email regarding the upcoming Lahore intake.
+          Thank you, <strong className="text-primary">{formData.fullName}</strong>. Your application has been submitted.
         </p>
         <button
           type="button"
@@ -84,13 +81,10 @@ export function IntakeForm() {
       <form onSubmit={handleSubmit} className="flex flex-col gap-space-md">
         {/* Personal Details */}
         <div className="flex flex-col gap-space-xs border-b border-surface-container-high pb-space-md">
-          <span className="font-label-sm uppercase tracking-wider text-secondary font-bold text-[11px]">
-            Section 01 • Candidate Profile
-          </span>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-sm mt-space-2xs">
             <div className="flex flex-col gap-1">
               <label className="font-label-sm uppercase tracking-wider text-[10px] text-on-surface-variant font-semibold">
-                Full Name *
+                Full Name
               </label>
               <input
                 type="text"
@@ -104,7 +98,7 @@ export function IntakeForm() {
 
             <div className="flex flex-col gap-1">
               <label className="font-label-sm uppercase tracking-wider text-[10px] text-on-surface-variant font-semibold">
-                Email Address *
+                Email Address
               </label>
               <input
                 type="email"
@@ -118,7 +112,7 @@ export function IntakeForm() {
 
             <div className="flex flex-col gap-1">
               <label className="font-label-sm uppercase tracking-wider text-[10px] text-on-surface-variant font-semibold">
-                WhatsApp / Mobile *
+                WhatsApp
               </label>
               <input
                 type="tel"
@@ -132,7 +126,7 @@ export function IntakeForm() {
 
             <div className="flex flex-col gap-1">
               <label className="font-label-sm uppercase tracking-wider text-[10px] text-on-surface-variant font-semibold">
-                City / Location *
+                City
               </label>
               <input
                 type="text"
@@ -148,9 +142,6 @@ export function IntakeForm() {
 
         {/* Academic Profile */}
         <div className="flex flex-col gap-space-xs border-b border-surface-container-high pb-space-md">
-          <span className="font-label-sm uppercase tracking-wider text-secondary font-bold text-[11px]">
-            Section 02 • Intellectual Background
-          </span>
 
           <div className="flex flex-col gap-1 mt-space-2xs">
             <label className="font-label-sm uppercase tracking-wider text-[10px] text-on-surface-variant font-semibold">
@@ -162,19 +153,19 @@ export function IntakeForm() {
               className="p-space-xs rounded-xl bg-surface border border-surface-container-high focus:outline-none focus:ring-2 focus:ring-primary text-body-sm"
             >
               <option value="Seminary (Dars-e-Nizami / Alimiyyah)">
-                Traditional Seminary (Dars-e-Nizami / Alimiyyah)
+                Traditional Seminary
               </option>
-              <option value="Law Degree (LLB / LLM)">Legal Scholar / Practitioner (LLB / LLM)</option>
-              <option value="University Scholar / Faculty">University Faculty / PhD Researcher</option>
+              <option value="Law Degree (LLB / LLM)">Scholar</option>
+              <option value="University Scholar / Faculty">University Faculty</option>
               <option value="General Professional / Independent Student">
-                Professional / Independent Student of Fiqh
+                Professional / Independent Student
               </option>
             </select>
           </div>
 
           <div className="flex flex-col gap-1 mt-space-xs">
             <label className="font-label-sm uppercase tracking-wider text-[10px] text-on-surface-variant font-semibold">
-              Areas of Intellectual Focus (Select all that apply)
+              Your Focus
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 mt-1">
               {availableInterests.map((interest) => {
@@ -203,12 +194,9 @@ export function IntakeForm() {
 
         {/* Statement of Intent */}
         <div className="flex flex-col gap-space-xs">
-          <span className="font-label-sm uppercase tracking-wider text-secondary font-bold text-[11px]">
-            Section 03 • Statement of Intent
-          </span>
           <div className="flex flex-col gap-1 mt-space-2xs">
             <label className="font-label-sm uppercase tracking-wider text-[10px] text-on-surface-variant font-semibold">
-              Why do you wish to join the Adalwise Fellowship Circle? *
+              Why do you wish to join?
             </label>
             <textarea
               required
@@ -232,7 +220,7 @@ export function IntakeForm() {
           disabled={isPending}
           className="mt-space-sm w-full py-space-sm bg-primary text-on-primary font-label-md uppercase tracking-wider rounded-full hover:bg-primary-container transition-colors font-bold shadow-md select-none flex items-center justify-center gap-space-xs disabled:opacity-70"
         >
-          <span>{isPending ? "Submitting Application..." : "Submit Fellowship Application"}</span>
+          <span>{isPending ? "Submitting Application..." : "Submit"}</span>
           {isPending ? (
             <Loader2 className="w-4 h-4 animate-spin" />
           ) : (
