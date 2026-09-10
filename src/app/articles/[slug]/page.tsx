@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getArticleBySlug, getAllArticles } from "@/lib/content/client";
 import { getRelatedContent } from "@/lib/content/related";
+import { MDXRenderer } from "@/components/content/MDXRenderer";
 import { constructMetadata } from "@/lib/seo/metadata";
 import { ScholarlyArticleJsonLd, BreadcrumbJsonLd } from "@/lib/seo/jsonld";
 import { formatISODate } from "@/lib/utils";
@@ -134,55 +135,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
       )}
 
       {/* Main Treatise Prose */}
-      <div className="prose prose-lg max-w-none text-on-surface font-sans leading-relaxed flex flex-col gap-space-md text-[16px] sm:text-[17px]">
-        {content.split("\n\n").map((paragraph, idx) => {
-          if (paragraph.startsWith("## ")) {
-            return (
-              <h2
-                key={idx}
-                className="font-headline-lg text-primary font-bold font-serif mt-space-lg mb-space-xs border-b border-surface-container-high pb-2"
-              >
-                {paragraph.replace("## ", "")}
-              </h2>
-            );
-          }
-          if (paragraph.startsWith("### ")) {
-            return (
-              <h3
-                key={idx}
-                className="font-headline-md text-primary font-semibold font-serif mt-space-md mb-space-2xs"
-              >
-                {paragraph.replace("### ", "")}
-              </h3>
-            );
-          }
-          if (paragraph.startsWith("> ")) {
-            return (
-              <blockquote
-                key={idx}
-                className="border-l-4 border-tertiary-container pl-space-md py-space-xs my-space-sm bg-surface-container-low/80 rounded-r-2xl italic font-serif text-primary"
-              >
-                {paragraph.replace(/^>\s*/gm, "")}
-              </blockquote>
-            );
-          }
-          if (paragraph.startsWith("```")) {
-            return (
-              <pre
-                key={idx}
-                className="p-space-md rounded-xl bg-primary text-surface font-mono text-[13px] overflow-x-auto my-space-sm border border-primary-container"
-              >
-                <code>{paragraph.replace(/```[a-z]*\n?|```/g, "")}</code>
-              </pre>
-            );
-          }
-          return (
-            <p key={idx} className="leading-relaxed">
-              {paragraph}
-            </p>
-          );
-        })}
-      </div>
+      <MDXRenderer content={content} />
 
       {/* Cross-Domain Related Lectures & Research */}
       {related.length > 0 && (

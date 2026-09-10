@@ -1,0 +1,16 @@
+{
+  "overrides": [
+    {
+      "slug": "same-blessings-different-response",
+      "category": "Tafsir",
+      "seriesId": "surah-al-anam-exegesis",
+      "topics": ["Divine Justice (Adl)", "Ontological Order"]
+    },
+    {
+      "slug": "seerah-in-3-aayat-sora-nasr",
+      "category": "Seerat",
+      "seriesId": "charter-of-medina-discourse",
+      "topics": ["Prophetic Governance", "Sovereignty & Authority"]
+    }
+  ]
+}

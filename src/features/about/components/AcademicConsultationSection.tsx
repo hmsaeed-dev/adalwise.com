@@ -2,10 +2,13 @@
 
 import React, { useState } from "react";
 import { siteConfig } from "@/config/site";
+import { submitInquiryAction } from "@/app/actions/submit-inquiry";
 
 export function AcademicConsultationSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [isPending, setIsPending] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -13,14 +16,24 @@ export function AcademicConsultationSection() {
     query: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setIsModalOpen(false);
-      setFormData({ name: "", email: "", affiliation: "", query: "" });
-    }, 2500);
+    setIsPending(true);
+    setErrorMsg("");
+
+    const res = await submitInquiryAction(formData);
+    setIsPending(false);
+
+    if (res.success) {
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setIsModalOpen(false);
+        setFormData({ name: "", email: "", affiliation: "", query: "" });
+      }, 2500);
+    } else {
+      setErrorMsg(res.error || "Failed to dispatch inquiry. Please check fields.");
+    }
   };
 
   return (

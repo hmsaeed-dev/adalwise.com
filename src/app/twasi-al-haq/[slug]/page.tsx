@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getDispatchBySlug, getAllDispatches } from "@/lib/content/client";
 import { getRelatedContent } from "@/lib/content/related";
+import { MDXRenderer } from "@/components/content/MDXRenderer";
 import { constructMetadata } from "@/lib/seo/metadata";
 import { ScholarlyArticleJsonLd, BreadcrumbJsonLd } from "@/lib/seo/jsonld";
 import { formatISODate } from "@/lib/utils";
@@ -117,45 +118,7 @@ export default async function DispatchDetailPage({ params }: PageProps) {
       </header>
 
       {/* Main Prose Body */}
-      <div className="prose prose-lg max-w-none text-on-surface font-sans leading-relaxed flex flex-col gap-space-md text-[16px] sm:text-[17px]">
-        {content.split("\n\n").map((paragraph, idx) => {
-          if (paragraph.startsWith("## ")) {
-            return (
-              <h2
-                key={idx}
-                className="font-headline-lg text-primary font-bold font-serif mt-space-lg mb-space-xs"
-              >
-                {paragraph.replace("## ", "")}
-              </h2>
-            );
-          }
-          if (paragraph.startsWith("### ")) {
-            return (
-              <h3
-                key={idx}
-                className="font-headline-md text-primary font-semibold font-serif mt-space-md mb-space-2xs"
-              >
-                {paragraph.replace("### ", "")}
-              </h3>
-            );
-          }
-          if (paragraph.startsWith("> ")) {
-            return (
-              <blockquote
-                key={idx}
-                className="border-l-4 border-tertiary-container pl-space-md py-space-xs my-space-sm bg-surface-container-low/60 rounded-r-xl italic font-serif text-primary"
-              >
-                {paragraph.replace(/^>\s*/gm, "")}
-              </blockquote>
-            );
-          }
-          return (
-            <p key={idx} className="leading-relaxed">
-              {paragraph}
-            </p>
-          );
-        })}
-      </div>
+      <MDXRenderer content={content} />
 
       {/* Related Content Knowledge Graph */}
       {related.length > 0 && (

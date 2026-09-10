@@ -62,8 +62,8 @@ export async function getArticleBySlug(slug: string): Promise<ArticleDoc | null>
   ];
 
   for (const filePath of candidates) {
-    if (fs.existsSync(filePath)) {
-      const raw = fs.readFileSync(filePath, "utf-8");
+    if (fs.existsSync(/*turbopackIgnore: true*/ filePath)) {
+      const raw = fs.readFileSync(/*turbopackIgnore: true*/ filePath, "utf-8");
       const { data, content } = matter(raw);
       const parsed = ArticleFrontmatterSchema.safeParse(data);
       if (parsed.success) {
@@ -112,8 +112,8 @@ export async function getDispatchBySlug(slug: string): Promise<DispatchDoc | nul
   ];
 
   for (const filePath of candidates) {
-    if (fs.existsSync(filePath)) {
-      const raw = fs.readFileSync(filePath, "utf-8");
+    if (fs.existsSync(/*turbopackIgnore: true*/ filePath)) {
+      const raw = fs.readFileSync(/*turbopackIgnore: true*/ filePath, "utf-8");
       const { data, content } = matter(raw);
       const parsed = DispatchFrontmatterSchema.safeParse(data);
       if (parsed.success) {

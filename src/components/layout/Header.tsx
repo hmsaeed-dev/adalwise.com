@@ -6,10 +6,28 @@ import { usePathname } from "next/navigation";
 import { mainNavItems } from "@/config/nav";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
+import { LiveSearchModal } from "@/components/search/LiveSearchModal";
 
 export function Header() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const pathname = usePathname();
+
+  // Global Ctrl+K / Escape listener
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setIsSearchOpen((prev) => !prev);
+      }
+      if (e.key === "Escape") {
+        setIsDrawerOpen(false);
+        setIsSearchOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   // Close drawer on route change
   useEffect(() => {
@@ -65,14 +83,15 @@ export function Header() {
 
           {/* Action CTAs */}
           <div className="flex items-center gap-space-xs">
-            {/* Search link */}
-            <Link
-              href="/search"
-              aria-label="Search Archive"
+            {/* Search Trigger Button */}
+            <button
+              type="button"
+              onClick={() => setIsSearchOpen(true)}
+              aria-label="Search Archive (Ctrl+K)"
               className="w-10 h-10 flex items-center justify-center text-primary hover:bg-surface-container rounded-full transition-colors"
             >
               <span className="material-symbols-outlined text-[20px]">search</span>
-            </Link>
+            </button>
 
             {/* Pinned Join CTA */}
             <Link
@@ -197,6 +216,12 @@ export function Header() {
           </div>
         </div>
       )}
+
+      {/* Live Search Modal Dialog */}
+      <LiveSearchModal
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+      />
     </>
   );
 }

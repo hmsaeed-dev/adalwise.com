@@ -1,9 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
+import { submitFellowshipAction } from "@/app/actions/submit-fellowship";
 
 export function IntakeForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [isPending, setIsPending] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -24,9 +27,19 @@ export function IntakeForm() {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsPending(true);
+    setErrorMsg("");
+
+    const res = await submitFellowshipAction(formData);
+    setIsPending(false);
+
+    if (res.success) {
+      setSubmitted(true);
+    } else {
+      setErrorMsg(res.error || "Submission failed. Please check your fields.");
+    }
   };
 
   const availableInterests = [
@@ -209,12 +222,21 @@ export function IntakeForm() {
           </div>
         </div>
 
+        {errorMsg && (
+          <div className="p-space-xs rounded-xl bg-error-container text-on-error-container text-body-sm font-medium">
+            {errorMsg}
+          </div>
+        )}
+
         <button
           type="submit"
-          className="mt-space-sm w-full py-space-sm bg-primary text-on-primary font-label-md uppercase tracking-wider rounded-full hover:bg-primary-container transition-colors font-bold shadow-md select-none flex items-center justify-center gap-space-xs"
+          disabled={isPending}
+          className="mt-space-sm w-full py-space-sm bg-primary text-on-primary font-label-md uppercase tracking-wider rounded-full hover:bg-primary-container transition-colors font-bold shadow-md select-none flex items-center justify-center gap-space-xs disabled:opacity-70"
         >
-          <span>Submit Fellowship Application</span>
-          <span className="material-symbols-outlined text-[18px]">send</span>
+          <span>{isPending ? "Submitting Application..." : "Submit Fellowship Application"}</span>
+          <span className="material-symbols-outlined text-[18px]">
+            {isPending ? "progress_activity" : "send"}
+          </span>
         </button>
       </form>
     </div>
