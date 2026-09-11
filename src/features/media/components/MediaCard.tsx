@@ -25,11 +25,6 @@ export function MediaCard({ media }: MediaCardProps) {
         />
         <div className="absolute inset-0 bg-primary/20 group-hover:bg-primary/10 transition-colors" />
 
-        {/* Duration Badge */}
-        <div className="absolute bottom-2 right-2 px-space-xs py-0.5 rounded-md bg-inverse-surface/85 backdrop-blur-sm text-inverse-on-surface text-[11px] font-mono font-semibold">
-          {formatDuration(media.durationSeconds)}
-        </div>
-
         {/* Centered Play Icon on Hover */}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
           <div className="w-12 h-12 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center shadow-lg transform scale-90 group-hover:scale-100 transition-transform">
@@ -49,10 +44,6 @@ export function MediaCard({ media }: MediaCardProps) {
             {media.urduTitle}
           </p>
         )}
-
-        <p className="font-body-sm text-[13px] text-on-surface-variant line-clamp-2 mt-1">
-          {media.description}
-        </p>
 
         {/* Topics / Tags Bar */}
         <div className="pt-space-xs mt-auto flex items-center justify-between border-t border-surface-container-high/60 text-[11px] text-on-surface-variant">

@@ -87,9 +87,6 @@ export default async function MediaDetailPage({ params }: PageProps) {
 				aria-label="Breadcrumb"
 				className="flex items-center gap-space-2xs text-body-sm text-on-surface-variant"
 			>
-				<Link href="/" className="hover:text-primary transition-colors">
-					Home
-				</Link>
 				<span>/</span>
 				<Link
 					href="/media"
@@ -124,7 +121,7 @@ export default async function MediaDetailPage({ params }: PageProps) {
 					</span>
 				</div>
 
-				<h1 className="font-display-lg text-[28px] sm:text-[34px] text-primary font-bold font-serif leading-tight mt-space-2xs">
+				<h1 className="font-display-lg text-[28px] sm:text-[34px] text-primary font-bold leading-tight mt-space-2xs">
 					{item.title}
 				</h1>
 
@@ -133,33 +130,13 @@ export default async function MediaDetailPage({ params }: PageProps) {
 						{item.urduTitle}
 					</p>
 				)}
-
-				<div className="flex items-center gap-space-sm mt-space-sm pt-space-xs border-t border-surface-container-high/60">
-					<div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-tertiary-fixed font-bold font-serif shadow-sm overflow-hidden relative shrink-0">
-						<Image
-							src="/images/haseeb-chair.jpg"
-							alt={item.speaker.name}
-							fill
-							sizes="40px"
-							className="object-cover"
-						/>
-					</div>
-					<div className="flex flex-col">
-						<span className="font-headline-sm text-[15px] text-primary font-semibold font-serif">
-							{item.speaker.name}
-						</span>
-						<span className="font-body-sm text-[12px] text-on-surface-variant">
-							{item.speaker.title}
-						</span>
-					</div>
-				</div>
 			</header>
 
 			{/* Comprehensive Textual Summary & Study Notes (Discoverability Requirement #8) */}
 			<section className="bg-surface-container-low p-space-lg rounded-[24px] border border-surface-container-high flex flex-col gap-space-md">
-				<h2 className="font-headline-sm text-primary font-bold font-serif flex items-center gap-space-xs">
+				<h2 className="font-headline-sm text-primary font-bold flex items-center gap-space-xs">
 					<BookOpen className="w-5 h-5 text-tertiary-container shrink-0" />
-					<span>Discourse Synopsis &amp; Juristic Breakdown</span>
+					<span>Synopsis &amp; Breakdown</span>
 				</h2>
 
 				<p className="font-body-md text-on-surface leading-relaxed text-[16px]">
@@ -168,9 +145,6 @@ export default async function MediaDetailPage({ params }: PageProps) {
 
 				{/* Conceptual Topics & Taxonomy */}
 				<div className="pt-space-xs flex flex-wrap items-center gap-space-xs">
-					<span className="font-label-sm text-on-surface-variant text-[11px] uppercase tracking-wider font-semibold">
-						Topics:
-					</span>
 					{item.topics.map((t) => (
 						<Link
 							key={t}
@@ -187,7 +161,7 @@ export default async function MediaDetailPage({ params }: PageProps) {
 			{seriesEpisodes.length > 0 && (
 				<section className="pt-space-md flex flex-col gap-space-md">
 					<div className="flex items-baseline justify-between border-b border-surface-container-high pb-space-xs">
-						<h3 className="font-headline-sm text-primary font-bold font-serif">
+						<h3 className="font-headline-sm text-primary font-bold">
 							Companion Episodes in this Series
 						</h3>
 						<span className="font-label-sm text-on-surface-variant">
@@ -222,8 +196,8 @@ export default async function MediaDetailPage({ params }: PageProps) {
 			{/* Related Reading & Cross-Domain Content */}
 			{related.length > 0 && (
 				<section className="mt-space-xl pt-space-md border-t border-surface-container-high flex flex-col gap-space-md">
-					<h3 className="font-headline-sm text-primary font-bold font-serif">
-						Foundational Reading &amp; Related Treatises
+					<h3 className="font-headline-sm text-primary font-bold">
+						Related
 					</h3>
 					<div className="grid grid-cols-1 sm:grid-cols-3 gap-space-md">
 						{related.map((r) => (
@@ -238,7 +212,7 @@ export default async function MediaDetailPage({ params }: PageProps) {
 											? "Written Treatise"
 											: "Companion Lecture"}
 									</span>
-									<h4 className="font-headline-sm text-[15px] text-primary font-bold font-serif line-clamp-2">
+									<h4 className="font-headline-sm text-[15px] text-primary font-bold line-clamp-2">
 										{r.title}
 									</h4>
 									<p className="font-body-sm text-[12px] text-on-surface-variant line-clamp-2">

@@ -6,17 +6,17 @@ export function SynthesisSection() {
   const pillars = [
     {
       num: "I.",
-      title: "Textual Lineage & Sanad Verification",
+      title: "Kalma",
       desc: "Interrogating classical codices and commentaries to preserve authentic juristic lineages.",
     },
     {
       num: "II.",
-      title: "Operative Cause Extraction ('Illah)",
+      title: "Concept of ('Illah)",
       desc: "Isolating the underlying legal rationale to resolve modern commercial and constitutional crises.",
     },
     {
       num: "III.",
-      title: "Civic Constitutional Dialectics",
+      title: "Socio-political",
       desc: "Synthesizing divine justice (Adl) and institutional wisdom (Hikmah) for civil society.",
     },
   ];
@@ -27,9 +27,6 @@ export function SynthesisSection() {
         <h3 className="font-headline-lg text-primary font-bold">
           Synthesis of Adl &amp; Hikmah
         </h3>
-        <p className="font-body-sm text-on-surface-variant">
-          The three methodological pillars guiding our intellectual inquiry.
-        </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-space-sm">

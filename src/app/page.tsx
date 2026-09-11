@@ -10,9 +10,9 @@ import { AudioPlayerWidget } from "@/components/media/AudioPlayerWidget";
 import { constructMetadata } from "@/lib/seo/metadata";
 
 export const metadata = constructMetadata({
-	title: "Adlwise — Classical Jurisprudence & Civic Constitutionalism",
+	title: "Adlwise",
 	description:
-		"An academic initiative dedicated to justice and wisdom (Adl wa Hikmah) through classical jurisprudential inquiry, constitutional critique, and candid discourse.",
+		"An academic initiative dedicated to justice and wisdom (Adl wa Hikmah)",
 	canonicalUrl: "/",
 });
 

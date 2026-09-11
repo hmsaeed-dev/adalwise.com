@@ -20,13 +20,8 @@ export function MajlisStudyGallery() {
             <span className="font-label-sm text-tertiary-container font-bold tracking-wider uppercase text-[11px]">
               The Lahore Bait al-Hikmah
             </span>
-            <span className="font-urdu text-[13px] text-primary font-bold dir-rtl">
-              نشست در دولت کدہ، ماڈل ٹاؤن، لاہور
-            </span>
+            
           </div>
-          <span className="font-label-sm px-space-sm py-1 rounded-full bg-tertiary-container text-on-tertiary-container text-[10px] uppercase tracking-wider font-semibold">
-            Fortnightly Assembly
-          </span>
         </div>
       </div>
     </section>

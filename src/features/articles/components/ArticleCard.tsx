@@ -30,7 +30,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
 						<div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-tertiary-container/15 via-transparent to-transparent" />
 						<div className="relative w-16 h-16 rounded-full bg-primary/80 ring-1 ring-tertiary-container/30 flex items-center justify-center p-2 opacity-80 group-hover:opacity-100 transition-opacity">
 							<Image
-								src="/images/logo-badge.png"
+								src="/images/logomark.png"
 								alt="Adlwise Emblem"
 								width={48}
 								height={48}

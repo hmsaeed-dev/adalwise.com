@@ -12,12 +12,9 @@ export function MajlisSchedule({ sessions }: MajlisScheduleProps) {
   return (
     <section className="w-full max-w-container-max mx-auto px-gutter-mobile md:px-gutter-desktop py-space-xl flex flex-col gap-space-lg">
       <div className="flex items-baseline justify-between border-b border-surface-container-high pb-space-xs">
-        <h2 className="font-headline-lg text-primary font-bold font-serif">
-          Gatherings &amp; Deliberation Roster
+        <h2 className="font-headline-lg text-primary font-bold">
+          Gatherings
         </h2>
-        <span className="font-urdu text-[16px] text-primary font-bold">
-          نظام الاوقات
-        </span>
       </div>
 
       <div className="flex flex-col gap-space-md">
@@ -40,7 +37,7 @@ export function MajlisSchedule({ sessions }: MajlisScheduleProps) {
             </div>
 
             <div className="flex flex-col gap-space-2xs">
-              <h3 className="font-headline-md text-primary font-bold font-serif">
+              <h3 className="font-headline-md text-primary font-bold">
                 {session.title}
               </h3>
               {session.urduTitle && (
@@ -57,7 +54,7 @@ export function MajlisSchedule({ sessions }: MajlisScheduleProps) {
             {session.discussionPoints.length > 0 && (
               <div className="p-space-md rounded-xl bg-surface-container flex flex-col gap-space-xs border border-surface-container-high/60">
                 <span className="font-label-sm uppercase tracking-wider text-secondary font-bold text-[11px]">
-                  Key Deliberation Foci:
+                  Key Points:
                 </span>
                 <ul className="flex flex-col gap-1 text-body-sm text-on-surface-variant">
                   {session.discussionPoints.map((point, idx) => (
@@ -71,19 +68,11 @@ export function MajlisSchedule({ sessions }: MajlisScheduleProps) {
             )}
 
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pt-space-xs border-t border-surface-container-high mt-space-xs">
-              <div className="flex items-center gap-space-xs">
-                <span className="font-label-sm uppercase tracking-wider text-on-surface-variant text-[11px]">
-                  Conducted by:
-                </span>
-                <span className="font-headline-sm text-[14px] text-primary font-semibold font-serif">
-                  {session.host.name}
-                </span>
-              </div>
               <Link
                 href="/join"
                 className="w-full sm:w-auto text-center px-space-md py-space-xs bg-primary text-on-primary font-label-md uppercase tracking-wider rounded-full hover:bg-primary-container transition-colors font-semibold shadow-sm"
               >
-                Request Attendance / RSVP
+                Attend Majlis
               </Link>
             </div>
           </div>

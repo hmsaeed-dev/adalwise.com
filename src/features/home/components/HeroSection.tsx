@@ -18,7 +18,7 @@ export function HeroSection() {
 					<div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full p-1 bg-gradient-to-tr from-tertiary-container/50 via-tertiary-fixed/40 to-primary-container shadow-2xl ring-2 ring-tertiary-container/60 flex items-center justify-center">
 						<div className="w-full h-full rounded-full overflow-hidden bg-primary flex items-center justify-center">
 							<Image
-								src="/images/logo-badge.png"
+								src="/images/logomark.png"
 								alt="Adlwise Institute Crest"
 								width={96}
 								height={96}
@@ -33,7 +33,7 @@ export function HeroSection() {
 					عدل و حکمت
 				</div>
 
-				<h1 className="font-headline-sm sm:font-headline-md text-surface-container-highest max-w-md mx-auto leading-relaxed mb-space-2xl italic">
+				<h1 className="font-headline-sm sm:font-headline-md text-surface-container-highest max-w-md mx-auto leading-relaxed mb-space-2xl">
 					Classical Jurisprudence &amp; Civic Constitutionalism
 				</h1>
 
