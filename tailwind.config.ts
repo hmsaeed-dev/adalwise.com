@@ -12,6 +12,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        brand: {
+          primary: "rgb(var(--brand-primary) / <alpha-value>)",
+          "primary-hover": "rgb(var(--brand-primary-hover) / <alpha-value>)",
+          gold: "rgb(var(--brand-gold) / <alpha-value>)",
+          charcoal: "rgb(var(--brand-charcoal) / <alpha-value>)",
+          "warm-white": "rgb(var(--brand-warm-white) / <alpha-value>)",
+          parchment: "rgb(var(--brand-parchment) / <alpha-value>)",
+        },
         primary: "#00261a",
         "primary-container": "#0f3d2e",
         "on-primary": "#ffffff",
@@ -106,6 +114,9 @@ const config: Config = {
         "display-md": ["36px", { lineHeight: "44px", fontWeight: "600" }],
         "display-lg-mobile": ["32px", { lineHeight: "40px", fontWeight: "600" }],
         "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.01em", fontWeight: "600" }],
+      },
+      letterSpacing: {
+        editorial: "var(--tracking-editorial)",
       },
     },
   },

@@ -49,7 +49,7 @@ export function Footer() {
 
 					<div className="flex flex-col gap-space-xs">
 						<span className="font-label-md text-label-md text-primary font-bold uppercase tracking-wider">
-							Academy
+							Explore
 						</span>
 						<div className="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface-variant">
 							{footerNav.academy.map((item) => (

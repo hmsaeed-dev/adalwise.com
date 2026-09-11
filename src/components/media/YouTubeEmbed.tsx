@@ -21,6 +21,7 @@ export function YouTubeEmbed({ youtubeId, title, thumbnailUrl }: YouTubeEmbedPro
             src={thumbnailUrl}
             alt={title}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
             className="object-cover transition-transform duration-300 group-hover:scale-105 opacity-100"
           />
           <div className="absolute inset-0 bg-primary/30 group-hover:bg-primary/20 transition-colors" />

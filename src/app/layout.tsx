@@ -40,7 +40,7 @@ export default function RootLayout({
         </a>
         <OrganizationJsonLd />
         <Header />
-        <main id="main-content" className="flex-1 w-full pt-[105px] lg:pt-16">{children}</main>
+        <main id="main-content" className="flex-1 w-full">{children}</main>
         <Footer />
       </body>
     </html>

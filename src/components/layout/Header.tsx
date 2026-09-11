@@ -23,7 +23,21 @@ import { LiveSearchModal } from "@/components/search/LiveSearchModal";
 export function Header() {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const [isSearchOpen, setIsSearchOpen] = useState(false);
+	const [isScrolled, setIsScrolled] = useState(false);
 	const pathname = usePathname();
+	const isHome = pathname === "/";
+	const isTransparentHero = pathname === "/" || pathname === "/media";
+	const isDarkHero = pathname === "/media" && !isScrolled;
+
+	// Scroll position listener for dynamic transparent to blur-surface transition
+	useEffect(() => {
+		const handleScroll = () => {
+			setIsScrolled(window.scrollY > 40);
+		};
+		handleScroll();
+		window.addEventListener("scroll", handleScroll, { passive: true });
+		return () => window.removeEventListener("scroll", handleScroll);
+	}, []);
 
 	// Global Ctrl+K / Escape listener
 	useEffect(() => {
@@ -48,14 +62,21 @@ export function Header() {
 
 	return (
 		<>
-			<header className="fixed top-0 w-full z-50 pt-safe bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] border-b border-surface-container-high/40">
-				<div className="h-16 px-gutter-mobile md:px-gutter-desktop max-w-container-max mx-auto flex items-center justify-between">
+			<header
+				className={cn(
+					"fixed top-0 w-full z-50 pt-safe transition-[background-color,border-color,box-shadow] duration-300",
+					isTransparentHero && !isScrolled
+						? "bg-transparent shadow-none border-b border-transparent"
+						: "bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] border-b border-surface-container-high/40"
+				)}
+			>
+				<div className="h-16 md:h-20 px-6 max-w-7xl mx-auto flex items-center justify-between">
 					{/* Brand Logo & Wordmark */}
 					<Link
 						href="/"
-						className="flex items-center gap-space-xs group"
+						className="flex items-center gap-3 group"
 					>
-						<div className="relative w-9 h-9 rounded-full overflow-hidden bg-primary shadow-sm ring-1 ring-tertiary-container/40 p-0.5 flex items-center justify-center transition-transform group-hover:scale-105 shrink-0">
+						<div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden bg-brand-primary shadow-sm ring-1 ring-brand-gold/40 p-0.5 flex items-center justify-center transition-transform group-hover:scale-105 shrink-0">
 							<Image
 								src="/images/logomark.png"
 								alt={`${siteConfig.name} Emblem`}
@@ -66,14 +87,21 @@ export function Header() {
 							/>
 						</div>
 						<div className="flex flex-col">
-							<span className="font-headline-sm text-[16px] sm:text-[18px] tracking-widest uppercase text-primary font-bold leading-none">
+							<span
+								className={cn(
+									"font-serif text-[17px] sm:text-[19px] tracking-editorial uppercase font-semibold leading-none transition-colors",
+									isDarkHero
+										? "text-brand-warm-white drop-shadow-md"
+										: "text-brand-primary",
+								)}
+							>
 								{siteConfig.name}
 							</span>
 						</div>
 					</Link>
 
 					{/* Desktop Navigation */}
-					<nav className="hidden lg:flex items-center gap-space-md text-body-sm font-medium">
+					<nav className="hidden md:flex items-center gap-6 lg:gap-8 text-sm font-medium">
 						{mainNavItems.map((item) => {
 							const isActive =
 								item.href === "/"
@@ -85,15 +113,26 @@ export function Header() {
 									key={item.href}
 									href={item.href}
 									className={cn(
-										"px-space-xs py-1 transition-colors hover:text-primary relative font-sans",
-										isActive
-											? "text-primary font-bold"
-											: "text-on-surface-variant",
+										"py-1 transition-colors relative font-sans text-sm tracking-wide",
+										isDarkHero
+											? isActive
+												? "text-brand-warm-white font-semibold drop-shadow"
+												: "text-brand-warm-white/80 hover:text-brand-warm-white"
+											: isActive
+												? "text-brand-primary font-semibold"
+												: "text-brand-charcoal/80 hover:text-brand-primary",
 									)}
 								>
 									{item.title}
 									{isActive && (
-										<span className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full" />
+										<span
+											className={cn(
+												"absolute -bottom-1 left-0 right-0 h-0.5 rounded-full",
+												isDarkHero
+													? "bg-brand-gold"
+													: "bg-brand-primary",
+											)}
+										/>
 									)}
 								</Link>
 							);
@@ -101,35 +140,50 @@ export function Header() {
 					</nav>
 
 					{/* Action CTAs */}
-					<div className="flex items-center gap-1 sm:gap-space-xs shrink-0">
+					<div className="flex items-center gap-2 shrink-0">
 						{/* Search Trigger Button */}
 						<button
 							type="button"
 							onClick={() => setIsSearchOpen(true)}
 							aria-label="Search Archive (Ctrl+K)"
-							className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center text-primary hover:bg-surface-container rounded-full transition-colors"
+							className={cn(
+								"w-9 h-9 flex items-center justify-center rounded-full transition-colors",
+								isDarkHero
+									? "text-brand-warm-white hover:bg-white/10"
+									: "text-brand-primary hover:bg-brand-primary/5",
+							)}
 						>
 							<Search
-								className="w-4 h-4 sm:w-5 sm:h-5"
-								strokeWidth={3}
+								className="w-[18px] h-[18px]"
+								strokeWidth={2}
 							/>
 						</button>
 
-						{/* Mobile Hamburger Toggle */}
+						{/* Mobile Hamburger Toggle (3 thin horizontal lines) */}
 						<button
 							type="button"
 							aria-label="Open Navigation Menu"
 							onClick={() => setIsDrawerOpen(true)}
-							className="w-9 h-9 sm:w-10 sm:h-10 text-primary flex lg:hidden items-center justify-center hover:bg-surface-container rounded-full transition-colors"
+							className={cn(
+								"w-9 h-9 flex md:hidden items-center justify-center rounded-full transition-colors",
+								isDarkHero
+									? "text-brand-warm-white hover:bg-white/10"
+									: "text-brand-primary hover:bg-brand-primary/5",
+							)}
 						>
 							<Menu
-								className="w-5 h-5 sm:w-6 sm:h-6"
-								strokeWidth={2}
+								className="w-6 h-6"
+								strokeWidth={1.75}
 							/>
 						</button>
 					</div>
 				</div>
 			</header>
+
+			{/* Non-hero pages spacer to account for fixed header */}
+			{!isTransparentHero && (
+				<div className="h-16 md:h-20 w-full shrink-0" aria-hidden="true" />
+			)}
 
 			{/* Mobile Navigation Drawer */}
 			{isDrawerOpen && (
