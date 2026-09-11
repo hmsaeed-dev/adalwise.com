@@ -7,7 +7,7 @@ import {
 import { constructMetadata } from "@/lib/seo/metadata";
 
 export const metadata = constructMetadata({
-  title: "About & Faculty — Institutional Credibility Hub",
+  title: "About Us — Credibility Hub",
   description:
     "Intellectual mandate, faculty dossier of Dr. Hafiz Haseeb, and research methodologies of the Adalwise Institute.",
   canonicalUrl: "/about",

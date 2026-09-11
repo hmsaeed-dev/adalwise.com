@@ -35,13 +35,13 @@ export default async function SearchPage({ searchParams }: PageProps) {
       {/* Search Header */}
       <div className="flex flex-col gap-space-xs text-center items-center">
         <span className="font-label-sm uppercase tracking-widest text-secondary font-bold text-[11px]">
-          Unified Archive Search
+          Archive Search
         </span>
         <h1 className="font-display-lg text-[32px] sm:text-display-lg text-primary font-bold font-serif leading-tight">
-          Search Intellectual Corpus
+          Search
         </h1>
         <p className="font-body-sm text-on-surface-variant max-w-md leading-relaxed">
-          Explore across 620+ lectures, constitutional treatises, and deliberative dispatches.
+          Explore across 620+ lectures and deliberative articles.
         </p>
       </div>
 

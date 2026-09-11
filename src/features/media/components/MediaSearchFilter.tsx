@@ -66,7 +66,7 @@ export function MediaSearchFilter() {
             type="text"
             value={currentQuery}
             onChange={handleSearchChange}
-            placeholder="Search lectures, surahs, topics..."
+            placeholder="Search surahs, topics..."
             className="w-full bg-transparent text-on-surface placeholder:text-on-surface-variant/60 font-body-sm text-body-sm focus:outline-none"
           />
           {currentQuery && (

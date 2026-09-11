@@ -30,11 +30,6 @@ export function MediaCard({ media }: MediaCardProps) {
           {formatDuration(media.durationSeconds)}
         </div>
 
-        {/* Category Pill */}
-        <div className="absolute top-2 left-2 px-space-xs py-0.5 rounded-full bg-primary/80 backdrop-blur-sm text-tertiary-fixed text-[10px] font-label-sm uppercase tracking-wider font-bold">
-          {media.category}
-        </div>
-
         {/* Centered Play Icon on Hover */}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
           <div className="w-12 h-12 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center shadow-lg transform scale-90 group-hover:scale-100 transition-transform">
@@ -45,11 +40,6 @@ export function MediaCard({ media }: MediaCardProps) {
 
       {/* Content Meta */}
       <div className="p-space-md flex flex-col flex-1 gap-space-2xs">
-        <div className="flex items-center justify-between text-on-surface-variant text-[11px]">
-          <span>{media.speaker.name}</span>
-          <span>{formatISODate(media.publishedAt)}</span>
-        </div>
-
         <h3 className="font-headline-sm text-[16px] text-primary font-bold font-serif leading-snug group-hover:text-primary-container transition-colors line-clamp-2">
           <Link href={`/media/${media.slug}`}>{media.title}</Link>
         </h3>
@@ -81,7 +71,7 @@ export function MediaCard({ media }: MediaCardProps) {
             className="text-primary font-semibold hover:underline flex items-center gap-0.5 shrink-0"
           >
             <span>Watch</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <ArrowRight className="w-4.5 h-3.5" />
           </Link>
         </div>
       </div>

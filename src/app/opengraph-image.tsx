@@ -108,7 +108,7 @@ export default async function Image() {
             lineHeight: 1.4,
           }}
         >
-          Classical Jurisprudence &amp; Civic Constitutionalism
+          Justice and Wisdom
         </div>
       </div>
     ),

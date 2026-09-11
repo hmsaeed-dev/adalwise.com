@@ -8,9 +8,6 @@ export function MediaHero() {
           <div className="flex flex-col gap-1">
             <div className="flex items-center gap-space-2xs">
               <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
-              <span className="font-label-sm text-secondary uppercase tracking-widest text-[11px] font-bold">
-                Archival Repository
-              </span>
             </div>
             <h1 className="font-display-lg text-[28px] sm:text-[34px] md:text-display-lg text-primary tracking-tight font-bold leading-tight font-serif">
               Lectures &amp; Discourses

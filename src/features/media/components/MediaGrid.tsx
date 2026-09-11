@@ -38,9 +38,6 @@ export function MediaGrid({
         <span className="font-label-md uppercase tracking-wider text-on-surface-variant font-bold text-[12px]">
           Showing {items.length} of {total} Lectures
         </span>
-        <span className="font-label-sm text-on-surface-variant">
-          Page {page} of {totalPages}
-        </span>
       </div>
 
       {items.length === 0 ? (
@@ -50,7 +47,7 @@ export function MediaGrid({
             No Lectures Found
           </h3>
           <p className="font-body-sm text-on-surface-variant max-w-sm">
-            Try adjusting your search keywords or switching category filters.
+            Adjust your search keywords or switch category filters.
           </p>
         </div>
       ) : (

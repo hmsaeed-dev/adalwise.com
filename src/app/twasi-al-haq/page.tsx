@@ -34,7 +34,7 @@ export default async function TwasiAlHaqPage() {
         <div className="bg-primary-container text-surface rounded-[24px] p-space-lg shadow-md flex flex-col gap-space-sm border border-primary/40">
           <div className="flex flex-col gap-space-2xs">
             <h3 className="font-headline-md text-surface font-bold font-serif">
-              Join the Discussion Circle
+              Join the Circle
             </h3>
             <p className="font-body-sm text-surface-container leading-relaxed">
               A moderated circle for thoughtful dialogue, inquiries, and scholarly exchange convened fortnightly.
