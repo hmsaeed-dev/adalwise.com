@@ -10,7 +10,7 @@ import {
 import { constructMetadata } from "@/lib/seo/metadata";
 
 export const metadata = constructMetadata({
-  title: "Twasi al-Haq — Contemporary Statecraft & Juridical Deliberation",
+  title: "Twasi al-Haq",
   description:
     "Deliberative critique and contemporary constitutional inquiries examined through classical jurisprudence and ethical maxims.",
   canonicalUrl: "/twasi-al-haq",
@@ -37,7 +37,7 @@ export default async function TwasiAlHaqPage() {
               Join the Circle
             </h3>
             <p className="font-body-sm text-surface-container leading-relaxed">
-              A moderated circle for thoughtful dialogue, inquiries, and scholarly exchange convened fortnightly.
+              A moderated circle for thoughtful dialogue, and scholarly exchange.
             </p>
           </div>
           <div className="pt-space-xs">

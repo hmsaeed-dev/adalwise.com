@@ -49,10 +49,10 @@ export function IntakeForm() {
 	};
 
 	const availableInterests = [
-		"Constitutional Law & Statecraft",
-		"Contractual Equity & Economics",
-		"Quranic Tafsir (Tafsir)",
-		"Seerat & Prophetic Governance",
+		"Law & Statecraft",
+		"Equity & Economics",
+		"Quranic Tafsir",
+		"Seerat S.A.W",
 	];
 
 	if (submitted) {
@@ -248,7 +248,7 @@ export function IntakeForm() {
 									statement: e.target.value,
 								})
 							}
-							placeholder="Briefly state your intellectual inquiries and what you hope to contribute to our deliberations..."
+							placeholder="Briefly state what you hope to contribute to our mission..."
 							className="p-space-xs rounded-xl bg-surface border border-surface-container-high focus:outline-none focus:ring-2 focus:ring-primary text-body-sm resize-none"
 						/>
 					</div>

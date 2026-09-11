@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { Play, Pause, Mic, Bookmark } from "lucide-react";
+import { Play, Pause, Bookmark } from "lucide-react";
 import { formatDuration } from "@/lib/utils";
 
 interface AudioPlayerWidgetProps {
@@ -13,7 +13,7 @@ interface AudioPlayerWidgetProps {
 }
 
 export function AudioPlayerWidget({
-  title = "Surah al-An'am — Divine Justice and Ontological Order",
+  title = "Surah An'am — Justice & Order",
   urduTag = "تفسیرِ قرآن",
   audioSrc,
   totalDurationSeconds = 1480, // 24:40
@@ -104,12 +104,6 @@ export function AudioPlayerWidget({
       )}
 
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-space-xs">
-          <Mic className="w-4 h-4 text-tertiary-fixed shrink-0" />
-          <span className="font-label-sm text-tertiary-fixed uppercase tracking-wider text-[11px] font-bold">
-            Scholarly Audio Exegesis
-          </span>
-        </div>
         <span className="font-urdu text-[13px] text-surface-variant font-semibold">
           {urduTag}
         </span>

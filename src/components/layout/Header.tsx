@@ -111,17 +111,9 @@ export function Header() {
 						>
 							<Search
 								className="w-4 h-4 sm:w-5 sm:h-5"
-								strokeWidth={2}
+								strokeWidth={3}
 							/>
 						</button>
-
-						{/* Pinned Join CTA */}
-						<Link
-							href="/join"
-							className="h-9 sm:h-10 px-3 sm:px-space-md bg-primary-container text-surface text-[12px] sm:font-label-sm uppercase tracking-wider flex items-center justify-center transition-colors hover:bg-primary rounded-full shadow-sm font-semibold"
-						>
-							Join Us
-						</Link>
 
 						{/* Mobile Hamburger Toggle */}
 						<button
@@ -136,36 +128,6 @@ export function Header() {
 							/>
 						</button>
 					</div>
-				</div>
-
-				{/* Mobile-First Stream Navigation Bar (<lg screens) */}
-				<div className="lg:hidden border-t border-surface-container-high/50 bg-surface/95 backdrop-blur-md px-gutter-mobile overflow-x-auto no-scrollbar">
-					<nav
-						aria-label="Mobile Streams Navigation"
-						className="flex items-center gap-1.5 py-2 min-w-max"
-					>
-						{mainNavItems.map((item) => {
-							const isActive =
-								item.href === "/"
-									? pathname === "/"
-									: pathname.startsWith(item.href);
-
-							return (
-								<Link
-									key={item.href}
-									href={item.href}
-									className={cn(
-										"px-3 py-1 text-[12px] font-sans rounded-full whitespace-nowrap transition-all select-none font-medium",
-										isActive
-											? "bg-primary text-surface font-semibold shadow-xs"
-											: "text-on-surface-variant hover:text-primary hover:bg-surface-container/70",
-									)}
-								>
-									{item.title}
-								</Link>
-							);
-						})}
-					</nav>
 				</div>
 			</header>
 
@@ -182,22 +144,6 @@ export function Header() {
 					<div className="relative ml-auto w-4/5 max-w-xs bg-surface h-full p-space-lg flex flex-col justify-between shadow-2xl z-10 overflow-y-auto">
 						<div className="flex flex-col gap-space-md">
 							<div className="flex items-center justify-between pb-space-sm border-b border-surface-container-high">
-								<div className="flex items-center gap-space-xs">
-									<div className="relative w-8 h-8 rounded-full overflow-hidden bg-primary ring-1 ring-tertiary-container/30 p-0.5 shrink-0">
-										<Image
-											src="/images/logomark.png"
-											alt={`${siteConfig.name} Emblem`}
-											width={32}
-											height={32}
-											className="w-full h-full object-contain rounded-full"
-										/>
-									</div>
-									<div className="flex flex-col">
-										<span className="font-headline-sm text-[16px] tracking-wider uppercase text-primary font-bold leading-none">
-											{siteConfig.name}
-										</span>
-									</div>
-								</div>
 								<button
 									type="button"
 									aria-label="Close Menu"
@@ -259,7 +205,7 @@ export function Header() {
 								>
 									<div className="flex items-center gap-space-xs">
 										<Search className="w-[18px] h-[18px] text-tertiary-container shrink-0" />
-										<span>Search Archive</span>
+										<span>Search</span>
 									</div>
 								</Link>
 							</nav>
