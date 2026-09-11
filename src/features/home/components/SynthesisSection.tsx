@@ -7,19 +7,16 @@ export function SynthesisSection() {
     {
       num: "I.",
       title: "Textual Lineage & Sanad Verification",
-      urdu: "تحقیقِ اسناد و نصوص",
       desc: "Interrogating classical codices and commentaries to preserve authentic juristic lineages.",
     },
     {
       num: "II.",
       title: "Operative Cause Extraction ('Illah)",
-      urdu: "تخریجِ مناط و تطبیقِ فقہی",
       desc: "Isolating the underlying legal rationale to resolve modern commercial and constitutional crises.",
     },
     {
       num: "III.",
       title: "Civic Constitutional Dialectics",
-      urdu: "سیاستِ عادلہ اور دستوری اخلاقیات",
       desc: "Synthesizing divine justice (Adl) and institutional wisdom (Hikmah) for civil society.",
     },
   ];
@@ -27,7 +24,7 @@ export function SynthesisSection() {
   return (
     <section className="w-full px-gutter-mobile md:px-gutter-desktop py-space-lg flex flex-col gap-space-md max-w-container-max mx-auto">
       <div className="flex flex-col gap-space-xs border-b border-surface-container-high pb-space-xs">
-        <h3 className="font-headline-lg text-primary font-bold font-serif">
+        <h3 className="font-headline-lg text-primary font-bold">
           Synthesis of Adl &amp; Hikmah
         </h3>
         <p className="font-body-sm text-on-surface-variant">
@@ -41,16 +38,13 @@ export function SynthesisSection() {
             key={p.num}
             className="p-space-md bg-surface-container-low flex items-start gap-space-sm rounded-[20px] border border-surface-container-high/40"
           >
-            <span className="font-headline-md text-tertiary-container font-serif font-bold">
+            <span className="font-headline-md text-tertiary-container font-bold">
               {p.num}
             </span>
             <div className="flex flex-col">
-              <h4 className="font-headline-sm text-primary font-semibold font-serif">
+              <h4 className="font-headline-sm text-primary font-semibold">
                 {p.title}
               </h4>
-              <span className="font-urdu text-[11px] text-secondary font-bold -mt-0.5">
-                {p.urdu}
-              </span>
               <p className="font-body-sm text-on-surface-variant mt-1 leading-relaxed">
                 {p.desc}
               </p>
@@ -65,15 +59,14 @@ export function SynthesisSection() {
           <div className="flex items-center gap-space-2xs text-secondary">
             <GraduationCap className="w-4 h-4" />
             <span className="font-label-sm uppercase tracking-wider font-bold text-[11px]">
-              Fellowship Intake
+              Join Us
             </span>
           </div>
-          <h3 className="font-headline-md text-primary font-bold font-serif">
-            Circle of Inquirers &amp; Fellows
+          <h3 className="font-headline-md text-primary font-bold">
+            Circle of Fellows
           </h3>
           <p className="font-body-md text-on-surface-variant leading-relaxed">
-            Join a dedicated fellowship of jurists, researchers, and students convening
-            regularly in Lahore and through moderated digital discourse.
+            Join a dedicated fellowship of learners convening regularly in Lahore and through moderated digital discourse.
           </p>
         </div>
 

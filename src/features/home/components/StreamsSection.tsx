@@ -37,9 +37,6 @@ export function StreamsSection() {
         <h2 className="font-headline-lg text-primary font-bold">
           Academic Streams
         </h2>
-        <span className="font-urdu text-[18px] text-primary font-bold">
-          شعبہ جات
-        </span>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-space-md">

@@ -19,30 +19,6 @@ export function DiscourseHeader() {
             Contemporary statecraft, constitutionalism, and public ethics examined through classical jurisprudence.
           </p>
         </div>
-
-        {/* Editorial Charter Box */}
-        <div className="relative rounded-2xl overflow-hidden shadow-sm border border-surface-container-highest bg-surface-container-low/90 p-space-sm flex items-center gap-space-md">
-          <div className="relative w-20 h-20 rounded-xl overflow-hidden shrink-0 border border-tertiary-container/40 bg-primary flex items-center justify-center p-2 shadow-sm">
-            <Image
-              src="/images/logo-badge.png"
-              alt="Adalwise Editorial Seal"
-              width={64}
-              height={64}
-              className="object-contain"
-            />
-          </div>
-          <div className="flex flex-col justify-center gap-space-2xs min-w-0 pr-1">
-            <span className="font-label-sm text-[10px] tracking-wider uppercase text-secondary font-bold">
-              Editorial Charter
-            </span>
-            <p className="font-headline-sm text-[15px] text-primary font-semibold leading-snug truncate">
-              Rigorous Jurisprudential Inquiries
-            </p>
-            <p className="font-body-sm text-[12px] text-on-surface-variant leading-tight line-clamp-2">
-              Unraveling institutional ethics, sovereignty, and statecraft through juristic precedent and legal philosophy.
-            </p>
-          </div>
-        </div>
       </div>
     </section>
   );

@@ -12,14 +12,14 @@ export function HeroSection() {
 			<div className="absolute -bottom-40 -right-40 w-96 h-96 rounded-full bg-tertiary-fixed/10 blur-3xl pointer-events-none" />
 
 			<div className="relative z-10 max-w-container-max mx-auto flex flex-col items-center text-center py-space-xl">
-				{/* Official Adalwise Crest Badge */}
+				{/* Official Adlwise Crest Badge */}
 				<div className="mb-space-md relative flex items-center justify-center">
 					<div className="absolute inset-0 rounded-full bg-tertiary-container/25 blur-lg" />
 					<div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full p-1 bg-gradient-to-tr from-tertiary-container/50 via-tertiary-fixed/40 to-primary-container shadow-2xl ring-2 ring-tertiary-container/60 flex items-center justify-center">
 						<div className="w-full h-full rounded-full overflow-hidden bg-primary flex items-center justify-center">
 							<Image
 								src="/images/logo-badge.png"
-								alt="Adalwise Institute Crest"
+								alt="Adlwise Institute Crest"
 								width={96}
 								height={96}
 								className="w-full h-full object-contain p-1"

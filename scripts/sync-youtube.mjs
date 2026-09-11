@@ -1,5 +1,5 @@
 /**
- * Adalwise YouTube Catalog Sync Pipeline (Optimized)
+ * Adlwise YouTube Catalog Sync Pipeline (Optimized)
  */
 
 import fs from "fs";
@@ -25,7 +25,7 @@ const SHORT_ALLOWLIST = new Set([]);
 const DEFAULT_SPEAKER = {
 	name: "Dr. Hafiz Haseeb",
 	urduName: "ڈاکٹر حافظ حسیب",
-	title: "Director, Adalwise Institute",
+	title: "Director, Adlwise Institute",
 };
 
 /* =========================================================

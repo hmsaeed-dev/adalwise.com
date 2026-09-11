@@ -15,7 +15,7 @@ export function DiscourseHighlight() {
           </div>
         </div>
 
-        <h2 className="font-headline-md text-primary font-bold leading-snug font-serif mt-space-2xs">
+        <h2 className="font-headline-md text-primary font-bold leading-snug mt-space-2xs">
           Moral Limits of Statutory Law
         </h2>
 

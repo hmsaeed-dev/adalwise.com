@@ -16,28 +16,22 @@ export function FeaturedTreatiseCard() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/40 to-transparent" />
           <div className="absolute bottom-4 left-4 right-4 text-surface">
-            <span className="font-label-sm uppercase tracking-widest text-tertiary-fixed text-[10px] font-bold block mb-1">
-              Featured Treatise
-            </span>
-            <p className="font-headline-sm sm:font-headline-md leading-tight text-surface-bright font-serif font-bold">
-              The Charter of Medina: Civic Constitutionalism in Early Islam
+            <p className="font-headline-sm sm:font-headline-md leading-tight text-surface-bright font-bold">
+              The Charter of Medina
             </p>
           </div>
         </div>
 
-        <p className="font-body-md text-on-surface leading-relaxed italic font-serif">
+        <p className="font-body-md text-on-surface leading-relaxed italic">
           “Justice without wisdom is sterile; wisdom without rigorous textual lineage is rudderless.”
         </p>
 
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs pt-space-xs border-t border-surface-container-high">
-          <span className="font-body-sm text-[12px] text-on-surface-variant">
-            Dr. Hafiz Haseeb • Twasi al-Haq
-          </span>
           <Link
             href="/twasi-al-haq/charter-of-medina"
             className="self-start sm:self-auto min-h-[38px] px-space-md py-space-2xs bg-primary text-on-primary font-label-sm uppercase tracking-wider rounded-full flex items-center gap-space-2xs hover:bg-primary-container transition-colors shadow-sm"
           >
-            <span>Read Article</span>
+            <span>Read</span>
             <BookOpen className="w-3.5 h-3.5" />
           </Link>
         </div>

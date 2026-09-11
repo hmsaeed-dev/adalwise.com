@@ -20,8 +20,8 @@
 **How:**
 
 ```
-L0 — adalwise.org
-L1 — Adalwise (philosophy) · About Dr. Haseeb · Join
+L0 — Adlwise.org
+L1 — Adlwise (philosophy) · About Dr. Haseeb · Join
 L1 — 4 stream subdomains (twasi. · quran. · majlis. · articles.)
 L2 — per-stream landing (schedule/archive/CTA)
 L3 — individual article / video / Majlis recap
@@ -48,8 +48,8 @@ L3 — individual article / video / Majlis recap
 **Why:** These two paths carry the most traffic — design decisions optimize for them first.
 **How:**
 
-| Journey              | Path                                                   |
-| -------------------- | ------------------------------------------------------ |
+| Journey             | Path                                                 |
+| ------------------- | ---------------------------------------------------- |
 | A — Cold visitor    | Article (L3) → About → Join                          |
 | B — Existing member | Shared link → Subdomain landing (L2) → done, no Home |
 
@@ -66,16 +66,14 @@ L3 — individual article / video / Majlis recap
 3. Articles stream (L1/L2) — proves hierarchy end-to-end
 4. Replicate for remaining 3 streams
 
-
-
-## Global Navigation (root — adalwise.org)
+## Global Navigation (root — Adlwise.org)
 
 **What:** Persistent header on every root-domain page: logo/wordmark, 4 stream links, About, Join CTA.
 **Why:** Root nav is the map — every stream and content type must be reachable in one click from any root page.
 **How:**
 
 ```
-[Adalwise wordmark] — Twasi al-Haq · Quran Learning · Majlis · Articles — About — [Join] (button)
+[Adlwise wordmark] — Twasi al-Haq · Quran Learning · Majlis · Articles — About — [Join] (button)
 ```
 
 - Wordmark links home
@@ -87,15 +85,15 @@ L3 — individual article / video / Majlis recap
 ## Subdomain Navigation (per stream)
 
 **What:** Same header component, but current stream is active/highlighted; other 3 streams + root remain one click away.
-**Why:** A visitor landing directly on `majlis.adalwise.org` via shared link must not feel stuck in a silo.
+**Why:** A visitor landing directly on `majlis.Adlwise.org` via shared link must not feel stuck in a silo.
 **How:**
 
 ```
-[Adalwise wordmark → root] — Majlis (active) · Twasi al-Haq · Quran Learning · Articles — About — [Join]
+[Adlwise wordmark → root] — Majlis (active) · Twasi al-Haq · Quran Learning · Articles — About — [Join]
 ```
 
 - Active stream visually distinct (underline or ink weight, not a new color)
-- Wordmark always routes back to `adalwise.org`, not to the subdomain's own L2 landing
+- Wordmark always routes back to `Adlwise.org`, not to the subdomain's own L2 landing
 
 ---
 

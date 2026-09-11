@@ -7,22 +7,18 @@ export function MajlisHero() {
         <div className="flex items-baseline justify-between gap-space-sm flex-wrap">
           <div className="flex flex-col gap-1">
             <div className="flex items-center gap-space-2xs">
-              <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
-              <span className="font-label-sm text-secondary uppercase tracking-widest text-[11px] font-bold">
-                Bait al-Hikmah Circle
-              </span>
             </div>
-            <h1 className="font-display-lg text-[28px] sm:text-[34px] md:text-display-lg text-primary tracking-tight font-bold leading-tight font-serif">
-              Majlis Gatherings
+            <h1 className="font-display-lg text-[28px] sm:text-[34px] md:text-display-lg text-primary tracking-tight font-bold leading-tight">
+              Majlis
             </h1>
           </div>
           <span className="font-urdu text-[26px] sm:text-[32px] md:text-[36px] text-tertiary-container font-bold leading-none dir-rtl select-none">
-            مجلسِ مذاکرہ و علم
+            مجلسِ
           </span>
         </div>
         <div className="h-[2px] w-20 bg-tertiary-container/60 my-1 rounded-full" />
         <p className="font-body-lg text-[15px] sm:text-[16px] md:text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
-          Fortnightly gatherings convened in Dr. Hafiz Haseeb’s Lahore library over tea, text, and candid jurisprudential inquiry.
+          Fortnightly gatherings convened in Dr. Hafiz Haseeb’s Lahore library over tea.
         </p>
       </div>
     </section>
