@@ -15,7 +15,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
   return (
     <article className="group bg-surface-container-lowest rounded-[22px] overflow-hidden border border-surface-container-high shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-md transition-all flex flex-col">
       <Link
-        href={`/articles/${slug}`}
+        href={`/twasi-al-haq/${slug}`}
         className="relative w-full h-48 overflow-hidden bg-primary-container block"
       >
         {frontmatter.coverImage ? (
@@ -53,8 +53,8 @@ export function ArticleCard({ article }: ArticleCardProps) {
           </span>
         </div>
 
-        <h3 className="font-headline-sm text-primary font-bold font-serif leading-snug group-hover:text-primary-container transition-colors line-clamp-2">
-          <Link href={`/articles/${slug}`}>{frontmatter.title}</Link>
+        <h3 className="font-headline-sm text-primary font-bold leading-snug group-hover:text-primary-container transition-colors line-clamp-2">
+          <Link href={`/twasi-al-haq/${slug}`}>{frontmatter.title}</Link>
         </h3>
 
         {frontmatter.urduTitle && (
@@ -72,11 +72,11 @@ export function ArticleCard({ article }: ArticleCardProps) {
             {frontmatter.category}
           </span>
           <Link
-            href={`/articles/${slug}`}
+            href={`/twasi-al-haq/${slug}`}
             className="text-primary font-semibold hover:underline flex items-center gap-1"
           >
-            <span>Read Treatise</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <span>Read</span>
+            <ArrowRight className="w-4.5 h-3.5" />
           </Link>
         </div>
       </div>

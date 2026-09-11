@@ -1,13 +1,12 @@
 import { cache } from "react";
-import { getAllArticles, getAllDispatches, getAllMajlisSessions } from "@/lib/content/client";
+import { getAllArticles, getAllMajlisSessions } from "@/lib/content/client";
 import { getAllMedia } from "@/lib/media/client";
 import { formatDuration, formatISODate } from "@/lib/utils";
 import { SearchOptions, SearchProvider, SearchResult } from "./types";
 
 const getCachedSearchPool = cache(async (): Promise<SearchResult[]> => {
-  const [articles, dispatches, mediaList, majlisList] = await Promise.all([
+  const [articles, mediaList, majlisList] = await Promise.all([
     getAllArticles(),
-    getAllDispatches(),
     getAllMedia(),
     getAllMajlisSessions(),
   ]);
@@ -20,27 +19,12 @@ const getCachedSearchPool = cache(async (): Promise<SearchResult[]> => {
       id: a.slug,
       title: a.frontmatter.title,
       urduTitle: a.frontmatter.urduTitle,
-      url: `/articles/${a.slug}`,
+      url: `/twasi-al-haq/${a.slug}`,
       excerpt: a.frontmatter.excerpt,
       category: a.frontmatter.category,
       tags: a.frontmatter.tags,
       date: formatISODate(a.frontmatter.publishedAt),
       meta: a.frontmatter.readTime,
-    });
-  }
-
-  for (const d of dispatches) {
-    pool.push({
-      type: "dispatch",
-      id: d.slug,
-      title: d.frontmatter.title,
-      urduTitle: d.frontmatter.urduTitle,
-      url: `/twasi-al-haq/${d.slug}`,
-      excerpt: d.frontmatter.excerpt,
-      category: d.frontmatter.category,
-      tags: d.frontmatter.tags,
-      date: formatISODate(d.frontmatter.publishedAt),
-      meta: d.frontmatter.readTime,
     });
   }
 

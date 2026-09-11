@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import { getDispatchBySlug, getAllDispatches } from "@/lib/content/client";
+import { getArticleBySlug, getAllArticles } from "@/lib/content/client";
 import { getRelatedContent } from "@/lib/content/related";
 import { MDXRenderer } from "@/components/content/MDXRenderer";
 import { constructMetadata } from "@/lib/seo/metadata";
@@ -15,36 +15,38 @@ interface PageProps {
 }
 
 export async function generateStaticParams() {
-  const dispatches = await getAllDispatches();
-  return dispatches.map((d) => ({ slug: d.slug }));
+  const articles = await getAllArticles();
+  return articles.map((a) => ({ slug: a.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
-  const dispatch = await getDispatchBySlug(slug);
-  if (!dispatch) return {};
+  const article = await getArticleBySlug(slug);
+  if (!article) return {};
 
   return constructMetadata({
-    title: dispatch.frontmatter.title,
-    description: dispatch.frontmatter.excerpt,
+    title: article.frontmatter.title,
+    description: article.frontmatter.excerpt,
+    image: article.frontmatter.coverImage,
     canonicalUrl: `/twasi-al-haq/${slug}`,
   });
 }
 
-export default async function DispatchDetailPage({ params }: PageProps) {
+export default async function ArticleDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const dispatch = await getDispatchBySlug(slug);
+  const article = await getArticleBySlug(slug);
 
-  if (!dispatch) {
+  if (!article) {
     notFound();
   }
 
-  const { frontmatter, content } = dispatch;
+  const { frontmatter, content } = article;
 
   const related = await getRelatedContent({
     currentType: "article",
     currentSlug: slug,
-    explicitSlugs: frontmatter.relatedArticleSlugs,
+    explicitSlugs: frontmatter.relatedMediaSlugs,
+    seriesId: frontmatter.seriesId,
     topics: frontmatter.topics,
     tags: frontmatter.tags,
     category: frontmatter.category,
@@ -59,6 +61,7 @@ export default async function DispatchDetailPage({ params }: PageProps) {
         datePublished={frontmatter.publishedAt}
         authorName={frontmatter.author.name}
         url={`https://adalwise.com/twasi-al-haq/${slug}`}
+        image={frontmatter.coverImage}
       />
       <BreadcrumbJsonLd
         items={[
@@ -86,7 +89,7 @@ export default async function DispatchDetailPage({ params }: PageProps) {
       {/* Header Cartouche */}
       <header className="flex flex-col gap-space-xs pb-space-md border-b border-surface-container-high">
         <div className="flex items-center gap-space-xs">
-          <span className="px-space-sm py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-label-sm uppercase tracking-wider font-bold">
+          <span className="px-space-sm py-0.5 rounded-full bg-primary-container text-surface text-label-sm uppercase tracking-wider font-bold">
             {frontmatter.category}
           </span>
           <span className="text-on-surface-variant font-label-sm text-[12px]">
@@ -99,7 +102,7 @@ export default async function DispatchDetailPage({ params }: PageProps) {
         </h1>
 
         {frontmatter.urduTitle && (
-          <p className="font-urdu text-[22px] text-tertiary-container dir-rtl text-right font-bold mt-1">
+          <p className="font-urdu text-[24px] text-tertiary-container dir-rtl text-right font-bold mt-1">
             {frontmatter.urduTitle}
           </p>
         )}
@@ -125,14 +128,27 @@ export default async function DispatchDetailPage({ params }: PageProps) {
         </div>
       </header>
 
-      {/* Main Prose Body */}
+      {/* Hero Cover Image if present */}
+      {frontmatter.coverImage && (
+        <div className="relative w-full h-64 sm:h-96 rounded-[24px] overflow-hidden bg-primary-container shadow-md border border-surface-container-high">
+          <Image
+            src={frontmatter.coverImage}
+            alt={frontmatter.title}
+            fill
+            className="object-cover opacity-90"
+            priority
+          />
+        </div>
+      )}
+
+      {/* Main Treatise Prose */}
       <MDXRenderer content={content} />
 
-      {/* Related Content Knowledge Graph */}
+      {/* Cross-Domain Related Lectures & Research */}
       {related.length > 0 && (
         <section className="mt-space-2xl pt-space-xl border-t border-surface-container-high flex flex-col gap-space-md">
           <h3 className="font-headline-md text-primary font-bold font-serif">
-            Related Discourses &amp; Lectures
+            Companion Lectures &amp; Related Works
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-space-md">
             {related.map((item) => (
@@ -153,7 +169,7 @@ export default async function DispatchDetailPage({ params }: PageProps) {
                   </p>
                 </div>
                 <span className="font-label-sm text-primary font-bold text-[11px] flex items-center gap-1 mt-space-sm">
-                  View {item.type === "media" ? "Lecture" : "Treatise"}{" "}
+                  View {item.type === "media" ? "Lecture" : "Article"}{" "}
                   <ArrowRight className="w-3.5 h-3.5" />
                 </span>
               </Link>

@@ -3,7 +3,6 @@ export type MainCategory =
   | "Seerat"
   | "Socio-Political"
   | "Constitutional Law"
-  | "Usul al-Fiqh"
   | "Ethics"
   | "Statecraft";
 

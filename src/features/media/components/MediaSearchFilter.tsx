@@ -8,16 +8,14 @@ import { cn } from "@/lib/utils";
 interface CategoryCount {
   label: string;
   value: string;
-  count: number;
 }
 
 const CATEGORIES_WITH_COUNTS: CategoryCount[] = [
-  { label: "All", value: "all", count: 624 },
-  { label: "Tafsir", value: "Tafsir", count: 186 },
-  { label: "Seerat", value: "Seerat", count: 142 },
-  { label: "Socio-Political", value: "Socio-Political", count: 114 },
-  { label: "Constitutional Law", value: "Constitutional Law", count: 88 },
-  { label: "Usul al-Fiqh", value: "Usul al-Fiqh", count: 94 },
+  { label: "All", value: "all"},
+  { label: "Tafsir", value: "Tafsir"},
+  { label: "Seerat", value: "Seerat"},
+  { label: "Socio-Political", value: "Socio-Political"},
+  { label: "Constitutional Law", value: "Constitutional Law"},
 ];
 
 export function MediaSearchFilter() {
@@ -100,7 +98,7 @@ export function MediaSearchFilter() {
                   : "bg-surface-container/70 text-on-surface-variant hover:text-primary hover:bg-surface-container border border-surface-container-highest"
               )}
             >
-              {cat.label} ({cat.count})
+              {cat.label}
             </button>
           );
         })}

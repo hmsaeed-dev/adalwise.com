@@ -31,13 +31,13 @@ export function FeaturedTreatiseCard() {
 
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs pt-space-xs border-t border-surface-container-high">
           <span className="font-body-sm text-[12px] text-on-surface-variant">
-            Dr. Hafiz Haseeb • Legal Treatises
+            Dr. Hafiz Haseeb • Twasi al-Haq
           </span>
           <Link
-            href="/articles/charter-of-medina"
+            href="/twasi-al-haq/charter-of-medina"
             className="self-start sm:self-auto min-h-[38px] px-space-md py-space-2xs bg-primary text-on-primary font-label-sm uppercase tracking-wider rounded-full flex items-center gap-space-2xs hover:bg-primary-container transition-colors shadow-sm"
           >
-            <span>Read Treatise</span>
+            <span>Read Article</span>
             <BookOpen className="w-3.5 h-3.5" />
           </Link>
         </div>

@@ -74,53 +74,12 @@ export async function getArticleBySlug(slug: string): Promise<ArticleDoc | null>
   return null;
 }
 
-// DISPATCHES (Twasi al-Haq)
+// DISPATCHES (Deprecated - Twasi al-Haq now hosts Articles)
 export async function getAllDispatches(): Promise<DispatchDoc[]> {
-  ensureDirectoryExists(DISPATCHES_DIR);
-  const files = fs.readdirSync(DISPATCHES_DIR).filter((f) => f.endsWith(".mdx") || f.endsWith(".md"));
-
-  const dispatches: DispatchDoc[] = [];
-
-  for (const file of files) {
-    const slug = file.replace(/\.(mdx|md)$/, "");
-    const filePath = path.join(DISPATCHES_DIR, file);
-    const rawContent = fs.readFileSync(filePath, "utf-8");
-    const { data, content } = matter(rawContent);
-
-    const parsed = DispatchFrontmatterSchema.safeParse(data);
-    if (parsed.success) {
-      dispatches.push({
-        slug,
-        frontmatter: parsed.data,
-        content,
-      });
-    }
-  }
-
-  return dispatches.sort(
-    (a, b) =>
-      new Date(b.frontmatter.publishedAt).getTime() -
-      new Date(a.frontmatter.publishedAt).getTime()
-  );
+  return [];
 }
 
 export async function getDispatchBySlug(slug: string): Promise<DispatchDoc | null> {
-  ensureDirectoryExists(DISPATCHES_DIR);
-  const candidates = [
-    path.join(DISPATCHES_DIR, `${slug}.mdx`),
-    path.join(DISPATCHES_DIR, `${slug}.md`),
-  ];
-
-  for (const filePath of candidates) {
-    if (fs.existsSync(/*turbopackIgnore: true*/ filePath)) {
-      const raw = fs.readFileSync(/*turbopackIgnore: true*/ filePath, "utf-8");
-      const { data, content } = matter(raw);
-      const parsed = DispatchFrontmatterSchema.safeParse(data);
-      if (parsed.success) {
-        return { slug, frontmatter: parsed.data, content };
-      }
-    }
-  }
   return null;
 }
 

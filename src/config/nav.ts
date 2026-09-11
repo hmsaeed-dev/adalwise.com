@@ -32,12 +32,6 @@ export const mainNavItems: NavItem[] = [
     icon: "groups_2",
   },
   {
-    title: "Articles",
-    urduTitle: "مقالات",
-    href: "/articles",
-    icon: "auto_stories",
-  },
-  {
     title: "About Us",
     urduTitle: "تعارف",
     href: "/about",
@@ -53,7 +47,6 @@ export const footerNav = {
     { title: "Majlis", href: "/majlis" },
   ],
   academy: [
-    { title: "Articles", href: "/articles" },
     { title: "About Dr. Haseeb", href: "/about" },
     { title: "Join the Circle", href: "/join" },
     { title: "Search", href: "/search" },

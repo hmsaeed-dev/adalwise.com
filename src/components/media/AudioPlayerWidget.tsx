@@ -115,7 +115,7 @@ export function AudioPlayerWidget({
         </span>
       </div>
 
-      <h4 className="font-headline-sm text-surface-bright font-medium font-serif leading-snug">
+      <h4 className="font-headline-sm text-surface-bright font-medium leading-snug">
         {title}
       </h4>
 

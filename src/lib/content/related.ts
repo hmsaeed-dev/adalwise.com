@@ -51,7 +51,7 @@ export async function getRelatedContent(params: {
     title: a.frontmatter.title,
     urduTitle: a.frontmatter.urduTitle,
     slug: a.slug,
-    url: `/articles/${a.slug}`,
+    url: `/twasi-al-haq/${a.slug}`,
     excerpt: a.frontmatter.excerpt,
     category: a.frontmatter.category,
     seriesId: a.frontmatter.seriesId,

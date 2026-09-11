@@ -7,7 +7,7 @@ export function DiscourseHeader() {
       <div className="relative z-10 flex flex-col gap-space-lg max-w-container-max mx-auto">
         <div className="flex flex-col gap-space-xs pt-1">
           <div className="flex items-baseline justify-between gap-space-sm flex-wrap">
-            <h1 className="font-display-lg text-[34px] sm:text-display-lg text-primary tracking-tight font-bold leading-tight font-serif">
+            <h1 className="font-display-lg text-[34px] sm:text-display-lg text-primary tracking-tight font-bold leading-tight">
               Twasi al-Haq
             </h1>
             <span className="font-urdu text-[28px] sm:text-[34px] text-tertiary-container font-bold leading-none dir-rtl select-none">
@@ -35,7 +35,7 @@ export function DiscourseHeader() {
             <span className="font-label-sm text-[10px] tracking-wider uppercase text-secondary font-bold">
               Editorial Charter
             </span>
-            <p className="font-headline-sm text-[15px] text-primary font-semibold leading-snug truncate font-serif">
+            <p className="font-headline-sm text-[15px] text-primary font-semibold leading-snug truncate">
               Rigorous Jurisprudential Inquiries
             </p>
             <p className="font-body-sm text-[12px] text-on-surface-variant leading-tight line-clamp-2">

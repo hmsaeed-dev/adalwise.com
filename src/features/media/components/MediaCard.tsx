@@ -40,7 +40,7 @@ export function MediaCard({ media }: MediaCardProps) {
 
       {/* Content Meta */}
       <div className="p-space-md flex flex-col flex-1 gap-space-2xs">
-        <h3 className="font-headline-sm text-[16px] text-primary font-bold font-serif leading-snug group-hover:text-primary-container transition-colors line-clamp-2">
+        <h3 className="font-headline-sm text-[16px] text-primary font-bold leading-snug group-hover:text-primary-container transition-colors line-clamp-2">
           <Link href={`/media/${media.slug}`}>{media.title}</Link>
         </h3>
 

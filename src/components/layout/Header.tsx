@@ -209,7 +209,6 @@ export function Header() {
                         {item.href === "/twasi-al-haq" && <Scale className="w-[18px] h-[18px] text-tertiary-container shrink-0" />}
                         {item.href === "/media" && <Video className="w-[18px] h-[18px] text-tertiary-container shrink-0" />}
                         {item.href === "/majlis" && <Users className="w-[18px] h-[18px] text-tertiary-container shrink-0" />}
-                        {item.href === "/articles" && <BookOpen className="w-[18px] h-[18px] text-tertiary-container shrink-0" />}
                         {item.href === "/about" && <User className="w-[18px] h-[18px] text-tertiary-container shrink-0" />}
                         <span>{item.title}</span>
                       </div>

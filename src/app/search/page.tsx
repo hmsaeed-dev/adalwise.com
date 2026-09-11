@@ -7,7 +7,7 @@ import { constructMetadata } from "@/lib/seo/metadata";
 export const metadata = constructMetadata({
   title: "Archive Search — Unified Intellectual Repository",
   description:
-    "Unified search across Adalwise research treatises, lecture archives, Twasi al-Haq dispatches, and Majlis sessions.",
+    "Unified search across Adalwise research articles, lecture archives, and Majlis sessions.",
   canonicalUrl: "/search",
 });
 
@@ -37,11 +37,11 @@ export default async function SearchPage({ searchParams }: PageProps) {
         <span className="font-label-sm uppercase tracking-widest text-secondary font-bold text-[11px]">
           Archive Search
         </span>
-        <h1 className="font-display-lg text-[32px] sm:text-display-lg text-primary font-bold font-serif leading-tight">
+        <h1 className="font-display-lg text-[32px] sm:text-display-lg text-primary font-bold leading-tight">
           Search
         </h1>
         <p className="font-body-sm text-on-surface-variant max-w-md leading-relaxed">
-          Explore across 620+ lectures and deliberative articles.
+          Explore 620+ lectures & articles.
         </p>
       </div>
 
@@ -56,7 +56,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
           type="text"
           name="q"
           defaultValue={query}
-          placeholder="Search by topic, keyword, or classical Arabic/Urdu term..."
+          placeholder="Search by topic ..."
           className="w-full bg-transparent text-on-surface placeholder:text-on-surface-variant/60 font-body-sm text-body-sm focus:outline-none"
         />
         <button
@@ -80,20 +80,20 @@ export default async function SearchPage({ searchParams }: PageProps) {
       {query && results.length === 0 ? (
         <div className="py-space-2xl text-center flex flex-col items-center justify-center gap-space-xs">
           <SearchX className="w-12 h-12 text-on-surface-variant/40" />
-          <h3 className="font-headline-md text-primary font-bold font-serif">
+          <h3 className="font-headline-md text-primary font-bold">
             No Records Found
           </h3>
           <p className="font-body-sm text-on-surface-variant max-w-sm">
-            Try searching for broader terms like "Tafsir", "Constitution", "Madinah", or "Sovereignty".
+            Try searching for broader terms.
           </p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-space-md">
           {results.map((res) => {
             const typeLabels: Record<string, string> = {
-              article: "Treatise",
+              article: "Article",
               media: "Video Lecture",
-              dispatch: "Twasi Dispatch",
+              dispatch: "Article",
               majlis: "Majlis Session",
             };
 
@@ -115,7 +115,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
                     )}
                   </div>
 
-                  <h3 className="font-headline-sm text-primary font-bold font-serif leading-snug group-hover:text-primary-container transition-colors line-clamp-2">
+                  <h3 className="font-headline-sm text-primary font-bold leading-snug group-hover:text-primary-container transition-colors line-clamp-2">
                     {res.title}
                   </h3>
 

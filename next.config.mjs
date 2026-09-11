@@ -39,6 +39,20 @@ const nextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: "/articles",
+        destination: "/twasi-al-haq",
+        permanent: true,
+      },
+      {
+        source: "/articles/:slug*",
+        destination: "/twasi-al-haq/:slug*",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

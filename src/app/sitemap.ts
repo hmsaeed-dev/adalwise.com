@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site";
-import { getAllArticles, getAllDispatches, getAllMajlisSessions } from "@/lib/content/client";
+import { getAllArticles, getAllMajlisSessions } from "@/lib/content/client";
 import { getAllMedia } from "@/lib/media/client";
 import { SERIES_LIST, TOPICS_LIST } from "@/lib/taxonomy/registry";
 
@@ -12,28 +12,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}`, lastModified: new Date(), changeFrequency: "daily", priority: 1.0 },
     { url: `${baseUrl}/twasi-al-haq`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
     { url: `${baseUrl}/media`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
-    { url: `${baseUrl}/articles`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
     { url: `${baseUrl}/majlis`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
     { url: `${baseUrl}/about`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
     { url: `${baseUrl}/join`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
   ];
 
-  // Dynamic articles
+  // Dynamic articles (Twasi al-Haq)
   const articles = await getAllArticles();
   const articleRoutes: MetadataRoute.Sitemap = articles.map((a) => ({
-    url: `${baseUrl}/articles/${a.slug}`,
+    url: `${baseUrl}/twasi-al-haq/${a.slug}`,
     lastModified: new Date(a.frontmatter.publishedAt),
     changeFrequency: "monthly",
     priority: 0.85,
-  }));
-
-  // Dynamic dispatches (Twasi al-Haq)
-  const dispatches = await getAllDispatches();
-  const dispatchRoutes: MetadataRoute.Sitemap = dispatches.map((d) => ({
-    url: `${baseUrl}/twasi-al-haq/${d.slug}`,
-    lastModified: new Date(d.frontmatter.publishedAt),
-    changeFrequency: "monthly",
-    priority: 0.8,
   }));
 
   // Dynamic media items
@@ -64,7 +54,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     ...staticRoutes,
     ...articleRoutes,
-    ...dispatchRoutes,
     ...mediaRoutes,
     ...seriesRoutes,
     ...topicRoutes,

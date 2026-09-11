@@ -14,9 +14,9 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   const { slug } = await params;
   const article = await getArticleBySlug(slug);
 
-  const title = article?.frontmatter.title || "Adalwise Treatise";
+  const title = article?.frontmatter.title || "Adalwise — Twasi al-Haq";
   const author = article?.frontmatter.author.name || "Adalwise Institute";
-  const category = article?.frontmatter.category || "Legal Treatises";
+  const category = article?.frontmatter.category || "Twasi al-Haq";
 
   let logoBase64 = "";
   try {
@@ -80,7 +80,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
             </div>
           </div>
           <div style={{ fontSize: "28px", color: "#ffe08e", fontWeight: "bold" }}>
-            عدل و حکمت
+            تواصِی بالحَق
           </div>
         </div>
 

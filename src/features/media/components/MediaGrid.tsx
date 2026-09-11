@@ -43,7 +43,7 @@ export function MediaGrid({
       {items.length === 0 ? (
         <div className="py-space-3xl text-center flex flex-col items-center justify-center gap-space-xs">
           <SearchX className="w-12 h-12 text-on-surface-variant/40" />
-          <h3 className="font-headline-md text-primary font-bold font-serif">
+          <h3 className="font-headline-md text-primary font-bold">
             No Lectures Found
           </h3>
           <p className="font-body-sm text-on-surface-variant max-w-sm">

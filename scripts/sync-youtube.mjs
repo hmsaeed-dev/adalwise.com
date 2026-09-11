@@ -133,7 +133,6 @@ function inferCategory(title, description = "") {
 		return "Seerat";
 	if (/دستور|constitution|قانون|عدالت|judicial|court/.test(text))
 		return "Constitutional Law";
-	if (/اصول|usul|فقہ|fiqh|شریعت|shariah/.test(text)) return "Usul al-Fiqh";
 	if (/ریاست|statecraft|قرض|debt|معیشت|economy|political|politics/.test(text))
 		return "Statecraft";
 	if (/اخلاق|ethics|اختلاف|adab|akhlaq/.test(text)) return "Ethics";
@@ -277,10 +276,10 @@ function normalizeVideo(video, existingItem, usedSlugs) {
 
 	const finalDescription =
 		existingItem?.description &&
-		existingItem.description !== "Recorded lecture and scholarly exegesis."
+		existingItem.description !== "Recorded lecture and scholarly Tafsir."
 			? existingItem.description
 			: sanitizedDesc.slice(0, 350) ||
-				"Recorded lecture and scholarly exegesis.";
+				"Recorded lecture and scholarly Tafsir.";
 
 	const finalSummary =
 		existingItem?.summary ||

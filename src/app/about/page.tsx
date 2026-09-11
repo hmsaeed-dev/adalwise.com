@@ -21,7 +21,7 @@ export default function AboutPage() {
         <span className="font-label-sm uppercase tracking-widest text-secondary font-bold text-[11px]">
           Institutional Credibility Hub
         </span>
-        <h1 className="font-headline-lg text-primary font-bold font-serif tracking-tight mt-space-2xs">
+        <h1 className="font-headline-lg text-primary font-bold tracking-tight mt-space-2xs">
           Academic Mandate &amp; Faculty
         </h1>
         <p className="font-body-sm text-on-surface-variant max-w-md mt-space-xs italic leading-relaxed">

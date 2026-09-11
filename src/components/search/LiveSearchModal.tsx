@@ -92,7 +92,7 @@ export function LiveSearchModal({ isOpen, onClose }: LiveSearchModalProps) {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search lectures, treatises, dispatches..."
+            placeholder="Search lectures, articles, majlis..."
             className="w-full bg-transparent text-on-surface placeholder:text-on-surface-variant/60 font-body-md focus:outline-none"
           />
           {loading && (

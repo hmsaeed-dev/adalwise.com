@@ -33,7 +33,7 @@ export function HeroSection() {
 					عدل و حکمت
 				</div>
 
-				<h1 className="font-headline-sm sm:font-headline-md text-surface-container-highest max-w-md mx-auto leading-relaxed mb-space-2xl italic font-serif">
+				<h1 className="font-headline-sm sm:font-headline-md text-surface-container-highest max-w-md mx-auto leading-relaxed mb-space-2xl italic">
 					Classical Jurisprudence &amp; Civic Constitutionalism
 				</h1>
 

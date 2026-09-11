@@ -4,9 +4,9 @@ import { MediaHero, MediaSearchFilter, MediaGrid } from "@/features/media";
 import { constructMetadata } from "@/lib/seo/metadata";
 
 export const metadata = constructMetadata({
-  title: "Lectures & Discourses — Archival Video Catalog",
+  title: "Lectures & Live Streams",
   description:
-    "Curated video catalog of classical Quranic exegesis, Usul al-Fiqh, and socio-political lectures by Dr. Hafiz Haseeb.",
+    "Video catalog of classical Quran tafsir and socio-political lectures by Dr. Hafiz Haseeb.",
   canonicalUrl: "/media",
 });
 

@@ -14,7 +14,7 @@ export default function NotFound() {
         <span className="font-label-sm uppercase tracking-widest text-secondary font-bold text-[11px]">
           Error 404 • Index Miss
         </span>
-        <h1 className="font-display-lg text-[32px] sm:text-display-lg text-primary font-bold font-serif">
+        <h1 className="font-display-lg text-[32px] sm:text-display-lg text-primary font-bold">
           Record Not Found
         </h1>
         <span className="font-urdu text-[18px] text-tertiary font-bold mt-1">

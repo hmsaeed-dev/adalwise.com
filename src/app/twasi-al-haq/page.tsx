@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { getAllDispatches } from "@/lib/content/client";
+import { getAllArticles } from "@/lib/content/client";
 import {
   DiscourseHeader,
   LeadDispatchCard,
@@ -17,23 +17,23 @@ export const metadata = constructMetadata({
 });
 
 export default async function TwasiAlHaqPage() {
-  const dispatches = await getAllDispatches();
-  const leadDispatch = dispatches[0];
-  const feedDispatches = dispatches.slice(1);
+  const articles = await getAllArticles();
+  const leadArticle = articles[0];
+  const feedArticles = articles.slice(1);
 
   return (
     <div className="flex flex-col w-full pb-space-2xl">
       <DiscourseHeader />
 
-      {leadDispatch && <LeadDispatchCard dispatch={leadDispatch} />}
+      {leadArticle && <LeadDispatchCard article={leadArticle} />}
 
-      <DispatchFeed dispatches={feedDispatches.length > 0 ? feedDispatches : dispatches} />
+      {feedArticles.length > 0 && <DispatchFeed articles={feedArticles} />}
 
       {/* Interactive Deliberation & Scholarly Circle Invitation */}
       <section className="px-gutter-mobile md:px-gutter-desktop pt-space-xl pb-space-lg flex flex-col gap-space-md max-w-container-max mx-auto w-full">
         <div className="bg-primary-container text-surface rounded-[24px] p-space-lg shadow-md flex flex-col gap-space-sm border border-primary/40">
           <div className="flex flex-col gap-space-2xs">
-            <h3 className="font-headline-md text-surface font-bold font-serif">
+            <h3 className="font-headline-md text-surface font-bold">
               Join the Circle
             </h3>
             <p className="font-body-sm text-surface-container leading-relaxed">
@@ -53,7 +53,7 @@ export default async function TwasiAlHaqPage() {
 
         <div className="bg-surface-container p-space-md rounded-[20px] flex items-center justify-between gap-space-md border border-surface-container-highest">
           <div className="flex flex-col min-w-0">
-            <span className="font-headline-sm text-primary font-bold font-serif">
+            <span className="font-headline-sm text-primary font-bold">
               Classical Archives
             </span>
             <span className="font-body-sm text-on-surface-variant text-[12px]">
