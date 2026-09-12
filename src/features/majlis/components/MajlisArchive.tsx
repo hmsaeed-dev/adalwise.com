@@ -25,22 +25,15 @@ export function MajlisArchive({ sessions }: MajlisArchiveProps) {
   return (
     <section aria-labelledby="majlis-archive-heading">
       {/* Section Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-8 mb-12 border-b border-brand-primary/10">
+      <div className="flex mx-auto pb-8 mb-8">
         <div>
-          <span className="font-sans text-xs uppercase tracking-[0.25em] font-semibold text-brand-primary">
-            Chronicle of Inquiries
-          </span>
           <h2
             id="majlis-archive-heading"
-            className="font-serif text-2xl sm:text-3xl font-medium tracking-editorial text-brand-primary mt-1"
+            className="font-serif text-3xl mx-auto sm:text-4xl sm:mx-auto font-bold tracking-editorial text-brand-primary mt-1"
           >
             The Majlis Archive
           </h2>
         </div>
-        <p className="font-sans text-xs sm:text-sm text-brand-primary/60 max-w-sm mt-2 sm:mt-0 leading-relaxed">
-          An institutional record of themes explored, questions raised, and
-          the jurisprudential continuity developed across gatherings.
-        </p>
       </div>
 
       {/* Chronological Spine & Entries */}

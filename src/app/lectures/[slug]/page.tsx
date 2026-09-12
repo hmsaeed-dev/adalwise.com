@@ -89,7 +89,6 @@ export default async function lecturesDetailPage({ params }: PageProps) {
 				aria-label="Breadcrumb"
 				className="flex items-center gap-space-2xs text-body-sm text-on-surface-variant"
 			>
-				<span>/</span>
 				<Link
 					href="/lectures"
 					className="hover:text-primary transition-colors"
@@ -103,7 +102,7 @@ export default async function lecturesDetailPage({ params }: PageProps) {
 			</nav>
 
 			{/* Video Player */}
-			<div className="w-full">
+			<div className="w-full md:w-4/5 mx-auto">
 				<YouTubeEmbed
 					youtubeId={item.youtubeId}
 					title={item.title}
@@ -112,11 +111,8 @@ export default async function lecturesDetailPage({ params }: PageProps) {
 			</div>
 
 			{/* Video Metadata Header */}
-			<header className="flex flex-col gap-space-xs pb-space-md border-b border-surface-container-high">
-				<div className="flex flex-wrap items-center gap-space-xs">
-					<span className="px-space-sm py-0.5 rounded-full bg-primary-container text-surface text-label-sm uppercase tracking-wider font-bold">
-						{item.category}
-					</span>
+			<header className="flex flex-col gap-space-xs pb-space-md">
+				<div className="flex items-center gap-space-xs">
 					<span className="text-on-surface-variant font-label-sm text-[12px]">
 						{formatDuration(item.durationSeconds)} duration •{" "}
 						{formatISODate(item.publishedAt)}
@@ -126,12 +122,6 @@ export default async function lecturesDetailPage({ params }: PageProps) {
 				<h1 className="font-display-lg text-[28px] sm:text-[34px] text-primary font-bold leading-tight mt-space-2xs">
 					{item.title}
 				</h1>
-
-				{item.urduTitle && (
-					<p className="font-urdu text-[22px] text-tertiary-container dir-rtl text-right font-bold mt-1">
-						{item.urduTitle}
-					</p>
-				)}
 			</header>
 
 			{/* Comprehensive Textual Summary & Study Notes (Discoverability Requirement #8) */}
@@ -164,7 +154,7 @@ export default async function lecturesDetailPage({ params }: PageProps) {
 				<section className="pt-space-md flex flex-col gap-space-md">
 					<div className="flex items-baseline justify-between border-b border-surface-container-high pb-space-xs">
 						<h3 className="font-headline-sm text-primary font-bold">
-							Companion Episodes in this Series
+							Realted Episodes
 						</h3>
 						<span className="font-label-sm text-on-surface-variant">
 							{seriesEpisodes.length} more
@@ -197,9 +187,9 @@ export default async function lecturesDetailPage({ params }: PageProps) {
 
 			{/* Related Reading & Cross-Domain Content */}
 			{related.length > 0 && (
-				<section className="mt-space-xl pt-space-md border-t border-surface-container-high flex flex-col gap-space-md">
-					<h3 className="font-headline-sm text-primary font-bold">
-						Related
+				<section className="mt-space-xl pt-space-md flex flex-col gap-space-md">
+					<h3 className="font-headline-sm text-primary font-bold text-2xl">
+						Related Lectures
 					</h3>
 					<div className="grid grid-cols-1 sm:grid-cols-3 gap-space-md">
 						{related.map((r) => (
@@ -209,17 +199,9 @@ export default async function lecturesDetailPage({ params }: PageProps) {
 								className="p-space-md rounded-[20px] bg-surface-container-low hover:bg-surface-container transition-all border border-surface-container-highest/60 flex flex-col justify-between"
 							>
 								<div className="flex flex-col gap-space-2xs">
-									<span className="font-label-sm text-[10px] uppercase tracking-wider text-secondary font-bold">
-										{r.type === "article"
-											? "Written Treatise"
-											: "Companion Lecture"}
-									</span>
 									<h4 className="font-headline-sm text-[15px] text-primary font-bold line-clamp-2">
 										{r.title}
 									</h4>
-									<p className="font-body-sm text-[12px] text-on-surface-variant line-clamp-2">
-										{r.excerpt}
-									</p>
 								</div>
 								<span className="font-label-sm text-primary font-bold text-[11px] flex items-center gap-1 mt-space-sm">
 									Explore{" "}

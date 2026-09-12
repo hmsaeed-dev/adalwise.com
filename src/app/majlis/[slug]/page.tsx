@@ -77,12 +77,10 @@ export default async function MajlisSessionDetailPage({ params }: PageProps) {
       </nav>
 
       {/* Header Cartouche */}
-      <header className="flex flex-col gap-4 pb-8 border-b border-brand-primary/15">
+      <header className="flex flex-col gap-4 pb-8">
         <div className="flex items-center justify-between flex-wrap gap-3 text-xs font-sans tracking-wide text-brand-primary/70">
           <div className="flex items-center gap-3">
-            <span className="px-3 py-1 rounded-full bg-brand-primary text-brand-warm-white font-mono text-[11px] font-bold">
-              Majlis {session.number || "01"}
-            </span>
+
             <span className="flex items-center gap-1.5">
               <Calendar className="w-3.5 h-3.5 text-brand-gold shrink-0" aria-hidden="true" />
               <span>{formattedDate}</span>
@@ -114,32 +112,13 @@ export default async function MajlisSessionDetailPage({ params }: PageProps) {
             &ldquo;{session.thesis || session.description}&rdquo;
           </p>
         )}
-
-        {/* Host attribution & Marginalia Summary */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 mt-2 border-t border-brand-primary/10 text-xs font-sans text-brand-primary/75">
-          <div>
-            <span className="font-semibold text-brand-primary">Convocator: </span>
-            <span>{session.host?.name || "Dr. Hafiz Haseeb"}</span>
-            {session.host?.title && (
-              <span className="text-brand-primary/60"> ({session.host.title})</span>
-            )}
-          </div>
-
-          {session.marginalia && (
-            <div className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-wider text-brand-primary/60">
-              <span>{session.marginalia.referencesCount} Sources</span>
-              <span aria-hidden="true">·</span>
-              <span>{session.marginalia.questionsCount} Inquiries</span>
-            </div>
-          )}
-        </div>
       </header>
 
       {/* Primary Inquiries Section */}
       {inquiries.length > 0 && (
         <section aria-labelledby="inquiries-heading" className="bg-brand-parchment/60 border-l-2 border-brand-gold p-6 sm:p-7 rounded-r-lg space-y-3">
           <h2 id="inquiries-heading" className="font-sans text-xs uppercase tracking-[0.2em] font-semibold text-brand-primary/70">
-            Deliberation Inquiries
+            Inquiries
           </h2>
           <ul className="space-y-2.5 font-sans text-sm sm:text-[15px] text-brand-primary/85 leading-relaxed">
             {inquiries.map((q, idx) => (
@@ -161,10 +140,10 @@ export default async function MajlisSessionDetailPage({ params }: PageProps) {
             <Video className="w-5 h-5 text-brand-primary shrink-0" aria-hidden="true" />
             <div>
               <h3 className="font-headline-sm text-sm text-brand-primary font-bold">
-                Recorded Discourse Available
+                Recording Available
               </h3>
               <p className="font-body-sm text-xs text-on-surface-variant">
-                Explore the recorded symposium or related lecture in the video archive.
+                Explore the recording or related lectures in the video archive.
               </p>
             </div>
           </div>
@@ -186,13 +165,13 @@ export default async function MajlisSessionDetailPage({ params }: PageProps) {
       )}
 
       {/* Footer Navigation */}
-      <footer className="pt-8 mt-8 border-t border-brand-primary/15 flex items-center justify-between flex-wrap gap-4">
+      <footer className="pt-8 mt-8 flex items-center justify-between flex-wrap gap-4">
         <Link
           href="/majlis"
           className="inline-flex items-center gap-2 text-xs font-sans uppercase tracking-widest font-semibold text-brand-primary hover:text-brand-gold transition-colors"
         >
           <ArrowLeft className="w-4 h-4" aria-hidden="true" />
-          <span>Back to Majlis Archive</span>
+          <span>Back to Majlis</span>
         </Link>
 
         {session.status === "upcoming" && (
@@ -200,7 +179,7 @@ export default async function MajlisSessionDetailPage({ params }: PageProps) {
             href={session.registrationUrl || "/join"}
             className="inline-flex items-center gap-2 px-6 py-2.5 bg-brand-primary hover:bg-brand-primary-hover text-brand-warm-white text-xs font-sans uppercase tracking-widest font-medium rounded-full shadow-sm transition-all"
           >
-            <span>Request Seat</span>
+            <span>Reserve your Seat</span>
             <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
           </Link>
         )}
