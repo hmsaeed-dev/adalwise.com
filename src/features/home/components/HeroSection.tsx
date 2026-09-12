@@ -90,7 +90,7 @@ export function HeroSection({
                             href="/lectures"
                             className="inline-flex items-center gap-2.5 px-7 py-3.5 bg-brand-warm-white/65 hover:bg-brand-warm-white/90 text-brand-primary border border-brand-primary backdrop-blur-sm rounded-full text-xs tracking-widest font-medium uppercase transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 group"
                         >
-                            <span>View Archive</span>
+                            <span>Lecture Series</span>
                             <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                         </Link>
                     </div>

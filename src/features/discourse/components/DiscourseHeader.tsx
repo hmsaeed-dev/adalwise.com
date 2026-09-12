@@ -8,7 +8,7 @@ interface DiscourseHeaderProps {
 
 export function DiscourseHeader({
 	desktopImageSrc = "/images/twasi.jpg",
-	mobileImageSrc = "/images/twasi-hero.jpg",
+	mobileImageSrc = "/images/twasi.jpg",
 }: DiscourseHeaderProps) {
 	return (
 		<section className="relative w-full min-h-[440px] sm:min-h-[480px] md:min-h-[520px] lg:min-h-[560px] flex flex-col items-center justify-center overflow-hidden bg-[#0d2619]">

@@ -67,18 +67,42 @@ export interface DispatchDoc {
 	content: string;
 }
 
+export const MajlisMarginaliaSchema = z.object({
+	questionsCount: z.number().default(0),
+	referencesCount: z.number().default(0),
+	recordAvailable: z.boolean().default(false),
+});
+
+export type MajlisMarginalia = z.infer<typeof MajlisMarginaliaSchema>;
+
 export const MajlisSessionSchema = z.object({
+	number: z.string().optional(),
+	year: z.string().optional(),
 	title: z.string(),
 	urduTitle: z.string().optional(),
 	date: z.string(),
 	location: z.string(),
-	urduLocation: z.string().optional(),
-	theme: z.string(),
-	description: z.string(),
-	host: AuthorSchema,
-	status: z.enum(["upcoming", "completed"]),
+	venue: z.string().optional(),
+	theme: z.string().optional(),
+	thesis: z.string().optional(),
+	description: z.string().optional(),
+	host: AuthorSchema.default({
+		name: "Dr. Hafiz Haseeb",
+		urduName: "ڈاکٹر حافظ حسیب",
+		title: "Director, Adlwise Institute",
+	}),
+	status: z.enum(["upcoming", "completed"]).default("completed"),
 	recordingSlug: z.string().optional(),
 	discussionPoints: z.array(z.string()).default([]),
+	keyInquiries: z.array(z.string()).default([]),
+	marginalia: MajlisMarginaliaSchema.optional(),
+	registrationUrl: z.string().optional(),
 });
 
 export type MajlisSession = z.infer<typeof MajlisSessionSchema>;
+
+export interface MajlisDoc {
+	slug: string;
+	session: MajlisSession;
+	content: string;
+}

@@ -6,6 +6,7 @@ import {
   ArticleFrontmatterSchema,
   DispatchDoc,
   DispatchFrontmatterSchema,
+  MajlisDoc,
   MajlisSession,
   MajlisSessionSchema,
 } from "./schemas";
@@ -84,21 +85,23 @@ export async function getDispatchBySlug(slug: string): Promise<DispatchDoc | nul
 }
 
 // MAJLIS SESSIONS
-export async function getAllMajlisSessions(): Promise<{ slug: string; session: MajlisSession }[]> {
+export async function getAllMajlisSessions(): Promise<MajlisDoc[]> {
   ensureDirectoryExists(MAJLIS_DIR);
   const files = fs.readdirSync(MAJLIS_DIR).filter((f) => f.endsWith(".mdx") || f.endsWith(".md"));
 
-  const sessions: { slug: string; session: MajlisSession }[] = [];
+  const sessions: MajlisDoc[] = [];
 
   for (const file of files) {
     const slug = file.replace(/\.(mdx|md)$/, "");
     const filePath = path.join(MAJLIS_DIR, file);
     const rawContent = fs.readFileSync(filePath, "utf-8");
-    const { data } = matter(rawContent);
+    const { data, content } = matter(rawContent);
 
     const parsed = MajlisSessionSchema.safeParse(data);
     if (parsed.success) {
-      sessions.push({ slug, session: parsed.data });
+      sessions.push({ slug, session: parsed.data, content });
+    } else {
+      console.warn(`Invalid frontmatter in majlis session ${file}:`, parsed.error.issues);
     }
   }
 
@@ -106,4 +109,24 @@ export async function getAllMajlisSessions(): Promise<{ slug: string; session: M
     (a, b) =>
       new Date(b.session.date).getTime() - new Date(a.session.date).getTime()
   );
+}
+
+export async function getMajlisSessionBySlug(slug: string): Promise<MajlisDoc | null> {
+  ensureDirectoryExists(MAJLIS_DIR);
+  const candidates = [
+    path.join(MAJLIS_DIR, `${slug}.mdx`),
+    path.join(MAJLIS_DIR, `${slug}.md`),
+  ];
+
+  for (const filePath of candidates) {
+    if (fs.existsSync(/*turbopackIgnore: true*/ filePath)) {
+      const raw = fs.readFileSync(/*turbopackIgnore: true*/ filePath, "utf-8");
+      const { data, content } = matter(raw);
+      const parsed = MajlisSessionSchema.safeParse(data);
+      if (parsed.success) {
+        return { slug, session: parsed.data, content };
+      }
+    }
+  }
+  return null;
 }

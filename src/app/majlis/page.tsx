@@ -1,8 +1,8 @@
 import React from "react";
 import { getAllMajlisSessions } from "@/lib/content/client";
 import {
-  MajlisHero,
-  MajlisSchedule,
+	MajlisHero,
+	MajlisChrono,
 } from "@/features/majlis";
 import { constructMetadata } from "@/lib/seo/metadata";
 
@@ -17,9 +17,9 @@ export default async function MajlisPage() {
   const sessions = await getAllMajlisSessions();
 
   return (
-    <div className="flex flex-col w-full pb-space-2xl">
-      <MajlisHero />
-      <MajlisSchedule sessions={sessions} />
-    </div>
+		<div className="flex flex-col w-full pb-space-2xl">
+			<MajlisHero />
+			<MajlisChrono sessions={sessions} />
+		</div>
   );
 }
