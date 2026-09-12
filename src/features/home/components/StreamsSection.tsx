@@ -38,7 +38,7 @@ export function StreamsSection() {
 			<div className="mx-auto w-full max-w-container-max">
 				{/* Heading */}
 				<div className="mx-auto max-w-2xl text-center">
-					<h2 className="font-headline-lg text-5xl font-medium tracking-tight text-primary md:text-5xl">
+					<h2 className="font-headline-lg text-3xl font-medium tracking-tight text-primary md:text-5xl">
 						Academic Streams
 					</h2>
 				</div>
@@ -61,7 +61,7 @@ export function StreamsSection() {
 								{/* Mobile connection node */}
 								<span
 									aria-hidden="true"
-									className="absolute left-[13px] top-7 h-2.5 w-2.5 rounded-full bg-secondary md:hidden"
+									className="absolute left-[13px] top-7 h-3 w-3 rounded-full bg-primary md:hidden"
 								/>
 
 								{/* Card */}
@@ -83,7 +83,7 @@ export function StreamsSection() {
 											{stream.title}
 										</h3>
 
-										<p className="mt-3 font-body-md leading-relaxed text-on-surface-variant">
+										<p className="mt-3 font-body-md text-on-surface-variant">
 											{stream.description}
 										</p>
 									</div>
