@@ -21,7 +21,7 @@ export const mainNavItems: NavItem[] = [
   },
   {
     title: "Lectures",
-    urduTitle: "دروس و خطابات",
+    urduTitle: "درس و خطابات",
     href: "/media",
     icon: "video_library",
   },
@@ -47,7 +47,7 @@ export const footerNav = {
     { title: "Majlis", href: "/majlis" },
   ],
   academy: [
-    { title: "About Dr. Haseeb", href: "/about" },
+    { title: "About Us", href: "/about" },
     { title: "Join the Circle", href: "/join" },
     { title: "Search", href: "/search" },
   ],

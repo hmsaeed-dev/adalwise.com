@@ -160,8 +160,8 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 			{/* Cross-Domain Related Lectures & Research */}
 			{related.length > 0 && (
 				<section className="mt-space-2xl pt-space-xl border-t border-surface-container-high flex flex-col gap-space-md">
-					<h3 className="font-headline-md text-primary font-bold font-serif">
-						Companion Lectures &amp; Related Works
+					<h3 className="font-headline-md text-primary font-bold">
+						Related Works
 					</h3>
 					<div className="grid grid-cols-1 sm:grid-cols-3 gap-space-md">
 						{related.map((item) => (

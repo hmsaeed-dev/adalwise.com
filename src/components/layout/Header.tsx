@@ -26,8 +26,10 @@ export function Header() {
 	const [isScrolled, setIsScrolled] = useState(false);
 	const pathname = usePathname();
 	const isHome = pathname === "/";
-	const isTransparentHero = pathname === "/" || pathname === "/media";
-	const isDarkHero = pathname === "/media" && !isScrolled;
+	const isTransparentHero =
+		pathname === "/" || pathname === "/media" || pathname === "/majlis";
+	const isDarkHero =
+		(pathname === "/media" || pathname === "/majlis") && !isScrolled;
 
 	// Scroll position listener for dynamic transparent to blur-surface transition
 	useEffect(() => {

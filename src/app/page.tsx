@@ -10,7 +10,7 @@ import { AudioPlayerWidget } from "@/components/media/AudioPlayerWidget";
 import { constructMetadata } from "@/lib/seo/metadata";
 
 export const metadata = constructMetadata({
-	title: "Adlwise",
+	title: "Home",
 	description:
 		"An academic initiative dedicated to justice and wisdom (Adl wa Hikmah)",
 	canonicalUrl: "/",

@@ -54,25 +54,13 @@ export function MediaHero({
 				{/* Bilingual Header: English Display Serif + Arabic Thuluth/Nastaliq */}
 				<div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-5 mb-3 sm:mb-4 animate-fade-in-up">
 					<h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal tracking-editorial text-[#FAF8F5] drop-shadow-md uppercase">
-						Discourses{" "}
-						<span className="font-light text-[#B88E3F]">
-							&amp;
-						</span>{" "}
-						Lectures
+						Lectures &amp; Streams
 					</h1>
 				</div>
 
-				{/* Subtle Horizontal Flourish */}
-				<div className="w-24 md:w-32 h-[1px] bg-gradient-to-r from-transparent via-[#B88E3F]/80 to-transparent my-3 sm:my-4" />
-
-				{/* Tagline: Italicized Classic Serif */}
-				<p className="font-serif italic text-base sm:text-lg md:text-xl text-[#FAF8F5]/90 max-w-2xl font-light leading-relaxed drop-shadow">
-					Oral traditions, textual treatises, and jurisprudential inquiries.
-				</p>
-
 				{/* Subtext description */}
-				<p className="mt-2 text-xs sm:text-sm text-[#FAF8F5]/75 max-w-xl font-sans tracking-wide leading-relaxed font-normal drop-shadow-sm">
-					Curated Tafsir, civil jurisprudence, and recorded scholarly seminars from Dr. Hafiz Haseeb.
+				<p className="mt-2 text-sm sm:text-sm text-[#FAF8F5]/75 max-w-xl font-sans tracking-wide leading-relaxed font-normal">
+					Quran Tafsir and recorded scholarly seminars from Dr. Hafiz Haseeb.
 				</p>
 			</div>
 		</section>
