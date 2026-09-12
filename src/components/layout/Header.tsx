@@ -80,7 +80,7 @@ export function Header() {
 					>
 						<div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden bg-brand-primary shadow-sm ring-1 ring-brand-gold/40 p-0.5 flex items-center justify-center transition-transform group-hover:scale-105 shrink-0">
 							<Image
-								src="/images/logomark.png"
+								src="/images/assets/logomark.png"
 								alt={`${siteConfig.name} Emblem`}
 								width={36}
 								height={36}

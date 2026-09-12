@@ -7,7 +7,7 @@ export function MajlisStudyGallery() {
       <div className="relative w-full overflow-hidden rounded-[24px] shadow-sm bg-surface-container border border-surface-container-high">
         <div className="relative w-full h-64 sm:h-80 overflow-hidden">
           <Image
-            src="/images/haseeb-sitting.jpg"
+            src="/images/haseeb-02.jpg"
             alt="Dr. Hafiz Haseeb in scholarly majlis assembly at Bait al-Hikmah in Lahore"
             fill
             className="object-cover object-center transition-transform duration-500 hover:scale-105"
@@ -20,7 +20,7 @@ export function MajlisStudyGallery() {
             <span className="font-label-sm text-tertiary-container font-bold tracking-wider uppercase text-[11px]">
               The Lahore Bait al-Hikmah
             </span>
-            
+
           </div>
         </div>
       </div>

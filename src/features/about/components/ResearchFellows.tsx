@@ -40,7 +40,7 @@ export function ResearchFellows() {
 			<div className="rounded-[24px] overflow-hidden shadow-sm flex flex-col bg-surface-container-low/70 border border-surface-container-high">
 				<div className="relative w-full h-64 sm:h-80 overflow-hidden bg-primary-container">
 					<Image
-						src="/images/haseeb-standing.jpg"
+						src="/images/haseeb-02.jpg"
 						alt="Dr. Hafiz Haseeb and Adlwise Scholarly Fellows examining classical codices in the library"
 						fill
 						className="object-cover object-top hover:scale-105 transition-transform duration-500"

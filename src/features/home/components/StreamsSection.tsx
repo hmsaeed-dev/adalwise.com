@@ -14,21 +14,21 @@ const streams: StreamCard[] = [
 		description:
 			"Deliberative critiques, academic treatises, statecraft and  jurisprudence.",
 		href: "/twasi-al-haq",
-		image: "/images/streams/twasi-al-haq.jpg",
+		image: "/images/twasi-al-haq.jpg",
 	},
 	{
-		title: "Scholarly Majlis",
+		title: "Majlis Events",
 		description:
 			"Fortnightly in-person seminars convening jurists, fellows, and students.",
 		href: "/majlis",
-		image: "/images/hero-section/majlis-hero.jpg",
+		image: "/images/majlis-hero.jpg",
 	},
 	{
-		title: "The Lectures",
+		title: "Lecture Series",
 		description:
 			"Systematic Quranic Tafsir, Seerat, and a growing catalogue of recorded lectures.",
 		href: "/media",
-		image: "/images/streams/archive.jpg",
+		image: "/images/lectures-hero.jpg",
 	},
 ];
 

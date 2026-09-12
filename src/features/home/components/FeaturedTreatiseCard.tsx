@@ -9,7 +9,7 @@ export function FeaturedTreatiseCard() {
       <div className="w-full bg-surface-container-lowest p-space-lg shadow-[0_2px_12px_rgba(0,0,0,0.04)] border border-surface-container-high/60 flex flex-col gap-space-md overflow-hidden rounded-[26px]">
         <div className="relative w-full h-48 sm:h-60 overflow-hidden bg-primary-container rounded-[18px]">
           <Image
-            src="/images/haseeb-standing.jpg"
+            src="/images/haseeb-02.jpg"
             alt="The Charter of Medina Treatise by Dr. Hafiz Haseeb"
             fill
             className="object-cover object-top opacity-85 hover:scale-105 transition-transform duration-500"

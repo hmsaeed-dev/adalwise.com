@@ -13,7 +13,7 @@ export function Footer() {
 					<div className="flex items-center gap-space-xs">
 						<div className="relative w-9 h-9 rounded-full overflow-hidden bg-primary ring-1 ring-tertiary-container/40 p-0.5 shadow-sm shrink-0">
 							<Image
-								src="/images/logomark.png"
+								src="/images/assets/logomark.png"
 								alt={`${siteConfig.name} Crest`}
 								width={36}
 								height={36}
