@@ -25,7 +25,13 @@ export function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
     const pathname = usePathname();
 
-    // Scroll listener: transparent overlay when at top, solid blurred bar when scrolled
+    // Check if the current route is one of the main root-level nav items
+    const isMainNavRoot = mainNavItems.some((item) => item.href === pathname);
+
+    // Transparent dark mode applies ONLY to root navigation pages while unscrolled
+    const isTransparentHero = isMainNavRoot && !isScrolled;
+
+    // Scroll listener: toggles scrolled state past 40px
     useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 40);
@@ -61,7 +67,7 @@ export function Header() {
             <header
                 className={cn(
                     "fixed top-0 w-full z-50 pt-safe transition-[background-color,border-color,box-shadow] duration-300",
-                    !isScrolled
+                    isTransparentHero
                         ? "bg-transparent shadow-none border-b border-transparent"
                         : "bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] border-b border-surface-container-high/40"
                 )}
@@ -95,7 +101,7 @@ export function Header() {
                                     href={item.href}
                                     className={cn(
                                         "py-1 transition-colors relative font-sans text-sm tracking-wide",
-                                        !isScrolled
+                                        isTransparentHero
                                             ? isActive
                                                 ? "text-brand-warm-white font-semibold drop-shadow"
                                                 : "text-brand-warm-white/80 hover:text-brand-warm-white"
@@ -109,7 +115,7 @@ export function Header() {
                                         <span
                                             className={cn(
                                                 "absolute -bottom-1 left-0 right-0 h-0.5 rounded-full",
-                                                !isScrolled
+                                                isTransparentHero
                                                     ? "bg-brand-gold"
                                                     : "bg-brand-primary"
                                             )}
@@ -129,7 +135,7 @@ export function Header() {
                             aria-label="Search Archive (Ctrl+K)"
                             className={cn(
                                 "w-9 h-9 flex items-center justify-center rounded-full transition-colors",
-                                !isScrolled
+                                isTransparentHero
                                     ? "text-brand-warm-white hover:bg-white/10"
                                     : "text-brand-primary hover:bg-brand-primary/5"
                             )}
@@ -144,7 +150,7 @@ export function Header() {
                             onClick={() => setIsDrawerOpen(true)}
                             className={cn(
                                 "w-9 h-9 flex md:hidden items-center justify-center rounded-full transition-colors",
-                                !isScrolled
+                                isTransparentHero
                                     ? "text-brand-warm-white hover:bg-white/10"
                                     : "text-brand-primary hover:bg-brand-primary/5"
                             )}
@@ -154,6 +160,14 @@ export function Header() {
                     </div>
                 </div>
             </header>
+
+            {/* Spacer: Only displayed on non-root pages so content is not hidden behind the fixed header */}
+            {!isMainNavRoot && (
+                <div
+                    className="h-16 md:h-20 w-full shrink-0"
+                    aria-hidden="true"
+                />
+            )}
 
             {/* Mobile Navigation Drawer */}
             {isDrawerOpen && (
