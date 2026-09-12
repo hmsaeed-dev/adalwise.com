@@ -14,7 +14,7 @@ export const metadata = constructMetadata({
 interface PageProps {
 	searchParams: Promise<{
 		q?: string;
-		type?: "article" | "media" | "dispatch" | "majlis" | "all";
+		type?: "article" | "lectures" | "dispatch" | "majlis" | "all";
 	}>;
 }
 
@@ -89,7 +89,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
 					{results.map((res) => {
 						const typeLabels: Record<string, string> = {
 							article: "Article",
-							media: "Video Lecture",
+							lectures: "Video Lecture",
 							dispatch: "Article",
 							majlis: "Majlis Session",
 						};

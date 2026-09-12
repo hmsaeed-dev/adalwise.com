@@ -9,7 +9,10 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const CATALOG_PATH = path.resolve(__dirname, "../src/lib/media/catalog.json");
+const CATALOG_PATH = path.resolve(
+	__dirname,
+	"../src/lib/lectures/catalog.json",
+);
 const ENV_LOCAL_PATH = path.resolve(__dirname, "../.env.local");
 const ENV_PATH = path.resolve(__dirname, "../.env");
 

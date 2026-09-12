@@ -45,7 +45,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 	const related = await getRelatedContent({
 		currentType: "article",
 		currentSlug: slug,
-		explicitSlugs: frontmatter.relatedMediaSlugs,
+		explicitSlugs: frontmatter.relatedlecturesSlugs,
 		seriesId: frontmatter.seriesId,
 		topics: frontmatter.topics,
 		tags: frontmatter.tags,
@@ -172,7 +172,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 							>
 								<div className="flex flex-col gap-space-2xs">
 									<span className="font-label-sm text-[10px] uppercase tracking-wider text-secondary font-bold">
-										{item.type === "media"
+										{item.type === "lectures"
 											? "Video Lecture"
 											: "Article"}{" "}
 										• {item.category}
@@ -186,7 +186,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 								</div>
 								<span className="font-label-sm text-primary font-bold text-[11px] flex items-center gap-1 mt-space-sm">
 									View{" "}
-									{item.type === "media"
+									{item.type === "lectures"
 										? "Lecture"
 										: "Article"}{" "}
 									<ArrowRight className="w-3.5 h-3.5" />

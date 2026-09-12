@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import fs from "fs";
 import path from "path";
-import { getMediaBySlug } from "@/lib/media/client";
+import { getlecturesBySlug } from "@/lib/lectures/client";
 import { formatDuration } from "@/lib/utils";
 
 export const runtime = "nodejs";
@@ -17,12 +17,12 @@ export default async function Image({
 	params: Promise<{ slug: string }>;
 }) {
 	const { slug } = await params;
-	const media = await getMediaBySlug(slug);
+	const lectures = await getlecturesBySlug(slug);
 
-	const title = media?.title || "Adlwise Lecture";
-	const speaker = media?.speaker.name || "Dr. Hafiz Haseeb";
-	const category = media?.category || "Archival Lecture";
-	const duration = media ? formatDuration(media.durationSeconds) : "";
+	const title = lectures?.title || "Adlwise Lecture";
+	const speaker = lectures?.speaker.name || "Dr. Hafiz Haseeb";
+	const category = lectures?.category || "Archival Lecture";
+	const duration = lectures ? formatDuration(lectures.durationSeconds) : "";
 
 	let logoBase64 = "";
 	try {

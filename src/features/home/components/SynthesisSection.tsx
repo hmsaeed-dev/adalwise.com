@@ -7,24 +7,24 @@ export function SynthesisSection() {
     {
       num: "I.",
       title: "Kalma",
-      desc: "Interrogating classical codices and commentaries to preserve authentic juristic lineages.",
+      desc: "Adipisicing esse et in sint sunt. Non enim est tempor adipisicing. Deserunt voluptate non eu ex minim dolor anim. Labore exercitation nostrud nulla eiusmod.",
     },
     {
       num: "II.",
       title: "Concept of ('Illah)",
-      desc: "Isolating the underlying legal rationale to resolve modern commercial and constitutional crises.",
+      desc: "Labore esse quis non et culpa ullamco ut aliquip dolore incididunt. Deserunt cillum commodo cillum sunt commodo consectetur ea sit.",
     },
     {
       num: "III.",
       title: "Socio-political",
-      desc: "Synthesizing divine justice (Adl) and institutional wisdom (Hikmah) for civil society.",
+      desc: "Sit laboris anim anim tempor Lorem reprehenderit magna et adipisicing. Ea quis tempor dolor sunt esse anim velit amet cupidatat occaecat do aute excepteur.",
     },
   ];
 
   return (
     <section className="w-full px-gutter-mobile md:px-gutter-desktop py-space-lg flex flex-col gap-space-md max-w-container-max mx-auto">
-      <div className="flex flex-col gap-space-xs border-b border-surface-container-high pb-space-xs">
-        <h3 className="font-headline-lg text-primary font-bold">
+      <div className="flex flex-col gap-space-xs pb-space-xs">
+        <h3 className="font-headline-lg mx-auto text-4xl text-primary font-bold">
           Synthesis of Adl &amp; Hikmah
         </h3>
       </div>

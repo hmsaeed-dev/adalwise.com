@@ -1,25 +1,66 @@
 import React from "react";
 import Image from "next/image";
 
-export function DiscourseHeader() {
-  return (
-    <section className="relative overflow-hidden pt-8 pb-10 px-gutter-mobile md:px-gutter-desktop border-b border-surface-container-highest/60 bg-gradient-to-b from-surface-container-low/70 via-surface to-surface">
-      <div className="relative z-10 flex flex-col gap-space-lg max-w-container-max mx-auto">
-        <div className="flex flex-col gap-space-xs pt-1">
-          <div className="flex items-baseline justify-between gap-space-sm flex-wrap">
-            <h1 className="font-display-lg text-[34px] sm:text-display-lg text-primary tracking-tight font-bold leading-tight">
-              Twasi al-Haq
-            </h1>
-            <span className="font-urdu text-[28px] sm:text-[34px] text-tertiary-container font-bold leading-none dir-rtl select-none">
-              تواصِی بالحَق
-            </span>
-          </div>
-          <div className="h-[2px] w-20 bg-tertiary-container/60 my-1 rounded-full" />
-          <p className="font-body-lg text-[16px] sm:text-body-lg text-on-surface-variant leading-relaxed tracking-normal">
-            Contemporary statecraft, constitutionalism, and public ethics examined through classical jurisprudence.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
+interface DiscourseHeaderProps {
+	desktopImageSrc?: string;
+	mobileImageSrc?: string;
+}
+
+export function DiscourseHeader({
+	desktopImageSrc = "/images/twasi.jpg",
+	mobileImageSrc = "/images/twasi-hero.jpg",
+}: DiscourseHeaderProps) {
+	return (
+		<section className="relative w-full min-h-[440px] sm:min-h-[480px] md:min-h-[520px] lg:min-h-[560px] flex flex-col items-center justify-center overflow-hidden bg-[#0d2619]">
+			{/* ================= FULL-BLEED BACKGROUND IMAGES ================= */}
+			<div className="absolute inset-0 w-full h-full select-none pointer-events-none overflow-hidden">
+				{/* Desktop Image (Hidden on Mobile) */}
+				<div className="hidden md:block absolute inset-0 w-full h-full">
+					<Image
+						src={desktopImageSrc}
+						alt="Twasi al-Haq - Scholarly Discourses"
+						fill
+						priority
+						className="object-cover object-center transform scale-105 animate-fade-in"
+						sizes="100vw"
+					/>
+				</div>
+
+				{/* Mobile Image (Hidden on Desktop) */}
+				<div className="block md:hidden absolute inset-0 w-full h-full">
+					<Image
+						src={desktopImageSrc}
+						alt="Twasi al-Haq - Scholarly Discourses"
+						fill
+						priority
+						className="object-cover object-center"
+						sizes="100vw"
+					/>
+				</div>
+
+				{/* ================= EDITORIAL OVERLAYS ================= */}
+				{/* Darkening base vignette */}
+				<div className="absolute inset-0 bg-[#0d2619]/45 md:bg-[#0d2619]/40 backdrop-brightness-95" />
+
+				{/* Radial warm depth vignette */}
+				<div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-transparent via-[#0d2619]/30 to-[#0a1b12]/80" />
+			</div>
+
+			{/* ================= HERO CONTENT LOCKUP ================= */}
+			<div className="relative z-10 w-full max-w-4xl mx-auto px-6 pt-28 sm:pt-32 md:pt-36 pb-16 sm:pb-20 text-center flex flex-col items-center justify-center">
+				{/* Bilingual Header: English Title + Urdu/Arabic Script */}
+				<div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-5 mb-2 sm:mb-3 animate-fade-in-up">
+					<h1 className="font-urdu text-12xl pb-8 sm:text-6xl md:text-8xl text-[#FAF8F5]/90 font-bold leading-none dir-rtl select-none drop-shadow-md">
+						تواصِی بالحَق
+					</h1>
+				</div>
+
+				{/* Subtext Description */}
+				<p className="mt-2 text-sm sm:text-base text-[#FAF8F5]/75 max-w-2xl font-sans tracking-wide leading-relaxed font-normal">
+					Contemporary statecraft, constitutionalism, and public
+					ethics examined through classical jurisprudence.
+				</p>
+			</div>
+		</section>
+	);
 }

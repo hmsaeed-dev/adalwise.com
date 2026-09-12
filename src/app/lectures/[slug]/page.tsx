@@ -4,12 +4,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { BookOpen, Play, ArrowRight } from "lucide-react";
 import {
-	getMediaBySlug,
-	getAllMedia,
-	getMediaBySeries,
-} from "@/lib/media/client";
+	getlecturesBySlug,
+	getAlllectures,
+	getlecturesBySeries,
+} from "@/lib/lectures/client";
 import { getRelatedContent } from "@/lib/content/related";
-import { YouTubeEmbed } from "@/components/media/YouTubeEmbed";
+import { YouTubeEmbed } from "@/components/lectures/YouTubeEmbed";
 import { constructMetadata } from "@/lib/seo/metadata";
 import { VideoObjectJsonLd, BreadcrumbJsonLd } from "@/lib/seo/jsonld";
 import { formatDuration, formatISODate } from "@/lib/utils";
@@ -19,26 +19,26 @@ interface PageProps {
 }
 
 export async function generateStaticParams() {
-	const media = await getAllMedia();
-	return media.map((m) => ({ slug: m.slug }));
+	const lectures = await getAlllectures();
+	return lectures.map((m) => ({ slug: m.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps) {
 	const { slug } = await params;
-	const item = await getMediaBySlug(slug);
+	const item = await getlecturesBySlug(slug);
 	if (!item) return {};
 
 	return constructMetadata({
 		title: item.title,
 		description: item.summary || item.description,
 		image: item.thumbnailUrl,
-		canonicalUrl: `/media/${slug}`,
+		canonicalUrl: `/lectures/${slug}`,
 	});
 }
 
-export default async function MediaDetailPage({ params }: PageProps) {
+export default async function lecturesDetailPage({ params }: PageProps) {
 	const { slug } = await params;
-	const item = await getMediaBySlug(slug);
+	const item = await getlecturesBySlug(slug);
 
 	if (!item) {
 		notFound();
@@ -46,12 +46,14 @@ export default async function MediaDetailPage({ params }: PageProps) {
 
 	// Fetch series companion episodes if part of a series
 	const seriesEpisodes = item.seriesId
-		? (await getMediaBySeries(item.seriesId)).filter((s) => s.slug !== slug)
+		? (await getlecturesBySeries(item.seriesId)).filter(
+				(s) => s.slug !== slug,
+			)
 		: [];
 
 	// Fetch cross-domain related content (articles + videos)
 	const related = await getRelatedContent({
-		currentType: "media",
+		currentType: "lectures",
 		currentSlug: slug,
 		explicitSlugs: item.relatedArticleSlugs,
 		seriesId: item.seriesId,
@@ -74,10 +76,10 @@ export default async function MediaDetailPage({ params }: PageProps) {
 			<BreadcrumbJsonLd
 				items={[
 					{ name: "Home", url: "https://Adlwise.com" },
-					{ name: "Lectures", url: "https://Adlwise.com/media" },
+					{ name: "Lectures", url: "https://Adlwise.com/lectures" },
 					{
 						name: item.title,
-						url: `https://Adlwise.com/media/${slug}`,
+						url: `https://Adlwise.com/lectures/${slug}`,
 					},
 				]}
 			/>
@@ -89,7 +91,7 @@ export default async function MediaDetailPage({ params }: PageProps) {
 			>
 				<span>/</span>
 				<Link
-					href="/media"
+					href="/lectures"
 					className="hover:text-primary transition-colors"
 				>
 					Lectures
@@ -173,7 +175,7 @@ export default async function MediaDetailPage({ params }: PageProps) {
 						{seriesEpisodes.map((ep) => (
 							<Link
 								key={ep.slug}
-								href={`/media/${ep.slug}`}
+								href={`/lectures/${ep.slug}`}
 								className="p-space-sm bg-surface-container rounded-xl flex items-center gap-space-sm hover:bg-surface-container-high transition-colors border border-surface-container-highest"
 							>
 								<div className="w-8 h-8 rounded-full bg-primary text-tertiary-fixed flex items-center justify-center shrink-0">

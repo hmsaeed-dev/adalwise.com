@@ -2,7 +2,6 @@ import React from "react";
 import { getAllMajlisSessions } from "@/lib/content/client";
 import {
   MajlisHero,
-  MajlisStudyGallery,
   MajlisSchedule,
 } from "@/features/majlis";
 import { constructMetadata } from "@/lib/seo/metadata";
@@ -20,7 +19,6 @@ export default async function MajlisPage() {
   return (
     <div className="flex flex-col w-full pb-space-2xl">
       <MajlisHero />
-      <MajlisStudyGallery />
       <MajlisSchedule sessions={sessions} />
     </div>
   );

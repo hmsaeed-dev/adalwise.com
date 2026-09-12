@@ -7,8 +7,8 @@ interface MajlisHeroProps {
 }
 
 export function MajlisHero({
-  desktopImageSrc = "/images/hero-section/majlis-hero.jpg",
-  mobileImageSrc = "/images/hero-section/majlis-hero.jpg",
+  desktopImageSrc = "/images/majlis-hero.jpg",
+  mobileImageSrc = "/images/majlis-hero.jpg",
 }: MajlisHeroProps = {}) {
   return (
     <section className="relative w-full min-h-[440px] sm:min-h-[480px] md:min-h-[520px] lg:min-h-[560px] flex flex-col items-center justify-center overflow-hidden bg-[#0d2619]">
@@ -42,7 +42,7 @@ export function MajlisHero({
 
         {/* ================= EDITORIAL OVERLAYS ================= */}
         {/* Base darkening vignette to ensure gold and off-white serif contrast */}
-        <div className="absolute inset-0 bg-[#0d2619]/45 md:bg-[#0d2619]/40 backdrop-brightness-95" />
+        <div className="absolute inset-0 bg-[#0d2619]/45 md:bg-[#0d2619]/20 backdrop-brightness-95" />
 
         {/* Radial warm golden wash from the center */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-transparent via-[#0d2619]/30 to-[#0a1b12]/80" />
@@ -50,8 +50,6 @@ export function MajlisHero({
         {/* Top gradient for nav bar contrast */}
         <div className="absolute inset-x-0 top-0 h-28 sm:h-32 bg-gradient-to-b from-[#0a1b12]/75 via-[#0a1b12]/30 to-transparent pointer-events-none" />
 
-        {/* Bottom gradient fade that bridges smoothly into the body background */}
-        <div className="absolute inset-x-0 bottom-0 h-24 sm:h-32 bg-gradient-to-t from-surface via-surface/30 to-transparent" />
       </div>
 
       {/* ================= HERO CONTENT LOCKUP (With top padding for transparent overlay navbar) ================= */}

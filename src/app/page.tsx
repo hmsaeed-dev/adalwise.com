@@ -1,12 +1,10 @@
 import React from "react";
 import {
 	HeroSection,
-	DiscourseHighlight,
 	StreamsSection,
 	FeaturedTreatiseCard,
 	SynthesisSection,
 } from "@/features/home";
-import { AudioPlayerWidget } from "@/components/media/AudioPlayerWidget";
 import { constructMetadata } from "@/lib/seo/metadata";
 
 export const metadata = constructMetadata({

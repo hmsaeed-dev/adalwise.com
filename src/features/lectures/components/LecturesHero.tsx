@@ -1,14 +1,14 @@
-import React from 'react';
-import Image from 'next/image';
+import React from "react";
+import Image from "next/image";
 
 interface LecturesHeroProps {
-  desktopImageSrc?: string;
-  mobileImageSrc?: string;
+	desktopImageSrc?: string;
+	mobileImageSrc?: string;
 }
 
-export function MediaHero({
-	desktopImageSrc = "/images/hero-section/lectures-page-hero-image.jpg",
-	mobileImageSrc = "/images/hero-section/lectures-page-hero-image.jpg",
+export function LecturesHero({
+	desktopImageSrc = "/images/lectures-hero.jpg",
+	mobileImageSrc = "/images/lectures-hero.jpg",
 }: LecturesHeroProps) {
 	return (
 		<section className="relative w-full min-h-[440px] sm:min-h-[480px] md:min-h-[520px] lg:min-h-[560px] flex flex-col items-center justify-center overflow-hidden bg-[#0d2619]">
@@ -44,9 +44,6 @@ export function MediaHero({
 
 				{/* Radial warm golden wash from the arched window center */}
 				<div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-transparent via-[#0d2619]/30 to-[#0a1b12]/80" />
-
-				{/* Bottom gradient fade that bridges smoothly into the body background */}
-				<div className="absolute inset-x-0 bottom-0 h-24 sm:h-32 bg-gradient-to-t from-surface via-surface/30 to-transparent" />
 			</div>
 
 			{/* ================= HERO CONTENT LOCKUP (With top padding for transparent overlay navbar) ================= */}
@@ -60,7 +57,8 @@ export function MediaHero({
 
 				{/* Subtext description */}
 				<p className="mt-2 text-sm sm:text-sm text-[#FAF8F5]/75 max-w-xl font-sans tracking-wide leading-relaxed font-normal">
-					Quran Tafsir and recorded scholarly seminars from Dr. Hafiz Haseeb.
+					Quran Tafsir and recorded scholarly seminars from Dr. Hafiz
+					Haseeb.
 				</p>
 			</div>
 		</section>

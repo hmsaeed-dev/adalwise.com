@@ -11,12 +11,6 @@ interface MajlisScheduleProps {
 export function MajlisSchedule({ sessions }: MajlisScheduleProps) {
   return (
     <section className="w-full max-w-container-max mx-auto px-gutter-mobile md:px-gutter-desktop py-space-xl flex flex-col gap-space-lg">
-      <div className="flex items-baseline justify-between border-b border-surface-container-high pb-space-xs">
-        <h2 className="font-headline-lg text-primary font-bold">
-          Gatherings
-        </h2>
-      </div>
-
       <div className="flex flex-col gap-space-md">
         {sessions.map(({ slug, session }) => (
           <div

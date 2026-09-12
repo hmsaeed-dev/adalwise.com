@@ -30,37 +30,6 @@ export function ScholarDossier() {
 					</p>
 				</div>
 			</div>
-
-			{/* Narrative Dossier: Intellectual Ethos */}
-			<div className="mt-space-xl p-space-lg rounded-[24px] bg-surface-container-low/80 border border-surface-container-high flex flex-col gap-space-md">
-				<div className="flex items-center justify-between border-b border-surface-container-high pb-space-xs">
-					<span className="font-label-md text-label-md uppercase tracking-widest text-primary font-bold flex items-center gap-space-2xs">
-						<span className="text-tertiary-container">♦</span>{" "}
-						Intellectual Mandate
-					</span>
-					<span className="font-urdu text-body-sm text-on-surface-variant dir-rtl font-semibold">
-						منہجِ فکر و تحقیق
-					</span>
-				</div>
-
-				<p className="font-body-md text-on-surface leading-relaxed">
-					Adlwise re-anchors contemporary legal and constitutional
-					inquiry inside classical methodologies—interrogating textual
-					jurisprudence with constitutional precision rather than
-					modern ideological expediency.
-				</p>
-
-				<div className="pt-space-xs flex flex-col gap-space-xs border-l-2 border-tertiary-container pl-space-md my-space-xs">
-					<p className="font-headline-sm text-primary italic leading-relaxed text-[17px]">
-						“Justice without wisdom is sterile; wisdom without
-						rigorous textual lineage is rudderless.”
-					</p>
-					<span className="font-urdu text-[14px] text-tertiary dir-rtl mt-space-2xs font-semibold">
-						— عدل بغیر حکمت کے ناقص ہے، اور حکمت بغیر مستند اسناد کے
-						بے بنیاد۔
-					</span>
-				</div>
-			</div>
 		</section>
 	);
 }

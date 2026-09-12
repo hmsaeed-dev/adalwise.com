@@ -2,10 +2,10 @@ import React from "react";
 import Link from "next/link";
 
 interface StreamCard {
-  title: string;
-  description: string;
-  href: string;
-  image: string;
+	title: string;
+	description: string;
+	href: string;
+	image: string;
 }
 
 const streams: StreamCard[] = [
@@ -14,7 +14,7 @@ const streams: StreamCard[] = [
 		description:
 			"Deliberative critiques, academic treatises, statecraft and  jurisprudence.",
 		href: "/twasi-al-haq",
-		image: "/images/twasi-al-haq.jpg",
+		image: "/images/twasi.jpg",
 	},
 	{
 		title: "Majlis Events",
@@ -27,24 +27,24 @@ const streams: StreamCard[] = [
 		title: "Lecture Series",
 		description:
 			"Systematic Quranic Tafsir, Seerat, and a growing catalogue of recorded lectures.",
-		href: "/media",
+		href: "/lectures",
 		image: "/images/lectures-hero.jpg",
 	},
 ];
 
 export function StreamsSection() {
-  return (
+	return (
 		<section className="w-full overflow-hidden bg-background px-gutter-mobile pt-space-2xl pb-space-2xl md:px-gutter-desktop">
 			<div className="mx-auto w-full max-w-container-max">
 				{/* Heading */}
 				<div className="mx-auto max-w-2xl text-center">
-					<h2 className="font-headline-lg text-5xl font-medium tracking-tight text-primary md:text-4xl">
+					<h2 className="font-headline-lg text-5xl font-medium tracking-tight text-primary md:text-5xl">
 						Academic Streams
 					</h2>
 				</div>
 
 				{/* Streams */}
-				<div className="relative mt-14 md:mt-20">
+				<div className="relative mt-6 md:mt-20">
 					{/* Mobile vertical connecting line */}
 					<div
 						aria-hidden="true"
@@ -94,5 +94,5 @@ export function StreamsSection() {
 				</div>
 			</div>
 		</section>
-  );
+	);
 }
