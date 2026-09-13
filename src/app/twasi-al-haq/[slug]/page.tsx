@@ -9,6 +9,7 @@ import { MDXRenderer } from "@/components/content/MDXRenderer";
 import { constructMetadata } from "@/lib/seo/metadata";
 import { ScholarlyArticleJsonLd, BreadcrumbJsonLd } from "@/lib/seo/jsonld";
 import { formatISODate } from "@/lib/utils";
+import { siteConfig } from "@/config/site";
 
 interface PageProps {
 	params: Promise<{ slug: string }>;
@@ -45,7 +46,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 	const related = await getRelatedContent({
 		currentType: "article",
 		currentSlug: slug,
-		explicitSlugs: frontmatter.relatedlecturesSlugs,
+		explicitSlugs: frontmatter.relatedLectureSlugs,
 		seriesId: frontmatter.seriesId,
 		topics: frontmatter.topics,
 		tags: frontmatter.tags,
@@ -60,19 +61,19 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 				description={frontmatter.excerpt}
 				datePublished={frontmatter.publishedAt}
 				authorName={frontmatter.author.name}
-				url={`https://Adlwise.com/twasi-al-haq/${slug}`}
+				url={`${siteConfig.url}/twasi-al-haq/${slug}`}
 				image={frontmatter.coverImage}
 			/>
 			<BreadcrumbJsonLd
 				items={[
-					{ name: "Home", url: "https://Adlwise.com" },
+					{ name: "Home", url: siteConfig.url },
 					{
 						name: "Twasi al-Haq",
-						url: "https://Adlwise.com/twasi-al-haq",
+						url: `${siteConfig.url}/twasi-al-haq`,
 					},
 					{
 						name: frontmatter.title,
-						url: `https://Adlwise.com/twasi-al-haq/${slug}`,
+						url: `${siteConfig.url}/twasi-al-haq/${slug}`,
 					},
 				]}
 			/>

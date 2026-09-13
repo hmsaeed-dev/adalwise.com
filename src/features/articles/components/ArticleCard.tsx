@@ -79,7 +79,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
 						className="text-primary font-semibold hover:underline flex items-center gap-1"
 					>
 						<span>Read</span>
-						<ArrowRight className="w-4.5 h-3.5" />
+						<ArrowRight className="w-4 h-4" />
 					</Link>
 				</div>
 			</div>

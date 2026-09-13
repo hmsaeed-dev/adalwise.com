@@ -26,7 +26,7 @@ export const ArticleFrontmatterSchema = z.object({
 	topics: z.array(z.string()).default([]),
 	tags: z.array(z.string()).default([]),
 	coverImage: z.string().optional(),
-	relatedlecturesSlugs: z.array(z.string()).default([]),
+	relatedLectureSlugs: z.array(z.string()).default([]),
 	relatedArticleSlugs: z.array(z.string()).default([]),
 });
 
@@ -35,35 +35,6 @@ export type ArticleFrontmatter = z.infer<typeof ArticleFrontmatterSchema>;
 export interface ArticleDoc {
 	slug: string;
 	frontmatter: ArticleFrontmatter;
-	content: string;
-}
-
-export const DispatchFrontmatterSchema = z.object({
-	title: z.string(),
-	urduTitle: z.string().optional(),
-	excerpt: z.string(),
-	author: AuthorSchema,
-	publishedAt: z.string(),
-	readTime: z.string(),
-	category: z.enum([
-		"Tafsir",
-		"Seerat",
-		"Socio-Political",
-		"Constitutional Law",
-		"Ethics",
-		"Statecraft",
-	]),
-	topics: z.array(z.string()).default([]),
-	tags: z.array(z.string()).default([]),
-	relatedlecturesSlugs: z.array(z.string()).default([]),
-	relatedArticleSlugs: z.array(z.string()).default([]),
-});
-
-export type DispatchFrontmatter = z.infer<typeof DispatchFrontmatterSchema>;
-
-export interface DispatchDoc {
-	slug: string;
-	frontmatter: DispatchFrontmatter;
 	content: string;
 }
 

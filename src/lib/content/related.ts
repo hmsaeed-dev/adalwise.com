@@ -1,6 +1,6 @@
 import { getAllArticles } from "./client";
-import { getAlllectures } from "@/lib/lectures/client";
-import { lecturesItem } from "@/lib/lectures/types";
+import { getAllLectures } from "@/lib/lectures/client";
+import { LectureItem } from "@/lib/lectures/types";
 import { ArticleDoc } from "./schemas";
 
 export interface UnifiedRelatedItem {
@@ -14,6 +14,7 @@ export interface UnifiedRelatedItem {
 	seriesId?: string;
 	publishedAt: string;
 	thumbnailUrl?: string;
+	topics: string[];
 }
 
 export async function getRelatedContent(params: {
@@ -37,9 +38,9 @@ export async function getRelatedContent(params: {
 		limit = 3,
 	} = params;
 
-	const [articles, lecturesItems] = await Promise.all([
+	const [articles, lectureList] = await Promise.all([
 		getAllArticles(),
-		getAlllectures(),
+		getAllLectures(),
 	]);
 
 	const results: { item: UnifiedRelatedItem; score: number }[] = [];
@@ -57,10 +58,11 @@ export async function getRelatedContent(params: {
 		seriesId: a.frontmatter.seriesId,
 		publishedAt: a.frontmatter.publishedAt,
 		thumbnailUrl: a.frontmatter.coverImage,
+		topics: a.frontmatter.topics || [],
 	}));
 
 	// Convert lectures to unified model
-	const unifiedlectures: UnifiedRelatedItem[] = lecturesItems.map((m) => ({
+	const unifiedLectures: UnifiedRelatedItem[] = lectureList.map((m) => ({
 		type: "lectures",
 		title: m.title,
 		urduTitle: m.urduTitle,
@@ -71,29 +73,31 @@ export async function getRelatedContent(params: {
 		seriesId: m.seriesId,
 		publishedAt: m.publishedAt,
 		thumbnailUrl: m.thumbnailUrl,
+		topics: m.topics || [],
 	}));
 
-	const pool = [...unifiedArticles, ...unifiedlectures];
+	const pool = [...unifiedArticles, ...unifiedLectures];
+	const poolMap = new Map<string, UnifiedRelatedItem>(
+		pool.map((item) => [item.slug, item]),
+	);
 
 	// 1. Check Explicit Slugs
 	for (const explicit of explicitSlugs) {
-		const match = pool.find(
-			(p) => p.slug === explicit && !addedSlugs.has(p.slug),
-		);
-		if (match) {
+		const match = poolMap.get(explicit);
+		if (match && !addedSlugs.has(match.slug)) {
 			results.push({ item: match, score: 100 });
 			addedSlugs.add(match.slug);
 		}
 	}
 
-	// 2. Check Inferred Reverse References (e.g. if an article references this lectures item)
+	// 2. Check Inferred Reverse References (e.g. if an article references this lecture item)
 	if (currentType === "lectures") {
 		for (const a of articles) {
 			if (
-				a.frontmatter.relatedlecturesSlugs.includes(currentSlug) &&
+				a.frontmatter.relatedLectureSlugs.includes(currentSlug) &&
 				!addedSlugs.has(a.slug)
 			) {
-				const item = unifiedArticles.find((u) => u.slug === a.slug);
+				const item = poolMap.get(a.slug);
 				if (item) {
 					results.push({ item, score: 90 });
 					addedSlugs.add(item.slug);
@@ -101,12 +105,12 @@ export async function getRelatedContent(params: {
 			}
 		}
 	} else if (currentType === "article") {
-		for (const m of lecturesItems) {
+		for (const m of lectureList) {
 			if (
 				m.relatedArticleSlugs?.includes(currentSlug) &&
 				!addedSlugs.has(m.slug)
 			) {
-				const item = unifiedlectures.find((u) => u.slug === m.slug);
+				const item = poolMap.get(m.slug);
 				if (item) {
 					results.push({ item, score: 90 });
 					addedSlugs.add(item.slug);
@@ -117,32 +121,24 @@ export async function getRelatedContent(params: {
 
 	// 3. Taxonomic scoring for remainder if limit not reached
 	if (results.length < limit) {
+		const targetTopicsLower = new Set(topics.map((t) => t.toLowerCase()));
+
 		for (const candidate of pool) {
 			if (addedSlugs.has(candidate.slug)) continue;
 
 			let score = 0;
 			if (seriesId && candidate.seriesId === seriesId) score += 40;
-			if (category && candidate.category === category) score += 15;
+			if (category && candidate.category.toLowerCase() === category.toLowerCase()) score += 15;
 
-			// Check topics overlap
-			if (candidate.type === "article") {
-				const art = articles.find((a) => a.slug === candidate.slug);
-				if (art) {
-					const overlap = art.frontmatter.topics.filter((t) =>
-						topics.includes(t),
-					).length;
-					score += overlap * 10;
+			// Direct O(1) topic overlap without re-scanning arrays
+			if (targetTopicsLower.size > 0 && candidate.topics.length > 0) {
+				let overlap = 0;
+				for (const t of candidate.topics) {
+					if (targetTopicsLower.has(t.toLowerCase())) {
+						overlap++;
+					}
 				}
-			} else {
-				const med = lecturesItems.find(
-					(m) => m.slug === candidate.slug,
-				);
-				if (med) {
-					const overlap = med.topics.filter((t) =>
-						topics.includes(t),
-					).length;
-					score += overlap * 10;
-				}
+				score += overlap * 10;
 			}
 
 			if (score > 0) {

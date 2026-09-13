@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { getPaginatedlectures } from "@/lib/lectures/client";
+import { getPaginatedLectures } from "@/lib/lectures/client";
 import {
 	LecturesHero,
 	LecturesSearchFilter,
@@ -30,7 +30,7 @@ export default async function lecturesCatalogPage({ searchParams }: PageProps) {
 	const query = resolvedParams.q;
 	const seriesId = resolvedParams.series;
 
-	const result = await getPaginatedlectures({
+	const result = await getPaginatedLectures({
 		page,
 		limit: 12,
 		category,

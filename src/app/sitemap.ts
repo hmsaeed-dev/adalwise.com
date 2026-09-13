@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site";
 import { getAllArticles, getAllMajlisSessions } from "@/lib/content/client";
-import { getAlllectures } from "@/lib/lectures/client";
+import { getAllLectures } from "@/lib/lectures/client";
 import { SERIES_LIST, TOPICS_LIST } from "@/lib/taxonomy/registry";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -57,11 +57,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	}));
 
 	// Dynamic lectures items
-	const lecturesItems = await getAlllectures();
-	const lecturesRoutes: MetadataRoute.Sitemap = lecturesItems.map((m) => ({
+	const lectures = await getAllLectures();
+	const lecturesRoutes: MetadataRoute.Sitemap = lectures.map((m) => ({
 		url: `${baseUrl}/lectures/${m.slug}`,
 		lastModified: new Date(m.publishedAt),
 		changeFrequency: "weekly",
+		priority: 0.8,
+	}));
+
+	// Dynamic Majlis sessions
+	const majlisSessions = await getAllMajlisSessions();
+	const majlisRoutes: MetadataRoute.Sitemap = majlisSessions.map((s) => ({
+		url: `${baseUrl}/majlis/${s.slug}`,
+		lastModified: new Date(s.session.date),
+		changeFrequency: "monthly",
 		priority: 0.8,
 	}));
 
@@ -85,6 +94,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		...staticRoutes,
 		...articleRoutes,
 		...lecturesRoutes,
+		...majlisRoutes,
 		...seriesRoutes,
 		...topicRoutes,
 	];

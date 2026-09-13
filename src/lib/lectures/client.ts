@@ -1,50 +1,50 @@
 import { cache } from "react";
 import catalogData from "./catalog.json";
 import {
-	lecturesItem,
-	lecturesQueryParams,
-	PaginatedlecturesResult,
+	LectureItem,
+	LectureQueryParams,
+	PaginatedLecturesResult,
 } from "./types";
 
-const lecturesCatalog = catalogData as lecturesItem[];
+const lecturesCatalog = catalogData as LectureItem[];
 
 // Fast in-memory lookup map by slug
-const lecturesBySlugMap = new Map<string, lecturesItem>(
+const lecturesBySlugMap = new Map<string, LectureItem>(
 	lecturesCatalog.map((item) => [item.slug, item]),
 );
 
-export const getAlllectures = cache(async (): Promise<lecturesItem[]> => {
+export const getAllLectures = cache(async (): Promise<LectureItem[]> => {
 	return lecturesCatalog;
 });
 
-export const getlecturesBySlug = cache(
-	async (slug: string): Promise<lecturesItem | null> => {
+export const getLectureBySlug = cache(
+	async (slug: string): Promise<LectureItem | null> => {
 		return lecturesBySlugMap.get(slug) || null;
 	},
 );
 
-export const getFeaturedlectures = cache(
-	async (): Promise<lecturesItem | null> => {
+export const getFeaturedLecture = cache(
+	async (): Promise<LectureItem | null> => {
 		return lecturesCatalog[0] || null;
 	},
 );
 
-export const getRecentlectures = cache(
-	async (limit = 4): Promise<lecturesItem[]> => {
+export const getRecentLectures = cache(
+	async (limit = 4): Promise<LectureItem[]> => {
 		return lecturesCatalog.slice(0, limit);
 	},
 );
 
-export const getlecturesBySeries = cache(
-	async (seriesId: string): Promise<lecturesItem[]> => {
+export const getLecturesBySeries = cache(
+	async (seriesId: string): Promise<LectureItem[]> => {
 		return lecturesCatalog.filter((item) => item.seriesId === seriesId);
 	},
 );
 
-export const getPaginatedlectures = cache(
+export const getPaginatedLectures = cache(
 	async (
-		params: lecturesQueryParams = {},
-	): Promise<PaginatedlecturesResult> => {
+		params: LectureQueryParams = {},
+	): Promise<PaginatedLecturesResult> => {
 		const {
 			page = 1,
 			limit = 24,
@@ -101,3 +101,11 @@ export const getPaginatedlectures = cache(
 		};
 	},
 );
+
+// Backward-compatibility aliases
+export const getAlllectures = getAllLectures;
+export const getlecturesBySlug = getLectureBySlug;
+export const getFeaturedlectures = getFeaturedLecture;
+export const getRecentlectures = getRecentLectures;
+export const getlecturesBySeries = getLecturesBySeries;
+export const getPaginatedlectures = getPaginatedLectures;

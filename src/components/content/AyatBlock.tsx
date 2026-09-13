@@ -24,7 +24,7 @@ export function AyatBlock({ arabic, translation, surah, ayatNumber }: AyatBlockP
       </p>
 
       {/* English Translation */}
-      <p className="font-serif italic text-on-surface text-[16px] sm:text-[17px] leading-relaxed max-w-xl text-secondary">
+      <p className="font-serif italic text-[16px] sm:text-[17px] leading-relaxed max-w-xl text-secondary">
         “{translation}”
       </p>
 

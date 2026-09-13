@@ -18,6 +18,7 @@ export default async function Image() {
 			process.cwd(),
 			"public",
 			"images",
+			"assets",
 			"logo-badge.png",
 		);
 		if (fs.existsSync(logoPath)) {

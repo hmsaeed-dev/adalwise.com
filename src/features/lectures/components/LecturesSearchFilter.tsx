@@ -1,21 +1,23 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Search, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-interface CategoryCount {
+interface CategoryOption {
 	label: string;
 	value: string;
 }
 
-const CATEGORIES_WITH_COUNTS: CategoryCount[] = [
+const CATEGORIES_LIST: CategoryOption[] = [
 	{ label: "All", value: "all" },
 	{ label: "Tafsir", value: "Tafsir" },
 	{ label: "Seerat", value: "Seerat" },
 	{ label: "Socio-Political", value: "Socio-Political" },
 	{ label: "Constitutional Law", value: "Constitutional Law" },
+	{ label: "Ethics", value: "Ethics" },
+	{ label: "Statecraft", value: "Statecraft" },
 ];
 
 export function LecturesSearchFilter() {
@@ -23,19 +25,31 @@ export function LecturesSearchFilter() {
 	const searchParams = useSearchParams();
 
 	const currentCategory = searchParams.get("category") || "all";
-	const currentQuery = searchParams.get("q") || "";
+	const currentQueryParam = searchParams.get("q") || "";
+	const [searchTerm, setSearchTerm] = useState(currentQueryParam);
 
-	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const val = e.target.value;
-		const params = new URLSearchParams(searchParams.toString());
-		if (val) {
-			params.set("q", val);
-		} else {
-			params.delete("q");
-		}
-		params.set("page", "1");
-		router.replace(`/lectures?${params.toString()}`);
-	};
+	// Sync local input state if URL param changes externally
+	useEffect(() => {
+		setSearchTerm(currentQueryParam);
+	}, [currentQueryParam]);
+
+	// Debounced URL update to avoid flooding the server on each keystroke
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			if (searchTerm === currentQueryParam) return;
+
+			const params = new URLSearchParams(searchParams.toString());
+			if (searchTerm.trim()) {
+				params.set("q", searchTerm.trim());
+			} else {
+				params.delete("q");
+			}
+			params.set("page", "1");
+			router.replace(`/lectures?${params.toString()}`);
+		}, 300);
+
+		return () => clearTimeout(timer);
+	}, [searchTerm, currentQueryParam, searchParams, router]);
 
 	const handleCategorySelect = (val: string) => {
 		const params = new URLSearchParams(searchParams.toString());
@@ -49,8 +63,10 @@ export function LecturesSearchFilter() {
 	};
 
 	const clearSearch = () => {
+		setSearchTerm("");
 		const params = new URLSearchParams(searchParams.toString());
 		params.delete("q");
+		params.set("page", "1");
 		router.replace(`/lectures?${params.toString()}`);
 	};
 
@@ -62,12 +78,12 @@ export function LecturesSearchFilter() {
 					<Search className="w-4 h-4 text-outline mr-space-xs shrink-0" />
 					<input
 						type="text"
-						value={currentQuery}
-						onChange={handleSearchChange}
+						value={searchTerm}
+						onChange={(e) => setSearchTerm(e.target.value)}
 						placeholder="Search surahs, topics..."
 						className="w-full bg-transparent text-on-surface placeholder:text-on-surface-variant/60 font-body-sm text-body-sm focus:outline-none"
 					/>
-					{currentQuery && (
+					{searchTerm && (
 						<button
 							type="button"
 							onClick={clearSearch}
@@ -82,7 +98,7 @@ export function LecturesSearchFilter() {
 
 			{/* Horizontal Category Filter Pills */}
 			<div className="-mx-gutter-mobile px-gutter-mobile md:mx-0 md:px-0 flex items-center gap-space-xs overflow-x-auto no-scrollbar pb-1">
-				{CATEGORIES_WITH_COUNTS.map((cat) => {
+				{CATEGORIES_LIST.map((cat) => {
 					const isActive =
 						currentCategory.toLowerCase() ===
 						cat.value.toLowerCase();

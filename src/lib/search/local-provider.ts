@@ -1,13 +1,21 @@
-import { cache } from "react";
 import { getAllArticles, getAllMajlisSessions } from "@/lib/content/client";
-import { getAlllectures } from "@/lib/lectures/client";
+import { getAllLectures } from "@/lib/lectures/client";
 import { formatDuration, formatISODate } from "@/lib/utils";
 import { SearchOptions, SearchProvider, SearchResult } from "./types";
 
-const getCachedSearchPool = cache(async (): Promise<SearchResult[]> => {
-	const [articles, lecturesList, majlisList] = await Promise.all([
+let memorySearchPool: SearchResult[] | null = null;
+let lastPoolBuildTime = 0;
+const CACHE_TTL_MS = 60 * 1000; // 1 minute in-memory cache for fast API route responses
+
+async function getSearchPool(): Promise<SearchResult[]> {
+	const now = Date.now();
+	if (memorySearchPool && now - lastPoolBuildTime < CACHE_TTL_MS) {
+		return memorySearchPool;
+	}
+
+	const [articles, lectureList, majlisList] = await Promise.all([
 		getAllArticles(),
-		getAlllectures(),
+		getAllLectures(),
 		getAllMajlisSessions(),
 	]);
 
@@ -28,7 +36,7 @@ const getCachedSearchPool = cache(async (): Promise<SearchResult[]> => {
 		});
 	}
 
-	for (const m of lecturesList) {
+	for (const m of lectureList) {
 		pool.push({
 			type: "lectures",
 			id: m.slug,
@@ -39,7 +47,7 @@ const getCachedSearchPool = cache(async (): Promise<SearchResult[]> => {
 			category: m.category,
 			tags: m.tags,
 			date: formatISODate(m.publishedAt),
-			meta: `${formatDuration(m.durationSeconds)}`,
+			meta: formatDuration(m.durationSeconds),
 		});
 	}
 
@@ -58,8 +66,10 @@ const getCachedSearchPool = cache(async (): Promise<SearchResult[]> => {
 		});
 	}
 
+	memorySearchPool = pool;
+	lastPoolBuildTime = now;
 	return pool;
-});
+}
 
 export class LocalSearchProvider implements SearchProvider {
 	async search(
@@ -73,7 +83,7 @@ export class LocalSearchProvider implements SearchProvider {
 			return [];
 		}
 
-		const pool = await getCachedSearchPool();
+		const pool = await getSearchPool();
 
 		const filtered = pool.filter((item) => {
 			if (type !== "all" && item.type !== type) {

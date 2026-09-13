@@ -4,10 +4,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { BookOpen, Play, ArrowRight } from "lucide-react";
 import {
-	getlecturesBySlug,
-	getAlllectures,
-	getlecturesBySeries,
+	getLectureBySlug,
+	getAllLectures,
+	getLecturesBySeries,
 } from "@/lib/lectures/client";
+import { siteConfig } from "@/config/site";
 import { getRelatedContent } from "@/lib/content/related";
 import { YouTubeEmbed } from "@/components/lectures/YouTubeEmbed";
 import { constructMetadata } from "@/lib/seo/metadata";
@@ -19,13 +20,13 @@ interface PageProps {
 }
 
 export async function generateStaticParams() {
-	const lectures = await getAlllectures();
+	const lectures = await getAllLectures();
 	return lectures.map((m) => ({ slug: m.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps) {
 	const { slug } = await params;
-	const item = await getlecturesBySlug(slug);
+	const item = await getLectureBySlug(slug);
 	if (!item) return {};
 
 	return constructMetadata({
@@ -38,7 +39,7 @@ export async function generateMetadata({ params }: PageProps) {
 
 export default async function lecturesDetailPage({ params }: PageProps) {
 	const { slug } = await params;
-	const item = await getlecturesBySlug(slug);
+	const item = await getLectureBySlug(slug);
 
 	if (!item) {
 		notFound();
@@ -46,7 +47,7 @@ export default async function lecturesDetailPage({ params }: PageProps) {
 
 	// Fetch series companion episodes if part of a series
 	const seriesEpisodes = item.seriesId
-		? (await getlecturesBySeries(item.seriesId)).filter(
+		? (await getLecturesBySeries(item.seriesId)).filter(
 				(s) => s.slug !== slug,
 			)
 		: [];
@@ -75,11 +76,11 @@ export default async function lecturesDetailPage({ params }: PageProps) {
 			/>
 			<BreadcrumbJsonLd
 				items={[
-					{ name: "Home", url: "https://Adlwise.com" },
-					{ name: "Lectures", url: "https://Adlwise.com/lectures" },
+					{ name: "Home", url: siteConfig.url },
+					{ name: "Lectures", url: `${siteConfig.url}/lectures` },
 					{
 						name: item.title,
-						url: `https://Adlwise.com/lectures/${slug}`,
+						url: `${siteConfig.url}/lectures/${slug}`,
 					},
 				]}
 			/>
@@ -154,7 +155,7 @@ export default async function lecturesDetailPage({ params }: PageProps) {
 				<section className="pt-space-md flex flex-col gap-space-md">
 					<div className="flex items-baseline justify-between border-b border-surface-container-high pb-space-xs">
 						<h3 className="font-headline-sm text-primary font-bold">
-							Realted Episodes
+							Related Episodes
 						</h3>
 						<span className="font-label-sm text-on-surface-variant">
 							{seriesEpisodes.length} more

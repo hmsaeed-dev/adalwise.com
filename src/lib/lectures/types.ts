@@ -1,19 +1,19 @@
 import { MainCategory } from "@/lib/taxonomy/types";
 
-export interface lecturesSpeaker {
+export interface LectureSpeaker {
 	name: string;
 	urduName?: string;
 	title: string;
 	avatarUrl?: string;
 }
 
-export interface lecturesItem {
+export interface LectureItem {
 	id: string;
 	slug: string;
 	youtubeId: string;
 	title: string;
 	urduTitle?: string;
-	speaker: lecturesSpeaker;
+	speaker: LectureSpeaker;
 	description: string;
 	summary?: string;
 	durationSeconds: number;
@@ -27,7 +27,7 @@ export interface lecturesItem {
 	audioUrl?: string;
 }
 
-export interface lecturesQueryParams {
+export interface LectureQueryParams {
 	page?: number;
 	limit?: number;
 	category?: string;
@@ -36,10 +36,16 @@ export interface lecturesQueryParams {
 	query?: string;
 }
 
-export interface PaginatedlecturesResult {
-	items: lecturesItem[];
+export interface PaginatedLecturesResult {
+	items: LectureItem[];
 	total: number;
 	page: number;
 	totalPages: number;
 	hasMore: boolean;
 }
+
+// Backward compatibility aliases during refactor
+export type lecturesSpeaker = LectureSpeaker;
+export type lecturesItem = LectureItem;
+export type lecturesQueryParams = LectureQueryParams;
+export type PaginatedlecturesResult = PaginatedLecturesResult;

@@ -42,7 +42,7 @@ export function YouTubeEmbed({
 				<iframe
 					src={`https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&rel=0`}
 					title={title}
-					allow="accelerometer; autoplay; clipboard-write; encrypted-lectures; gyroscope; picture-in-picture"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 					allowFullScreen
 					className="absolute inset-0 w-full h-full border-0"
 				/>

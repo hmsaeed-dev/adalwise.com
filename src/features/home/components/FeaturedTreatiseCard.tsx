@@ -22,7 +22,7 @@ export function FeaturedTreatiseCard() {
 				</div>
 
 				<p className="font-body-md text-on-surface leading-relaxed italic">
-					“Dolor dolore est voluptate adipisicing adipisicing aliquip officia esse..”
+					“A juristic deconstruction of the Charter of Medina as a primary legal paradigm for constitutional citizenship, pluralistic equity, and mutual covenantalism.”
 				</p>
 
 				<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs pt-space-xs">

@@ -6,18 +6,18 @@ export function SynthesisSection() {
   const pillars = [
     {
       num: "I.",
-      title: "Kalma",
-      desc: "Adipisicing esse et in sint sunt. Non enim est tempor adipisicing. Deserunt voluptate non eu ex minim dolor anim. Labore exercitation nostrud nulla eiusmod.",
+      title: "Divine Order (Tawhid)",
+      desc: "Foundational grounding of divine unity and metaphysical order that frames all moral responsibility, covenantal accountability, and judicial ethics.",
     },
     {
       num: "II.",
-      title: "Concept of ('Illah)",
-      desc: "Labore esse quis non et culpa ullamco ut aliquip dolore incididunt. Deserunt cillum commodo cillum sunt commodo consectetur ea sit.",
+      title: "Operative Ratio ('Illah)",
+      desc: "Classical legal causation enabling dynamic juristic extraction of normative rulings to address novel socio-economic and statutory realities.",
     },
     {
       num: "III.",
-      title: "Socio-political",
-      desc: "Sit laboris anim anim tempor Lorem reprehenderit magna et adipisicing. Ea quis tempor dolor sunt esse anim velit amet cupidatat occaecat do aute excepteur.",
+      title: "Constitutional Statecraft",
+      desc: "Harmonizing civic constitutional covenants, institutional justice (Adl), and public welfare (Maslahah Mursalah) within a pluralistic society.",
     },
   ];
 

@@ -19,7 +19,7 @@ export default function JoinPage() {
 						Join the Circle
 					</h1>
 					<p className="font-body-md text-on-surface-variant max-w-lg leading-relaxed mt-space-xs">
-						Join us on academic fellowship dedicated to .........
+						Join an academic fellowship dedicated to substantive jurisprudence, constitutional equity, and deliberative scholarly discourse.
 					</p>
 				</div>
 			</section>
