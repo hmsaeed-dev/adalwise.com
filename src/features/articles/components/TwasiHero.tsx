@@ -41,17 +41,13 @@ export function TwasiHero({
 			</div>
 
 			{/* Hero Content Lockup */}
-			<div className="relative z-10 w-full max-w-4xl mx-auto px-6 pt-28 sm:pt-32 md:pt-36 pb-16 sm:pb-20 text-center flex flex-col items-center justify-center">
+			<div className="relative gap-12 z-10 w-full max-w-4xl mx-auto px-6 pt-28 sm:pt-32 md:pt-36 pb-16 sm:pb-20 text-center flex flex-col items-center justify-center">
 				<div className="flex flex-col items-center justify-center gap-2 mb-2 sm:mb-3 animate-fade-in-up">
 					<h1 className="font-urdu text-6xl sm:text-7xl md:text-8xl text-[#FAF8F5]/90 font-bold leading-none dir-rtl select-none drop-shadow-md">
 						تواصِی بالحَق
 					</h1>
-					<span className="font-serif text-2xl sm:text-3xl text-brand-gold font-normal tracking-editorial uppercase mt-2">
-						Twasi al-Haq
-					</span>
-				</div>
 
-				<div className="h-[2px] w-16 sm:w-20 bg-brand-gold/70 my-2 rounded-full drop-shadow" />
+				</div>
 
 				<p className="mt-2 text-sm sm:text-base text-[#FAF8F5]/85 max-w-2xl font-sans tracking-wide leading-relaxed font-normal">
 					Contemporary statecraft, constitutionalism, and public ethics examined through classical Islamic jurisprudence.

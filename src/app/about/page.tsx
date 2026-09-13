@@ -19,61 +19,85 @@ export default function AboutPage() {
 			<div className="w-full max-w-4xl mx-auto px-6 md:px-8 py-12 md:py-16 flex flex-col gap-12 sm:gap-16">
 				{/* Section 1: The Mandate */}
 				<section className="flex flex-col gap-4">
-					<div className="flex items-center gap-2 text-xs font-sans uppercase tracking-widest text-brand-gold font-semibold">
-						<Compass className="w-4 h-4" />
-						<span>The Mandate</span>
-					</div>
 					<h2 className="font-serif text-3xl sm:text-4xl text-primary font-normal leading-tight">
 						Restoring the Union of Justice and Wisdom
 					</h2>
 					<p className="font-serif italic text-lg text-secondary leading-relaxed">
-						“Adl wa Hikmah” — Grounding contemporary civic, legal, and constitutional discourse in the timeless epistemological traditions of classical jurisprudence.
+						“Adl wa Hikmah” — Grounding contemporary civic, legal,
+						and constitutional discourse in the timeless
+						epistemological traditions of classical jurisprudence.
 					</p>
 					<div className="font-body-md text-on-surface-variant leading-relaxed space-y-4 pt-2">
 						<p>
-							Adlwise is an independent intellectual initiative dedicated to reviving substantive legal reasoning, constitutional equity, and public philosophy. We interrogate the deep tensions between classical legal theory (*Usul al-Fiqh*) and contemporary statutory codification, examining how modern statecraft can authentically embody moral order and civic pluralism.
+							Adlwise is an independent intellectual initiative
+							dedicated to reviving substantive legal reasoning,
+							constitutional equity, and public philosophy. We
+							interrogate the deep tensions between classical
+							legal theory (*Usul al-Fiqh*) and contemporary
+							statutory codification, examining how modern
+							statecraft can authentically embody moral order and
+							civic pluralism.
 						</p>
 						<p>
-							Through systematic lecture series, published monographs in *Twasi al-Haq*, and fortnightly *Majlis* gatherings, Adlwise convenes scholars, jurists, researchers, and serious students to engage enduring questions of state authority, constitutional covenants, contractual justice, and ethical limits of statutory law.
+							Through systematic lecture series, published
+							monographs in *Twasi al-Haq*, and fortnightly
+							*Majlis* gatherings, Adlwise convenes scholars,
+							jurists, researchers, and serious students to engage
+							enduring questions of state authority,
+							constitutional covenants, contractual justice, and
+							ethical limits of statutory law.
 						</p>
 					</div>
 				</section>
 
 				{/* Section 2: Three Pillars */}
-				<section className="flex flex-col gap-6 pt-4 border-t border-surface-container-high/60">
-					<div className="flex items-center gap-2 text-xs font-sans uppercase tracking-widest text-brand-gold font-semibold">
-						<Scale className="w-4 h-4" />
-						<span>Core Intellectual Pillars</span>
+				<section className="flex flex-col gap-6 pt-4">
+					<div className="flex items-center gap-2 text-xl text-headline-lg uppercase tracking-widest text-brand-gold font-semibold gap-4">
+						<Scale className="w-6 h-6" />
+						<span>Core Pillars</span>
 					</div>
 
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 						<div className="p-6 rounded-2xl bg-surface-container-low border border-surface-container-high flex flex-col gap-3">
-							<span className="font-serif text-2xl text-tertiary-container font-bold">I.</span>
+							<span className="font-serif text-2xl text-tertiary-container font-bold">
+								I.
+							</span>
 							<h3 className="font-serif text-lg text-primary font-semibold">
 								Classical Jurisprudence
 							</h3>
 							<p className="font-body-sm text-on-surface-variant text-sm leading-relaxed">
-								Rigorous textual hermeneutics, extraction of operative legal rationale (*‘Ilal*), and universal higher objectives (*Maqasid al-Shari’ah*).
+								Rigorous textual hermeneutics, extraction of
+								operative legal rationale (*‘Ilal*), and
+								universal higher objectives (*Maqasid
+								al-Shari’ah*).
 							</p>
 						</div>
 
 						<div className="p-6 rounded-2xl bg-surface-container-low border border-surface-container-high flex flex-col gap-3">
-							<span className="font-serif text-2xl text-tertiary-container font-bold">II.</span>
+							<span className="font-serif text-2xl text-tertiary-container font-bold">
+								II.
+							</span>
 							<h3 className="font-serif text-lg text-primary font-semibold">
 								Constitutional Statecraft
 							</h3>
 							<p className="font-body-sm text-on-surface-variant text-sm leading-relaxed">
-								Juristic examination of constitutional covenants, public welfare (*Maslahah Mursalah*), sovereignty, and institutional accountability.
+								Juristic examination of constitutional
+								covenants, public welfare (*Maslahah Mursalah*),
+								sovereignty, and institutional accountability.
 							</p>
 						</div>
 
 						<div className="p-6 rounded-2xl bg-surface-container-low border border-surface-container-high flex flex-col gap-3">
-							<span className="font-serif text-2xl text-tertiary-container font-bold">III.</span>
+							<span className="font-serif text-2xl text-tertiary-container font-bold">
+								III.
+							</span>
 							<h3 className="font-serif text-lg text-primary font-semibold">
 								Civic Covenant &amp; Ethics
 							</h3>
 							<p className="font-body-sm text-on-surface-variant text-sm leading-relaxed">
-								Pluralistic civic equity modeled upon constitutional precedents such as the Charter of Medina (*Kitab al-Madinah*) and classical adab.
+								Pluralistic civic equity modeled upon
+								constitutional precedents such as the Charter of
+								Medina (*Kitab al-Madinah*) and classical adab.
 							</p>
 						</div>
 					</div>
@@ -92,7 +116,10 @@ export default function AboutPage() {
 							{siteConfig.author.urduName}
 						</span>
 						<p className="font-body-sm text-on-surface-variant leading-relaxed text-sm">
-							Scholar of classical Islamic jurisprudence (*Fiqh*), legal theory (*Usul*), and constitutional philosophy. Founding Director of Adlwise Institute and convener of the Majlis gatherings.
+							Scholar of classical Islamic jurisprudence (*Fiqh*),
+							legal theory (*Usul*), and constitutional
+							philosophy. Founding Director of Adlwise Institute
+							and convener of the Majlis gatherings.
 						</p>
 					</div>
 

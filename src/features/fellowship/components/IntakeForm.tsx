@@ -8,26 +8,34 @@ export function IntakeForm() {
 	const [submitted, setSubmitted] = useState(false);
 	const [isPending, setIsPending] = useState(false);
 	const [errorMsg, setErrorMsg] = useState("");
+
 	const [formData, setFormData] = useState({
 		fullName: "",
 		email: "",
 		phone: "",
-		city: "Lahore",
-		background: "Graduate / Researcher",
-		interests: ["Constitutional Law"],
-		statement: "",
+		background: "",
+		interests: [] as string[],
 	});
+
+	const availableInterests = [
+		"Quran & Seerah",
+		"Law & Statecraft",
+		"Economics",
+		"History",
+		"Research & Writing",
+		"Media and Technology",
+	];
 
 	const toggleInterest = (interest: string) => {
 		setFormData((prev) => {
 			const exists = prev.interests.includes(interest);
-			if (exists) {
-				return {
-					...prev,
-					interests: prev.interests.filter((i) => i !== interest),
-				};
-			}
-			return { ...prev, interests: [...prev.interests, interest] };
+
+			return {
+				...prev,
+				interests: exists
+					? prev.interests.filter((item) => item !== interest)
+					: [...prev.interests, interest],
+			};
 		});
 	};
 
@@ -37,6 +45,7 @@ export function IntakeForm() {
 		setErrorMsg("");
 
 		const res = await submitFellowshipAction(formData);
+
 		setIsPending(false);
 
 		if (res.success) {
@@ -48,55 +57,60 @@ export function IntakeForm() {
 		}
 	};
 
-	const availableInterests = [
-		"Law & Statecraft",
-		"Equity & Economics",
-		"Quranic Tafsir",
-		"Seerat S.A.W",
-	];
-
 	if (submitted) {
 		return (
-			<div className="w-full max-w-xl mx-auto p-space-xl bg-surface-container-lowest rounded-[28px] shadow-lg border border-surface-container-high text-center flex flex-col items-center gap-space-md animate-in fade-in zoom-in-95 duration-200 my-space-xl">
-				<div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-tertiary-fixed shadow-md">
+			<div className="w-full max-w-2xl mx-auto py-space-3xl text-center">
+				<div className="w-16 h-16 mx-auto rounded-full bg-primary flex items-center justify-center shadow-md">
 					<CheckCircle className="w-8 h-8 text-tertiary-fixed" />
 				</div>
-				<div className="flex flex-col gap-1">
-					<h2 className="font-headline-lg text-primary font-bold">
-						Application Status
-					</h2>
-				</div>
-				<p className="font-body-md text-on-surface-variant leading-relaxed max-w-md">
+
+				<p className="mt-space-lg font-label-sm uppercase tracking-[0.2em] text-secondary font-semibold">
+					Thank you
+				</p>
+
+				<h2 className="mt-space-sm font-display-md text-3xl sm:text-4xl text-primary font-bold">
+					Welcome to the conversation.
+				</h2>
+
+				<p className="mt-space-md mx-auto max-w-lg font-body-md text-on-surface-variant leading-relaxed">
 					Thank you,{" "}
 					<strong className="text-primary">
 						{formData.fullName}
 					</strong>
-					. Your application has been submitted.
+					. We have received your introduction to the Adlwise Circle
+					and appreciate your interest.
 				</p>
+
 				<button
 					type="button"
-					onClick={() => setSubmitted(false)}
-					className="mt-space-sm px-space-md py-space-xs bg-primary text-on-primary font-label-md uppercase tracking-wider rounded-full hover:bg-primary-container transition-colors font-semibold"
+					onClick={() => {
+						setSubmitted(false);
+						setFormData({
+							fullName: "",
+							email: "",
+							phone: "",
+							background: "",
+							interests: [],
+						});
+					}}
+					className="mt-space-lg inline-flex items-center justify-center px-space-md py-space-xs rounded-full border border-surface-container-high text-primary font-label-sm font-semibold hover:bg-surface-container transition-colors"
 				>
-					Submit Another Application
+					Submit Another Response
 				</button>
 			</div>
 		);
 	}
 
 	return (
-		<div className="w-full max-w-xl mx-auto p-space-lg sm:p-space-xl bg-surface-container-lowest rounded-[28px] shadow-md border border-surface-container-high my-space-lg">
+		<div className="w-full max-w-2xl mx-auto">
 			<form
 				onSubmit={handleSubmit}
-				className="flex flex-col gap-space-md"
+				className="flex flex-col gap-space-2xl"
 			>
-				{/* Personal Details */}
-				<div className="flex flex-col gap-space-xs border-b border-surface-container-high pb-space-md">
-					<div className="grid grid-cols-1 sm:grid-cols-2 gap-space-sm mt-space-2xs">
-						<div className="flex flex-col gap-1">
-							<label className="font-label-sm uppercase tracking-wider text-[10px] text-on-surface-variant font-semibold">
-								Full Name
-							</label>
+				{/* 01 - About You */}
+				<section>
+					<div className="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+						<Field label="Full Name" required>
 							<input
 								type="text"
 								required
@@ -107,15 +121,12 @@ export function IntakeForm() {
 										fullName: e.target.value,
 									})
 								}
-								placeholder="Muhammad Tariq"
-								className="p-space-xs rounded-xl bg-surface border border-surface-container-high focus:outline-none focus:ring-2 focus:ring-primary text-body-sm"
+								placeholder="Your full name"
+								className="w-full px-4 py-3 rounded-xl bg-surface border border-surface-container-high text-on-surface text-sm placeholder:text-on-surface-variant/50 transition-all focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
 							/>
-						</div>
+						</Field>
 
-						<div className="flex flex-col gap-1">
-							<label className="font-label-sm uppercase tracking-wider text-[10px] text-on-surface-variant font-semibold">
-								Email Address
-							</label>
+						<Field label="Email Address" required>
 							<input
 								type="email"
 								required
@@ -126,15 +137,12 @@ export function IntakeForm() {
 										email: e.target.value,
 									})
 								}
-								placeholder="tariq@gmail.com"
-								className="p-space-xs rounded-xl bg-surface border border-surface-container-high focus:outline-none focus:ring-2 focus:ring-primary text-body-sm"
+								placeholder="you@example.com"
+								className="w-full px-4 py-3 rounded-xl bg-surface border border-surface-container-high text-on-surface text-sm placeholder:text-on-surface-variant/50 transition-all focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
 							/>
-						</div>
+						</Field>
 
-						<div className="flex flex-col gap-1">
-							<label className="font-label-sm uppercase tracking-wider text-[10px] text-on-surface-variant font-semibold">
-								WhatsApp
-							</label>
+						<Field label="WhatsApp" required>
 							<input
 								type="tel"
 								required
@@ -146,135 +154,131 @@ export function IntakeForm() {
 									})
 								}
 								placeholder="+92 300 1234567"
-								className="p-space-xs rounded-xl bg-surface border border-surface-container-high focus:outline-none focus:ring-2 focus:ring-primary text-body-sm"
+								className="w-full px-4 py-3 rounded-xl bg-surface border border-surface-container-high text-on-surface text-sm placeholder:text-on-surface-variant/50 transition-all focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
 							/>
-						</div>
-
-						<div className="flex flex-col gap-1">
-							<label className="font-label-sm uppercase tracking-wider text-[10px] text-on-surface-variant font-semibold">
-								City
-							</label>
-							<input
-								type="text"
-								required
-								value={formData.city}
-								onChange={(e) =>
-									setFormData({
-										...formData,
-										city: e.target.value,
-									})
-								}
-								placeholder="Lahore / Islamabad / Abroad"
-								className="p-space-xs rounded-xl bg-surface border border-surface-container-high focus:outline-none focus:ring-2 focus:ring-primary text-body-sm"
-							/>
-						</div>
+						</Field>
 					</div>
-				</div>
+				</section>
 
-				{/* Academic Profile */}
-				<div className="flex flex-col gap-space-xs border-b border-surface-container-high pb-space-md">
-					<div className="flex flex-col gap-1 mt-space-2xs">
-						<label className="font-label-sm uppercase tracking-wider text-[10px] text-on-surface-variant font-semibold">
-							Primary Academic Track
-						</label>
-						<select
-							value={formData.background}
-							onChange={(e) =>
-								setFormData({
-									...formData,
-									background: e.target.value,
-								})
-							}
-							className="p-space-xs rounded-xl bg-surface border border-surface-container-high focus:outline-none focus:ring-2 focus:ring-primary text-body-sm"
-						>
-							<option value="Seminary (Dars-e-Nizami / Alimiyyah)">
-								Traditional Seminary
-							</option>
-							<option value="Law Degree (LLB / LLM)">
-								Scholar
-							</option>
-							<option value="University Scholar / Faculty">
-								University Faculty
-							</option>
-							<option value="General Professional / Independent Student">
-								Professional / Independent Student
-							</option>
-						</select>
-					</div>
+				{/* 02 - Background */}
+				<section>
+					<p className="mt-2 text-xs pb-4 text-on-surface-variant">
+						Your background.
+					</p>
+					<div className="flex flex-wrap gap-2">
+						{[
+							"Student",
+							"Researcher / Academic",
+							"Professional",
+							"Independent Learner",
+						].map((option) => {
+							const selected = formData.background === option;
 
-					<div className="flex flex-col gap-1 mt-space-xs">
-						<label className="font-label-sm uppercase tracking-wider text-[10px] text-on-surface-variant font-semibold">
-							Your Focus
-						</label>
-						<div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 mt-1">
-							{availableInterests.map((interest) => {
-								const isSelected =
-									formData.interests.includes(interest);
-								return (
-									<button
-										key={interest}
-										type="button"
-										onClick={() => toggleInterest(interest)}
-										className={`p-2 text-left rounded-xl text-[12px] font-semibold transition-all border flex items-center justify-between ${
-											isSelected
-												? "bg-primary-container text-surface border-primary"
-												: "bg-surface text-on-surface border-surface-container-high hover:bg-surface-container"
-										}`}
-									>
-										<span>{interest}</span>
-										{isSelected && (
-											<Check className="w-4 h-4 text-tertiary-fixed shrink-0" />
-										)}
-									</button>
-								);
-							})}
-						</div>
+							return (
+								<button
+									key={option}
+									type="button"
+									onClick={() =>
+										setFormData({
+											...formData,
+											background: option,
+										})
+									}
+									className={`px-4 py-2.5 rounded-full border text-sm font-medium transition-all ${
+										selected
+											? "bg-primary text-on-primary border-primary"
+											: "bg-surface text-on-surface border-surface-container-high hover:bg-surface-container"
+									}`}
+								>
+									{option}
+								</button>
+							);
+						})}
 					</div>
-				</div>
+				</section>
 
-				{/* Statement of Intent */}
-				<div className="flex flex-col gap-space-xs">
-					<div className="flex flex-col gap-1 mt-space-2xs">
-						<label className="font-label-sm uppercase tracking-wider text-[10px] text-on-surface-variant font-semibold">
-							Why do you wish to join?
-						</label>
-						<textarea
-							required
-							rows={4}
-							value={formData.statement}
-							onChange={(e) =>
-								setFormData({
-									...formData,
-									statement: e.target.value,
-								})
-							}
-							placeholder="Briefly state what you hope to contribute to our mission..."
-							className="p-space-xs rounded-xl bg-surface border border-surface-container-high focus:outline-none focus:ring-2 focus:ring-primary text-body-sm resize-none"
-						/>
+				{/* 03 - Interests */}
+				<section>
+					<p className="mt-2 text-xs pb-4 text-on-surface-variant">
+						Select all that interest you.
+					</p>
+					<div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+						{availableInterests.map((interest) => {
+							const selected =
+								formData.interests.includes(interest);
+
+							return (
+								<button
+									key={interest}
+									type="button"
+									onClick={() => toggleInterest(interest)}
+									className={`min-h-12 px-3 py-2.5 rounded-xl border text-left text-sm font-medium transition-all flex items-center justify-between gap-2 ${
+										selected
+											? "bg-primary text-on-primary border-primary"
+											: "bg-surface text-on-surface border-surface-container-high hover:bg-surface-container"
+									}`}
+								>
+									<span>{interest}</span>
+
+									{selected && (
+										<Check className="w-4 h-4 shrink-0" />
+									)}
+								</button>
+							);
+						})}
 					</div>
-				</div>
+				</section>
 
 				{errorMsg && (
-					<div className="p-space-xs rounded-xl bg-error-container text-on-error-container text-body-sm font-medium">
+					<div className="p-4 rounded-xl bg-error-container text-on-error-container text-sm font-medium">
 						{errorMsg}
 					</div>
 				)}
 
-				<button
-					type="submit"
-					disabled={isPending}
-					className="mt-space-sm w-full py-space-sm bg-primary text-on-primary font-label-md uppercase tracking-wider rounded-full hover:bg-primary-container transition-colors font-bold shadow-md select-none flex items-center justify-center gap-space-xs disabled:opacity-70"
-				>
-					<span>
-						{isPending ? "Submitting Application..." : "Submit"}
-					</span>
-					{isPending ? (
-						<Loader2 className="w-4 h-4 animate-spin" />
-					) : (
-						<Send className="w-4 h-4" />
-					)}
-				</button>
+				{/* Submit */}
+				<div className="pt-space-sm">
+					<button
+						type="submit"
+						disabled={
+							isPending ||
+							!formData.background ||
+							formData.interests.length === 0
+						}
+						className="w-full py-3.5 px-space-md bg-primary text-on-primary rounded-full font-label-md uppercase tracking-wider font-bold shadow-sm hover:bg-primary-container transition-all flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
+					>
+						<span>
+							{isPending ? "Submitting..." : "Join the Circle"}
+						</span>
+
+						{isPending ? (
+							<Loader2 className="w-4 h-4 animate-spin" />
+						) : (
+							<Send className="w-4 h-4" />
+						)}
+					</button>
+				</div>
 			</form>
+		</div>
+	);
+}
+
+function Field({
+	label,
+	required,
+	children,
+}: {
+	label: string;
+	required?: boolean;
+	children: React.ReactNode;
+}) {
+	return (
+		<div className="flex flex-col gap-1.5">
+			<label className="font-label-sm text-[11px] uppercase tracking-wider text-on-surface-variant font-semibold">
+				{label}
+				{required && <span className="text-secondary ml-1">*</span>}
+			</label>
+
+			{children}
 		</div>
 	);
 }

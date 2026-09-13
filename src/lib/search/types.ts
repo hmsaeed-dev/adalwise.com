@@ -9,6 +9,9 @@ export interface SearchResult {
 	tags: string[];
 	date: string;
 	meta?: string;
+	thumbnailUrl?: string;
+	youtubeId?: string;
+	durationSeconds?: number;
 }
 
 export interface SearchOptions {

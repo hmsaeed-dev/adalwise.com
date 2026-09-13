@@ -5,13 +5,11 @@ import path from "path";
 import { z } from "zod";
 
 const FellowshipInputSchema = z.object({
-  fullName: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Valid email required"),
-  phone: z.string().min(6, "Phone number required"),
-  city: z.string().min(2, "City required"),
-  background: z.string(),
-  interests: z.array(z.string()).default([]),
-  statement: z.string().min(10, "Statement must be at least 10 characters"),
+	fullName: z.string().min(2, "Name must be at least 2 characters"),
+	email: z.string().email("Valid email required"),
+	phone: z.string().min(6, "Phone number required"),
+	background: z.string(),
+	interests: z.array(z.string()).default([]),
 });
 
 export type FellowshipInput = z.infer<typeof FellowshipInputSchema>;

@@ -76,7 +76,7 @@ export function MDXRenderer({ content }: MDXRendererProps) {
           return (
             <h2
               key={idx}
-              className="font-headline-lg text-primary font-bold font-serif mt-space-lg mb-space-xs border-b border-surface-container-high pb-2"
+              className="font-headline-lg text-primary font-bold mt-space-lg mb-space-xs border-b border-surface-container-high pb-2"
             >
               {title}
             </h2>
@@ -89,7 +89,7 @@ export function MDXRenderer({ content }: MDXRendererProps) {
           return (
             <h3
               key={idx}
-              className="font-headline-md text-primary font-semibold font-serif mt-space-md mb-space-2xs"
+              className="font-headline-md text-primary font-semibold mt-space-md mb-space-2xs"
             >
               {title}
             </h3>

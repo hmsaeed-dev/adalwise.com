@@ -159,7 +159,7 @@ export function LiveSearchModal({ isOpen, onClose }: LiveSearchModalProps) {
 										</span>
 									)}
 								</div>
-								<h4 className="font-headline-sm text-[15px] text-primary font-bold font-serif line-clamp-1 group-hover:text-secondary transition-colors">
+								<h4 className="font-headline-sm text-[15px] text-primary font-bold line-clamp-1 group-hover:text-secondary transition-colors">
 									{item.title}
 								</h4>
 								{item.urduTitle && (

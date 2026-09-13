@@ -35,7 +35,10 @@ const streams: StreamCard[] = [
 export function StreamsSection() {
 	return (
 		<section className="w-full overflow-hidden bg-background px-gutter-mobile pt-space-2xl pb-space-2xl md:px-gutter-desktop">
-			<div className="mx-auto w-full max-w-container-max">
+			<div
+				id="academic-streams"
+				className="mx-auto w-full max-w-container-max"
+			>
 				{/* Heading */}
 				<div className="mx-auto max-w-2xl text-center">
 					<h2 className="font-headline-lg text-3xl font-medium tracking-tight text-primary md:text-5xl">

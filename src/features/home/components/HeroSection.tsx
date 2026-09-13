@@ -80,7 +80,7 @@ export function HeroSection({
                         style={{ animationDelay: "350ms" }}
                     >
                         <Link
-                            href="/about"
+                            href="#academic-streams"
                             className="inline-flex items-center gap-2.5 px-7 py-3.5 bg-brand-primary hover:bg-brand-primary-hover text-brand-warm-white rounded-full text-xs tracking-widest font-medium uppercase transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 group"
                         >
                             <span>Explore</span>

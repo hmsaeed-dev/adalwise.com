@@ -28,7 +28,7 @@ export function AboutHero({
 				<div className="block md:hidden absolute inset-0 w-full h-full">
 					<Image
 						src={mobileImageSrc}
-						alt="Adlwise - Intellectual Mandate"
+						alt="Adlwise - About Us"
 						fill
 						priority
 						className="object-cover object-center opacity-40"
@@ -42,20 +42,14 @@ export function AboutHero({
 			</div>
 
 			{/* Hero Content Lockup */}
-			<div className="relative z-10 w-full max-w-4xl mx-auto px-6 pt-28 sm:pt-32 md:pt-36 pb-16 sm:pb-20 text-center flex flex-col items-center justify-center">
+			<div className="relative gap-10 z-10 w-full max-w-4xl mx-auto px-6 pt-28 sm:pt-32 md:pt-36 pb-16 sm:pb-20 text-center flex flex-col items-center justify-center">
 				<div className="flex items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4 flex-wrap">
-					<h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal tracking-editorial text-[#FAF8F5] drop-shadow-md uppercase">
-						About Us
-					</h1>
-					<span className="font-urdu text-2xl sm:text-3xl md:text-4xl text-brand-gold font-bold leading-none dir-rtl select-none drop-shadow-sm">
+					<span className="font-urdu text-5xl sm:text-3xl md:text-8xl text-brand-gold font-bold leading-none dir-rtl select-none drop-shadow-sm">
 						{siteConfig.urduName}
 					</span>
 				</div>
-
-				<div className="h-[2px] w-16 sm:w-20 bg-brand-gold/70 my-1 rounded-full drop-shadow" />
-
-				<p className="mt-2 text-sm sm:text-base text-[#FAF8F5]/85 max-w-xl font-sans tracking-wide leading-relaxed font-normal">
-					{siteConfig.tagline} • {siteConfig.urduTagline}
+				<p className="text-2xl font-headline-sm sm:text-4xl sm:mt-8 text-[#FAF8F5]/85 max-w-xl tracking-wide leading-relaxed font-normal">
+					{siteConfig.tagline}
 				</p>
 			</div>
 		</section>
