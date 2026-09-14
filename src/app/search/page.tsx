@@ -6,10 +6,10 @@ import { constructMetadata } from "@/lib/seo/metadata";
 import { Play, BookOpen, Mic, Search, SearchX, ArrowRight } from "lucide-react";
 
 export const metadata = constructMetadata({
-    title: "Archive Search — Unified Repository",
-    description:
-        "Unified search across Adlwise research articles, lecture series, and Majlis sessions.",
-    canonicalUrl: "/search",
+	title: "Archive Search — Unified Repository",
+	description:
+		"Unified search across Adlwise lecture series, research articles and Majlis sessions.",
+	canonicalUrl: "/search",
 });
 
 interface PageProps {
@@ -78,7 +78,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
 
 			{/* Results Filter Bar */}
 			{query && (
-				<div className="w-full max-w-2xl mx-auto flex flex-col gap-3 border-b border-surface-container-high pb-3">
+				<div className="w-full max-w-2xl mx-auto flex flex-col gap-3 pb-3">
 					<span className="font-label-sm text-on-surface-variant text-sm tracking-wider font-medium">
 						Found {results.length} results
 					</span>
@@ -86,8 +86,8 @@ export default async function SearchPage({ searchParams }: PageProps) {
 					<div className="flex items-center gap-2 overflow-x-auto pb-1">
 						{[
 							{ value: "all", label: "All" },
-							{ value: "article", label: "Articles" },
 							{ value: "lectures", label: "Lectures" },
+							{ value: "article", label: "Articles" },
 							{ value: "majlis", label: "Majlis" },
 						].map((filter) => {
 							const isActive = filterType === filter.value;
@@ -190,47 +190,12 @@ export default async function SearchPage({ searchParams }: PageProps) {
 								{/* Content Details */}
 								<div className="flex flex-col justify-between flex-1 min-w-0 py-0.5">
 									<div className="space-y-1">
-										<div className="flex items-center gap-1.5 text-[11px]">
-											<span className="font-bold uppercase tracking-wider text-secondary">
-												{res.category || config.label}
-											</span>
-											{(res.date || res.publishedAt) && (
-												<>
-													<span className="text-secondary/40">
-														•
-													</span>
-													<span className="text-secondary/80 font-medium">
-														{res.date ||
-															new Date(
-																res.publishedAt,
-															).toLocaleDateString(
-																"en-US",
-																{
-																	month: "short",
-																	day: "numeric",
-																	year: "numeric",
-																},
-															)}
-													</span>
-												</>
-											)}
-										</div>
 
 										<h3 className="font-bold text-primary text-sm sm:text-base leading-snug line-clamp-2 group-hover:text-primary-container transition-colors">
 											{displayTitle}
 										</h3>
-
-										{res.speaker?.name && (
-											<p className="text-[12px] text-secondary/80 truncate">
-												{res.speaker.name}
-											</p>
-										)}
 									</div>
 
-									<div className="mt-2 flex items-center gap-1 text-[11px] font-semibold text-primary/80 group-hover:text-primary">
-										<span>Open {config.label}</span>
-										<ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-									</div>
 								</div>
 							</Link>
 						);

@@ -1,8 +1,8 @@
 import React from "react";
 import {
 	HeroSection,
+	StatsMarquee,
 	StreamsSection,
-	FeaturedTreatiseCard,
 	SynthesisSection,
 } from "@/features/home";
 import { constructMetadata } from "@/lib/seo/metadata";
@@ -18,8 +18,8 @@ export default function HomePage() {
 	return (
 		<div className="flex flex-col w-full pb-space-2xl">
 			<HeroSection />
+			<StatsMarquee />
 			<StreamsSection />
-			<FeaturedTreatiseCard />
 			<SynthesisSection />
 		</div>
 	);

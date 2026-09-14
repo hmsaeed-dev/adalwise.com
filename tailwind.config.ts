@@ -118,6 +118,15 @@ const config: Config = {
       letterSpacing: {
         editorial: "var(--tracking-editorial)",
       },
+      keyframes: {
+        marquee: {
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-100%)" },
+        },
+      },
+      animation: {
+        marquee: "marquee var(--marquee-duration, 30s) linear infinite",
+      },
     },
   },
   plugins: [],

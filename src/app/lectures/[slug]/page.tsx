@@ -115,7 +115,7 @@ export default async function lecturesDetailPage({ params }: PageProps) {
 			<header className="flex flex-col gap-space-xs pb-space-md">
 				<div className="flex items-center gap-space-xs">
 					<span className="text-on-surface-variant font-label-sm text-[12px]">
-						{formatDuration(item.durationSeconds)} duration •{" "}
+						{" "}
 						{formatISODate(item.publishedAt)}
 					</span>
 				</div>

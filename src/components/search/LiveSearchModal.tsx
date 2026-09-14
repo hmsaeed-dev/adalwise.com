@@ -174,12 +174,6 @@ export function LiveSearchModal({ isOpen, onClose }: LiveSearchModalProps) {
 
 				{/* Footer Shortcut Bar */}
 				<div className="px-space-md py-space-xs bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-[11px] text-on-surface-variant">
-					<span className="flex items-center gap-1">
-						<kbd className="px-1.5 py-0.5 rounded bg-surface border border-surface-container-highest font-mono text-[10px]">
-							Esc
-						</kbd>{" "}
-						to close
-					</span>
 					{query.trim() && (
 						<button
 							type="button"

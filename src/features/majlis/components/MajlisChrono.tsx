@@ -19,7 +19,7 @@ export function MajlisChrono({ sessions }: MajlisChronoProps) {
   );
 
   return (
-    <div className="w-full bg-brand-warm-white text-brand-charcoal py-20 px-6 md:px-12 lg:px-16 selection:bg-brand-primary selection:text-brand-warm-white">
+    <div className="w-full text-brand-charcoal py-20 px-6 md:px-12 lg:px-16 selection:bg-brand-primary selection:text-brand-warm-white">
       <div className="max-w-6xl mx-auto">
         {upcomingSession && <MajlisUpcoming doc={upcomingSession} />}
         <MajlisArchive sessions={archiveSessions} />
