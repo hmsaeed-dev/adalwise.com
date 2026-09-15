@@ -38,13 +38,6 @@ export interface ArticleDoc {
 	content: string;
 }
 
-export const MajlisMarginaliaSchema = z.object({
-	questionsCount: z.number().default(0),
-	referencesCount: z.number().default(0),
-	recordAvailable: z.boolean().default(false),
-});
-
-export type MajlisMarginalia = z.infer<typeof MajlisMarginaliaSchema>;
 
 export const MajlisSessionSchema = z.object({
 	number: z.string().optional(),
@@ -66,7 +59,6 @@ export const MajlisSessionSchema = z.object({
 	recordingSlug: z.string().optional(),
 	discussionPoints: z.array(z.string()).default([]),
 	keyInquiries: z.array(z.string()).default([]),
-	marginalia: MajlisMarginaliaSchema.optional(),
 	registrationUrl: z.string().optional(),
 });
 

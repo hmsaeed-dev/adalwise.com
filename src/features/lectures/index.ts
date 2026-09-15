@@ -1,4 +1,10 @@
 export { LecturesHero } from "./components/LecturesHero";
+export { LecturesIntro } from "./components/LecturesIntro";
+export { StartHereSection } from "./components/StartHereSection";
+export { CourseCurriculumModule } from "./components/CourseCurriculumModule";
+export { StudyNotesDrawer } from "./components/StudyNotesDrawer";
+export { LecturesViewContainer } from "./components/LecturesViewContainer";
 export { LecturesSearchFilter } from "./components/LecturesSearchFilter";
 export { LecturesCard } from "./components/LecturesCard";
 export { LecturesGrid } from "./components/LecturesGrid";
+export { RoutedElsewhereNote } from "./components/RoutedElsewhereNote";

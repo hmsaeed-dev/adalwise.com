@@ -1,54 +1,174 @@
-import { MainCategory, Series, Topic } from "./types";
+import { MainCategory, PrimaryDomain, Series, Topic } from "./types";
 
 export const CATEGORIES: MainCategory[] = [
 	"Tafsir",
 	"Seerat",
-	"Socio-Political",
 	"Constitutional Law",
+	"Iqbalian Thought",
 	"Ethics",
 	"Statecraft",
+	"Socio-Political",
+	"Lisan-ul-Quran",
+];
+
+export const PRIMARY_DOMAINS: PrimaryDomain[] = [
+	{
+		id: "tafsir",
+		slug: "tafsir",
+		title: "Quranic Tafsir",
+		urduTitle: "تفسیر و فہمِ قرآن",
+		description:
+			"Systematic exegesis, thematic surah studies, and epistemological principles of Quranic interpretation.",
+		subCategories: [
+			{ id: "all", slug: "all", title: "All Tafsir" },
+			{ id: "surah-exegesis", slug: "surah-exegesis", title: "Surah-Specific Tafsir" },
+			{ id: "theological-principles", slug: "theological-principles", title: "Theological Principles" },
+			{ id: "quranic-maxims", slug: "quranic-maxims", title: "Quranic Parables & Maxims" },
+		],
+	},
+	{
+		id: "seerah",
+		slug: "seerah",
+		title: "Seerah",
+		urduTitle: "سیرت و نظامِ حکومت",
+		description:
+			"Prophetic methodology, covenantal statehood, institutional history, and civilizational lessons.",
+		subCategories: [
+			{ id: "all", slug: "all", title: "All Seerah" },
+			{ id: "prophetic-era", slug: "prophetic-era", title: "Makki & Madani Milestones" },
+			{ id: "covenant-statecraft", slug: "covenant-statecraft", title: "Charter of Medina & Treaties" },
+			{ id: "companions", slug: "companions", title: "Companions & Khilafah" },
+		],
+	},
+	{
+		id: "constitutional-law",
+		slug: "constitutional-law",
+		title: "Law & Statecraft",
+		urduTitle: "دستور، قانون اور ریاست",
+		description:
+			"Constitutional covenants, legal theory (Usul al-Fiqh), sovereignty, and state institutional equity.",
+		subCategories: [
+			{ id: "all", slug: "all", title: "All Constitutional Law" },
+			{ id: "pakistan-constitution", slug: "pakistan-constitution", title: "Constitution of Pakistan (1973)" },
+			{ id: "amendments-legal-history", slug: "amendments-legal-history", title: "Amendments & Legal History" },
+			{ id: "judiciary-governance", slug: "judiciary-governance", title: "Judiciary & Public Governance" },
+		],
+	},
+	{
+		id: "iqbal",
+		slug: "iqbal",
+		title: "Iqbalian Thought",
+		urduTitle: "فکرِ اقبال",
+		description:
+			"Reconstruction of religious thought, political philosophy, and civilizational revival.",
+		subCategories: [
+			{ id: "all", slug: "all", title: "All Iqbalian Thought" },
+			{ id: "philosophical-concepts", slug: "philosophical-concepts", title: "Khudi, Ijtihad & Modern State" },
+			{ id: "zarb-e-kalim", slug: "zarb-e-kalim", title: "Zarb-e-Kalim & Political Will" },
+			{ id: "shikwa-jawab", slug: "shikwa-jawab", title: "Shikwa / Jawab-e-Shikwa" },
+		],
+	},
+	{
+		id: "civic-ethics",
+		slug: "civic-ethics",
+		title: "Ethics & Public Philosophy",
+		urduTitle: "اخلاقیات اور عمرانیات",
+		description:
+			"Social cohesion, ethics of disagreement (Adab al-Ikhtilaf), and family jurisprudence.",
+		subCategories: [
+			{ id: "all", slug: "all", title: "All Civic Ethics" },
+			{ id: "social-cohesion", slug: "social-cohesion", title: "Social Ethics & Reform" },
+			{ id: "family-ethics", slug: "family-ethics", title: "Family & Civic Jurisprudence" },
+			{ id: "tazkiyah", slug: "tazkiyah", title: "Spiritual Ethics (Tazkiyah)" },
+		],
+	},
+	{
+		id: "lisan-ul-quran",
+		slug: "lisan-ul-quran",
+		title: "Lisan-ul-Quran",
+		urduTitle: "لسان القرآن",
+		description:
+			"Quranic Arabic morphology, classical grammar, and direct textual comprehension.",
+		subCategories: [
+			{ id: "all", slug: "all", title: "All Lisan-ul-Quran" },
+			{ id: "arabic-grammar", slug: "arabic-grammar", title: "Arabic Grammar & Morphology" },
+			{ id: "vocabulary-syntax", slug: "vocabulary-syntax", title: "Quranic Syntax & Compounds" },
+		],
+	},
 ];
 
 export const SERIES_LIST: Series[] = [
 	{
-		id: "surah-al-anam-Tafsir",
-		slug: "surah-al-anam-Tafsir",
-		title: "Surah al-An'am — Divine Justice and Ontological Order",
-		urduTitle: "تفسیر سورۃ الانعام: عدلِ الہی اور نظامِ کائنات",
+		id: "tarjuma-e-quran-course",
+		slug: "tarjuma-e-quran",
+		title: "Tarjuma-e-Quran",
+		urduTitle: "دورۂ ترجمۂ قرآن",
 		description:
-			"A comprehensive, verse-by-verse Tafsir exploring the metaphysical grounding of divine justice, creation, and ethical responsibility.",
+			"The monumental 324-session verse-by-verse translation and linguistic exegesis of the entire Holy Quran from Surah Al-Fatiha to Surah An-Nas.",
 		category: "Tafsir",
-		totalEpisodes: 32,
+		domainId: "tafsir",
+		totalEpisodes: 324,
+		hasCompanionNotes: true,
 	},
 	{
-		id: "charter-of-medina-discourse",
-		slug: "charter-of-medina-discourse",
-		title: "The Charter of Medina — Constitutionalism and Pluralism",
-		urduTitle: "میثاقِ مدینہ: دستوری نظام اور تکثیری سماج",
+		id: "online-quranic-arabic-course",
+		slug: "online-quranic-arabic-course",
+		title: "Quranic Arabic Course",
+		urduTitle: "لسان القرآن: عربی گرامر و فہمِ قرآن",
 		description:
-			"Juristic deconstruction of the world's earliest written constitutional charter and its principles of civic covenantalism.",
-		category: "Constitutional Law",
-		totalEpisodes: 18,
-	},
-	{
-		id: "usul-al-fiqh-foundations",
-		slug: "usul-al-fiqh-foundations",
-		title: "Foundations of Legal Methodology",
-		urduTitle: "اصولِ فقہ: استنباطِ احکام کے بنیادی قواعد",
-		description:
-			"Classical methodologies of textual hermeneutics, legal cause extraction ('Ilal), and universal maqasid.",
-		category: "Tafsir",
+			"A 24-session systematic curriculum teaching classical Arabic syntax, morphology, and vocabulary with 17 companion infographic notes.",
+		category: "Lisan-ul-Quran",
+		domainId: "lisan-ul-quran",
 		totalEpisodes: 24,
+		hasCompanionNotes: true,
 	},
 	{
-		id: "statecraft-and-necessity",
-		slug: "statecraft-and-necessity",
-		title: "Sovereignty, Debt, and Juridical Necessity",
-		urduTitle: "ریاست، قرض اور شرعی ضرورت",
+		id: "online-seerat-sessions",
+		slug: "online-seerat-sessions",
+		title: "Seerat-un-Nabi & Prophetic Statecraft",
+		urduTitle: "سیرت النبی ﷺ اور نظامِ مدینہ",
 		description:
-			"Contemporary constitutional and political economy questions examined under the doctrine of public welfare (Maslahah Mursalah).",
+			"Sustained inquiry into the Makki and Madani eras, covenantal statehood, and constitutional precedents.",
+		category: "Seerat",
+		domainId: "seerah",
+		totalEpisodes: 18,
+		hasCompanionNotes: true,
+	},
+	{
+		id: "constitution-of-pakistan",
+		slug: "constitution-of-pakistan",
+		title: "Constitution of Pakistan & Civic Jurisprudence",
+		urduTitle: "آئینِ پاکستان (1973)",
+		description:
+			"Analytical deconstruction of constitutional articles, amendments, fundamental rights, and judicial review.",
+		category: "Constitutional Law",
+		domainId: "constitutional-law",
+		totalEpisodes: 7,
+		hasCompanionNotes: false,
+	},
+	{
+		id: "iqbal-and-quran",
+		slug: "iqbal-and-quran",
+		title: "Iqbal & the Quranic Worldview",
+		urduTitle: "کلامِ اقبال",
+		description:
+			"Deliberative study of Allama Iqbal's philosophical works including Zarb-e-Kalim, Bang-e-Dra, and the Reconstruction.",
+		category: "Iqbalian Thought",
+		domainId: "iqbal",
+		totalEpisodes: 14,
+		hasCompanionNotes: false,
+	},
+	{
+		id: "special-lecture-series",
+		slug: "special-lecture-series",
+		title: "Special Lecture Series: Statecraft & Third Way Economics",
+		urduTitle: "خصوصی خطابات: ریاست، معیشت اور اسلامی نظام",
+		description:
+			"Keynote discourses examining public debt, capitalism, sovereign justice, and institutional reform with companion treatise PDFs.",
 		category: "Statecraft",
-		totalEpisodes: 12,
+		domainId: "constitutional-law",
+		totalEpisodes: 24,
+		hasCompanionNotes: true,
 	},
 ];
 

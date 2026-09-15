@@ -20,20 +20,32 @@ export interface LectureItem {
 	publishedAt: string;
 	thumbnailUrl: string;
 	category: MainCategory;
+	domainId?: string;
+	subCategory?: string;
+	format?: string;
 	seriesId?: string;
+	seriesTitle?: string;
+	isCoursework?: boolean;
+	isKhutba?: boolean;
 	topics: string[];
 	tags: string[];
 	relatedArticleSlugs?: string[];
 	audioUrl?: string;
+	hasNotes?: boolean;
+	searchText?: string;
 }
 
 export interface LectureQueryParams {
 	page?: number;
 	limit?: number;
 	category?: string;
+	domain?: string;
+	subCategory?: string;
+	format?: string;
 	seriesId?: string;
 	topic?: string;
 	query?: string;
+	includeCoursework?: boolean;
 }
 
 export interface PaginatedLecturesResult {
@@ -44,7 +56,7 @@ export interface PaginatedLecturesResult {
 	hasMore: boolean;
 }
 
-// Backward compatibility aliases during refactor
+// Backward compatibility aliases
 export type lecturesSpeaker = LectureSpeaker;
 export type lecturesItem = LectureItem;
 export type lecturesQueryParams = LectureQueryParams;
