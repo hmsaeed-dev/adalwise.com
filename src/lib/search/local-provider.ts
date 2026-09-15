@@ -1,6 +1,7 @@
 import { getAllArticles, getAllMajlisSessions } from "@/lib/content/client";
 import { getAllLectures } from "@/lib/lectures/client";
 import { formatDuration, formatISODate } from "@/lib/utils";
+import { expandQueryTokens } from "./synonyms";
 import {
 	SearchOptions,
 	SearchProvider,
@@ -13,6 +14,7 @@ interface IndexedSearchResult extends SearchResult {
 	searchExcerpt: string;
 	searchCategory: string;
 	searchTags: string[];
+	searchCorpus: string;
 }
 
 let memorySearchPool: IndexedSearchResult[] | null = null;
@@ -24,14 +26,35 @@ function normalizeText(value: string | undefined): string {
 	return value?.toLowerCase().trim() ?? "";
 }
 
-function createIndexedItem(item: SearchResult): IndexedSearchResult {
+function createIndexedItem(
+	item: SearchResult,
+	extraCorpus = "",
+): IndexedSearchResult {
+	const searchTitle = normalizeText(item.title);
+	const searchUrduTitle = normalizeText(item.urduTitle);
+	const searchExcerpt = normalizeText(item.excerpt);
+	const searchCategory = normalizeText(item.category);
+	const searchTags = item.tags.map(normalizeText);
+
+	const searchCorpus = [
+		searchTitle,
+		searchUrduTitle,
+		searchExcerpt,
+		searchCategory,
+		...searchTags,
+		normalizeText(extraCorpus),
+	]
+		.filter(Boolean)
+		.join(" ");
+
 	return {
 		...item,
-		searchTitle: normalizeText(item.title),
-		searchUrduTitle: normalizeText(item.urduTitle),
-		searchExcerpt: normalizeText(item.excerpt),
-		searchCategory: normalizeText(item.category),
-		searchTags: item.tags.map(normalizeText),
+		searchTitle,
+		searchUrduTitle,
+		searchExcerpt,
+		searchCategory,
+		searchTags,
+		searchCorpus,
 	};
 }
 
@@ -55,58 +78,68 @@ async function getSearchPool(): Promise<IndexedSearchResult[]> {
 
 	for (const article of articles) {
 		pool.push(
-			createIndexedItem({
-				type: "article",
-				id: article.slug,
-				title: article.frontmatter.title,
-				urduTitle: article.frontmatter.urduTitle,
-				url: `/twasi-al-haq/${article.slug}`,
-				excerpt: article.frontmatter.excerpt,
-				category: article.frontmatter.category,
-				tags: article.frontmatter.tags,
-				date: formatISODate(article.frontmatter.publishedAt),
-				meta: article.frontmatter.readTime,
-
-			}),
+			createIndexedItem(
+				{
+					type: "article",
+					id: article.slug,
+					title: article.frontmatter.title,
+					urduTitle: article.frontmatter.urduTitle,
+					url: `/twasi-al-haq/${article.slug}`,
+					excerpt: article.frontmatter.excerpt,
+					category: article.frontmatter.category,
+					tags: article.frontmatter.tags,
+					date: formatISODate(article.frontmatter.publishedAt),
+					meta: article.frontmatter.readTime,
+				},
+				article.content,
+			),
 		);
 	}
 
 	for (const lecture of lectureList) {
 		pool.push(
-			createIndexedItem({
-				type: "lectures",
-				id: lecture.slug,
-				title: lecture.title,
-				urduTitle: lecture.urduTitle,
-				url: `/lectures/${lecture.slug}`,
-				excerpt: lecture.description,
-				category: lecture.category,
-				tags: lecture.tags,
-				date: formatISODate(lecture.publishedAt),
-				meta: formatDuration(lecture.durationSeconds),
-				thumbnailUrl: lecture.thumbnailUrl,
-				youtubeId: lecture.youtubeId,
-			}),
+			createIndexedItem(
+				{
+					type: "lectures",
+					id: lecture.slug,
+					title: lecture.title,
+					urduTitle: lecture.urduTitle,
+					url: `/lectures/${lecture.slug}`,
+					excerpt: lecture.description,
+					category: lecture.category,
+					tags: lecture.tags,
+					date: formatISODate(lecture.publishedAt),
+					meta: formatDuration(lecture.durationSeconds),
+					thumbnailUrl: lecture.thumbnailUrl,
+					youtubeId: lecture.youtubeId,
+				},
+				[lecture.searchText, lecture.seriesTitle, ...(lecture.topics || [])]
+					.filter(Boolean)
+					.join(" "),
+			),
 		);
 	}
 
 	for (const majlis of majlisList) {
 		pool.push(
-			createIndexedItem({
-				type: "majlis",
-				id: majlis.slug,
-				title: majlis.session.title,
-				urduTitle: majlis.session.urduTitle,
-				url: `/majlis/${majlis.slug}`,
-				excerpt:
-					majlis.session.thesis ||
-					majlis.session.description ||
-					"",
-				category: "Majlis",
-				tags: ["Majlis", "Lahore"],
-				date: formatISODate(majlis.session.date),
-				meta: majlis.session.location,
-			}),
+			createIndexedItem(
+				{
+					type: "majlis",
+					id: majlis.slug,
+					title: majlis.session.title,
+					urduTitle: majlis.session.urduTitle,
+					url: `/majlis/${majlis.slug}`,
+					excerpt:
+						majlis.session.thesis ||
+						majlis.session.description ||
+						"",
+					category: "Majlis",
+					tags: ["Majlis", "Lahore"],
+					date: formatISODate(majlis.session.date),
+					meta: majlis.session.location,
+				},
+				majlis.content,
+			),
 		);
 	}
 
@@ -116,148 +149,61 @@ async function getSearchPool(): Promise<IndexedSearchResult[]> {
 	return pool;
 }
 
-function getWordMatches(
-	text: string,
-	queryWords: string[],
+function calculateRelevance(
+	item: IndexedSearchResult,
+	cleanQuery: string,
+	tokenGroups: string[][],
 ): number {
-	if (!text || queryWords.length === 0) {
+	// Every token in the query must match via at least one synonym in the item's corpus
+	const matchesAll = tokenGroups.every((variants) =>
+		variants.some((v) => item.searchCorpus.includes(v)),
+	);
+
+	if (!matchesAll) {
 		return 0;
 	}
 
-	const words = text.split(/\s+/);
-	let matches = 0;
-
-	for (const queryWord of queryWords) {
-		if (
-			words.some(
-				(word) =>
-					word === queryWord ||
-					word.startsWith(queryWord),
-			)
-		) {
-			matches++;
-		}
-	}
-
-	return matches;
-}
-
-function calculateRelevance(
-	item: IndexedSearchResult,
-	query: string,
-	queryWords: string[],
-): number {
-	let score = 0;
+	let score = 50; // base score for match
 
 	const title = item.searchTitle;
 	const urduTitle = item.searchUrduTitle;
 	const excerpt = item.searchExcerpt;
 	const category = item.searchCategory;
 
-	/*
-	 * TITLE
-	 *
-	 * Title is the strongest signal because users normally
-	 * expect the most relevant title to appear first.
-	 */
-
-	if (title === query) {
+	// Title exact or phrase match
+	if (title === cleanQuery) {
 		score += 1000;
-	} else if (title.startsWith(query)) {
+	} else if (title.startsWith(cleanQuery)) {
 		score += 800;
-	} else if (title.includes(query)) {
+	} else if (title.includes(cleanQuery)) {
 		score += 600;
 	}
 
-	const titleWordMatches = getWordMatches(title, queryWords);
-
-	if (titleWordMatches > 0) {
-		score += titleWordMatches * 150;
-	}
-
-	/*
-	 * URDU TITLE
-	 */
-
-	if (urduTitle === query) {
-		score += 500;
-	} else if (urduTitle.startsWith(query)) {
+	// Urdu title phrase match
+	if (urduTitle && urduTitle.includes(cleanQuery)) {
 		score += 400;
-	} else if (urduTitle.includes(query)) {
-		score += 300;
 	}
 
-	const urduWordMatches = getWordMatches(
-		urduTitle,
-		queryWords,
-	);
+	// Excerpt phrase match
+	if (excerpt.includes(cleanQuery)) {
+		score += 200;
+	}
 
-	score += urduWordMatches * 100;
-
-	/*
-	 * TAGS
-	 *
-	 * Exact tag matches are stronger than partial tag matches.
-	 */
-
-	for (const tag of item.searchTags) {
-		if (tag === query) {
-			score += 250;
-		} else if (tag.startsWith(query)) {
-			score += 180;
-		} else if (tag.includes(query)) {
-			score += 120;
+	// Token matches in title vs Urdu vs excerpt
+	tokenGroups.forEach((variants) => {
+		if (variants.some((v) => title.includes(v))) {
+			score += 150;
+		} else if (variants.some((v) => urduTitle.includes(v))) {
+			score += 100;
+		} else if (variants.some((v) => excerpt.includes(v))) {
+			score += 40;
+		} else {
+			score += 15;
 		}
+	});
 
-		if (queryWords.length > 1) {
-			const tagWordMatches = getWordMatches(
-				tag,
-				queryWords,
-			);
-
-			score += tagWordMatches * 40;
-		}
-	}
-
-	/*
-	 * DESCRIPTION / EXCERPT
-	 */
-
-	if (excerpt.includes(query)) {
-		score += 100;
-	}
-
-	const excerptWordMatches = getWordMatches(
-		excerpt,
-		queryWords,
-	);
-
-	score += excerptWordMatches * 20;
-
-	/*
-	 * CATEGORY
-	 */
-
-	if (category === query) {
-		score += 150;
-	} else if (category.startsWith(query)) {
-		score += 100;
-	} else if (category.includes(query)) {
+	if (category.includes(cleanQuery)) {
 		score += 70;
-	}
-
-	/*
-	 * Multi-word query bonus.
-	 *
-	 * If every query word appears somewhere in the title,
-	 * give the result an additional boost.
-	 */
-
-	if (
-		queryWords.length > 1 &&
-		queryWords.every((word) => title.includes(word))
-	) {
-		score += 300;
 	}
 
 	return score;
@@ -280,12 +226,12 @@ export class LocalSearchProvider implements SearchProvider {
 			return [];
 		}
 
+		const tokenGroups = expandQueryTokens(cleanQ);
+		if (tokenGroups.length === 0) {
+			return [];
+		}
+
 		const cleanCategory = normalizeText(category);
-
-		const queryWords = cleanQ
-			.split(/\s+/)
-			.filter(Boolean);
-
 		const pool = await getSearchPool();
 
 		const rankedResults: Array<{
@@ -296,11 +242,6 @@ export class LocalSearchProvider implements SearchProvider {
 
 		for (let index = 0; index < pool.length; index++) {
 			const item = pool[index];
-
-			/*
-			 * Apply structural filters before doing
-			 * expensive relevance calculations.
-			 */
 
 			if (type !== "all" && item.type !== type) {
 				continue;
@@ -316,7 +257,7 @@ export class LocalSearchProvider implements SearchProvider {
 			const score = calculateRelevance(
 				item,
 				cleanQ,
-				queryWords,
+				tokenGroups,
 			);
 
 			if (score <= 0) {
@@ -330,17 +271,10 @@ export class LocalSearchProvider implements SearchProvider {
 			});
 		}
 
-		/*
-		 * Highest relevance first.
-		 *
-		 * Original pool order is used as a stable tie-breaker.
-		 */
-
 		rankedResults.sort((a, b) => {
 			if (b.score !== a.score) {
 				return b.score - a.score;
 			}
-
 			return a.index - b.index;
 		});
 

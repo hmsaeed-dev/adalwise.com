@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { CourseCurriculumModule } from "./CourseCurriculumModule";
+import { CourseCurriculumRibbon } from "./CourseCurriculumRibbon";
 import { StudyNotesDrawer } from "./StudyNotesDrawer";
 
 export function LecturesViewContainer() {
@@ -9,7 +9,7 @@ export function LecturesViewContainer() {
 
 	return (
 		<>
-			<CourseCurriculumModule onOpenNotes={() => setIsNotesOpen(true)} />
+			<CourseCurriculumRibbon onOpenNotes={() => setIsNotesOpen(true)} />
 			<StudyNotesDrawer
 				isOpen={isNotesOpen}
 				onClose={() => setIsNotesOpen(false)}

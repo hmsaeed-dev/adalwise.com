@@ -6,6 +6,8 @@ import {
 	PaginatedLecturesResult,
 } from "./types";
 import { CURATED_START_HERE_PICKS, CuratedPick } from "./curated-picks";
+import { expandQueryTokens } from "@/lib/search/synonyms";
+import { matchLecture, scoreLecture } from "./matcher";
 
 const lecturesCatalog = (catalogData as unknown) as LectureItem[];
 
@@ -133,16 +135,35 @@ export const getPaginatedLectures = cache(
 			);
 		}
 
-		// 6. Tokenized bilingual search
+		// 6. Tokenized bilingual search with synonym expansion and ranking
 		if (query && query.trim() !== "") {
 			const q = query.toLowerCase().trim();
-			filtered = filtered.filter(
-				(item) =>
-					(item.searchText && item.searchText.includes(q)) ||
-					item.title.toLowerCase().includes(q) ||
-					(item.urduTitle && item.urduTitle.includes(q)) ||
-					item.description.toLowerCase().includes(q),
+			const tokenGroups = expandQueryTokens(q);
+
+			// First, search within current scoped filters
+			let queryMatches = filtered.filter((item) =>
+				matchLecture(item, tokenGroups),
 			);
+
+			// If scoped domain produced 0 results, search across all catalog holdings
+			if (
+				queryMatches.length === 0 &&
+				domain &&
+				domain.toLowerCase() !== "all"
+			) {
+				queryMatches = lecturesCatalog.filter((item) =>
+					matchLecture(item, tokenGroups),
+				);
+			}
+
+			// Sort by relevance score
+			queryMatches.sort((a, b) => {
+				const scoreA = scoreLecture(a, q, tokenGroups);
+				const scoreB = scoreLecture(b, q, tokenGroups);
+				return scoreB - scoreA;
+			});
+
+			filtered = queryMatches;
 		}
 
 		const total = filtered.length;

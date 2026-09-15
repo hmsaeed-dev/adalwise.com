@@ -21,23 +21,31 @@ export function LecturesSearchFilter() {
 		setSearchTerm(currentQueryParam);
 	}, [currentQueryParam]);
 
+	const executeSearch = (term: string) => {
+		const params = new URLSearchParams(searchParams.toString());
+		if (term.trim()) {
+			params.set("q", term.trim());
+		} else {
+			params.delete("q");
+		}
+		params.set("page", "1");
+		router.replace(`/lectures?${params.toString()}`, { scroll: false });
+	};
+
 	// Debounced search query update
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			if (searchTerm === currentQueryParam) return;
-
-			const params = new URLSearchParams(searchParams.toString());
-			if (searchTerm.trim()) {
-				params.set("q", searchTerm.trim());
-			} else {
-				params.delete("q");
-			}
-			params.set("page", "1");
-			router.replace(`/lectures?${params.toString()}#archive`, { scroll: false });
+			executeSearch(searchTerm);
 		}, 300);
 
 		return () => clearTimeout(timer);
 	}, [searchTerm, currentQueryParam, searchParams, router]);
+
+	const handleSubmitSearch = (e: React.FormEvent) => {
+		e.preventDefault();
+		executeSearch(searchTerm);
+	};
 
 	const handleDomainSelect = (domainSlug: string) => {
 		const params = new URLSearchParams(searchParams.toString());
@@ -49,7 +57,7 @@ export function LecturesSearchFilter() {
 			params.delete("subCategory"); // reset sub-category when changing domain
 		}
 		params.set("page", "1");
-		router.replace(`/lectures?${params.toString()}#archive`, { scroll: false });
+		router.replace(`/lectures?${params.toString()}`, { scroll: false });
 	};
 
 	const handleSubCategorySelect = (subSlug: string) => {
@@ -60,7 +68,7 @@ export function LecturesSearchFilter() {
 			params.set("subCategory", subSlug);
 		}
 		params.set("page", "1");
-		router.replace(`/lectures?${params.toString()}#archive`, { scroll: false });
+		router.replace(`/lectures?${params.toString()}`, { scroll: false });
 	};
 
 	const handleToggleCoursework = () => {
@@ -71,7 +79,7 @@ export function LecturesSearchFilter() {
 			params.set("coursework", "true");
 		}
 		params.set("page", "1");
-		router.replace(`/lectures?${params.toString()}#archive`, { scroll: false });
+		router.replace(`/lectures?${params.toString()}`, { scroll: false });
 	};
 
 	const clearSearch = () => {
@@ -79,7 +87,7 @@ export function LecturesSearchFilter() {
 		const params = new URLSearchParams(searchParams.toString());
 		params.delete("q");
 		params.set("page", "1");
-		router.replace(`/lectures?${params.toString()}#archive`, { scroll: false });
+		router.replace(`/lectures?${params.toString()}`, { scroll: false });
 	};
 
 	// Find currently active domain to render progressive disclosure sub-categories
@@ -91,21 +99,17 @@ export function LecturesSearchFilter() {
 			className="w-full max-w-container-max mx-auto px-gutter-mobile md:px-gutter-desktop pt-10 pb-6 flex flex-col gap-6 scroll-mt-24"
 		>
 			{/* Section Masthead */}
-			<div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 pb-4 border-b border-surface-container-high">
+			<div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 pb-4">
 				<div>
-					<h3 className="font-serif text-2xl sm:text-3xl text-primary font-semibold">
-						Search &amp; Filter the Holdings
+					<h3 className="font-serif text-2xl sm:text-4xl text-primary font-bold">
+						Search &amp; Filter
 					</h3>
 				</div>
-
-				<span className="font-sans text-xs text-on-surface-variant">
-					Filter by domain or search across transcripts &amp; topics
-				</span>
 			</div>
 
 			{/* Search Input Bar (High Contrast, Clean Editorial Design) */}
-			<div className="w-full relative">
-				<div className="flex items-center bg-surface-container-lowest px-5 py-3.5 rounded-2xl shadow-sm border border-surface-container-high focus-within:border-brand-gold focus-within:ring-2 focus-within:ring-brand-gold/20 transition-all">
+			<form onSubmit={handleSubmitSearch} className="w-full relative">
+				<div className="flex items-center bg-surface-container-lowest px-5 py-3.5 rounded-2xl shadow-sm focus-within:border-brand-gold focus-within:ring-2 focus-within:ring-brand-gold/20 transition-all">
 					<Search className="w-4 h-4 text-outline mr-3 shrink-0" />
 					<input
 						type="text"
@@ -125,17 +129,17 @@ export function LecturesSearchFilter() {
 						</button>
 					)}
 				</div>
-			</div>
+			</form>
 
 			{/* ─── PRIMARY DOMAIN RAIL (Typographic Text Links - No Pill Tags) ─── */}
 			<div className="flex flex-col gap-3">
 
 
-				<div className="flex flex-wrap items-center gap-x-6 gap-y-2.5 text-sm font-sans">
+				<div className="flex items-center gap-x-6 gap-y-2 text-sm font-sans overflow-x-auto pb-1.5 sm:flex-wrap scrollbar-none">
 					<button
 						type="button"
 						onClick={() => handleDomainSelect("all")}
-						className={`py-1 transition-colors relative font-medium ${
+						className={`py-1 transition-colors relative font-medium shrink-0 ${
 							currentDomain === "all"
 								? "text-primary font-bold border-b-2 border-brand-gold pb-0.5"
 								: "text-on-surface-variant hover:text-primary"
@@ -151,7 +155,7 @@ export function LecturesSearchFilter() {
 								key={dom.id}
 								type="button"
 								onClick={() => handleDomainSelect(dom.slug)}
-								className={`py-1 transition-colors relative font-medium ${
+								className={`py-1 transition-colors relative font-medium shrink-0 ${
 									isActive
 										? "text-primary font-bold border-b-2 border-brand-gold pb-0.5"
 										: "text-on-surface-variant hover:text-primary"
@@ -166,12 +170,10 @@ export function LecturesSearchFilter() {
 
 			{/* ─── PROGRESSIVE DISCLOSURE: CONTEXTUAL SUB-CATEGORY RAIL ─── */}
 			{activeDomainObj && activeDomainObj.subCategories.length > 0 && (
-				<div className="p-4 rounded-xl bg-surface-container-low border border-surface-container-high/80 flex flex-col sm:flex-row sm:items-center gap-3 animate-fade-in">
-					<span className="font-sans text-[11px] uppercase tracking-wider font-bold text-tertiary shrink-0">
-						Sub-Topic:
-					</span>
+				<div className="p-3.5 sm:p-4 rounded-xl bg-surface-container-low border border-surface-container-high/80 flex flex-col sm:flex-row sm:items-center gap-3 animate-fade-in">
 
-					<div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-sans">
+
+					<div className="flex items-center gap-x-5 gap-y-1.5 text-xs font-sans overflow-x-auto pb-1 sm:flex-wrap scrollbar-none">
 						{activeDomainObj.subCategories.map((sub) => {
 							const isSubActive =
 								currentSubCategory === sub.slug ||
@@ -196,7 +198,7 @@ export function LecturesSearchFilter() {
 			)}
 
 			{/* ─── COURSEWORK INCLUSION TOGGLE & SCHOLARLY CONTEXT ─── */}
-			<div className="flex flex-wrap items-center justify-between gap-4 pt-3 border-t border-surface-container-high/60 text-xs font-sans">
+			<div className="flex flex-wrap items-center justify-between gap-4 pt-3 text-xs font-sans">
 				<button
 					type="button"
 					onClick={handleToggleCoursework}
@@ -223,7 +225,7 @@ export function LecturesSearchFilter() {
 						href="/lectures/tarjuma-e-quran"
 						className="text-secondary hover:underline font-bold inline-flex items-center gap-1"
 					>
-						<span>Open Dedicated Coursework Syllabus Track →</span>
+						<span>Coursework Syllabus →</span>
 					</Link>
 				)}
 			</div>

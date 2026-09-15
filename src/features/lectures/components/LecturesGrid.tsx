@@ -102,6 +102,17 @@ export function LecturesGrid({
 					)}
 				</nav>
 			)}
+
+			{/* Quiet Archive Colophon: Khutbat Routed Elsewhere */}
+			<div className="mt-8 pt-6 border-t border-surface-container-high/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-sans text-on-surface-variant">
+				<span>Looking for Dr. Haseeb&apos;s Friday Khutbat (خطباتِ جمعہ)?</span>
+				<Link
+					href="/twasi-al-haq"
+					className="font-bold text-primary hover:text-secondary flex items-center gap-1 transition-colors"
+				>
+					<span>Published on Twasi al-Haq→</span>
+				</Link>
+			</div>
 		</section>
 	);
 }

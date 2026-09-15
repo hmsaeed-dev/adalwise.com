@@ -40,16 +40,16 @@ export function LecturesIntro() {
 					</div>
 
 					{/* Hashiya Column: Manuscript Table of Contents (Quiet Jump-Links) */}
-					<aside className="lg:col-span-5 lg:border-l lg:border-surface-container-high lg:pl-8 lg:py-2">
+					<aside className="lg:col-span-5 lg:py-2">
 						<div className="flex flex-col gap-3">
 							{PRIMARY_DOMAINS.map((domain, index) => (
 								<Link
 									key={domain.id}
 									href={`/lectures?domain=${domain.slug}#archive`}
-									className="p-3.5 rounded-xl bg-surface-container-low hover:bg-surface-container-lowest border border-surface-container-high/80 hover:border-brand-gold/60 transition-all flex items-baseline justify-between group shadow-sm"
+									className="p-3.5 bg-surface-container-low hover:bg-surface-container-lowest transition-all flex items-baseline justify-between group"
 								>
 									<div className="flex items-baseline gap-2.5">
-										<span className="font-serif text-xs font-bold text-secondary">
+										<span className="font-serif text-md font-bold text-secondary">
 											0{index + 1}
 										</span>
 										<span className="font-serif text-base font-semibold text-primary group-hover:text-secondary transition-colors">

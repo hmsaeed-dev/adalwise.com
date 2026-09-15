@@ -5,12 +5,10 @@ import {
 } from "@/lib/lectures/client";
 import {
 	LecturesHero,
-	LecturesIntro,
 	StartHereSection,
 	LecturesViewContainer,
 	LecturesSearchFilter,
 	LecturesGrid,
-	RoutedElsewhereNote,
 } from "@/features/lectures";
 import { constructMetadata } from "@/lib/seo/metadata";
 
@@ -20,6 +18,8 @@ export const metadata = constructMetadata({
 		"An organized body of teaching across Quranic hermeneutics, prophetic statecraft, constitutional jurisprudence, and civilizational thought by Dr. Hafiz Haseeb.",
 	canonicalUrl: "/lectures",
 });
+
+export const dynamic = "force-dynamic";
 
 interface PageProps {
 	searchParams: Promise<{
@@ -60,24 +60,23 @@ export default async function LecturesCatalogPage({ searchParams }: PageProps) {
 
 	return (
 		<div className="flex flex-col w-full bg-surface text-on-surface">
+			{/* ZONE 1: Curated Foundations ("Where should I start?") */}
 			{/* 1. Hero: Dignified Lockup */}
 			<LecturesHero />
 
-			{/* 2. Editorial Intro: Matn/Hashiya Split with Domain Margin TOC */}
-			<LecturesIntro />
+			{/* 2. Core Inquiries: 3 Hallmark Masterclasses ONLY (No 10-item list) */}
+			<StartHereSection curatedPicks={curatedPicks.slice(0, 3)} />
 
-			{/* 3. Start Here: Asymmetric Spotlight & Annotated Reading Ledger */}
-			<StartHereSection curatedPicks={curatedPicks} />
-
-			{/* 4. The Translation Course: Sequential 324-Session Module + Notes Drawer */}
+			{/* ZONE 2: The Living Library ("Explore & Search the Holdings") */}
+			{/* 3. The 324-Session Course Ribbon + Notes Drawer (Compact 1-row capsule) */}
 			<LecturesViewContainer />
 
-			{/* 5. Full Archive Search & Typographic Filter Rails */}
+			{/* 4. Instant Search & Typographic Filter Rails */}
 			<Suspense fallback={<div className="h-20" />}>
 				<LecturesSearchFilter />
 			</Suspense>
 
-			{/* 6. High-Density Archive Grid & Pagination */}
+			{/* 5. Holdings Grid & Colophon */}
 			<LecturesGrid
 				items={result.items}
 				total={result.total}
@@ -86,9 +85,6 @@ export default async function LecturesCatalogPage({ searchParams }: PageProps) {
 				hasMore={result.hasMore}
 				searchParams={resolvedParams}
 			/>
-
-			{/* 7. Routed-Elsewhere Note: Khutba-e-Jumma to Twasi al-Haq */}
-			<RoutedElsewhereNote />
 		</div>
 	);
 }
