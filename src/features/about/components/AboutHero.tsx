@@ -1,56 +1,93 @@
 import React from "react";
+import Link from "next/link";
 import Image from "next/image";
+import { ArrowDown, ArrowRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
 
-interface AboutHeroProps {
-	desktopImageSrc?: string;
-	mobileImageSrc?: string;
-}
-
-export function AboutHero({
-	desktopImageSrc = "/images/haseeb-02.jpg",
-	mobileImageSrc = "/images/haseeb-02.jpg",
-}: AboutHeroProps = {}) {
+export function AboutHero() {
 	return (
-		<section className="relative w-full min-h-[420px] sm:min-h-[460px] md:min-h-[500px] flex flex-col items-center justify-center overflow-hidden bg-[#0d2619]">
-			{/* Background Image with Overlays */}
-			<div className="absolute inset-0 w-full h-full select-none pointer-events-none overflow-hidden">
-				<div className="hidden md:block absolute inset-0 w-full h-full">
-					<Image
-						src={desktopImageSrc}
-						alt="Adlwise - Intellectual Mandate"
-						fill
-						priority
-						className="object-cover object-center transform scale-105 opacity-40"
-						sizes="100vw"
-					/>
-				</div>
-				<div className="block md:hidden absolute inset-0 w-full h-full">
-					<Image
-						src={mobileImageSrc}
-						alt="Adlwise - About Us"
-						fill
-						priority
-						className="object-cover object-center opacity-40"
-						sizes="100vw"
-					/>
-				</div>
-
-				<div className="absolute inset-0 bg-[#0d2619]/60 backdrop-brightness-90" />
-				<div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-transparent via-[#0d2619]/40 to-[#0a1b12]/90" />
-				<div className="absolute inset-x-0 top-0 h-28 sm:h-32 bg-gradient-to-b from-[#0a1b12]/80 via-[#0a1b12]/30 to-transparent pointer-events-none" />
+		<section className="relative w-full bg-[#0a2318] text-brand-warm-white overflow-hidden pt-28 sm:pt-36 md:pt-40 pb-16 sm:pb-20 md:pb-24 border-b border-primary-container/60">
+			{/* Ambient Architectural Lighting */}
+			<div
+				aria-hidden="true"
+				className="absolute inset-0 pointer-events-none select-none overflow-hidden"
+			>
+				<div className="absolute -top-32 right-10 w-[550px] h-[550px] bg-[radial-gradient(circle_at_center,_rgba(184,142,63,0.14)_0%,_transparent_70%)] blur-3xl" />
+				<div className="absolute -bottom-20 left-10 w-[500px] h-[400px] bg-[radial-gradient(circle_at_center,_rgba(20,56,38,0.4)_0%,_transparent_70%)] blur-2xl" />
 			</div>
 
-			{/* Hero Content Lockup */}
-			<div className="relative gap-10 z-10 w-full max-w-4xl mx-auto px-6 pt-28 sm:pt-32 md:pt-36 pb-16 sm:pb-20 text-center flex flex-col items-center justify-center">
-				<div className="flex items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4 flex-wrap">
-					<span className="font-urdu text-5xl sm:text-3xl md:text-8xl text-brand-gold font-bold leading-none dir-rtl select-none drop-shadow-sm">
-						{siteConfig.urduName}
-					</span>
+			<div className="relative z-10 w-full max-w-container-max mx-auto px-gutter-mobile md:px-gutter-desktop">
+				{/* Balanced 2-Column Lockup: Left English Proposition, Right Grounded Calligraphic Plaque */}
+				<div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+					{/* Left: Primary Focal Proposition */}
+					<div className="lg:col-span-7 flex flex-col items-start">
+
+						{/* Primary Heading */}
+						<h1 className="font-serif text-3xl sm:text-5xl lg:text-[52px] text-brand-warm-white font-normal leading-[1.12] tracking-tight">
+							A physician’s inquiry into the Quran, Islamic thought & living jurisprudence.
+						</h1>
+
+						{/* Subtitle with High Contrast */}
+						<p className="mt-5 font-sans text-sm sm:text-base text-brand-warm-white/85 leading-relaxed max-w-xl">
+							Grounding contemporary legal reasoning, public ethics, and constitutional
+							equity in the classical epistemological traditions of Islam.
+						</p>
+
+
+						{/* Quick Action Anchors */}
+						<div className="mt-8 flex flex-wrap items-center gap-4">
+							<a
+								href="#method"
+								className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand-gold hover:bg-[#c99e4c] text-[#0a2318] text-xs font-semibold uppercase tracking-widest transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5"
+							>
+								<span>The Thesis</span>
+								<ArrowDown className="w-3.5 h-3.5" />
+							</a>
+
+							<Link
+								href="/lectures"
+								className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 hover:bg-white/15 text-brand-warm-white border border-white/20 text-xs font-semibold uppercase tracking-widest transition-all duration-200"
+							>
+								<span>Lectures</span>
+								<ArrowRight className="w-3.5 h-3.5" />
+							</Link>
+						</div>
+					</div>
+
+					{/* Right: Grounded Calligraphic Plaque (Crest Anchor) */}
+					<div className="lg:col-span-5 flex justify-center lg:justify-end">
+						<div className="w-full max-w-md p-8 sm:p-10 flex flex-col items-center text-center relative overflow-hidden">
+							{/* Background Watermark Emblem */}
+							<div
+								aria-hidden="true"
+								className="absolute -right-10 -bottom-10 w-48 h-48 opacity-10 pointer-events-none select-none"
+							>
+								<Image
+									src="/images/assets/mountain-mark.svg"
+									alt=""
+									width={192}
+									height={192}
+									className="w-full h-full object-contain filter invert"
+								/>
+							</div>
+
+							{/* Plaque Header / Seal */}
+							<div className="w-12 h-12 flex items-center justify-center p-2.5 mb-5">
+
+							</div>
+
+							{/* Nastaliq Calligraphic Mark */}
+							<span className="font-urdu text-5xl sm:text-6xl text-brand-gold font-bold leading-[1.5] dir-rtl select-none drop-shadow-md">
+								عدل و حکمت
+							</span>
+
+							{/* Urdu Subtitle */}
+							<span className="font-urdu text-lg sm:text-xl text-brand-warm-white/90 dir-rtl mt-2 select-none">
+								تفہیمِ دین و تحقیقِ قانون
+							</span>
+						</div>
+					</div>
 				</div>
-				<p className="text-2xl font-headline-sm sm:text-4xl sm:mt-8 text-[#FAF8F5]/85 max-w-xl tracking-wide leading-relaxed font-normal">
-					{siteConfig.tagline}
-				</p>
 			</div>
 		</section>
 	);

@@ -11,7 +11,7 @@ interface LecturesCardProps {
 
 export function LecturesCard({ lectures }: LecturesCardProps) {
 	return (
-		<article className="group bg-surface-container-lowest rounded-[22px] overflow-hidden border border-surface-container-high/70 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-md transition-all flex flex-col">
+		<article className="group bg-surface-container-lowest rounded-[22px] overflow-hidden border border-surface-container-high/70 hover:shadow-md transition-all flex flex-col">
 			{/* Thumbnail Container */}
 			<Link
 				href={`/lectures/${lectures.slug}`}
@@ -22,7 +22,7 @@ export function LecturesCard({ lectures }: LecturesCardProps) {
 					alt={lectures.title}
 					fill
 					sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-					className="object-cover group-hover:scale-105 transition-transform duration-300 opacity-95"
+					className="object-cover group-hover:scale-102 transition-transform duration-300 opacity-100"
 				/>
 				<div className="absolute inset-0 bg-primary/20 group-hover:bg-primary/10 transition-colors" />
 

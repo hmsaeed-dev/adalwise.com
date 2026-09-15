@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ebGaramond, inter, notoUrdu, amiri } from "@/lib/fonts";
+import { Updates } from "@/components/layout/Updatesbar";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { OrganizationJsonLd } from "@/lib/seo/jsonld";
@@ -33,6 +34,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         <OrganizationJsonLd />
+        <Updates />
         <Header />
         <main id="main-content" className="flex-1 w-full">{children}</main>
         <Footer />

@@ -20,7 +20,45 @@ export function OrganizationJsonLd() {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(schema).replace(/</g, "\\u003c"),
+      }}
+    />
+  );
+}
+
+export function PersonJsonLd({
+  name,
+  alternateName,
+  jobTitle,
+  description,
+  image,
+  sameAs,
+}: {
+  name: string;
+  alternateName?: string;
+  jobTitle: string;
+  description: string;
+  image?: string;
+  sameAs?: string[];
+}) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name,
+    alternateName,
+    jobTitle,
+    description,
+    image,
+    sameAs,
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(schema).replace(/</g, "\\u003c"),
+      }}
     />
   );
 }
@@ -59,13 +97,15 @@ export function ScholarlyArticleJsonLd({
       "@type": "WebPage",
       "@id": url,
     },
-    image: image || `${siteConfig.url}/images/logo-badge.png`,
+    image: image || `${siteConfig.url}/images/assets/logo-badge.png`,
   };
 
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(schema).replace(/</g, "\\u003c"),
+      }}
     />
   );
 }
@@ -109,7 +149,9 @@ export function VideoObjectJsonLd({
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(schema).replace(/</g, "\\u003c"),
+      }}
     />
   );
 }
@@ -133,7 +175,9 @@ export function BreadcrumbJsonLd({
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(schema).replace(/</g, "\\u003c"),
+      }}
     />
   );
 }

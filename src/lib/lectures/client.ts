@@ -6,7 +6,7 @@ import {
 	PaginatedLecturesResult,
 } from "./types";
 
-const lecturesCatalog = catalogData as LectureItem[];
+const lecturesCatalog = (catalogData as unknown) as LectureItem[];
 
 // Fast in-memory lookup map by slug
 const lecturesBySlugMap = new Map<string, LectureItem>(

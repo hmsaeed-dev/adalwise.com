@@ -66,13 +66,13 @@ export function Header() {
 		<>
 			<header
 				className={cn(
-					"fixed top-0 w-full z-50 pt-safe transition-[background-color,border-color,box-shadow] duration-300",
+					"fixed top-10 w-full z-50 pt-safe transition-[background-color,border-color,box-shadow] duration-300",
 					isTransparentHero
 						? "bg-transparent shadow-none border-b border-transparent"
 						: "bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] border-b border-surface-container-high/40",
 				)}
 			>
-				<div className="h-16 md:h-20 px-6 max-w-7xl mx-auto flex items-center justify-between">
+				<div className="h-16 md:h-14 px-6 max-w-7xl mx-auto flex items-center justify-between">
 					{/* Brand Logo */}
 					<Link href="/" className="flex items-center gap-3 group">
 						<div className="relative w-12 h-12 sm:w-10 sm:h-10 rounded-full overflow-hidden p-0 flex items-center justify-center transition-transform group-hover:scale-103 shrink-0">
@@ -114,7 +114,7 @@ export function Header() {
 									{isActive && (
 										<span
 											className={cn(
-												"absolute -bottom-1 left-0 right-0 h-0.5 rounded-full",
+												"absolute -bottom-0.5 left-0 right-0 h-0.5 rounded-full",
 												isTransparentHero
 													? "bg-brand-gold"
 													: "bg-brand-primary",

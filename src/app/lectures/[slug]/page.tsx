@@ -125,7 +125,7 @@ export default async function lecturesDetailPage({ params }: PageProps) {
 				</h1>
 			</header>
 
-			{/* Comprehensive Textual Summary & Study Notes (Discoverability Requirement #8) */}
+			{/* Comprehensive Textual Summary */}
 			<section className="bg-surface-container-low p-space-lg rounded-[24px] border border-surface-container-high flex flex-col gap-space-md">
 				<h2 className="font-headline-sm text-primary font-bold flex items-center gap-space-xs">
 					<BookOpen className="w-5 h-5 text-tertiary-container shrink-0" />

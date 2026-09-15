@@ -8,10 +8,9 @@ interface StatItem {
 }
 
 const STATS: StatItem[] = [
-	{ value: "1,220+", label: "subscribers" },
-	{ value: "619+", label: "lectures" },
+	{ value: "1,200+", label: "subscribers" },
+	{ value: "600+", label: "lectures" },
 	{ value: "500+", label: "community members" },
-	{ value: "Fortnightly", label: "Majlis" },
 ];
 
 export interface StatsMarqueeProps {
@@ -85,7 +84,7 @@ export function StatsMarquee({
 									{stat.label}
 								</span>
 							</div>
-							
+
 						</div>
 					))}
 				</div>

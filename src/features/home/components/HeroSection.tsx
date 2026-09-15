@@ -51,7 +51,7 @@ export function HeroSection({
                     }}
                 />
                 {/* Top gradient for nav bar contrast */}
-                <div className="absolute inset-x-0 top-0 h-28 sm:h-32 bg-gradient-to-b from-[#0a1b12]/75 via-[#0a1b12]/30 to-transparent pointer-events-none" />
+                <div className="absolute inset-x-0 top-0 h-28 sm:h-32 bg-gradient-to-b from-[#0a1b12]/65 via-[#0a1b12]/15 to-transparent pointer-events-none" />
             </div>
 
             {/* Main Content Container */}
