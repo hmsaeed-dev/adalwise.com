@@ -53,13 +53,8 @@ export function StudyNotesDrawer({
 				{/* Drawer Header */}
 				<div className="px-6 sm:px-8 py-6 border-b border-surface-container-high flex items-center justify-between bg-surface-container-low/60">
 					<div>
-						<div className="flex items-center gap-2 mb-1">
-							<span className="font-sans text-[11px] uppercase tracking-[0.2em] font-bold text-secondary">
-								Academic Notes
-							</span>
-						</div>
 						<h3 className="font-serif text-2xl text-primary font-semibold">
-							Companion Study Notes &amp; Handouts
+							Study Notes &amp; Handouts
 						</h3>
 					</div>
 
@@ -101,19 +96,14 @@ export function StudyNotesDrawer({
 								onClick={() => setActiveNote(null)}
 								className="inline-flex items-center gap-2 text-xs font-sans font-bold uppercase tracking-wider text-secondary hover:underline self-start"
 							>
-								← Back to All Notes
+								← Back
 							</button>
 
 							<div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 pb-4 border-b border-surface-container-high">
 								<div>
-									<h4 className="font-serif text-2xl text-primary font-semibold">
-										{activeNote.title}
-									</h4>
-									{activeNote.urduTitle && (
-										<span className="font-urdu text-lg text-tertiary font-bold dir-rtl block mt-1">
+									<h4 className="font-urdu text-lg text-tertiary font-bold dir-rtl block mt-1">
 											{activeNote.urduTitle}
-										</span>
-									)}
+										</h4>
 								</div>
 
 								<a
@@ -124,7 +114,7 @@ export function StudyNotesDrawer({
 									className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary text-brand-warm-white text-xs font-bold uppercase tracking-wider hover:bg-primary-container transition-colors shadow-sm"
 								>
 									<Download className="w-3.5 h-3.5" />
-									<span>Download File</span>
+									<span>Download</span>
 								</a>
 							</div>
 

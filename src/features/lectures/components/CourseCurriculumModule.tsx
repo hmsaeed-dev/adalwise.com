@@ -9,30 +9,30 @@ interface CourseCurriculumModuleProps {
 const MILESTONES = [
 	{
 		phase: "Phase I · Sessions 001–050",
-		title: "Foundations of Covenant & Law",
+		title: "Foundations of Law",
 		surahs: "Surah Al-Fatiha to Surah Al-Baqarah",
-		urdu: "فاتحہ اور بقرہ: ایمانیات و احکامِ شریعت",
+		urdu: "ایمانیات و احکامِ شریعت",
 		desc: "Linguistic roots of Hidayah, covenantal ethics, legal ordinances, and societal stewardship.",
 	},
 	{
 		phase: "Phase II · Sessions 051–150",
-		title: "Prophetic Struggles & Moral Statehood",
+		title: "Prophetic Struggles",
 		surahs: "Surah Al-Imran to Surah Al-Kahf",
-		urdu: "آلِ عمران تا کہف: جہد و صبر، آزمائش اور نظام",
+		urdu: "جہد و صبر، آزمائش اور نظام",
 		desc: "Juristic extraction of Maslahah, warfare ethics, the Battle of Uhud, and historical parables.",
 	},
 	{
 		phase: "Phase III · Sessions 151–250",
 		title: "Spiritual Metaphysics & Monotheism",
 		surahs: "Surah Maryam to Surah Ya-Sin",
-		urdu: "مریم تا یٰسین: کائنات، معرفت اور دعوت",
+		urdu: "کائنات، معرفت اور دعوت",
 		desc: "Prophetic lineage, divine signs in creation, resurrection, and internalizing Tawheed.",
 	},
 	{
 		phase: "Phase IV · Sessions 251–324",
 		title: "Eschatology & The Closing Maxims",
 		surahs: "Surah As-Saffat to Surah An-Nas",
-		urdu: "صافات تا الناس: فہمِ آخرت اور قرآنی اختتام",
+		urdu: "فہمِ آخرت اور قرآنی اختتام",
 		desc: "The Short Surahs (Mufassal), moral accountability, socio-political decadence, and divine protection.",
 	},
 ];
@@ -58,16 +58,11 @@ export function CourseCurriculumModule({ onOpenNotes }: CourseCurriculumModulePr
 					<div className="flex flex-col sm:flex-row sm:items-center justify-between pb-8 border-b border-surface-container-high gap-4">
 						<div>
 							<span className="font-sans text-xs uppercase tracking-wider font-bold text-primary block">
-								Curriculum Track: 4 Progressive Stages
+								Curriculum Track
 							</span>
 							<p className="font-sans text-xs text-on-surface-variant mt-0.5">
 								Structured chronologically by Quranic order from Surah 001 to Surah 114
 							</p>
-						</div>
-
-						<div className="flex items-center gap-2 text-xs font-sans font-bold text-secondary">
-							<CheckCircle className="w-4 h-4 text-brand-gold" />
-							<span>Complete Canon Verified (324 Hours)</span>
 						</div>
 					</div>
 
@@ -82,12 +77,9 @@ export function CourseCurriculumModule({ onOpenNotes }: CourseCurriculumModulePr
 									<span className="font-sans text-[11px] uppercase tracking-wider font-bold text-secondary block">
 										{m.phase}
 									</span>
-									<h4 className="font-serif text-xl font-semibold text-primary mt-2">
-										{m.title}
-									</h4>
-									<span className="font-urdu text-sm text-tertiary font-bold dir-rtl block mt-1">
+									<h4 className="font-urdu text-sm text-tertiary font-bold dir-rtl block mt-1">
 										{m.urdu}
-									</span>
+									</h4>
 									<p className="font-sans text-xs font-semibold text-primary/80 mt-2">
 										{m.surahs}
 									</p>
