@@ -8,3 +8,5 @@ export { LecturesViewContainer } from "./components/LecturesViewContainer";
 export { LecturesSearchFilter } from "./components/LecturesSearchFilter";
 export { LecturesCard } from "./components/LecturesCard";
 export { LecturesGrid } from "./components/LecturesGrid";
+export { StudyNotesArchiveView } from "./components/StudyNotesArchiveView";
+export { TarjumaCurriculumView } from "./components/TarjumaCurriculumView";

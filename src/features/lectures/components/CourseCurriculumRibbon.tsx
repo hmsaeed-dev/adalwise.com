@@ -29,16 +29,13 @@ export function CourseCurriculumRibbon({ onOpenNotes }: CourseCurriculumRibbonPr
 				</div>
 
 				<div className="flex items-center gap-2.5 shrink-0 self-end md:self-auto">
-					{onOpenNotes && (
-						<button
-							type="button"
-							onClick={onOpenNotes}
-							className="px-3.5 py-1.5 rounded-full border border-surface-container-high text-primary hover:bg-surface-container text-xs font-bold font-sans uppercase tracking-wider transition-colors inline-flex items-center gap-1.5"
-						>
-							<FileText className="w-3.5 h-3.5 text-secondary" />
-							<span>Notes</span>
-						</button>
-					)}
+					<Link
+						href="/lectures/notes"
+						className="px-3.5 py-1.5 rounded-full border border-surface-container-high text-primary hover:bg-surface-container text-xs font-bold font-sans uppercase tracking-wider transition-colors inline-flex items-center gap-1.5"
+					>
+						<FileText className="w-3.5 h-3.5 text-secondary" />
+						<span>Notes &amp; Charts ({STUDY_NOTES_REGISTRY.length})</span>
+					</Link>
 
 					<Link
 						href="/lectures/tarjuma-e-quran"

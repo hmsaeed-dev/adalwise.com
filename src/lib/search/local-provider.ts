@@ -18,9 +18,10 @@ interface IndexedSearchResult extends SearchResult {
 }
 
 let memorySearchPool: IndexedSearchResult[] | null = null;
-let lastPoolBuildTime = 0;
 
-const CACHE_TTL_MS = 60 * 1000;
+export function invalidateSearchPoolCache(): void {
+	memorySearchPool = null;
+}
 
 function normalizeText(value: string | undefined): string {
 	return value?.toLowerCase().trim() ?? "";
@@ -59,12 +60,7 @@ function createIndexedItem(
 }
 
 async function getSearchPool(): Promise<IndexedSearchResult[]> {
-	const now = Date.now();
-
-	if (
-		memorySearchPool &&
-		now - lastPoolBuildTime < CACHE_TTL_MS
-	) {
+	if (memorySearchPool) {
 		return memorySearchPool;
 	}
 
@@ -104,7 +100,9 @@ async function getSearchPool(): Promise<IndexedSearchResult[]> {
 					id: lecture.slug,
 					title: lecture.title,
 					urduTitle: lecture.urduTitle,
-					url: `/lectures/${lecture.slug}`,
+					url: lecture.isCoursework
+						? `/lectures/tarjuma-e-quran?session=${lecture.slug}`
+						: `/lectures/${lecture.slug}`,
 					excerpt: lecture.description,
 					category: lecture.category,
 					tags: lecture.tags,
@@ -112,6 +110,8 @@ async function getSearchPool(): Promise<IndexedSearchResult[]> {
 					meta: formatDuration(lecture.durationSeconds),
 					thumbnailUrl: lecture.thumbnailUrl,
 					youtubeId: lecture.youtubeId,
+					durationSeconds: lecture.durationSeconds,
+					isCoursework: lecture.isCoursework,
 				},
 				[lecture.searchText, lecture.seriesTitle, ...(lecture.topics || [])]
 					.filter(Boolean)
@@ -144,8 +144,6 @@ async function getSearchPool(): Promise<IndexedSearchResult[]> {
 	}
 
 	memorySearchPool = pool;
-	lastPoolBuildTime = now;
-
 	return pool;
 }
 
@@ -189,14 +187,16 @@ function calculateRelevance(
 		score += 200;
 	}
 
-	// Token matches in title vs Urdu vs excerpt
+	// Token matches in title vs Urdu vs excerpt vs tags
 	tokenGroups.forEach((variants) => {
 		if (variants.some((v) => title.includes(v))) {
 			score += 150;
 		} else if (variants.some((v) => urduTitle.includes(v))) {
 			score += 100;
 		} else if (variants.some((v) => excerpt.includes(v))) {
-			score += 40;
+			score += 50;
+		} else if (variants.some((v) => item.searchTags.some((t) => t.includes(v)))) {
+			score += 30;
 		} else {
 			score += 15;
 		}
@@ -206,7 +206,20 @@ function calculateRelevance(
 		score += 70;
 	}
 
-	return score;
+	// Coursework contextual weighting:
+	// Standalone masterclasses, major articles, and majlis sessions rank over repetitive daily coursework
+	// unless the user specifically searched for a session, coursework, or number
+	if (item.isCoursework) {
+		const hasCourseworkIntent =
+			/\b(dora|daura|tarjuma|session|sitting|dars|course|\d+)\b/i.test(cleanQuery) ||
+			/(دورہ|دورۂ|ترجمہ|نشست|درس)/.test(cleanQuery);
+
+		if (!hasCourseworkIntent) {
+			score -= 250;
+		}
+	}
+
+	return Math.max(1, score);
 }
 
 export class LocalSearchProvider implements SearchProvider {

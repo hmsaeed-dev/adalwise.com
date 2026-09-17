@@ -42,11 +42,6 @@ export function LecturesHero({
 
 			{/* Hero Content Lockup */}
 			<div className="relative z-10 w-full max-w-container-max mx-auto px-gutter-mobile md:px-gutter-desktop pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 text-center flex flex-col items-center justify-center">
-				<div className="inline-flex items-center gap-2 px-3 py-1 mb-4">
-					<span className="font-sans text-[11px] uppercase tracking-[0.2em] font-bold text-brand-gold">
-						Systematic Archive · 600+ Recorded Sessions
-					</span>
-				</div>
 
 				<div className="flex flex-col items-center gap-2">
 					<h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl text-brand-warm-white font-normal leading-[1.12] tracking-tight">
@@ -65,7 +60,7 @@ export function LecturesHero({
 						href="#archive"
 						className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-brand-gold/15 hover:bg-brand-gold/25 border border-brand-gold/30 text-brand-gold font-sans text-xs font-bold uppercase tracking-wider transition-all shadow-sm"
 					>
-						<span>Jump to Library Holdings (600+)</span>
+						<span>Jump to Library</span>
 						<span className="text-sm">↓</span>
 					</a>
 				</div>

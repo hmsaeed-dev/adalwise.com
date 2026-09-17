@@ -8,17 +8,23 @@ interface YouTubeEmbedProps {
 	youtubeId: string;
 	title: string;
 	thumbnailUrl?: string;
+	className?: string;
 }
 
 export function YouTubeEmbed({
 	youtubeId,
 	title,
 	thumbnailUrl,
+	className,
 }: YouTubeEmbedProps) {
 	const [isLoaded, setIsLoaded] = useState(false);
 
 	return (
-		<div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-primary-container shadow-md border border-surface-container-highest">
+		<div
+			className={`relative w-full aspect-video overflow-hidden bg-primary-container ${
+				className ?? "rounded-2xl shadow-md border border-surface-container-highest"
+			}`}
+		>
 			{!isLoaded && thumbnailUrl ? (
 				<div className="absolute inset-0 z-10 flex items-center justify-center cursor-pointer group">
 					<Image

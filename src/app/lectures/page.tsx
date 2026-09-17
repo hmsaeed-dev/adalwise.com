@@ -13,7 +13,7 @@ import {
 import { constructMetadata } from "@/lib/seo/metadata";
 
 export const metadata = constructMetadata({
-	title: "Lectures & Discourses — The Academic Corpus",
+	title: "Lectures & Discourses",
 	description:
 		"An organized body of teaching across Quranic hermeneutics, prophetic statecraft, constitutional jurisprudence, and civilizational thought by Dr. Hafiz Haseeb.",
 	canonicalUrl: "/lectures",

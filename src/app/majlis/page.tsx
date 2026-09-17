@@ -7,7 +7,7 @@ import {
 import { constructMetadata } from "@/lib/seo/metadata";
 
 export const metadata = constructMetadata({
-  title: "Majlis — Study Gatherings",
+  title: "Majlis — Gatherings",
   description:
     "Fortnightly gatherings convened in Dr. Hafiz Haseeb's Lahore library over tea, text, and candid jurisprudential inquiry.",
   canonicalUrl: "/majlis",

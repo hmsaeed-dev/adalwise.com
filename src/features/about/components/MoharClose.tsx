@@ -70,10 +70,17 @@ export function MoharClose() {
 							</Link>
 
 							<Link
-								href="/join"
-								className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/15 text-brand-warm-white border border-white/20 text-xs font-bold uppercase tracking-widest transition-all duration-200"
+								href="/about/reading-list"
+								className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full bg-white/10 hover:bg-white/15 text-brand-warm-white border border-white/20 text-xs font-bold uppercase tracking-widest transition-all duration-200"
 							>
 								<BookOpen className="w-4 h-4 text-brand-gold" />
+								<span>The Reading List</span>
+							</Link>
+
+							<Link
+								href="/join"
+								className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full bg-white/10 hover:bg-white/15 text-brand-warm-white border border-white/20 text-xs font-bold uppercase tracking-widest transition-all duration-200"
+							>
 								<span>Join Fellowship</span>
 							</Link>
 						</div>

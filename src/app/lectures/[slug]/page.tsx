@@ -1,5 +1,4 @@
-import React from "react";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { BookOpen, Play, ArrowRight } from "lucide-react";
@@ -43,6 +42,12 @@ export default async function lecturesDetailPage({ params }: PageProps) {
 
 	if (!item) {
 		notFound();
+	}
+
+	// If this lecture is part of the Tarjuma-e-Quran curriculum,
+	// seamlessly route into the dedicated Tarjuma-e-Quran Sanctum Room
+	if (item.isCoursework) {
+		redirect(`/lectures/tarjuma-e-quran?session=${slug}`);
 	}
 
 	// Fetch series companion episodes if part of a series

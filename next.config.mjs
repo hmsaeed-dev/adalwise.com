@@ -51,6 +51,36 @@ const nextConfig = {
         destination: "/twasi-al-haq/:slug*",
         permanent: true,
       },
+      {
+        source: "/notes",
+        destination: "/lectures/notes",
+        permanent: true,
+      },
+      {
+        source: "/materials",
+        destination: "/lectures/notes",
+        permanent: true,
+      },
+      {
+        source: "/lectures/materials",
+        destination: "/lectures/notes",
+        permanent: true,
+      },
+      {
+        source: "/reading-list",
+        destination: "/about/reading-list",
+        permanent: true,
+      },
+      {
+        source: "/bibliography",
+        destination: "/about/reading-list",
+        permanent: true,
+      },
+      {
+        source: "/about/bibliography",
+        destination: "/about/reading-list",
+        permanent: true,
+      },
     ];
   },
 };

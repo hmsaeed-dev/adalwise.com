@@ -12,7 +12,7 @@ import { PersonJsonLd } from "@/lib/seo/jsonld";
 import { siteConfig } from "@/config/site";
 
 export const metadata = constructMetadata({
-	title: "About — Dr. Hafiz Haseeb & The Mandate",
+	title: "About Us",
 	description:
 		"A physician’s inquiry into the Quran, living jurisprudence, and constitutional statecraft. The intellectual mandate, lineage, and background of Dr. Hafiz Haseeb.",
 	canonicalUrl: "/about",

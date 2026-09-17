@@ -1,14 +1,15 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useTransition } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Search, X, Check } from "lucide-react";
+import { Search, X, Loader2 } from "lucide-react";
 import { PRIMARY_DOMAINS } from "@/lib/taxonomy/registry";
 
 export function LecturesSearchFilter() {
 	const router = useRouter();
 	const searchParams = useSearchParams();
+	const [isPending, startTransition] = useTransition();
 
 	const currentDomain = searchParams.get("domain") || "all";
 	const currentSubCategory = searchParams.get("subCategory") || "all";
@@ -29,7 +30,9 @@ export function LecturesSearchFilter() {
 			params.delete("q");
 		}
 		params.set("page", "1");
-		router.replace(`/lectures?${params.toString()}`, { scroll: false });
+		startTransition(() => {
+			router.replace(`/lectures?${params.toString()}`, { scroll: false });
+		});
 	};
 
 	// Debounced search query update
@@ -37,7 +40,7 @@ export function LecturesSearchFilter() {
 		const timer = setTimeout(() => {
 			if (searchTerm === currentQueryParam) return;
 			executeSearch(searchTerm);
-		}, 300);
+		}, 250);
 
 		return () => clearTimeout(timer);
 	}, [searchTerm, currentQueryParam, searchParams, router]);
@@ -57,7 +60,9 @@ export function LecturesSearchFilter() {
 			params.delete("subCategory"); // reset sub-category when changing domain
 		}
 		params.set("page", "1");
-		router.replace(`/lectures?${params.toString()}`, { scroll: false });
+		startTransition(() => {
+			router.replace(`/lectures?${params.toString()}`, { scroll: false });
+		});
 	};
 
 	const handleSubCategorySelect = (subSlug: string) => {
@@ -68,7 +73,9 @@ export function LecturesSearchFilter() {
 			params.set("subCategory", subSlug);
 		}
 		params.set("page", "1");
-		router.replace(`/lectures?${params.toString()}`, { scroll: false });
+		startTransition(() => {
+			router.replace(`/lectures?${params.toString()}`, { scroll: false });
+		});
 	};
 
 	const handleToggleCoursework = () => {
@@ -79,7 +86,9 @@ export function LecturesSearchFilter() {
 			params.set("coursework", "true");
 		}
 		params.set("page", "1");
-		router.replace(`/lectures?${params.toString()}`, { scroll: false });
+		startTransition(() => {
+			router.replace(`/lectures?${params.toString()}`, { scroll: false });
+		});
 	};
 
 	const clearSearch = () => {
@@ -87,7 +96,9 @@ export function LecturesSearchFilter() {
 		const params = new URLSearchParams(searchParams.toString());
 		params.delete("q");
 		params.set("page", "1");
-		router.replace(`/lectures?${params.toString()}`, { scroll: false });
+		startTransition(() => {
+			router.replace(`/lectures?${params.toString()}`, { scroll: false });
+		});
 	};
 
 	// Find currently active domain to render progressive disclosure sub-categories
@@ -110,7 +121,11 @@ export function LecturesSearchFilter() {
 			{/* Search Input Bar (High Contrast, Clean Editorial Design) */}
 			<form onSubmit={handleSubmitSearch} className="w-full relative">
 				<div className="flex items-center bg-surface-container-lowest px-5 py-3.5 rounded-2xl shadow-sm focus-within:border-brand-gold focus-within:ring-2 focus-within:ring-brand-gold/20 transition-all">
-					<Search className="w-4 h-4 text-outline mr-3 shrink-0" />
+					{isPending ? (
+						<Loader2 className="w-4 h-4 text-brand-gold animate-spin mr-3 shrink-0" />
+					) : (
+						<Search className="w-4 h-4 text-outline mr-3 shrink-0" />
+					)}
 					<input
 						type="text"
 						value={searchTerm}

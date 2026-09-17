@@ -89,14 +89,10 @@ export const getPaginatedLectures = cache(
 
 		let filtered = lecturesCatalog;
 
-		// 1. By default, separate daily repetitive coursework from the open thematic archive
-		// unless explicitly requested (includeCoursework === true), searching keywords, or specifically requesting coursework sub-category
-		const shouldIncludeCoursework =
-			includeCoursework ||
-			Boolean(query && query.trim().length > 0) ||
-			subCategory === "dora-tarjuma-e-quran";
-
-		if (!shouldIncludeCoursework) {
+		// 1. Strictly separate daily repetitive coursework from the open thematic lecture archive.
+		// Coursework has its own dedicated room (/lectures/tarjuma-e-quran) and must never pollute
+		// the thematic video catalog even during catalog search.
+		if (!includeCoursework) {
 			filtered = filtered.filter((item) => !item.isCoursework);
 		}
 

@@ -18,7 +18,7 @@ export function constructMetadata({
 }: MetadataProps = {}): Metadata {
 	const fullTitle = title
 		? `${title} | ${siteConfig.name}`
-		: `${siteConfig.name} — ${siteConfig.tagline}`;
+		: `${siteConfig.tagline}`;
 	const url = canonicalUrl
 		? `${siteConfig.url}${canonicalUrl}`
 		: siteConfig.url;

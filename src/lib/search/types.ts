@@ -12,6 +12,7 @@ export interface SearchResult {
 	thumbnailUrl?: string;
 	youtubeId?: string;
 	durationSeconds?: number;
+	isCoursework?: boolean;
 }
 
 export interface SearchOptions {

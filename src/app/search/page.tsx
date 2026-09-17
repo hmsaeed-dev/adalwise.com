@@ -6,7 +6,7 @@ import { constructMetadata } from "@/lib/seo/metadata";
 import { Play, BookOpen, Mic, Search, SearchX, ArrowRight } from "lucide-react";
 
 export const metadata = constructMetadata({
-	title: "Archive Search — Unified Repository",
+	title: "Archive Search",
 	description:
 		"Unified search across Adlwise lecture series, research articles and Majlis sessions.",
 	canonicalUrl: "/search",
@@ -190,12 +190,27 @@ export default async function SearchPage({ searchParams }: PageProps) {
 								{/* Content Details */}
 								<div className="flex flex-col justify-between flex-1 min-w-0 py-0.5">
 									<div className="space-y-1">
+										<div className="flex items-center gap-1.5 flex-wrap">
+											<span className="font-label-sm text-[10px] text-secondary uppercase tracking-wider font-bold">
+												{config.label} • {res.category}
+											</span>
+											{res.isCoursework && (
+												<span className="font-sans text-[9px] uppercase tracking-wider font-semibold bg-secondary/15 text-secondary px-1.5 py-0.2 rounded">
+													Coursework
+												</span>
+											)}
+										</div>
 
 										<h3 className="font-bold text-primary text-sm sm:text-base leading-snug line-clamp-2 group-hover:text-primary-container transition-colors">
 											{displayTitle}
 										</h3>
-									</div>
 
+										{res.urduTitle && (
+											<span className="font-urdu text-[12px] text-tertiary font-semibold dir-rtl block text-right line-clamp-1">
+												{res.urduTitle}
+											</span>
+										)}
+									</div>
 								</div>
 							</Link>
 						);
