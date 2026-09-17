@@ -22,6 +22,8 @@ import {
 } from "@/lib/lectures/tarjuma-quran";
 import { YouTubeEmbed } from "@/components/lectures/YouTubeEmbed";
 import Image from "next/image";
+import MiniSearch from "minisearch";
+import { normalizeUrduArabic, tokenizeBilingual } from "@/lib/search/normalizer";
 
 interface TarjumaCurriculumViewProps {
 	editions: TarjumaEditionMeta[];
@@ -87,6 +89,41 @@ export function TarjumaCurriculumView({
 		}
 	}, [initialMatch]);
 
+	// MiniSearch engine for active edition sessions
+	const editionSearchEngine = useMemo(() => {
+		const ms = new MiniSearch<ParsedTarjumaSession>({
+			fields: [
+				"title",
+				"rawTitle",
+				"cleanSurahTitle",
+				"urduTitle",
+				"sessionCode",
+				"rangeLabel",
+				"summary",
+			],
+			storeFields: ["id", "slug"],
+			tokenize: tokenizeBilingual,
+			processTerm: (term) => normalizeUrduArabic(term),
+			searchOptions: {
+				boost: {
+					cleanSurahTitle: 4.0,
+					title: 3.5,
+					urduTitle: 3.0,
+					sessionCode: 2.5,
+					rangeLabel: 2.0,
+					rawTitle: 1.5,
+					summary: 1.0,
+				},
+				prefix: true,
+				fuzzy: (term) => (term.length >= 4 ? 0.2 : false),
+				combineWith: "AND",
+			},
+		});
+
+		ms.addAll(activeEdition.sessions);
+		return ms;
+	}, [activeEdition.sessions]);
+
 	// Filter sessions by Juz and Search Query
 	const filteredSessions = useMemo(() => {
 		let list = activeEdition.sessions;
@@ -96,27 +133,38 @@ export function TarjumaCurriculumView({
 			list = list.filter((s) => s.juzList.includes(selectedJuz));
 		}
 
-		// Filter by Search Query (deferred for responsive input)
+		// Filter by Search Query via MiniSearch
 		if (deferredSearchQuery.trim()) {
-			const q = deferredSearchQuery.toLowerCase().trim();
-			list = list.filter((s) => {
-				const titleMatch = s.title.toLowerCase().includes(q);
-				const rawMatch = s.rawTitle.toLowerCase().includes(q);
-				const urduMatch = s.urduTitle.toLowerCase().includes(q);
-				const codeMatch = s.sessionCode.toLowerCase() === q;
-				const rangeMatch = s.rangeLabel?.toLowerCase().includes(q);
-				return (
-					titleMatch ||
-					rawMatch ||
-					urduMatch ||
-					codeMatch ||
-					rangeMatch
-				);
-			});
+			const cleanQ = normalizeUrduArabic(deferredSearchQuery);
+			if (cleanQ) {
+				let hits = editionSearchEngine.search(cleanQ, {
+					combineWith: "AND",
+					prefix: true,
+					fuzzy: (term) => (term.length >= 4 ? 0.2 : false),
+				});
+
+				if (hits.length === 0 && cleanQ.includes(" ")) {
+					hits = editionSearchEngine.search(cleanQ, {
+						combineWith: "OR",
+						prefix: true,
+						fuzzy: (term) => (term.length >= 4 ? 0.2 : false),
+					});
+				}
+
+				const hitRankMap = new Map<string, number>();
+				hits.forEach((h, idx) => hitRankMap.set(h.id, idx));
+
+				list = list
+					.filter((s) => hitRankMap.has(s.id))
+					.sort(
+						(a, b) =>
+							(hitRankMap.get(a.id) ?? 0) - (hitRankMap.get(b.id) ?? 0),
+					);
+			}
 		}
 
 		return list;
-	}, [activeEdition, selectedJuz, deferredSearchQuery]);
+	}, [activeEdition, selectedJuz, deferredSearchQuery, editionSearchEngine]);
 
 	// Find Prev and Next session indices within the current edition
 	const { prevSession, nextSession } = useMemo(() => {

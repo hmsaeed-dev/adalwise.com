@@ -123,3 +123,34 @@ export function expandQueryTokens(query: string): string[][] {
 		return Array.from(variants);
 	});
 }
+
+/**
+ * Extract all matching synonyms for a list of tokens
+ */
+export function getSynonymsForTokens(tokens: string[]): string[] {
+	const result = new Set<string>();
+	for (const token of tokens) {
+		const clean = token.toLowerCase().trim();
+		const syns = TRANSLITERATION_SYNONYMS[clean];
+		if (syns) {
+			for (const s of syns) {
+				result.add(s.toLowerCase().trim());
+			}
+		}
+	}
+	return Array.from(result);
+}
+
+/**
+ * Extract all matching synonyms directly from a text block
+ */
+export function getSynonymsForText(text: string): string[] {
+	if (!text) return [];
+	const tokens = text
+		.toLowerCase()
+		.trim()
+		.split(/[\s,./\\;:'"[\]{}|!@#$%^&*()_+=\-–—؟،۔]+/u)
+		.filter(Boolean);
+	return getSynonymsForTokens(tokens);
+}
+

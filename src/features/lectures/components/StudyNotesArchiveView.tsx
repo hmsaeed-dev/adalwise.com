@@ -14,12 +14,39 @@ import {
 	ArrowRight,
 } from "lucide-react";
 import { STUDY_NOTES_REGISTRY, StudyNote } from "@/lib/lectures/notes-registry";
+import MiniSearch from "minisearch";
+import { normalizeUrduArabic, tokenizeBilingual } from "@/lib/search/normalizer";
 
 export function StudyNotesArchiveView() {
 	const [searchQuery, setSearchQuery] = useState("");
 	const deferredSearchQuery = useDeferredValue(searchQuery);
 	const [selectedCategory, setSelectedCategory] = useState<string>("All");
 	const [activeModalNote, setActiveModalNote] = useState<StudyNote | null>(null);
+
+	// Memoized MiniSearch engine for study notes
+	const notesSearchEngine = useMemo(() => {
+		const ms = new MiniSearch<StudyNote>({
+			fields: ["title", "urduTitle", "description", "category", "type"],
+			storeFields: ["id", "category"],
+			tokenize: tokenizeBilingual,
+			processTerm: (term) => normalizeUrduArabic(term),
+			searchOptions: {
+				boost: {
+					title: 4.0,
+					urduTitle: 3.5,
+					category: 2.0,
+					description: 1.5,
+					type: 1.0,
+				},
+				prefix: true,
+				fuzzy: (term) => (term.length >= 4 ? 0.2 : false),
+				combineWith: "AND",
+			},
+		});
+
+		ms.addAll(STUDY_NOTES_REGISTRY);
+		return ms;
+	}, []);
 
 	// Filter notes by search query and category
 	const filteredNotes = useMemo(() => {
@@ -30,17 +57,40 @@ export function StudyNotesArchiveView() {
 		}
 
 		if (deferredSearchQuery.trim()) {
-			const q = deferredSearchQuery.toLowerCase().trim();
-			list = list.filter(
-				(n) =>
-					n.title.toLowerCase().includes(q) ||
-					(n.urduTitle && n.urduTitle.toLowerCase().includes(q)) ||
-					n.description.toLowerCase().includes(q),
-			);
+			const cleanQ = normalizeUrduArabic(deferredSearchQuery);
+			if (cleanQ) {
+				let hits = notesSearchEngine.search(cleanQ, {
+					filter: (result) =>
+						selectedCategory === "All" || result.category === selectedCategory,
+					combineWith: "AND",
+					prefix: true,
+					fuzzy: (term) => (term.length >= 4 ? 0.2 : false),
+				});
+
+				if (hits.length === 0 && cleanQ.includes(" ")) {
+					hits = notesSearchEngine.search(cleanQ, {
+						filter: (result) =>
+							selectedCategory === "All" || result.category === selectedCategory,
+						combineWith: "OR",
+						prefix: true,
+						fuzzy: (term) => (term.length >= 4 ? 0.2 : false),
+					});
+				}
+
+				const hitRankMap = new Map<string, number>();
+				hits.forEach((h, idx) => hitRankMap.set(h.id, idx));
+
+				list = list
+					.filter((n) => hitRankMap.has(n.id))
+					.sort(
+						(a, b) =>
+							(hitRankMap.get(a.id) ?? 0) - (hitRankMap.get(b.id) ?? 0),
+					);
+			}
 		}
 
 		return list;
-	}, [selectedCategory, deferredSearchQuery]);
+	}, [selectedCategory, deferredSearchQuery, notesSearchEngine]);
 
 	// Navigation within the inspection modal
 	const currentIdx = useMemo(() => {

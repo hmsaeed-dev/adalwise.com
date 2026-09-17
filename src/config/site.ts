@@ -18,11 +18,9 @@ export const siteConfig = {
 		youtube: "https://youtube.com/@drhafizhaseeb",
 		twitter: "https://twitter.com/drhafizhaseeb",
 		x: "https://x.com/drhafizhaseeb",
-		socials: [
-			"https://youtube.com/@drhafizhaseeb",
-			"https://twitter.com/drhafizhaseeb",
-			"https://x.com/drhafizhaseeb",
-		],
+		get socials() {
+			return [this.youtube, this.twitter, this.x];
+		},
 	},
 	keywords: [
 		"Adlwise",

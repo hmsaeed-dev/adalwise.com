@@ -364,37 +364,55 @@ function createUniqueSlug(title, videoId, usedSlugs) {
    CATALOG NORMALIZATION
    ========================================================= */
 
+function categoryToDomain(category) {
+    switch (category) {
+        case "Tafsir": return "tafsir";
+        case "Seerat": return "seerah";
+        case "Constitutional Law": return "constitutional-law";
+        case "Iqbalian Thought": return "iqbal";
+        case "Ethics": return "civic-ethics";
+        case "Statecraft": return "constitutional-law";
+        case "Lisan-ul-Quran": return "lisan-ul-quran";
+        case "Socio-Political": return "constitutional-law";
+        default: return "tafsir";
+    }
+}
+
 function normalizeVideo(video, existingItem, usedSlugs) {
     const snippet = video.snippet || {};
     const contentDetails = video.contentDetails || {};
-
     const videoId = video.id;
+    const durationSeconds = parseIsoDuration(contentDetails.duration);
 
+    // 1. If video is ALREADY in catalogue, STRICTLY PRESERVE all existing curated fields!
+    // Never strip speaker, domainId, isCoursework, urduTitle, or rename existing slugs!
+    if (existingItem) {
+        return {
+            ...existingItem,
+            durationSeconds: existingItem.durationSeconds || durationSeconds,
+            thumbnailUrl:
+                existingItem.thumbnailUrl ||
+                snippet.thumbnails?.maxres?.url ||
+                snippet.thumbnails?.high?.url ||
+                `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
+        };
+    }
+
+    // 2. Brand-new video: construct full conformant LectureItem
     const title = cleanText(snippet.title || "");
     const rawDescription = cleanText(snippet.description || "");
     const description = sanitizeDescription(rawDescription);
 
-    let slug = existingItem?.slug;
-
-    if (!slug || slug.startsWith("lecture-") || usedSlugs.has(slug)) {
-        slug = createUniqueSlug(title, videoId, usedSlugs);
-    } else {
-        usedSlugs.add(slug);
-    }
+    const slug = createUniqueSlug(title, videoId, usedSlugs);
 
     const ytTags = [...(snippet.tags || [])]
         .map(cleanText)
         .filter(Boolean)
         .filter((tag, index, array) => array.indexOf(tag) === index);
 
-    const category =
-        existingItem?.category || inferCategory(title, rawDescription);
-
-    const topics = existingItem?.topics?.length
-        ? existingItem.topics
-        : buildTopics(title, rawDescription, ytTags, category);
-
-    const durationSeconds = parseIsoDuration(contentDetails.duration);
+    const category = inferCategory(title, rawDescription);
+    const domainId = categoryToDomain(category);
+    const topics = buildTopics(title, rawDescription, ytTags, category);
 
     const thumbnailUrl =
         snippet.thumbnails?.maxres?.url ||
@@ -402,20 +420,41 @@ function normalizeVideo(video, existingItem, usedSlugs) {
         snippet.thumbnails?.high?.url ||
         `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
 
-    const finalDescription =
-        existingItem?.description &&
-        existingItem.description !== "Recorded lecture and scholarly Tafsir."
-            ? existingItem.description
-            : description;
+    let urduTitle;
+    if (/[\u0600-\u06FF]/.test(title)) {
+        const urduMatch = title.match(/[\u0600-\u06FF\s،۔؛]+(?:\([^)]*\)|[^\w|–—-])*/g);
+        if (urduMatch) {
+            urduTitle = urduMatch.join(" ").trim();
+        }
+    }
 
-    const tags = existingItem?.tags?.length ? existingItem.tags : ytTags;
+    const isCoursework =
+        /\b(dora|daura|tarjuma|session|sitting|dars)\b/i.test(title) ||
+        /(دورہ|دورۂ|ترجمہ|نشست|درس)/.test(title);
+
+    const isKhutba =
+        /\b(khutba|jumma|khutbah)\b/i.test(title) ||
+        /(خطبہ|جمعہ)/.test(title);
+
+    const format = isCoursework
+        ? "Serial Coursework"
+        : isKhutba
+        ? "Sermon / Khutba"
+        : "Standalone Keynote";
+
+    const speaker = {
+        name: "Dr. Hafiz Haseeb",
+        urduName: "ڈاکٹر حافظ حسیب",
+        title: "Consultant Hematologist & Quranic Researcher",
+        avatarUrl: "/images/haseeb-02.jpg",
+    };
 
     const searchText = buildSearchText({
         title,
-        description: finalDescription,
+        description,
         category,
         topics,
-        tags,
+        tags: ytTags,
     });
 
     return {
@@ -423,17 +462,21 @@ function normalizeVideo(video, existingItem, usedSlugs) {
         slug,
         youtubeId: videoId,
         title,
-        description: finalDescription,
+        urduTitle: urduTitle || undefined,
+        speaker,
+        description,
+        summary: description.slice(0, 160),
         durationSeconds,
         publishedAt: snippet.publishedAt,
         thumbnailUrl,
-
         category,
+        domainId,
+        format,
+        isCoursework,
+        isKhutba,
         topics,
-        tags,
-
-        relatedArticleSlugs: existingItem?.relatedArticleSlugs || [],
-
+        tags: ytTags,
+        relatedArticleSlugs: [],
         searchText,
     };
 }

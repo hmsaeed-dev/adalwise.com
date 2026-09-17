@@ -1,5 +1,5 @@
 export interface SearchResult {
-	type: "article" | "lectures" | "dispatch" | "majlis";
+	type: "article" | "lectures" | "dispatch" | "majlis" | "note";
 	id: string;
 	title: string;
 	urduTitle?: string;
@@ -13,12 +13,14 @@ export interface SearchResult {
 	youtubeId?: string;
 	durationSeconds?: number;
 	isCoursework?: boolean;
+	isRelaxedMatch?: boolean;
 	slug?: string;
 }
 
 export interface SearchOptions {
-	type?: "article" | "lectures" | "dispatch" | "majlis" | "all";
+	type?: "article" | "lectures" | "dispatch" | "majlis" | "note" | "all";
 	category?: string;
+	domain?: string;
 	limit?: number;
 }
 

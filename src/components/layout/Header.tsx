@@ -47,12 +47,20 @@ export function Header() {
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
 
-	// Global Ctrl+K / Escape listener
+	// Global Ctrl+K / '/' / Escape listener
 	useEffect(() => {
 		const handleKeyDown = (e: KeyboardEvent) => {
 			if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
 				e.preventDefault();
 				setIsSearchOpen((prev) => !prev);
+			}
+			if (e.key === "/" && !isSearchOpen) {
+				const activeTag = document.activeElement?.tagName?.toLowerCase();
+				const isEditable = (document.activeElement as HTMLElement)?.isContentEditable;
+				if (activeTag !== "input" && activeTag !== "textarea" && !isEditable) {
+					e.preventDefault();
+					setIsSearchOpen(true);
+				}
 			}
 			if (e.key === "Escape") {
 				setIsDrawerOpen(false);
@@ -61,7 +69,7 @@ export function Header() {
 		};
 		window.addEventListener("keydown", handleKeyDown);
 		return () => window.removeEventListener("keydown", handleKeyDown);
-	}, []);
+	}, [isSearchOpen]);
 
 	// Close drawer on route change
 	useEffect(() => {
@@ -138,7 +146,12 @@ export function Header() {
 						<button
 							type="button"
 							onClick={() => setIsSearchOpen(true)}
-							aria-label="Search Archive (Ctrl+K)"
+							onMouseEnter={() => {
+								if (typeof window !== "undefined") {
+									fetch("/api/search/catalog", { priority: "low" } as RequestInit).catch(() => {});
+								}
+							}}
+							aria-label="Search Archive (Ctrl+K or /)"
 							className={cn(
 								"w-9 h-9 flex items-center justify-center rounded-full transition-colors",
 								isTransparentHero

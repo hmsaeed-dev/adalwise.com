@@ -7,6 +7,7 @@ const VALID_SEARCH_TYPES: ReadonlyArray<NonNullable<SearchOptions["type"]>> = [
   "lectures",
   "dispatch",
   "majlis",
+  "note",
   "all",
 ];
 

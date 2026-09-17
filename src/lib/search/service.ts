@@ -1,9 +1,9 @@
-import { LocalSearchProvider } from "./local-provider";
+import { MiniSearchProvider, invalidateSearchPoolCache } from "./minisearch-provider";
 import { SearchProvider } from "./types";
 
-// Factory function: currently returns LocalSearchProvider, can return MeiliSearchProvider or AlgoliaProvider later
 function createSearchProvider(): SearchProvider {
-  return new LocalSearchProvider();
+  return new MiniSearchProvider();
 }
 
 export const searchService = createSearchProvider();
+export { invalidateSearchPoolCache };

@@ -20,7 +20,7 @@ export const metadata = constructMetadata({
 interface PageProps {
     searchParams: Promise<{
         q?: string;
-        type?: "article" | "lectures" | "majlis" | "all";
+        type?: "article" | "lectures" | "majlis" | "note" | "all";
     }>;
 }
 
@@ -130,11 +130,16 @@ export default async function SearchPage({ searchParams }: PageProps) {
 						No Records Found
 					</h3>
 					<p className="font-body-sm text-on-surface-variant max-w-sm">
-						Try searching for broader terms.
+						Try searching for broader keywords, Surah notations (e.g. 2:255), or concepts.
 					</p>
 				</div>
 			) : (
 				<div className="w-full max-w-2xl mx-auto flex flex-col gap-3">
+					{results[0]?.isRelaxedMatch && (
+						<div className="px-4 py-2.5 rounded-xl bg-surface-container/50 border border-surface-container-high/60 text-xs text-on-surface-variant font-medium">
+							No exact match found for all terms. Showing closest matching holdings:
+						</div>
+					)}
 					{results.map((res: SearchResult) => {
 						const typeLabels: Record<
 							string,
@@ -143,6 +148,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
 							article: { label: "Article", icon: BookOpen },
 							lectures: { label: "Lecture", icon: Play },
 							majlis: { label: "Majlis", icon: Mic },
+							note: { label: "Study Note", icon: BookOpen },
 						};
 
 						const config = typeLabels[res.type] || {
