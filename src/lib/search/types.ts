@@ -13,6 +13,7 @@ export interface SearchResult {
 	youtubeId?: string;
 	durationSeconds?: number;
 	isCoursework?: boolean;
+	slug?: string;
 }
 
 export interface SearchOptions {

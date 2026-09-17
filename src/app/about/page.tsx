@@ -8,7 +8,7 @@ import {
 	MoharClose,
 } from "@/features/about";
 import { constructMetadata } from "@/lib/seo/metadata";
-import { PersonJsonLd } from "@/lib/seo/jsonld";
+import { PersonJsonLd, BreadcrumbJsonLd } from "@/lib/seo/jsonld";
 import { siteConfig } from "@/config/site";
 
 export const metadata = constructMetadata({
@@ -22,6 +22,13 @@ export const metadata = constructMetadata({
 export default function AboutPage() {
 	return (
 		<div className="flex flex-col w-full bg-surface text-on-surface">
+			{/* Breadcrumb Structured Data */}
+			<BreadcrumbJsonLd
+				items={[
+					{ name: "Home", url: siteConfig.url },
+					{ name: "About", url: `${siteConfig.url}/about` },
+				]}
+			/>
 			{/* Structured Data for E-E-A-T Authority */}
 			<PersonJsonLd
 				name={siteConfig.author.name}

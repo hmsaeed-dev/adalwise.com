@@ -4,38 +4,28 @@ import Image from "next/image";
 interface MajlisHeroProps {
   desktopImageSrc?: string;
   mobileImageSrc?: string;
+  imageSrc?: string;
 }
 
 export function MajlisHero({
-  desktopImageSrc = "/images/majlis-hero.jpg",
-  mobileImageSrc = "/images/majlis-hero.jpg",
+  desktopImageSrc,
+  mobileImageSrc,
+  imageSrc = "/images/majlis-hero.jpg",
 }: MajlisHeroProps = {}) {
+  const effectiveImageSrc = desktopImageSrc || mobileImageSrc || imageSrc;
+
   return (
     <section className="relative w-full min-h-[440px] sm:min-h-[480px] md:min-h-[520px] lg:min-h-[560px] flex flex-col items-center justify-center overflow-hidden bg-[#0d2619]">
-      {/* ================= FULL-BLEED BACKGROUND IMAGES ================= */}
+      {/* ================= FULL-BLEED BACKGROUND IMAGE ================= */}
       <div className="absolute inset-0 w-full h-full select-none pointer-events-none overflow-hidden">
-        {/* Desktop Image (Hidden on Mobile) */}
-        <div className="hidden md:block absolute inset-0 w-full h-full">
+        <div className="absolute inset-0 w-full h-full">
           <Image
-            src={desktopImageSrc}
+            src={effectiveImageSrc}
             alt="Adlwise Majlis - Study Gatherings"
             fill
             priority
             quality={85}
-            className="object-cover object-center transform scale-105 animate-fade-in"
-            sizes="100vw"
-          />
-        </div>
-
-        {/* Mobile Image (Hidden on Desktop) */}
-        <div className="block md:hidden absolute inset-0 w-full h-full">
-          <Image
-            src={mobileImageSrc}
-            alt="Adlwise Majlis - Study Gatherings"
-            fill
-            priority
-            quality={85}
-            className="object-cover object-center"
+            className="object-cover object-center md:scale-105 animate-fade-in"
             sizes="100vw"
           />
         </div>
@@ -58,7 +48,7 @@ export function MajlisHero({
         <div className="flex items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4 animate-fade-in-up flex-wrap">
 
           <h1 className="font-urdu text-6xl sm:text-4xl md:text-8xl md:mb-12 text-brand-warm-white  font-bold leading-none dir-rtl select-none drop-shadow-sm">
-            مجلسِ
+            مجلسِ مکالمہ
           </h1>
         </div>
 

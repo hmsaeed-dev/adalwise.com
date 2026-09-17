@@ -2,12 +2,17 @@ import { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site";
 import { getAllArticles, getAllMajlisSessions } from "@/lib/content/client";
 import { getAllLectures } from "@/lib/lectures/client";
-import { SERIES_LIST, TOPICS_LIST } from "@/lib/taxonomy/registry";
+
+function safeDate(dateStr?: string | Date): Date {
+	if (!dateStr) return new Date();
+	const d = new Date(dateStr);
+	return isNaN(d.getTime()) ? new Date() : d;
+}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const baseUrl = siteConfig.url;
 
-	// Static core routes
+	// Core canonical static routes (Search is excluded to avoid crawler traps)
 	const staticRoutes: MetadataRoute.Sitemap = [
 		{
 			url: `${baseUrl}`,
@@ -28,13 +33,31 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 			priority: 0.9,
 		},
 		{
+			url: `${baseUrl}/lectures/tarjuma-e-quran`,
+			lastModified: new Date(),
+			changeFrequency: "weekly",
+			priority: 0.9,
+		},
+		{
 			url: `${baseUrl}/majlis`,
 			lastModified: new Date(),
 			changeFrequency: "weekly",
 			priority: 0.8,
 		},
 		{
+			url: `${baseUrl}/lectures/notes`,
+			lastModified: new Date(),
+			changeFrequency: "weekly",
+			priority: 0.8,
+		},
+		{
 			url: `${baseUrl}/about`,
+			lastModified: new Date(),
+			changeFrequency: "monthly",
+			priority: 0.7,
+		},
+		{
+			url: `${baseUrl}/about/reading-list`,
 			lastModified: new Date(),
 			changeFrequency: "monthly",
 			priority: 0.7,
@@ -47,47 +70,31 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		},
 	];
 
-	// Dynamic articles (Twasi al-Haq)
+	// Dynamic monographs & treatises (Twasi al-Haq)
 	const articles = await getAllArticles();
 	const articleRoutes: MetadataRoute.Sitemap = articles.map((a) => ({
 		url: `${baseUrl}/twasi-al-haq/${a.slug}`,
-		lastModified: new Date(a.frontmatter.publishedAt),
+		lastModified: safeDate(a.frontmatter.publishedAt),
 		changeFrequency: "monthly",
 		priority: 0.85,
 	}));
 
-	// Dynamic lectures items
+	// Dynamic scholarly discourses (Lectures Archive)
 	const lectures = await getAllLectures();
 	const lecturesRoutes: MetadataRoute.Sitemap = lectures.map((m) => ({
 		url: `${baseUrl}/lectures/${m.slug}`,
-		lastModified: new Date(m.publishedAt),
+		lastModified: safeDate(m.publishedAt),
 		changeFrequency: "weekly",
 		priority: 0.8,
 	}));
 
-	// Dynamic Majlis sessions
+	// Dynamic Majlis deliberative assemblies
 	const majlisSessions = await getAllMajlisSessions();
 	const majlisRoutes: MetadataRoute.Sitemap = majlisSessions.map((s) => ({
 		url: `${baseUrl}/majlis/${s.slug}`,
-		lastModified: new Date(s.session.date),
+		lastModified: safeDate(s.session.date),
 		changeFrequency: "monthly",
 		priority: 0.8,
-	}));
-
-	// Dynamic series
-	const seriesRoutes: MetadataRoute.Sitemap = SERIES_LIST.map((s) => ({
-		url: `${baseUrl}/lectures?series=${s.slug}`,
-		lastModified: new Date(),
-		changeFrequency: "weekly",
-		priority: 0.7,
-	}));
-
-	// Dynamic topics
-	const topicRoutes: MetadataRoute.Sitemap = TOPICS_LIST.map((t) => ({
-		url: `${baseUrl}/search?q=${encodeURIComponent(t.name)}`,
-		lastModified: new Date(),
-		changeFrequency: "weekly",
-		priority: 0.6,
 	}));
 
 	return [
@@ -95,7 +102,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		...articleRoutes,
 		...lecturesRoutes,
 		...majlisRoutes,
-		...seriesRoutes,
-		...topicRoutes,
 	];
 }

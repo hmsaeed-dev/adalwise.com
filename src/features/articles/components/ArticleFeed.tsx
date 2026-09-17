@@ -17,12 +17,13 @@ export function ArticleFeed({
 
 	return (
 		<section className="w-full px-gutter-mobile md:px-gutter-desktop flex flex-col gap-space-md max-w-container-max mx-auto py-space-md">
-			<div className="flex items-baseline justify-between border-b border-surface-container-high pb-space-xs">
+			<div className="flex items-baseline justify-between  border-surface-container-high pb-space-xs">
 				<h2 className="font-headline-md text-primary font-bold font-serif">
 					{title}
 				</h2>
 				<span className="font-label-sm text-on-surface-variant uppercase tracking-wider text-xs">
-					{articles.length} {articles.length === 1 ? "Publication" : "Publications"}
+					{articles.length}{" "}
+					{articles.length === 1 ? "Publication" : "Publications"}
 				</span>
 			</div>
 

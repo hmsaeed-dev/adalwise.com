@@ -10,7 +10,8 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"sync:youtube": "node scripts/sync-youtube.mjs"
+		"sync:youtube": "node scripts/sync-youtube.mjs",
+		"audit:catalog": "node scripts/audit-catalogue.mjs"
 	},
 	"keywords": [],
 	"author": "",

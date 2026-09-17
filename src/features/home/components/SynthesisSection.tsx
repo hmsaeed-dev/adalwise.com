@@ -36,8 +36,7 @@ export function SynthesisSection() {
 		<section className="w-full px-gutter-mobile md:px-gutter-desktop py-space-xl md:py-space-2xl max-w-container-max mx-auto flex flex-col gap-8 md:gap-12">
 			{/* ─── SECTION HEADER: Sharp Overline & Editorial Typography ─── */}
 			<div className="flex flex-col gap-2 md:gap-3">
-				<div className="flex items-center gap-2 text-tertiary">
-				</div>
+				<div className="flex items-center gap-2 text-tertiary"></div>
 				<h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-primary tracking-tight leading-tight">
 					Synthesis of Adl &amp; Hikmah
 				</h2>
@@ -63,7 +62,6 @@ export function SynthesisSection() {
 							<div className="absolute inset-3 border border-tertiary-fixed/15 rounded-[14px] pointer-events-none" />
 						</div>
 
-
 						{/* Center Watermark Crest */}
 						<div className="relative z-10 flex flex-col items-center justify-center my-auto py-6 opacity-35 group-hover:opacity-55 transition-opacity duration-500">
 							<div className="w-16 h-16 rounded-full border border-brand-gold/40 flex items-center justify-center p-3">
@@ -72,11 +70,11 @@ export function SynthesisSection() {
 						</div>
 
 						{/* Bottom Plate Inscription */}
-						<div className="relative z-10 flex flex-col gap-1.5 border-t border-brand-warm-white/10 pt-4">
+						<div className="relative z-10 flex flex-col gap-1.5  border-brand-warm-white/10 pt-4">
 							<span className="font-serif italic text-base sm:text-lg text-brand-warm-white leading-snug">
-								&ldquo;Justice without wisdom is rigidity; wisdom without justice is compromise.&rdquo;
+								&ldquo;Justice without wisdom is rigidity;
+								wisdom without justice is compromise.&rdquo;
 							</span>
-
 						</div>
 					</div>
 				</div>
@@ -96,7 +94,6 @@ export function SynthesisSection() {
 									</span>
 									<h3 className="font-serif text-lg sm:text-xl md:text-2xl font-medium text-primary tracking-wide uppercase">
 										{p.title}{" "}
-
 									</h3>
 								</div>
 								<span className="font-quran text-xs sm:text-sm text-on-surface-variant/60 dir-rtl text-right select-none">
@@ -127,14 +124,13 @@ export function SynthesisSection() {
 
 				{/* Left Side: Fellowship Overline & Pitch */}
 				<div className="relative z-10 flex flex-col gap-2 max-w-2xl">
-
-
 					<h3 className="font-serif text-2xl sm:text-3xl font-medium text-brand-warm-white tracking-tight">
 						Join the Circle
 					</h3>
 
 					<p className="font-sans text-xs sm:text-sm text-brand-warm-white/75 leading-relaxed mt-0.5">
-						Join a dedicated fellowship convening regularly for deliberative critiques, research roundtables.
+						Join a dedicated fellowship convening regularly for
+						deliberative critiques, research roundtables.
 					</p>
 				</div>
 

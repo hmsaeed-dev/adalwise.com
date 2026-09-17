@@ -2,7 +2,7 @@ import { EB_Garamond, Inter, Noto_Nastaliq_Urdu, Amiri } from "next/font/google"
 
 export const ebGaramond = EB_Garamond({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
   variable: "--font-garamond",
   display: "swap",
@@ -10,7 +10,6 @@ export const ebGaramond = EB_Garamond({
 
 export const inter = Inter({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
   variable: "--font-inter",
   display: "swap",
 });

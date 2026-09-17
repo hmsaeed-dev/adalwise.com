@@ -3,6 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, Download, ExternalLink, ArrowRight } from "lucide-react";
 import { constructMetadata } from "@/lib/seo/metadata";
+import { BreadcrumbJsonLd } from "@/lib/seo/jsonld";
+import { siteConfig } from "@/config/site";
 
 export const metadata = constructMetadata({
 	title: "The Reading List — Foundational Classical References",
@@ -62,7 +64,7 @@ const READING_SECTIONS: Section[] = [
 				urduTitle: "الموافقات فی اصول الشریعہ",
 				author: "Imam Abu Ishaq al-Shatibi (d. 790 AH)",
 				note: "The definitive classical work examining Islamic legal injunctions through their overarching ethical objectives (Maqasid) and the preservation of public welfare.",
-				lectureSeriesUrl: "/lectures?domain=usul",
+				lectureSeriesUrl: "/lectures?domain=constitutional-law",
 				lectureSeriesLabel: "Usul & Hermeneutics Discourses",
 			},
 			{
@@ -70,7 +72,7 @@ const READING_SECTIONS: Section[] = [
 				urduTitle: "حجۃ اللہ البالغہ",
 				author: "Shah Waliullah Dehlawi (1703–1762)",
 				note: "The landmark 18th-century synthesis connecting divine legislative wisdom with human psychological needs, civilizational rise, and socio-economic justice.",
-				lectureSeriesUrl: "/lectures?domain=civilization",
+				lectureSeriesUrl: "/lectures?domain=iqbal",
 				lectureSeriesLabel: "Civilizational Lectures",
 			},
 		],
@@ -84,7 +86,7 @@ const READING_SECTIONS: Section[] = [
 				urduTitle: "تشکیلِ جدید الٰہیاتِ اسلامیہ",
 				author: "Allama Muhammad Iqbal (1877–1938)",
 				note: "Seven landmark philosophical lectures confronting modern Western empiricism, the necessity of Ijtihad, and the spiritual democratic ideal in Islam.",
-				lectureSeriesUrl: "/lectures?domain=philosophy",
+				lectureSeriesUrl: "/lectures?domain=iqbal",
 				lectureSeriesLabel: "Iqbalian Inquiries",
 			},
 			{
@@ -92,7 +94,7 @@ const READING_SECTIONS: Section[] = [
 				urduTitle: "مقدمہ ابن خلدون",
 				author: "Ibn Khaldun (1332–1406)",
 				note: "The classical masterwork on Asabiyyah (social solidarity), state formation, urban economics, and the organic cycles of civilizational decay.",
-				lectureSeriesUrl: "/lectures?domain=civilization",
+				lectureSeriesUrl: "/lectures?domain=iqbal",
 				lectureSeriesLabel: "Civilizational Lectures",
 			},
 		],
@@ -106,8 +108,9 @@ const READING_SECTIONS: Section[] = [
 				urduTitle: "تیسرا معاشی راستہ",
 				author: "Dr. Hafiz Haseeb",
 				note: "A published research treatise examining sovereign debt, public equity, central banking, and the structural Quranic alternative to debt-based capitalism.",
-				downloadUrl: "/study-notes/treatises/third-way-economics-article-urdu.pdf",
-				lectureSeriesUrl: "/lectures?domain=statecraft",
+				downloadUrl:
+					"/study-notes/treatises/third-way-economics-article-urdu.pdf",
+				lectureSeriesUrl: "/lectures?domain=constitutional-law",
 				lectureSeriesLabel: "Statecraft & Economy Discourses",
 			},
 			{
@@ -115,7 +118,7 @@ const READING_SECTIONS: Section[] = [
 				urduTitle: "دستورِ پاکستان مع قراردادِ مقاصد",
 				author: "Parliament of Pakistan (with Objectives Resolution, 1949)",
 				note: "The foundational social compact establishing the trichotomy of powers, fundamental human rights, and the constitutional guarantee of social justice.",
-				lectureSeriesUrl: "/lectures?domain=statecraft",
+				lectureSeriesUrl: "/lectures?domain=constitutional-law",
 				lectureSeriesLabel: "Constitutional Law Lectures",
 			},
 		],
@@ -125,9 +128,19 @@ const READING_SECTIONS: Section[] = [
 export default function ReadingListPage() {
 	return (
 		<div className="w-full bg-surface text-on-surface py-12 sm:py-16 md:py-20">
+			<BreadcrumbJsonLd
+				items={[
+					{ name: "Home", url: siteConfig.url },
+					{ name: "About", url: `${siteConfig.url}/about` },
+					{
+						name: "The Reading List",
+						url: `${siteConfig.url}/about/reading-list`,
+					},
+				]}
+			/>
 			<div className="w-full max-w-3xl mx-auto px-gutter-mobile md:px-gutter-desktop flex flex-col gap-12 sm:gap-16">
 				{/* ─── BREADCRUMB & BACK LINK ─── */}
-				<header className="flex flex-col gap-4 pb-8 border-b border-surface-container-high/80">
+				<header className="flex flex-col gap-4 pb-8  border-surface-container-high/80">
 					<div className="flex items-center gap-2 text-xs font-sans">
 						<Link
 							href="/about"
@@ -137,7 +150,9 @@ export default function ReadingListPage() {
 							<span>About &amp; Lineage</span>
 						</Link>
 						<span className="text-outline-variant">/</span>
-						<span className="text-secondary font-semibold">The Reading List</span>
+						<span className="text-secondary font-semibold">
+							The Reading List
+						</span>
 					</div>
 
 					<div className="pt-2">
@@ -165,7 +180,9 @@ export default function ReadingListPage() {
 						</span>
 
 						<p className="mt-4 font-serif italic text-base sm:text-lg text-secondary font-medium leading-relaxed max-w-2xl">
-							The primary masterworks and historical texts Dr. Hafiz Haseeb returns to across his lectures, offered quietly for those who wish to read along.
+							The primary masterworks and historical texts Dr.
+							Hafiz Haseeb returns to across his lectures, offered
+							quietly for those who wish to read along.
 						</p>
 					</div>
 				</header>
@@ -173,9 +190,12 @@ export default function ReadingListPage() {
 				{/* ─── LITERARY LEDGER: THEMATIC INQUIRIES ─── */}
 				<main className="flex flex-col gap-12 sm:gap-16">
 					{READING_SECTIONS.map((section, sIdx) => (
-						<section key={section.heading} className="flex flex-col gap-6">
+						<section
+							key={section.heading}
+							className="flex flex-col gap-6"
+						>
 							{/* Section Header */}
-							<div className="pb-3 border-b border-surface-container-high/60 flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+							<div className="pb-3  border-surface-container-high/60 flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
 								<h2 className="font-serif text-lg sm:text-xl text-primary font-semibold tracking-tight">
 									{section.heading}
 								</h2>
@@ -223,7 +243,9 @@ export default function ReadingListPage() {
 													className="font-bold text-primary hover:text-secondary inline-flex items-center gap-1 transition-colors"
 												>
 													<Download className="w-3.5 h-3.5" />
-													<span>Download Reference PDF</span>
+													<span>
+														Download Reference PDF
+													</span>
 												</a>
 											)}
 
@@ -232,7 +254,12 @@ export default function ReadingListPage() {
 													href={book.lectureSeriesUrl}
 													className="text-on-surface-variant hover:text-primary inline-flex items-center gap-1 transition-colors"
 												>
-													<span>Taught in {book.lectureSeriesLabel}</span>
+													<span>
+														Taught in{" "}
+														{
+															book.lectureSeriesLabel
+														}
+													</span>
 													<ArrowRight className="w-3 h-3" />
 												</Link>
 											)}
@@ -245,18 +272,29 @@ export default function ReadingListPage() {
 				</main>
 
 				{/* ─── QUIET CLOSING COLOPHON ─── */}
-				<footer className="pt-8 border-t border-surface-container-high/80 flex flex-col gap-4 text-xs font-sans text-on-surface-variant leading-relaxed">
+				<footer className="pt-8  border-surface-container-high/80 flex flex-col gap-4 text-xs font-sans text-on-surface-variant leading-relaxed">
 					<p>
-						These texts form the intellectual background of the systematic exegesis delivered in the{" "}
-						<Link href="/lectures" className="text-primary font-bold hover:underline">
+						These texts form the intellectual background of the
+						systematic exegesis delivered in the{" "}
+						<Link
+							href="/lectures"
+							className="text-primary font-bold hover:underline"
+						>
 							Lectures Library
 						</Link>{" "}
 						and the deliberative assemblies of the{" "}
-						<Link href="/majlis" className="text-primary font-bold hover:underline">
+						<Link
+							href="/majlis"
+							className="text-primary font-bold hover:underline"
+						>
 							Majlis
 						</Link>
-						. For visual syntax charts and companion timelines, consult the{" "}
-						<Link href="/lectures/notes" className="text-primary font-bold hover:underline">
+						. For visual syntax charts and companion timelines,
+						consult the{" "}
+						<Link
+							href="/lectures/notes"
+							className="text-primary font-bold hover:underline"
+						>
 							Study Notes &amp; Reference Archive
 						</Link>
 						.
@@ -268,7 +306,10 @@ export default function ReadingListPage() {
 							className="font-bold text-primary hover:text-secondary inline-flex items-center gap-1 transition-colors"
 						>
 							<ArrowLeft className="w-3.5 h-3.5" />
-							<span>Return to Dr. Hafiz Haseeb&apos;s Lineage &amp; Background</span>
+							<span>
+								Return to Dr. Hafiz Haseeb&apos;s Lineage &amp;
+								Background
+							</span>
 						</Link>
 					</div>
 				</footer>

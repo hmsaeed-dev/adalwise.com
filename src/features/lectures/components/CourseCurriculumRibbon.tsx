@@ -3,49 +3,65 @@ import Link from "next/link";
 import { BookOpen, ArrowRight, FileText } from "lucide-react";
 import { STUDY_NOTES_REGISTRY } from "@/lib/lectures/notes-registry";
 
-interface CourseCurriculumRibbonProps {
-	onOpenNotes?: () => void;
-}
+export function CourseCurriculumRibbon() {
+	const notesCount = STUDY_NOTES_REGISTRY?.length ?? 0;
 
-export function CourseCurriculumRibbon({ onOpenNotes }: CourseCurriculumRibbonProps) {
 	return (
-		<div className="w-full max-w-container-max mx-auto px-gutter-mobile md:px-gutter-desktop mt-8 mb-2">
-			<div className="rounded-2xl bg-surface-container-low border border-surface-container-high/90 p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm hover:border-brand-gold/40 transition-colors">
-				<div className="flex items-start sm:items-center gap-3.5 min-w-0">
-					<div className="w-10 h-10 rounded-xl bg-primary text-brand-warm-white flex items-center justify-center shrink-0 shadow-sm">
-						<BookOpen className="w-5 h-5 text-brand-gold" />
+		<aside
+			aria-label="Course curriculum ribbon"
+			className="w-full max-w-container-max mx-auto px-gutter-mobile md:px-gutter-desktop mt-8 mb-4"
+		>
+			<div className="relative overflow-hidden rounded-2xl bg-surface-container-low border border-surface-container-high/80 p-4 sm:p-5 transition-all duration-300 hover:border-brand-gold/50 hover:shadow-md">
+				{/* Subtle Decorative Gradient / Accent Line */}
+				<div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-gold via-brand-gold/60 to-transparent" />
+				<div className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-brand-gold/5 blur-2xl" />
+
+				<div className="flex flex-col md:flex-row md:items-center justify-between gap-5 relative z-10">
+					{/* Left Block: Icon & Copy */}
+					<div className="flex items-start sm:items-center gap-3.5 min-w-0">
+						<div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/95 text-brand-gold shadow-sm ring-1 ring-primary/10">
+							<BookOpen className="h-5 w-5" aria-hidden="true" />
+						</div>
+
+						<div className="min-w-0 space-y-0.5">
+
+							<h3 className="font-serif text-base sm:text-lg font-semibold tracking-tight text-primary truncate">
+								Tarjuma-e-Quran
+							</h3>
+
+							<p className="font-sans text-xs text-on-surface-variant leading-relaxed line-clamp-1">
+								Verse-by-verse linguistic exegesis paired with
+								companion grammar infographics.
+							</p>
+						</div>
 					</div>
 
-					<div className="min-w-0">
+					{/* Right Block: Action Buttons */}
+					<div className="flex flex-wrap items-center gap-2.5 sm:self-auto shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-surface-container-high/50">
+						<Link
+							href="/lectures/notes"
+							className="inline-flex h-9 items-center gap-1.5 rounded-full border border-surface-container-high/90 bg-surface/50 px-3.5 text-xs font-semibold text-primary transition-all duration-200 hover:bg-surface-container hover:border-surface-container-highest active:scale-[0.98]"
+						>
+							<FileText
+								className="h-3.5 w-3.5 text-secondary shrink-0"
+								aria-hidden="true"
+							/>
+							<span>Notes</span>
+						</Link>
 
-						<h3 className="font-serif text-base sm:text-lg font-semibold text-primary truncate">
-							Tarjuma-e-Quran
-						</h3>
-
-						<p className="font-sans text-xs text-on-surface-variant line-clamp-1">
-							Verse-by-verse linguistic exegesis across all 114 Surahs paired with companion grammar infographics.
-						</p>
+						<Link
+							href="/lectures/tarjuma-e-quran"
+							className="group inline-flex h-9 items-center gap-1.5 rounded-full bg-primary px-4 text-xs font-semibold text-brand-warm-white shadow-sm transition-all duration-200 hover:bg-primary/90 hover:shadow active:scale-[0.98]"
+						>
+							<span>Syllabus</span>
+							<ArrowRight
+								className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5"
+								aria-hidden="true"
+							/>
+						</Link>
 					</div>
-				</div>
-
-				<div className="flex items-center gap-2.5 shrink-0 self-end md:self-auto">
-					<Link
-						href="/lectures/notes"
-						className="px-3.5 py-1.5 rounded-full border border-surface-container-high text-primary hover:bg-surface-container text-xs font-bold font-sans uppercase tracking-wider transition-colors inline-flex items-center gap-1.5"
-					>
-						<FileText className="w-3.5 h-3.5 text-secondary" />
-						<span>Notes &amp; Charts ({STUDY_NOTES_REGISTRY.length})</span>
-					</Link>
-
-					<Link
-						href="/lectures/tarjuma-e-quran"
-						className="px-4 py-1.5 rounded-full bg-primary text-brand-warm-white hover:bg-primary-container text-xs font-bold font-sans uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-sm group"
-					>
-						<span>Full Syllabus</span>
-						<ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
-					</Link>
 				</div>
 			</div>
-		</div>
+		</aside>
 	);
 }

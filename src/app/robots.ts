@@ -7,12 +7,24 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/_next/", "/private/"],
+        disallow: [
+          "/api/",
+          "/_next/",
+          "/private/",
+          "/search",
+          "/search*",
+        ],
       },
       {
-        userAgent: ["Googlebot", "OAI-SearchBot"],
+        userAgent: ["Googlebot", "OAI-SearchBot", "Applebot", "Bingbot"],
         allow: "/",
-        disallow: ["/api/"],
+        disallow: [
+          "/api/",
+          "/_next/",
+          "/private/",
+          "/search",
+          "/search*",
+        ],
       },
     ],
     sitemap: `${siteConfig.url}/sitemap.xml`,

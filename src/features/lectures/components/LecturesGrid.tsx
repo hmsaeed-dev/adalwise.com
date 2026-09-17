@@ -34,7 +34,7 @@ export function LecturesGrid({
 
 	return (
 		<section className="w-full max-w-container-max mx-auto px-gutter-mobile md:px-gutter-desktop py-space-md flex flex-col gap-space-lg">
-			<div className="flex items-baseline justify-between border-b border-surface-container-high pb-space-xs">
+			<div className="flex items-baseline justify-between  border-surface-container-high pb-space-xs">
 				<span className="font-label-md uppercase tracking-wider text-on-surface-variant font-bold text-[12px]">
 					Showing {items.length} of {total} Lectures
 				</span>
@@ -102,17 +102,6 @@ export function LecturesGrid({
 					)}
 				</nav>
 			)}
-
-			{/* Quiet Archive Colophon: Khutbat Routed Elsewhere */}
-			<div className="mt-8 pt-6 border-t border-surface-container-high/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-sans text-on-surface-variant">
-				<span>Looking for Dr. Haseeb&apos;s Friday Khutbat (خطباتِ جمعہ)?</span>
-				<Link
-					href="/twasi-al-haq"
-					className="font-bold text-primary hover:text-secondary flex items-center gap-1 transition-colors"
-				>
-					<span>Published on Twasi al-Haq→</span>
-				</Link>
-			</div>
 		</section>
 	);
 }

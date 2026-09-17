@@ -21,7 +21,6 @@ export interface PrimaryDomain {
 	title: string;
 	urduTitle: string;
 	description: string;
-	subCategories: SubCategory[];
 }
 
 export interface Series {

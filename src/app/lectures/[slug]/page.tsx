@@ -1,6 +1,5 @@
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import { BookOpen, Play, ArrowRight } from "lucide-react";
 import {
 	getLectureBySlug,
@@ -33,6 +32,12 @@ export async function generateMetadata({ params }: PageProps) {
 		description: item.summary || item.description,
 		image: item.thumbnailUrl,
 		canonicalUrl: `/lectures/${slug}`,
+		keywords: [
+			...(item.topics || []),
+			...(item.tags || []),
+			item.category,
+			item.speaker?.name || "Dr. Hafiz Haseeb",
+		].filter(Boolean),
 	});
 }
 
@@ -78,6 +83,7 @@ export default async function lecturesDetailPage({ params }: PageProps) {
 				uploadDate={item.publishedAt}
 				durationSeconds={item.durationSeconds}
 				embedUrl={`https://www.youtube.com/embed/${item.youtubeId}`}
+				watchUrl={`https://www.youtube.com/watch?v=${item.youtubeId}`}
 			/>
 			<BreadcrumbJsonLd
 				items={[
@@ -158,7 +164,7 @@ export default async function lecturesDetailPage({ params }: PageProps) {
 			{/* Series Companion Lectures */}
 			{seriesEpisodes.length > 0 && (
 				<section className="pt-space-md flex flex-col gap-space-md">
-					<div className="flex items-baseline justify-between border-b border-surface-container-high pb-space-xs">
+					<div className="flex items-baseline justify-between  border-surface-container-high pb-space-xs">
 						<h3 className="font-headline-sm text-primary font-bold">
 							Related Episodes
 						</h3>

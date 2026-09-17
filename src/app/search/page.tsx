@@ -2,15 +2,20 @@ import React, { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { searchService } from "@/lib/search/service";
+import { SearchResult } from "@/lib/search/types";
 import { constructMetadata } from "@/lib/seo/metadata";
-import { Play, BookOpen, Mic, Search, SearchX, ArrowRight } from "lucide-react";
+import { BreadcrumbJsonLd } from "@/lib/seo/jsonld";
+import { siteConfig } from "@/config/site";
+import { Play, BookOpen, Mic, Search, SearchX, ArrowRight, LucideIcon } from "lucide-react";
 
 export const metadata = constructMetadata({
 	title: "Archive Search",
 	description:
 		"Unified search across Adlwise lecture series, research articles and Majlis sessions.",
 	canonicalUrl: "/search",
+	noIndex: true,
 });
+
 
 interface PageProps {
     searchParams: Promise<{
@@ -20,7 +25,7 @@ interface PageProps {
 }
 
 // HELPER 1: Resolves thumbnail from schema (thumbnailUrl / youtubeId)
-function resolveThumbnail(res: any): string | null {
+function resolveThumbnail(res: SearchResult): string | null {
     if (res.thumbnailUrl) return res.thumbnailUrl;
     if (res.youtubeId) return `https://i.ytimg.com/vi/${res.youtubeId}/mqdefault.jpg`;
     return null;
@@ -55,6 +60,12 @@ export default async function SearchPage({ searchParams }: PageProps) {
 
     return (
 		<div className="w-full max-w-container-max mx-auto px-gutter-mobile md:px-gutter-desktop py-space-xl flex flex-col gap-space-lg pb-space-3xl">
+			<BreadcrumbJsonLd
+				items={[
+					{ name: "Home", url: siteConfig.url },
+					{ name: "Search", url: `${siteConfig.url}/search` },
+				]}
+			/>
 			{/* Search Input Form */}
 			<form
 				method="GET"
@@ -70,9 +81,10 @@ export default async function SearchPage({ searchParams }: PageProps) {
 				/>
 				<button
 					type="submit"
-					className="px-space-md py-2 text-on-primary rounded-full font-label-sm uppercase tracking-wider font-semibold transition-colors shadow-sm shrink-0"
+					aria-label="Submit search"
+					className="px-space-md py-2 bg-primary hover:bg-primary/90 text-on-primary rounded-full font-label-sm uppercase tracking-wider font-semibold transition-colors shadow-sm shrink-0 flex items-center justify-center"
 				>
-					<Search className="w-5 h-5 text-outline ml-space-sm mr-space-xs shrink-0" />
+					<Search className="w-5 h-5 text-on-primary ml-space-sm mr-space-xs shrink-0" />
 				</button>
 			</form>
 
@@ -123,10 +135,10 @@ export default async function SearchPage({ searchParams }: PageProps) {
 				</div>
 			) : (
 				<div className="w-full max-w-2xl mx-auto flex flex-col gap-3">
-					{results.map((res: any) => {
+					{results.map((res: SearchResult) => {
 						const typeLabels: Record<
 							string,
-							{ label: string; icon: any }
+							{ label: string; icon: LucideIcon }
 						> = {
 							article: { label: "Article", icon: BookOpen },
 							lectures: { label: "Lecture", icon: Play },
@@ -157,10 +169,13 @@ export default async function SearchPage({ searchParams }: PageProps) {
 								<div className="relative shrink-0 w-28 sm:w-36 aspect-video rounded-xl overflow-hidden bg-surface-container-high/40 border border-surface-container-high/50">
 									{thumbUrl ? (
 										<>
-											<img
+											<Image
 												src={thumbUrl}
 												alt={displayTitle}
-												className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+												fill
+												sizes="(max-width: 640px) 112px, 144px"
+												className="object-cover group-hover:scale-105 transition-transform duration-300"
+												unoptimized={thumbUrl.includes("ytimg.com")}
 											/>
 											{/* Video Play Badge */}
 											{isVideo && (
@@ -195,7 +210,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
 												{config.label} • {res.category}
 											</span>
 											{res.isCoursework && (
-												<span className="font-sans text-[9px] uppercase tracking-wider font-semibold bg-secondary/15 text-secondary px-1.5 py-0.2 rounded">
+												<span className="font-sans text-[9px] uppercase tracking-wider font-semibold bg-secondary/15 text-secondary px-1.5 py-0.5 rounded">
 													Coursework
 												</span>
 											)}

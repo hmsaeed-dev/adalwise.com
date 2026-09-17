@@ -30,6 +30,15 @@ export async function generateMetadata({ params }: PageProps) {
 		description: article.frontmatter.excerpt,
 		image: article.frontmatter.coverImage,
 		canonicalUrl: `/twasi-al-haq/${slug}`,
+		type: "article",
+		publishedTime: article.frontmatter.publishedAt,
+		authors: [article.frontmatter.author.name],
+		keywords: [
+			...(article.frontmatter.topics || []),
+			...(article.frontmatter.tags || []),
+			article.frontmatter.category,
+			article.frontmatter.author.name,
+		].filter(Boolean),
 	});
 }
 
@@ -100,7 +109,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 			</nav>
 
 			{/* Header Cartouche */}
-			<header className="flex flex-col gap-space-xs pb-space-md border-b border-surface-container-high">
+			<header className="flex flex-col gap-space-xs pb-space-md  border-surface-container-high">
 				<div className="flex items-center gap-space-xs">
 					<span className="px-space-sm py-0.5 rounded-full bg-primary-container text-surface text-label-sm uppercase tracking-wider font-bold">
 						{frontmatter.category}
@@ -121,7 +130,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 					</p>
 				)}
 
-				<div className="flex items-center gap-space-sm mt-space-sm pt-space-xs border-t border-surface-container-high/60">
+				<div className="flex items-center gap-space-sm mt-space-sm pt-space-xs  border-surface-container-high/60">
 					<div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-tertiary-fixed font-bold font-serif shadow-sm overflow-hidden relative shrink-0">
 						<Image
 							src="/images/haseeb-chair.jpg"
@@ -160,7 +169,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 
 			{/* Cross-Domain Related Lectures & Research */}
 			{related.length > 0 && (
-				<section className="mt-space-2xl pt-space-xl border-t border-surface-container-high flex flex-col gap-space-md">
+				<section className="mt-space-2xl pt-space-xl  border-surface-container-high flex flex-col gap-space-md">
 					<h3 className="font-headline-md text-primary font-bold">
 						Related Works
 					</h3>

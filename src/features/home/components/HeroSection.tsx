@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
 interface HeroSectionProps {
@@ -16,31 +15,19 @@ export function HeroSection({
         <section className="relative w-full h-[100svh] min-h-[560px] md:h-screen md:min-h-[680px] flex flex-col justify-start bg-brand-parchment overflow-hidden">
             {/* High-Resolution Mountain Sunrise Background */}
             <div className="absolute inset-0 z-0 select-none pointer-events-none overflow-hidden">
-                {/* Desktop Image (Hidden on Mobile) */}
-                <div className="hidden md:block absolute inset-0 w-full h-full">
-                    <Image
-                        src={desktopImageSrc}
-                        alt="Mountaineers ascending ridge towards dawn above a sea of clouds"
-                        fill
-                        priority
-                        quality={85}
-                        sizes="100vw"
-                        className="object-cover object-bottom select-none pointer-events-none transform-gpu"
+                <picture className="absolute inset-0 w-full h-full block">
+                    <source
+                        media="(min-width: 768px)"
+                        srcSet={desktopImageSrc}
                     />
-                </div>
-
-                {/* Mobile Image (Hidden on Desktop) */}
-                <div className="block md:hidden absolute inset-0 w-full h-full">
-                    <Image
+                    <img
                         src={mobileImageSrc}
                         alt="Mountaineers ascending ridge towards dawn above a sea of clouds"
-                        fill
-                        priority
-                        quality={85}
-                        sizes="100vw"
-                        className="object-cover object-[70%_bottom] select-none pointer-events-none transform-gpu"
+                        fetchPriority="high"
+                        decoding="async"
+                        className="w-full h-full object-cover object-[70%_bottom] md:object-bottom select-none pointer-events-none transform-gpu"
                     />
-                </div>
+                </picture>
 
                 {/* Atmospheric Vignette & Contrast Overlay for WCAG AA compliance */}
                 <div
@@ -97,7 +84,7 @@ export function HeroSection({
                 </div>
 
                 {/* ─── MOBILE LAYOUT (< md: Centered in upper viewport half) ─── */}
-                <div className="flex flex-col items-center text-center md:hidden max-w-sm">
+                <div className="flex flex-col items-center text-center md:hidden max-w-sm mx-auto">
                     {/* Brand Title */}
                     <h1 className="font-serif text-3xl sm:text-4xl font-medium tracking-editorial text-brand-primary uppercase animate-fade-in-up">
                         ADLWISE
@@ -119,17 +106,17 @@ export function HeroSection({
                         style={{ animationDelay: "400ms" }}
                     >
                         <Link
-                            href="/about"
+                            href="#academic-streams"
                             className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand-primary hover:bg-brand-primary-hover text-brand-warm-white rounded-full text-xs tracking-widest font-medium uppercase transition-all shadow-sm active:scale-[0.98] group"
                         >
                             <span>Explore</span>
                             <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
                         </Link>
                         <Link
-                            href="/twasi-al-haq"
+                            href="/lectures"
                             className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-brand-warm-white/65 hover:bg-brand-warm-white/90 text-brand-primary border border-brand-primary backdrop-blur-sm rounded-full text-xs tracking-widest font-medium uppercase transition-all shadow-sm active:scale-[0.98] group"
                         >
-                            <span>View Archive</span>
+                            <span>Lecture Series</span>
                             <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
                         </Link>
                     </div>

@@ -1,10 +1,12 @@
 import React from "react";
-import { ArrowDown, BookOpen, MessageCircle, PenLine } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import { IntakeForm } from "@/features/fellowship";
 import { constructMetadata } from "@/lib/seo/metadata";
+import { BreadcrumbJsonLd } from "@/lib/seo/jsonld";
+import { siteConfig } from "@/config/site";
 
 export const metadata = constructMetadata({
-	title: "Join Adlwise",
+	title: "Join the Circle",
 	description:
 		"Join the Adlwise Circle for serious study, thoughtful discourse, research, and meaningful contribution.",
 	canonicalUrl: "/join",
@@ -13,13 +15,18 @@ export const metadata = constructMetadata({
 export default function JoinPage() {
 	return (
 		<div className="w-full overflow-hidden pb-space-3xl">
+			<BreadcrumbJsonLd
+				items={[
+					{ name: "Home", url: siteConfig.url },
+					{ name: "Join Us", url: `${siteConfig.url}/join` },
+				]}
+			/>
+
 			{/* Hero */}
 
-			<section className="relative min-h-[70vh] flex items-center border-b border-surface-container-highest/50 bg-surface-container-low/40">
+			<section className="relative min-h-[70vh] flex items-center  border-surface-container-highest/50 bg-surface-container-low/40">
 				<div className="w-full max-w-container-max mx-auto px-gutter-mobile md:px-gutter-desktop py-space-3xl">
 					<div className="max-w-4xl">
-
-
 						<h1 className="font-display-lg text-[36px] sm:text-[64px] lg:text-[82px] text-primary font-bold leading-[0.98] tracking-tight max-w-4xl">
 							Ideas become stronger
 							<br />
@@ -28,8 +35,10 @@ export default function JoinPage() {
 
 						<div className="mt-space-lg flex flex-col sm:flex-row sm:items-end gap-space-lg">
 							<p className="font-body-lg text-on-surface-variant max-w-xl leading-relaxed">
-								A space for students, professionals, and independent learners committed
-								to serious study, thoughtful discourse, and meaningful contribution.
+								A space for students, professionals, and
+								independent learners committed to serious study,
+								thoughtful discourse, and meaningful
+								contribution.
 							</p>
 
 							<a
@@ -42,10 +51,8 @@ export default function JoinPage() {
 						</div>
 					</div>
 				</div>
-
 			</section>
 
-		
 			{/* Form introduction */}
 			<section
 				id="join-form"
@@ -53,20 +60,14 @@ export default function JoinPage() {
 			>
 				<div className="max-w-container-max mx-auto px-gutter-mobile md:px-gutter-desktop py-space-3xl">
 					<div className="max-w-2xl mx-auto text-center mb-space-2xl">
-
-
 						<h2 className="mt-space-sm font-display-md text-3xl sm:text-4xl text-primary font-bold">
 							Tell us a little about yourself.
 						</h2>
-
-
 					</div>
 
 					<IntakeForm />
 				</div>
 			</section>
-
-
 		</div>
 	);
 }

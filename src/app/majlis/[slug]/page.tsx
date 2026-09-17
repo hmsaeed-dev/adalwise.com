@@ -5,6 +5,8 @@ import { ArrowLeft, ArrowUpRight, Calendar, MapPin, Video } from "lucide-react";
 import { getAllMajlisSessions, getMajlisSessionBySlug } from "@/lib/content/client";
 import { MDXRenderer } from "@/components/content/MDXRenderer";
 import { constructMetadata } from "@/lib/seo/metadata";
+import { BreadcrumbJsonLd } from "@/lib/seo/jsonld";
+import { siteConfig } from "@/config/site";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -58,6 +60,16 @@ export default async function MajlisSessionDetailPage({ params }: PageProps) {
 
   return (
     <article className="w-full max-w-4xl mx-auto px-6 md:px-8 py-12 md:py-16 flex flex-col gap-10">
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: siteConfig.url },
+          { name: "Majlis", url: `${siteConfig.url}/majlis` },
+          {
+            name: session.title,
+            url: `${siteConfig.url}/majlis/${slug}`,
+          },
+        ]}
+      />
       {/* Breadcrumb Navigation */}
       <nav
         aria-label="Breadcrumb"

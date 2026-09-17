@@ -36,12 +36,16 @@ export function LeadArticleCard({ article }: LeadArticleCardProps) {
 								{frontmatter.category}
 							</span>
 							<span className="text-surface-variant font-label-sm text-[11px]">
-								{frontmatter.readTime} • {formatISODate(frontmatter.publishedAt)}
+								{frontmatter.readTime} •{" "}
+								{formatISODate(frontmatter.publishedAt)}
 							</span>
 						</div>
 
 						<h2 className="font-display-lg text-[26px] sm:text-[32px] text-surface leading-tight font-bold font-serif mt-1">
-							<Link href={`/twasi-al-haq/${slug}`} className="hover:text-tertiary-fixed transition-colors">
+							<Link
+								href={`/twasi-al-haq/${slug}`}
+								className="hover:text-tertiary-fixed transition-colors"
+							>
 								{frontmatter.title}
 							</Link>
 						</h2>
@@ -57,7 +61,7 @@ export function LeadArticleCard({ article }: LeadArticleCardProps) {
 						</p>
 					</div>
 
-					<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs pt-space-xs border-t border-primary-container">
+					<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs pt-space-xs  border-primary-container">
 						<div className="flex items-center gap-2 text-surface-variant text-xs font-sans">
 							<BookOpen className="w-4 h-4 text-tertiary-fixed" />
 							<span>By {frontmatter.author.name}</span>

@@ -21,7 +21,7 @@ export function MoharClose() {
 					/>
 
 					{/* Top Lockup: Mohar Seal & Classical Colophon Inscription */}
-					<div className="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-8 lg:gap-12 pb-10 border-b border-white/15">
+					<div className="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-8 lg:gap-12 pb-10  border-white/15">
 						{/* Inked Mohar Seal Crest */}
 						<div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-[#0a2318] border-2 border-brand-gold/40 flex items-center justify-center p-3.5 shadow-2xl shrink-0">
 							<Image
@@ -35,14 +35,13 @@ export function MoharClose() {
 
 						{/* Inscription & Provenance */}
 						<div className="flex-1 flex flex-col">
-
-
 							<p className="font-quran text-2xl sm:text-3xl lg:text-4xl text-brand-gold font-medium leading-relaxed dir-rtl text-right md:text-left">
 								بِالْعَدْلِ قَامَتِ السَّمَاوَاتُ وَالأَرْضُ
 							</p>
 
 							<p className="font-serif italic text-base sm:text-lg text-brand-warm-white/90 mt-1 font-normal">
-								“By justice the heavens and the earth are established.”
+								“By justice the heavens and the earth are
+								established.”
 							</p>
 						</div>
 					</div>
@@ -54,8 +53,9 @@ export function MoharClose() {
 								Continue the Inquiry
 							</h4>
 							<p className="font-sans text-xs sm:text-sm text-brand-warm-white/75 mt-1 max-w-lg leading-relaxed">
-								Engage with Dr. Haseeb’s systematic Quranic lectures or join the research
-								fellowship for structured textual study.
+								Engage with Dr. Haseeb’s systematic Quranic
+								lectures or join the research fellowship for
+								structured textual study.
 							</p>
 						</div>
 

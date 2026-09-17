@@ -18,6 +18,9 @@ export function YouTubeEmbed({
 	className,
 }: YouTubeEmbedProps) {
 	const [isLoaded, setIsLoaded] = useState(false);
+	const effectiveThumbnail =
+		thumbnailUrl ||
+		(youtubeId ? `https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg` : undefined);
 
 	return (
 		<div
@@ -25,10 +28,13 @@ export function YouTubeEmbed({
 				className ?? "rounded-2xl shadow-md border border-surface-container-highest"
 			}`}
 		>
-			{!isLoaded && thumbnailUrl ? (
-				<div className="absolute inset-0 z-10 flex items-center justify-center cursor-pointer group">
+			{!isLoaded && effectiveThumbnail ? (
+				<div
+					className="absolute inset-0 z-10 flex items-center justify-center cursor-pointer group"
+					onClick={() => setIsLoaded(true)}
+				>
 					<Image
-						src={thumbnailUrl}
+						src={effectiveThumbnail}
 						alt={title}
 						fill
 						sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
@@ -38,7 +44,10 @@ export function YouTubeEmbed({
 					<button
 						type="button"
 						aria-label={`Play ${title}`}
-						onClick={() => setIsLoaded(true)}
+						onClick={(e) => {
+							e.stopPropagation();
+							setIsLoaded(true);
+						}}
 						className="relative z-20 w-16 h-16 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center shadow-xl transition-transform group-hover:scale-110 active:scale-95"
 					>
 						<Play className="w-8 h-8 fill-current ml-1" />

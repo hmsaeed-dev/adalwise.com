@@ -5,6 +5,8 @@ import {
 	MajlisChrono,
 } from "@/features/majlis";
 import { constructMetadata } from "@/lib/seo/metadata";
+import { BreadcrumbJsonLd } from "@/lib/seo/jsonld";
+import { siteConfig } from "@/config/site";
 
 export const metadata = constructMetadata({
   title: "Majlis — Gatherings",
@@ -18,6 +20,13 @@ export default async function MajlisPage() {
 
   return (
 		<div className="flex flex-col w-full pb-space-2xl">
+			<BreadcrumbJsonLd
+				items={[
+					{ name: "Home", url: siteConfig.url },
+					{ name: "Majlis", url: `${siteConfig.url}/majlis` },
+				]}
+			/>
+
 			<MajlisHero />
 			<MajlisChrono sessions={sessions} />
 		</div>

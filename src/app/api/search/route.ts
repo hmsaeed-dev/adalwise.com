@@ -1,10 +1,24 @@
 import { NextResponse } from "next/server";
 import { searchService } from "@/lib/search/service";
+import { SearchOptions } from "@/lib/search/types";
+
+const VALID_SEARCH_TYPES: ReadonlyArray<NonNullable<SearchOptions["type"]>> = [
+  "article",
+  "lectures",
+  "dispatch",
+  "majlis",
+  "all",
+];
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const q = searchParams.get("q") || "";
-  const type = (searchParams.get("type") as any) || "all";
+  const rawType = searchParams.get("type");
+  const type: SearchOptions["type"] = VALID_SEARCH_TYPES.includes(
+    rawType as NonNullable<SearchOptions["type"]>
+  )
+    ? (rawType as SearchOptions["type"])
+    : "all";
 
   if (!q.trim()) {
     return NextResponse.json([]);

@@ -31,18 +31,20 @@ const interlocutors: Interlocutor[] = [
 		domain: "Classical Jurisprudence & Kalam",
 		description:
 			"Methodological examination of classical legal maxims (Qawa’id Fiqhiyyah), theology, and systemic institutional reform.",
-		focusAreas: ["Usul al-Fiqh", "Theology (Kalam)", "Institutional Reform"],
+		focusAreas: [
+			"Usul al-Fiqh",
+			"Theology (Kalam)",
+			"Institutional Reform",
+		],
 	},
 ];
 
 export function CircleSection() {
 	return (
-		<section className="w-full bg-surface text-on-surface py-16 sm:py-20 md:py-24 border-b border-surface-container-high/80">
+		<section className="w-full bg-surface text-on-surface py-16 sm:py-20 md:py-24  border-surface-container-high/80">
 			<div className="w-full max-w-container-max mx-auto px-gutter-mobile md:px-gutter-desktop">
 				{/* Section Header */}
 				<div className="max-w-3xl mb-10 sm:mb-12">
-
-
 					<h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-primary font-semibold leading-[1.18] tracking-tight">
 						The Circle
 					</h2>
@@ -64,7 +66,6 @@ export function CircleSection() {
 							className="rounded-2xl bg-surface-container-low border border-surface-container-high p-6 sm:p-8 flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-200"
 						>
 							<div>
-
 								{/* Scholar Identity */}
 								<h3 className="font-serif text-2xl text-primary font-semibold tracking-tight">
 									{person.name}
@@ -77,7 +78,7 @@ export function CircleSection() {
 							</div>
 
 							{/* Focus Area Tags Footer */}
-							<div className="mt-6 pt-5 border-t border-surface-container-high flex flex-wrap gap-1.5">
+							<div className="mt-6 pt-5  border-surface-container-high flex flex-wrap gap-1.5">
 								{person.focusAreas.map((area) => (
 									<span
 										key={area}

@@ -4,33 +4,27 @@ import Image from "next/image";
 interface LecturesHeroProps {
 	desktopImageSrc?: string;
 	mobileImageSrc?: string;
+	imageSrc?: string;
 }
 
 export function LecturesHero({
-	desktopImageSrc = "/images/lectures-hero.jpg",
-	mobileImageSrc = "/images/lectures-hero.jpg",
-}: LecturesHeroProps) {
+	desktopImageSrc,
+	mobileImageSrc,
+	imageSrc = "/images/lectures-hero.jpg",
+}: LecturesHeroProps = {}) {
+	const effectiveImageSrc = desktopImageSrc || mobileImageSrc || imageSrc;
+
 	return (
 		<section className="relative w-full min-h-[380px] sm:min-h-[420px] md:min-h-[460px] flex flex-col items-center justify-center overflow-hidden bg-[#0d2619]">
-			{/* Full-Bleed Background Images */}
+			{/* Full-Bleed Background Image */}
 			<div className="absolute inset-0 w-full h-full select-none pointer-events-none overflow-hidden">
-				<div className="hidden md:block absolute inset-0 w-full h-full">
+				<div className="absolute inset-0 w-full h-full">
 					<Image
-						src={desktopImageSrc}
+						src={effectiveImageSrc}
 						alt="Adlwise Scholarly Discourses and Lectures"
 						fill
 						priority
-						className="object-cover object-center transform scale-105"
-						sizes="100vw"
-					/>
-				</div>
-				<div className="block md:hidden absolute inset-0 w-full h-full">
-					<Image
-						src={mobileImageSrc}
-						alt="Adlwise Scholarly Discourses and Lectures"
-						fill
-						priority
-						className="object-cover object-center"
+						className="object-cover object-center md:scale-105"
 						sizes="100vw"
 					/>
 				</div>

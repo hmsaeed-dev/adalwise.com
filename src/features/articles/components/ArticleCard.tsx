@@ -30,7 +30,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
 						<div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-tertiary-container/15 via-transparent to-transparent" />
 						<div className="relative w-16 h-16 rounded-full bg-primary/80 ring-1 ring-tertiary-container/30 flex items-center justify-center p-2 opacity-80 group-hover:opacity-100 transition-opacity">
 							<Image
-									src="/images/assets/mountain-mark.png"
+								src="/images/assets/mountain-mark.svg"
 								alt="Adlwise Emblem"
 								width={48}
 								height={48}
@@ -70,7 +70,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
 					{frontmatter.excerpt}
 				</p>
 
-				<div className="pt-space-xs mt-auto flex items-center justify-between border-t border-surface-container-high/60 text-[11px]">
+				<div className="pt-space-xs mt-auto flex items-center justify-between  border-surface-container-high/60 text-[11px]">
 					<span className="font-label-sm uppercase tracking-wider text-secondary font-bold">
 						{frontmatter.category}
 					</span>

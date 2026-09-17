@@ -4,33 +4,27 @@ import Image from "next/image";
 interface TwasiHeroProps {
 	desktopImageSrc?: string;
 	mobileImageSrc?: string;
+	imageSrc?: string;
 }
 
 export function TwasiHero({
-	desktopImageSrc = "/images/twasi.jpg",
-	mobileImageSrc = "/images/twasi.jpg",
+	desktopImageSrc,
+	mobileImageSrc,
+	imageSrc = "/images/twasi.jpg",
 }: TwasiHeroProps = {}) {
+	const effectiveImageSrc = desktopImageSrc || mobileImageSrc || imageSrc;
+
 	return (
 		<section className="relative w-full min-h-[440px] sm:min-h-[480px] md:min-h-[520px] lg:min-h-[560px] flex flex-col items-center justify-center overflow-hidden bg-[#0d2619]">
-			{/* Full-bleed background images */}
+			{/* Full-bleed background image */}
 			<div className="absolute inset-0 w-full h-full select-none pointer-events-none overflow-hidden">
-				<div className="hidden md:block absolute inset-0 w-full h-full">
+				<div className="absolute inset-0 w-full h-full">
 					<Image
-						src={desktopImageSrc}
+						src={effectiveImageSrc}
 						alt="Twasi al-Haq - Scholarly Treatises & Articles"
 						fill
 						priority
-						className="object-cover object-center transform scale-105 animate-fade-in"
-						sizes="100vw"
-					/>
-				</div>
-				<div className="block md:hidden absolute inset-0 w-full h-full">
-					<Image
-						src={mobileImageSrc}
-						alt="Twasi al-Haq - Scholarly Treatises & Articles"
-						fill
-						priority
-						className="object-cover object-center"
+						className="object-cover object-center md:scale-105 animate-fade-in"
 						sizes="100vw"
 					/>
 				</div>

@@ -14,7 +14,7 @@ export const STUDY_NOTES_REGISTRY: StudyNote[] = [
 	{
 		id: "murakkab-izafi",
 		title: "Possessive Compounds (Murakkab-e-Izafi)",
-		urduTitle: "مرکبِ اضافی کے بنیادی قواعد",
+		urduTitle: "مرکبِ اضافی",
 		category: "Lisan-ul-Quran",
 		type: "infographic",
 		filePath: "/study-notes/lisan-ul-quran/Murakkab e Izaffi.jpg",
@@ -24,7 +24,7 @@ export const STUDY_NOTES_REGISTRY: StudyNote[] = [
 	{
 		id: "gardaan-noun",
 		title: "Declension & Cases of Nouns (Gardaan)",
-		urduTitle: "اسم کی گردان اور اعرابی حالتیں",
+		urduTitle: "اسم کی گردان",
 		category: "Lisan-ul-Quran",
 		type: "infographic",
 		filePath: "/study-notes/lisan-ul-quran/Gardaan Noun.jpg",
@@ -34,7 +34,7 @@ export const STUDY_NOTES_REGISTRY: StudyNote[] = [
 	{
 		id: "noun-adjectives",
 		title: "Descriptive Compounds (Murakkab-e-Tauseefi)",
-		urduTitle: "مرکبِ توصیفی (موصوف و صفت)",
+		urduTitle: "مرکبِ توصیفی",
 		category: "Lisan-ul-Quran",
 		type: "infographic",
 		filePath: "/study-notes/lisan-ul-quran/Noun and Adjectives.jpg",
@@ -44,7 +44,7 @@ export const STUDY_NOTES_REGISTRY: StudyNote[] = [
 	{
 		id: "demonstrative-pronouns",
 		title: "Demonstrative Pronouns (Asmaa al-Isharah)",
-		urduTitle: "اسمائے اشارہ (قریب و بعید)",
+		urduTitle: "اسمائے اشارہ",
 		category: "Lisan-ul-Quran",
 		type: "infographic",
 		filePath: "/study-notes/lisan-ul-quran/Demonstrative Pronouns.jpg",
@@ -54,7 +54,7 @@ export const STUDY_NOTES_REGISTRY: StudyNote[] = [
 	{
 		id: "prepositions",
 		title: "Prepositions (Huroof al-Jarr)",
-		urduTitle: "حروفِ جار اور ان کے اثرات",
+		urduTitle: "حروفِ جار",
 		category: "Lisan-ul-Quran",
 		type: "infographic",
 		filePath: "/study-notes/lisan-ul-quran/Prepositions.jpg",
@@ -64,7 +64,7 @@ export const STUDY_NOTES_REGISTRY: StudyNote[] = [
 	{
 		id: "types-of-sentences",
 		title: "Sentence Types (Nominal & Verbal)",
-		urduTitle: "جملہ اسمیہ اور جملہ فعلیہ کی ساخت",
+		urduTitle: "جملہ اسمیہ اور جملہ فعلیہ",
 		category: "Lisan-ul-Quran",
 		type: "infographic",
 		filePath: "/study-notes/lisan-ul-quran/Types of Sentences.jpg",
@@ -96,7 +96,7 @@ export const STUDY_NOTES_REGISTRY: StudyNote[] = [
 	{
 		id: "makki-period-timeline",
 		title: "Makki Era Chronology & Milestones",
-		urduTitle: "مکی دورِ نبوت کا ارتقائی نقشہ",
+		urduTitle: "مکی دورِ نبوت",
 		category: "Seerah",
 		type: "infographic",
 		filePath: "/study-notes/seerat/makki-period.png",
@@ -106,7 +106,7 @@ export const STUDY_NOTES_REGISTRY: StudyNote[] = [
 	{
 		id: "madani-period-timeline",
 		title: "Madani Era & Constitutional Statehood",
-		urduTitle: "مدنی دور: میثاق، مواخات اور ریاست",
+		urduTitle: "مدنی دور",
 		category: "Seerah",
 		type: "infographic",
 		filePath: "/study-notes/seerat/madni-period.png",
@@ -116,7 +116,7 @@ export const STUDY_NOTES_REGISTRY: StudyNote[] = [
 	{
 		id: "timeline-rasool",
 		title: "Prophetic Lifespan Panoramic Timeline",
-		urduTitle: "حیاتِ طیبہ کا مجموعی زمانی خاکہ",
+		urduTitle: "حیاتِ طیبہ",
 		category: "Seerah",
 		type: "infographic",
 		filePath: "/study-notes/seerat/timeline-rasool.png",
@@ -126,33 +126,11 @@ export const STUDY_NOTES_REGISTRY: StudyNote[] = [
 	{
 		id: "40-yrs-muhammad",
 		title: "The Pre-Prophetic Forty Years",
-		urduTitle: "قبلِ نبوت کے چالیس سال: کردار و امانت",
+		urduTitle: "قبلِ نبوت کے چالیس سال",
 		category: "Seerah",
 		type: "infographic",
 		filePath: "/study-notes/seerat/40-yrs-muhammad.png",
 		description: "The moral and social foundation of the Prophet (SAW) prior to revelation.",
 		relatedSeriesId: "online-seerat-sessions",
-	},
-
-	// Socio-Political / Economic Treatises
-	{
-		id: "third-way-economics-urdu",
-		title: "Third Way Economics: An Islamic Critique (Urdu)",
-		urduTitle: "تیسرا معاشی راستہ: اسلامی معیشت کا اساسی خاکہ",
-		category: "Statecraft",
-		type: "pdf",
-		filePath: "/study-notes/treatises/third-way-economics-article-urdu.pdf",
-		description: "Dr. Hafiz Haseeb's published treatise examining capitalism, socialism, and Quranic justice.",
-		relatedSeriesId: "special-lecture-series",
-	},
-	{
-		id: "third-way-economics-en",
-		title: "Third Way Economics: Constitutional & Juridical Framework",
-		urduTitle: "تھرڈ وے اکنامکس: انگریزی مقالہ",
-		category: "Statecraft",
-		type: "pdf",
-		filePath: "/study-notes/treatises/third-way-economics-article.pdf",
-		description: "English monograph on public equity, sovereign debt, and Islamic economic jurisprudence.",
-		relatedSeriesId: "special-lecture-series",
 	},
 ];

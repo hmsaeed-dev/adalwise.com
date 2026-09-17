@@ -54,6 +54,11 @@
   font-family: var(--font-amiri), "Amiri", serif;
 }
 
+.dir-rtl {
+  direction: rtl;
+  unicode-bidi: isolate;
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -99,4 +104,15 @@
 .marquee-strip:focus-within .marquee-track,
 .marquee-strip[data-paused="true"] .marquee-track {
   animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

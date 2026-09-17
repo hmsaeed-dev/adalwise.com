@@ -1,5 +1,7 @@
 import React from "react";
 import { constructMetadata } from "@/lib/seo/metadata";
+import { BreadcrumbJsonLd } from "@/lib/seo/jsonld";
+import { siteConfig } from "@/config/site";
 import { StudyNotesArchiveView } from "@/features/lectures";
 
 export const metadata = constructMetadata({
@@ -10,5 +12,17 @@ export const metadata = constructMetadata({
 });
 
 export default function StudyNotesArchivePage() {
-	return <StudyNotesArchiveView />;
+	return (
+		<>
+			<BreadcrumbJsonLd
+				items={[
+					{ name: "Home", url: siteConfig.url },
+					{ name: "Lectures", url: `${siteConfig.url}/lectures` },
+					{ name: "Study Notes", url: `${siteConfig.url}/lectures/notes` },
+				]}
+			/>
+			<StudyNotesArchiveView />
+		</>
+	);
 }
+

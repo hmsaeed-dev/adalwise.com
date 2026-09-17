@@ -19,12 +19,6 @@ export const PRIMARY_DOMAINS: PrimaryDomain[] = [
 		urduTitle: "تفسیر و فہمِ قرآن",
 		description:
 			"Systematic exegesis, thematic surah studies, and epistemological principles of Quranic interpretation.",
-		subCategories: [
-			{ id: "all", slug: "all", title: "All Tafsir" },
-			{ id: "surah-exegesis", slug: "surah-exegesis", title: "Surah-Specific Tafsir" },
-			{ id: "theological-principles", slug: "theological-principles", title: "Theological Principles" },
-			{ id: "quranic-maxims", slug: "quranic-maxims", title: "Quranic Parables & Maxims" },
-		],
 	},
 	{
 		id: "seerah",
@@ -33,12 +27,6 @@ export const PRIMARY_DOMAINS: PrimaryDomain[] = [
 		urduTitle: "سیرت و نظامِ حکومت",
 		description:
 			"Prophetic methodology, covenantal statehood, institutional history, and civilizational lessons.",
-		subCategories: [
-			{ id: "all", slug: "all", title: "All Seerah" },
-			{ id: "prophetic-era", slug: "prophetic-era", title: "Makki & Madani Milestones" },
-			{ id: "covenant-statecraft", slug: "covenant-statecraft", title: "Charter of Medina & Treaties" },
-			{ id: "companions", slug: "companions", title: "Companions & Khilafah" },
-		],
 	},
 	{
 		id: "constitutional-law",
@@ -47,40 +35,22 @@ export const PRIMARY_DOMAINS: PrimaryDomain[] = [
 		urduTitle: "دستور، قانون اور ریاست",
 		description:
 			"Constitutional covenants, legal theory (Usul al-Fiqh), sovereignty, and state institutional equity.",
-		subCategories: [
-			{ id: "all", slug: "all", title: "All Constitutional Law" },
-			{ id: "pakistan-constitution", slug: "pakistan-constitution", title: "Constitution of Pakistan (1973)" },
-			{ id: "amendments-legal-history", slug: "amendments-legal-history", title: "Amendments & Legal History" },
-			{ id: "judiciary-governance", slug: "judiciary-governance", title: "Judiciary & Public Governance" },
-		],
 	},
 	{
 		id: "iqbal",
 		slug: "iqbal",
-		title: "Iqbalian Thought",
+		title: "Allama Iqbal",
 		urduTitle: "فکرِ اقبال",
 		description:
 			"Reconstruction of religious thought, political philosophy, and civilizational revival.",
-		subCategories: [
-			{ id: "all", slug: "all", title: "All Iqbalian Thought" },
-			{ id: "philosophical-concepts", slug: "philosophical-concepts", title: "Khudi, Ijtihad & Modern State" },
-			{ id: "zarb-e-kalim", slug: "zarb-e-kalim", title: "Zarb-e-Kalim & Political Will" },
-			{ id: "shikwa-jawab", slug: "shikwa-jawab", title: "Shikwa / Jawab-e-Shikwa" },
-		],
 	},
 	{
 		id: "civic-ethics",
 		slug: "civic-ethics",
-		title: "Ethics & Public Philosophy",
+		title: "Ethics & Philosophy",
 		urduTitle: "اخلاقیات اور عمرانیات",
 		description:
 			"Social cohesion, ethics of disagreement (Adab al-Ikhtilaf), and family jurisprudence.",
-		subCategories: [
-			{ id: "all", slug: "all", title: "All Civic Ethics" },
-			{ id: "social-cohesion", slug: "social-cohesion", title: "Social Ethics & Reform" },
-			{ id: "family-ethics", slug: "family-ethics", title: "Family & Civic Jurisprudence" },
-			{ id: "tazkiyah", slug: "tazkiyah", title: "Spiritual Ethics (Tazkiyah)" },
-		],
 	},
 	{
 		id: "lisan-ul-quran",
@@ -89,11 +59,6 @@ export const PRIMARY_DOMAINS: PrimaryDomain[] = [
 		urduTitle: "لسان القرآن",
 		description:
 			"Quranic Arabic morphology, classical grammar, and direct textual comprehension.",
-		subCategories: [
-			{ id: "all", slug: "all", title: "All Lisan-ul-Quran" },
-			{ id: "arabic-grammar", slug: "arabic-grammar", title: "Arabic Grammar & Morphology" },
-			{ id: "vocabulary-syntax", slug: "vocabulary-syntax", title: "Quranic Syntax & Compounds" },
-		],
 	},
 ];
 

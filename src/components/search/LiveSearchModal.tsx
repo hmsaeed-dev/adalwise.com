@@ -62,9 +62,14 @@ export function LiveSearchModal({ isOpen, onClose }: LiveSearchModalProps) {
 	// Auto-scroll selected item into view
 	useEffect(() => {
 		if (selectedIndex >= 0 && resultsContainerRef.current) {
-			const activeEl = resultsContainerRef.current.children[selectedIndex] as HTMLElement;
+			const activeEl = resultsContainerRef.current.children[
+				selectedIndex
+			] as HTMLElement;
 			if (activeEl) {
-				activeEl.scrollIntoView({ block: "nearest", behavior: "smooth" });
+				activeEl.scrollIntoView({
+					block: "nearest",
+					behavior: "smooth",
+				});
 			}
 		}
 	}, [selectedIndex]);
@@ -91,8 +96,8 @@ export function LiveSearchModal({ isOpen, onClose }: LiveSearchModalProps) {
 				const data: SearchResult[] = await res.json();
 				setResults(data);
 				setSelectedIndex(-1);
-			} catch (err: any) {
-				if (err.name !== "AbortError") {
+			} catch (err: unknown) {
+				if (err instanceof Error && err.name !== "AbortError") {
 					console.error("Live search fetch error:", err);
 				}
 			} finally {
@@ -127,7 +132,9 @@ export function LiveSearchModal({ isOpen, onClose }: LiveSearchModalProps) {
 		} else if (e.key === "ArrowUp") {
 			e.preventDefault();
 			if (results.length > 0) {
-				setSelectedIndex((prev) => (prev - 1 + results.length) % results.length);
+				setSelectedIndex(
+					(prev) => (prev - 1 + results.length) % results.length,
+				);
 			}
 		} else if (e.key === "Enter") {
 			e.preventDefault();
@@ -153,7 +160,7 @@ export function LiveSearchModal({ isOpen, onClose }: LiveSearchModalProps) {
 				{/* Search Input Bar */}
 				<form
 					onSubmit={handleFullSearch}
-					className="flex items-center px-space-md py-space-sm border-b border-surface-container-high gap-space-xs"
+					className="flex items-center px-space-md py-space-sm  border-surface-container-high gap-space-xs"
 				>
 					<Search className="w-5 h-5 text-tertiary-container shrink-0" />
 					<input
@@ -270,7 +277,7 @@ export function LiveSearchModal({ isOpen, onClose }: LiveSearchModalProps) {
 				</div>
 
 				{/* Footer Shortcut Bar */}
-				<div className="px-space-md py-space-xs bg-surface-container-low border-t border-surface-container-high flex flex-wrap items-center justify-between gap-2 text-[11px] text-on-surface-variant">
+				<div className="px-space-md py-space-xs bg-surface-container-low  border-surface-container-high flex flex-wrap items-center justify-between gap-2 text-[11px] text-on-surface-variant">
 					<div className="flex items-center gap-3 text-on-surface-variant/70">
 						<span className="hidden sm:inline-flex items-center gap-1">
 							<kbd className="px-1.5 py-0.5 rounded bg-surface-container border border-surface-container-high font-mono text-[10px]">

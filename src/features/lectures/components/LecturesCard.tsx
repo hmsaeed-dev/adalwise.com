@@ -11,7 +11,7 @@ interface LecturesCardProps {
 
 export function LecturesCard({ lectures }: LecturesCardProps) {
 	return (
-		<article className="group bg-surface-container-low rounded-2xl overflow-hidden border border-surface-container-high hover:border-brand-gold/60 hover:shadow-md transition-all flex flex-col justify-between">
+		<article className="group bg-surface-container-low rounded-2xl overflow-hidden border border-surface-container-high hover:border-brand-gold/60 hover:shadow-md transition-all flex flex-col justify-between h-full">
 			{/* Thumbnail Container */}
 			<div>
 				<Link
@@ -37,7 +37,6 @@ export function LecturesCard({ lectures }: LecturesCardProps) {
 
 				{/* Card Content */}
 				<div className="p-5 flex flex-col gap-2">
-
 					<h3 className="font-serif text-lg text-primary font-semibold leading-snug group-hover:text-secondary transition-colors line-clamp-2">
 						<Link href={`/lectures/${lectures.slug}`}>
 							{lectures.title}
@@ -53,7 +52,7 @@ export function LecturesCard({ lectures }: LecturesCardProps) {
 			</div>
 
 			{/* Card Footer Bar */}
-			<div className="px-5 pb-4 pt-3 border-t border-surface-container-high/60 flex items-center justify-between text-xs font-sans text-on-surface-variant">
+			<div className="px-5 pb-4 pt-3  border-surface-container-high/60 flex items-center justify-between text-xs font-sans text-on-surface-variant">
 				<Link
 					href={`/lectures/${lectures.slug}`}
 					className="font-bold text-primary hover:text-secondary transition-colors"

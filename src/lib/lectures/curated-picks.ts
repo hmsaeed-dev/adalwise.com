@@ -30,7 +30,7 @@ export const CURATED_START_HERE_PICKS: CuratedPick[] = [
 	{
 		id: "yt-y9YYHdIqqWU",
 		youtubeId: "y9YYHdIqqWU",
-		slug: "personal-lessons-seerat-2026",
+		slug: "1-40-years-personal-lessons-seerat-2026",
 		title: "Pre-Prophetic Forty Years",
 		urduTitle: "قبلِ نبوت کے چالیس سال",
 		domainId: "seerah",
@@ -43,7 +43,7 @@ export const CURATED_START_HERE_PICKS: CuratedPick[] = [
 	{
 		id: "yt-O0KEVvQHyFY",
 		youtubeId: "O0KEVvQHyFY",
-		slug: "ijtehaad-zarb-e-kaleem-iqbal",
+		slug: "ijtehaad-zarb-e-kaleem-kalaam-e-iqbal",
 		title: "Allama Iqbal on Ijtihad",
 		urduTitle: "اجتہاد اور تشکیلِ جدید",
 		domainId: "iqbal",
@@ -56,7 +56,7 @@ export const CURATED_START_HERE_PICKS: CuratedPick[] = [
 	{
 		id: "yt-fVFArB5Z1IU",
 		youtubeId: "fVFArB5Z1IU",
-		slug: "quranic-economic-principles-legal-framework",
+		slug: "quranic-economic-principles-7",
 		title: "Legal & Economic System of Islam",
 		urduTitle: "اسلام کا قانونی معاشی نظام",
 		domainId: "constitutional-law",
@@ -69,7 +69,7 @@ export const CURATED_START_HERE_PICKS: CuratedPick[] = [
 	{
 		id: "yt-6CkIa6xfZR4",
 		youtubeId: "6CkIa6xfZR4",
-		slug: "family-life-of-momin-taghabun-talaq",
+		slug: "26c-family-life-of-momin-and-extreme-behaviours-taghabun-talaq-tahreem",
 		title: "Civic & Family Jurisprudence: Surah At-Taghabun & At-Talaq",
 		urduTitle: "خاندانی نظام اور معاشرتی اعتدال: تغابن اور طلاق کا فہم",
 		domainId: "civic-ethics",
@@ -82,7 +82,7 @@ export const CURATED_START_HERE_PICKS: CuratedPick[] = [
 	{
 		id: "yt-DGPYfCUCXw8",
 		youtubeId: "DGPYfCUCXw8",
-		slug: "quranic-arabic-learning-foundations",
+		slug: "quranic-arabic-learning",
 		title: "Lisan-ul-Quran",
 		urduTitle: "لسان القرآن: عربی گرامر",
 		domainId: "lisan-ul-quran",
@@ -95,7 +95,7 @@ export const CURATED_START_HERE_PICKS: CuratedPick[] = [
 	{
 		id: "yt-ja6QWecVtYc",
 		youtubeId: "ja6QWecVtYc",
-		slug: "our-teachers-quranic-revival-tradition",
+		slug: "alhamdulillah-for-being-one-of-his-students",
 		title: "Our Teachers: The Modern Quran-Centric Revival Tradition",
 		urduTitle: "اساتذہ کی یاد: ڈاکٹر اسرار احمدؒ اور فہمِ قرآن کی تحریک",
 		domainId: "civic-ethics",
@@ -108,7 +108,7 @@ export const CURATED_START_HERE_PICKS: CuratedPick[] = [
 	{
 		id: "yt-mVWbLcjlRag",
 		youtubeId: "mVWbLcjlRag",
-		slug: "noor-e-sahar-broadcast-social-ethics",
+		slug: "donate-blood-save-life",
 		title: "Noor-e-Sahar (24 News HD): Clinical Medicine & Social Ethics",
 		urduTitle: "نورِ سحر: طبی اخلاقیات اور انسانی جان کی حرمت",
 		domainId: "civic-ethics",
@@ -121,7 +121,7 @@ export const CURATED_START_HERE_PICKS: CuratedPick[] = [
 	{
 		id: "yt-6VgTxXYdlnM",
 		youtubeId: "6VgTxXYdlnM",
-		slug: "the-movement-society-within-a-society",
+		slug: "2-the-movement-society-within-a-society",
 		title: "The Quranic Movement: Building a Moral Society within Society",
 		urduTitle: "قرآنی تحریک: معاشرے کے اندر فکری تنظیم",
 		domainId: "tafsir",

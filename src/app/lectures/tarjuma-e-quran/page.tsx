@@ -2,9 +2,10 @@ import React from "react";
 import Link from "next/link";
 import { getTarjumaEditions } from "@/lib/lectures/tarjuma-quran";
 import { constructMetadata } from "@/lib/seo/metadata";
-import { BreadcrumbJsonLd } from "@/lib/seo/jsonld";
+import { BreadcrumbJsonLd, CourseJsonLd } from "@/lib/seo/jsonld";
+import { siteConfig } from "@/config/site";
 import { TarjumaCurriculumView } from "@/features/lectures";
-import { ArrowLeft, BookOpen, Clock, FileText } from "lucide-react";
+import { BookOpen, Clock, FileText } from "lucide-react";
 
 export const metadata = constructMetadata({
 	title: "Tarjuma-e-Quran | Systematic Exegesis",
@@ -17,7 +18,9 @@ interface PageProps {
 	searchParams: Promise<{ session?: string }>;
 }
 
-export default async function TarjumaQuranCoursePage({ searchParams }: PageProps) {
+export default async function TarjumaQuranCoursePage({
+	searchParams,
+}: PageProps) {
 	const resolvedParams = await searchParams;
 	const initialSessionSlug = resolvedParams?.session;
 	const editions = getTarjumaEditions();
@@ -27,17 +30,24 @@ export default async function TarjumaQuranCoursePage({ searchParams }: PageProps
 			{/* Breadcrumb Schema */}
 			<BreadcrumbJsonLd
 				items={[
-					{ name: "Home", url: "https://adlwise.com" },
-					{ name: "Lectures", url: "https://adlwise.com/lectures" },
+					{ name: "Home", url: siteConfig.url },
+					{ name: "Lectures", url: `${siteConfig.url}/lectures` },
 					{
 						name: "Tarjuma-e-Quran",
-						url: "https://adlwise.com/lectures/tarjuma-e-quran",
+						url: `${siteConfig.url}/lectures/tarjuma-e-quran`,
 					},
 				]}
 			/>
+			{/* Course Structured Data */}
+			<CourseJsonLd
+				name="Tarjuma-e-Quran — دورۂ ترجمۂ قرآن"
+				description="A systematic, verse-by-verse exegesis and thematic reflection across all 114 Surahs delivered by Dr. Hafiz Haseeb across annual Ramadan cycles."
+				url={`${siteConfig.url}/lectures/tarjuma-e-quran`}
+				numberOfLessons={114}
+			/>
 
 			{/* ================= COURSE HEADER: DOMINANT DEEP FOREST GREEN ANCHOR ================= */}
-			<section className="relative w-full bg-[#0a2318] text-brand-warm-white pt-28 sm:pt-36 md:pt-40 pb-14 sm:pb-18 border-b border-primary-container/60 overflow-hidden">
+			<section className="relative w-full bg-[#0a2318] text-brand-warm-white pt-28 sm:pt-36 md:pt-40 pb-14 sm:pb-18  border-primary-container/60 overflow-hidden">
 				{/* Classical Rub el Hizb (8-Point Star) Watermark Lattice */}
 				<div
 					className="absolute inset-0 opacity-[0.038] pointer-events-none"
@@ -69,15 +79,13 @@ export default async function TarjumaQuranCoursePage({ searchParams }: PageProps
 
 					<div>
 						<div className="flex sm:flex-row gap-20 justify-between">
+							<h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl text-brand-warm-white font-normal leading-[1.12] tracking-tight">
+								Tarjuma-e-Quran
+							</h1>
 
-						<h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl text-brand-warm-white font-normal leading-[1.12] tracking-tight">
-							Tarjuma-e-Quran
-						</h1>
-
-						<h2 className="font-urdu text-3xl sm:text-6xl text-brand-gold font-bold dir-rtl block my-4 select-none drop-shadow-sm">
-							دورۂ ترجمۂ قرآن
-						</h2>
-
+							<h2 className="font-urdu text-3xl sm:text-6xl text-brand-gold font-bold dir-rtl block my-4 select-none drop-shadow-sm">
+								دورۂ ترجمۂ قرآن
+							</h2>
 						</div>
 
 						<p className="mt-5 text-sm sm:text-base text-brand-warm-white/85 leading-relaxed font-sans">
@@ -88,7 +96,7 @@ export default async function TarjumaQuranCoursePage({ searchParams }: PageProps
 							across annual Ramadan cycles.
 						</p>
 
-						<div className="mt-8 flex flex-wrap items-center gap-6 text-xs font-sans text-brand-warm-white/70 pt-5 border-t border-white/10">
+						<div className="mt-8 flex flex-wrap items-center gap-6 text-xs font-sans text-brand-warm-white/70 pt-5  border-white/10">
 							<div className="flex items-center gap-2">
 								<BookOpen className="w-4 h-4 text-brand-gold shrink-0" />
 								<span>All 114 Surahs</span>

@@ -6,6 +6,8 @@ import {
 	ArticleFeed,
 } from "@/features/articles";
 import { constructMetadata } from "@/lib/seo/metadata";
+import { BreadcrumbJsonLd } from "@/lib/seo/jsonld";
+import { siteConfig } from "@/config/site";
 
 export const metadata = constructMetadata({
 	title: "Twasi al-Haq — Treatises & Academic Inquiries",
@@ -21,6 +23,13 @@ export default async function TwasiAlHaqPage() {
 
 	return (
 		<div className="flex flex-col w-full pb-space-2xl bg-surface text-on-surface">
+			<BreadcrumbJsonLd
+				items={[
+					{ name: "Home", url: siteConfig.url },
+					{ name: "Twasi al-Haq", url: `${siteConfig.url}/twasi-al-haq` },
+				]}
+			/>
+
 			<TwasiHero />
 
 			{leadArticle && <LeadArticleCard article={leadArticle} />}

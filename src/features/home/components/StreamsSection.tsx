@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface StreamCard {
 	title: string;
@@ -71,10 +72,12 @@ export function StreamsSection() {
 								<div className="overflow-hidden bg-surface-container-low transition-transform duration-500 ease-out group-hover:-translate-y-2 border rounded-3xl">
 									{/* Image */}
 									<div className="relative aspect-[16/10] overflow-hidden">
-										<img
+										<Image
 											src={stream.image}
-											alt=""
-											className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025]"
+											alt={stream.title}
+											fill
+											sizes="(max-width: 768px) 100vw, 33vw"
+											className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025]"
 										/>
 
 										<div className="absolute inset-0 bg-primary/5 transition-opacity duration-500 group-hover:opacity-0" />

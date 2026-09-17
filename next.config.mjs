@@ -3,6 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   images: {
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [
       {
         protocol: "https",
@@ -20,6 +21,24 @@ const nextConfig = {
   },
   async headers() {
     return [
+      {
+        source: "/images/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        source: "/_next/static/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
       {
         source: "/(.*)",
         headers: [
@@ -79,6 +98,41 @@ const nextConfig = {
       {
         source: "/about/bibliography",
         destination: "/about/reading-list",
+        permanent: true,
+      },
+      {
+        source: "/quran",
+        destination: "/lectures/tarjuma-e-quran",
+        permanent: true,
+      },
+      {
+        source: "/tarjuma-e-quran",
+        destination: "/lectures/tarjuma-e-quran",
+        permanent: true,
+      },
+      {
+        source: "/contact",
+        destination: "/join",
+        permanent: true,
+      },
+      {
+        source: "/fellowship",
+        destination: "/join",
+        permanent: true,
+      },
+      {
+        source: "/circle",
+        destination: "/join",
+        permanent: true,
+      },
+      {
+        source: "/haseeb",
+        destination: "/about",
+        permanent: true,
+      },
+      {
+        source: "/dr-hafiz-haseeb",
+        destination: "/about",
         permanent: true,
       },
     ];

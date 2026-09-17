@@ -4,72 +4,78 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import {
-    Search,
-    Menu,
-    X,
-    Home,
-    Scale,
-    Video,
-    Users,
-    User,
-} from "lucide-react";
+import { Search, Menu, X, Home, Scale, Video, Users, User } from "lucide-react";
 import { mainNavItems } from "@/config/nav";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
-import { LiveSearchModal } from "@/components/search/LiveSearchModal";
+import dynamic from "next/dynamic";
+
+const LiveSearchModal = dynamic(
+	() =>
+		import("@/components/search/LiveSearchModal").then(
+			(mod) => mod.LiveSearchModal,
+		),
+	{ ssr: false },
+);
 
 export function Header() {
-    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const [isSearchOpen, setIsSearchOpen] = useState(false);
-    const [isScrolled, setIsScrolled] = useState(false);
-    const pathname = usePathname();
+	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+	const [isSearchOpen, setIsSearchOpen] = useState(false);
+	const [isScrolled, setIsScrolled] = useState(false);
+	const pathname = usePathname();
 
-    // Check if the current route is one of the main root-level nav items
-    const isMainNavRoot = mainNavItems.some((item) => item.href === pathname);
+	// Check if the current route is one of the main root-level nav items
+	const isMainNavRoot = mainNavItems.some((item) => item.href === pathname);
 
-    // Transparent dark mode applies ONLY to root navigation pages while unscrolled
-    const isTransparentHero = isMainNavRoot && !isScrolled;
+	// Transparent dark mode applies ONLY to root navigation pages while unscrolled
+	const isTransparentHero = isMainNavRoot && !isScrolled;
 
-    // Scroll listener: toggles scrolled state past 40px
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 40);
-        };
-        handleScroll();
-        window.addEventListener("scroll", handleScroll, { passive: true });
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+	// Scroll listener: toggles scrolled state past 40px using requestAnimationFrame throttle
+	useEffect(() => {
+		let ticking = false;
+		const handleScroll = () => {
+			if (!ticking) {
+				window.requestAnimationFrame(() => {
+					setIsScrolled(window.scrollY > 40);
+					ticking = false;
+				});
+				ticking = true;
+			}
+		};
+		handleScroll();
+		window.addEventListener("scroll", handleScroll, { passive: true });
+		return () => window.removeEventListener("scroll", handleScroll);
+	}, []);
 
-    // Global Ctrl+K / Escape listener
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
-                e.preventDefault();
-                setIsSearchOpen((prev) => !prev);
-            }
-            if (e.key === "Escape") {
-                setIsDrawerOpen(false);
-                setIsSearchOpen(false);
-            }
-        };
-        window.addEventListener("keydown", handleKeyDown);
-        return () => window.removeEventListener("keydown", handleKeyDown);
-    }, []);
+	// Global Ctrl+K / Escape listener
+	useEffect(() => {
+		const handleKeyDown = (e: KeyboardEvent) => {
+			if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+				e.preventDefault();
+				setIsSearchOpen((prev) => !prev);
+			}
+			if (e.key === "Escape") {
+				setIsDrawerOpen(false);
+				setIsSearchOpen(false);
+			}
+		};
+		window.addEventListener("keydown", handleKeyDown);
+		return () => window.removeEventListener("keydown", handleKeyDown);
+	}, []);
 
-    // Close drawer on route change
-    useEffect(() => {
-        setIsDrawerOpen(false);
-    }, [pathname]);
+	// Close drawer on route change
+	useEffect(() => {
+		setIsDrawerOpen(false);
+	}, [pathname]);
 
-    return (
+	return (
 		<>
 			<header
 				className={cn(
 					"fixed top-10 w-full z-50 pt-safe transition-[background-color,border-color,box-shadow] duration-300",
 					isTransparentHero
-						? "bg-transparent shadow-none border-b border-transparent"
-						: "bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] border-b border-surface-container-high/40",
+						? "bg-transparent shadow-none  border-transparent"
+						: "bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]  border-surface-container-high/40",
 				)}
 			>
 				<div className="h-16 md:h-14 px-6 max-w-7xl mx-auto flex items-center justify-between">
@@ -166,10 +172,7 @@ export function Header() {
 
 			{/* Spacer: Only displayed on non-root pages so content is not hidden behind the fixed header */}
 			{!isMainNavRoot && (
-				<div
-					className="h-16 md:h-20 w-full shrink-0"
-					aria-hidden="true"
-				/>
+				<div className="h-[104px] w-full shrink-0" aria-hidden="true" />
 			)}
 
 			{/* Mobile Navigation Drawer */}
@@ -252,7 +255,7 @@ export function Header() {
 							</nav>
 						</div>
 
-						<div className="pt-space-md border-t border-surface-container-high flex flex-col gap-space-xs">
+						<div className="pt-space-md  border-surface-container-high flex flex-col gap-space-xs">
 							<Link
 								href="/join"
 								className="w-full py-space-sm bg-primary text-on-primary font-label-md text-center uppercase tracking-wider block rounded-full hover:bg-primary-container transition-colors shadow-sm"
@@ -264,11 +267,13 @@ export function Header() {
 				</div>
 			)}
 
-			{/* Live Search Modal Dialog */}
-			<LiveSearchModal
-				isOpen={isSearchOpen}
-				onClose={() => setIsSearchOpen(false)}
-			/>
+			{/* Live Search Modal Dialog (Dynamically loaded on-demand) */}
+			{isSearchOpen && (
+				<LiveSearchModal
+					isOpen={isSearchOpen}
+					onClose={() => setIsSearchOpen(false)}
+				/>
+			)}
 		</>
 	);
 }

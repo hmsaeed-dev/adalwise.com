@@ -6,7 +6,7 @@ import { siteConfig } from "@/config/site";
 
 export function AboutHero() {
 	return (
-		<section className="relative w-full bg-[#0a2318] text-brand-warm-white overflow-hidden pt-28 sm:pt-36 md:pt-40 pb-16 sm:pb-20 md:pb-24 border-b border-primary-container/60">
+		<section className="relative w-full bg-[#0a2318] text-brand-warm-white overflow-hidden pt-28 sm:pt-36 md:pt-40 pb-16 sm:pb-20 md:pb-24  border-primary-container/60">
 			{/* Ambient Architectural Lighting */}
 			<div
 				aria-hidden="true"
@@ -21,18 +21,18 @@ export function AboutHero() {
 				<div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
 					{/* Left: Primary Focal Proposition */}
 					<div className="lg:col-span-7 flex flex-col items-start">
-
 						{/* Primary Heading */}
 						<h1 className="font-serif text-3xl sm:text-5xl lg:text-[52px] text-brand-warm-white font-normal leading-[1.12] tracking-tight">
-							A physician’s inquiry into the Quran, Islamic thought & living jurisprudence.
+							A physician’s inquiry into the Quran, Islamic
+							thought & living jurisprudence.
 						</h1>
 
 						{/* Subtitle with High Contrast */}
 						<p className="mt-5 font-sans text-sm sm:text-base text-brand-warm-white/85 leading-relaxed max-w-xl">
-							Grounding contemporary legal reasoning, public ethics, and constitutional
-							equity in the classical epistemological traditions of Islam.
+							Grounding contemporary legal reasoning, public
+							ethics, and constitutional equity in the classical
+							epistemological traditions of Islam.
 						</p>
-
 
 						{/* Quick Action Anchors */}
 						<div className="mt-8 flex flex-wrap items-center gap-4">
@@ -72,9 +72,7 @@ export function AboutHero() {
 							</div>
 
 							{/* Plaque Header / Seal */}
-							<div className="w-12 h-12 flex items-center justify-center p-2.5 mb-5">
-
-							</div>
+							<div className="w-12 h-12 flex items-center justify-center p-2.5 mb-5"></div>
 
 							{/* Nastaliq Calligraphic Mark */}
 							<span className="font-urdu text-5xl sm:text-6xl text-brand-gold font-bold leading-[1.5] dir-rtl select-none drop-shadow-md">

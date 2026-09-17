@@ -5,14 +5,16 @@ import {
 	StreamsSection,
 	SynthesisSection,
 } from "@/features/home";
+import { siteConfig } from "@/config/site";
 import { constructMetadata } from "@/lib/seo/metadata";
 
 export const metadata = constructMetadata({
-	title: "Home",
+	title: `${siteConfig.name} — ${siteConfig.tagline} | ${siteConfig.urduTagline}`,
 	description:
-		"An academic initiative dedicated to justice and wisdom (Adl wa Hikmah)",
+		"An academic initiative dedicated to justice and wisdom (Adl wa Hikmah) through Quranic hermeneutics, classical Islamic jurisprudence, and constitutional statecraft.",
 	canonicalUrl: "/",
 });
+
 
 export default function HomePage() {
 	return (

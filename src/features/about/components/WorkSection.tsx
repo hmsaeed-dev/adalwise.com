@@ -57,17 +57,17 @@ const streams: StreamItem[] = [
 
 export function WorkSection() {
 	return (
-		<section className="w-full bg-surface text-on-surface py-16 sm:py-20 md:py-24 border-b border-surface-container-high/80">
+		<section className="w-full bg-surface text-on-surface py-16 sm:py-20 md:py-24  border-surface-container-high/80">
 			<div className="w-full max-w-container-max mx-auto px-gutter-mobile md:px-gutter-desktop">
 				{/* Section Header */}
 				<div className="max-w-3xl mb-10 sm:mb-12">
-
 					<h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-primary font-semibold leading-[1.18] tracking-tight">
 						The Manifestation of Work
 					</h2>
 					<p className="mt-3 font-serif italic text-base sm:text-lg text-secondary max-w-2xl font-medium">
-						The method is carried forward across four practical mediums—linking foundational
-						direct study to published research monographs and public discourse.
+						The method is carried forward across four practical
+						mediums—linking foundational direct study to published
+						research monographs and public discourse.
 					</p>
 				</div>
 
@@ -110,7 +110,7 @@ export function WorkSection() {
 								</div>
 
 								{/* Action Footer Bar with Clear Visual Click Affordance */}
-								<div className="mt-8 pt-5 border-t border-surface-container-high flex items-center justify-between">
+								<div className="mt-8 pt-5  border-surface-container-high flex items-center justify-between">
 									<span className="font-sans text-xs uppercase tracking-widest font-bold text-primary group-hover:text-secondary transition-colors flex items-center gap-1.5">
 										<span>{stream.actionLabel}</span>
 									</span>

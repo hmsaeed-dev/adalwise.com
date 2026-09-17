@@ -24,17 +24,6 @@ export function MajlisArchive({ sessions }: MajlisArchiveProps) {
 
   return (
     <section aria-labelledby="majlis-archive-heading">
-      {/* Section Header */}
-      <div className="flex mx-auto pb-8 mb-8">
-        <div>
-          <h2
-            id="majlis-archive-heading"
-            className="font-serif text-3xl mx-auto sm:text-4xl sm:mx-auto font-bold tracking-editorial text-brand-primary mt-1"
-          >
-            The Majlis Archive
-          </h2>
-        </div>
-      </div>
 
       {/* Chronological Spine & Entries */}
       <div className="space-y-16">
