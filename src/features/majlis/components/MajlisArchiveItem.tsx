@@ -5,7 +5,6 @@ import { MajlisDoc } from "@/lib/content/schemas";
 interface MajlisArchiveItemProps {
 	doc: MajlisDoc;
 	isFirstOfYear: boolean;
-	year: string;
 }
 
 function formatSessionDate(dateStr: string): string {
