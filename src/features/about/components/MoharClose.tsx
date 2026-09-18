@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BookOpen } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
 
 export function MoharClose() {
@@ -22,16 +22,6 @@ export function MoharClose() {
 
 					{/* Top Lockup: Mohar Seal & Classical Colophon Inscription */}
 					<div className="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-8 lg:gap-12 pb-10  border-white/15">
-						{/* Inked Mohar Seal Crest */}
-						<div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-[#0a2318] border-2 border-brand-gold/40 flex items-center justify-center p-3.5 shadow-2xl shrink-0">
-							<Image
-								src="/images/assets/mountain-mark.svg"
-								alt="Adalwise Mohar Seal"
-								width={64}
-								height={64}
-								className="w-full h-full object-contain filter invert opacity-90"
-							/>
-						</div>
 
 						{/* Inscription & Provenance */}
 						<div className="flex-1 flex flex-col">
@@ -48,16 +38,6 @@ export function MoharClose() {
 
 					{/* Bottom Action Bridge: Definitive Next Steps */}
 					<div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
-						<div>
-							<h4 className="font-serif text-xl sm:text-2xl text-brand-warm-white font-semibold">
-								Continue the Inquiry
-							</h4>
-							<p className="font-sans text-xs sm:text-sm text-brand-warm-white/75 mt-1 max-w-lg leading-relaxed">
-								Engage with Dr. Haseeb’s systematic Quranic
-								lectures or join the research fellowship for
-								structured textual study.
-							</p>
-						</div>
 
 						{/* High-Contrast Interactive Buttons */}
 						<div className="flex flex-wrap items-center gap-3 sm:gap-4 shrink-0">
@@ -65,23 +45,15 @@ export function MoharClose() {
 								href="/lectures"
 								className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-brand-gold hover:bg-[#c99e4c] text-[#00261a] text-xs font-bold uppercase tracking-widest transition-all duration-200 shadow-md hover:shadow-lg hover:-translate-y-0.5 group"
 							>
-								<span>Explore Lectures</span>
+								<span>Lectures</span>
 								<ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
-							</Link>
-
-							<Link
-								href="/about/reading-list"
-								className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full bg-white/10 hover:bg-white/15 text-brand-warm-white border border-white/20 text-xs font-bold uppercase tracking-widest transition-all duration-200"
-							>
-								<BookOpen className="w-4 h-4 text-brand-gold" />
-								<span>The Reading List</span>
 							</Link>
 
 							<Link
 								href="/join"
 								className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full bg-white/10 hover:bg-white/15 text-brand-warm-white border border-white/20 text-xs font-bold uppercase tracking-widest transition-all duration-200"
 							>
-								<span>Join Fellowship</span>
+								<span>Join Us</span>
 							</Link>
 						</div>
 					</div>

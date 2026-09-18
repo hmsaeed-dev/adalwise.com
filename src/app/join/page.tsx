@@ -61,7 +61,7 @@ export default function JoinPage() {
 				<div className="max-w-container-max mx-auto px-gutter-mobile md:px-gutter-desktop py-space-3xl">
 					<div className="max-w-2xl mx-auto text-center mb-space-2xl">
 						<h2 className="mt-space-sm font-display-md text-3xl sm:text-4xl text-primary font-bold">
-							Tell us a little about yourself.
+							Little bit about yourself.
 						</h2>
 					</div>
 

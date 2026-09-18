@@ -33,25 +33,6 @@ export function StartHereSection({ curatedPicks, lectures }: StartHereProps) {
 	return (
 		<section className="w-full bg-surface text-on-surface py-12 sm:py-16 md:py-20  border-surface-container-high/80">
 			<div className="w-full max-w-container-max mx-auto px-gutter-mobile md:px-gutter-desktop">
-				{/* Section Header */}
-				<div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 ">
-					<div className="max-w-2xl">
-						<h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-primary font-semibold leading-[1.18] tracking-tight">
-							Start Here
-						</h2>
-					</div>
-
-					{/* Cross-Link to About Lineage */}
-					<Link
-						href="/about"
-						className="shrink-0 inline-flex items-center gap-1.5 font-sans text-xs uppercase tracking-widest font-bold text-primary hover:text-secondary transition-colors group"
-					>
-						<span>Taught by</span>
-						<span className="no-underline group-hover:underline">
-							Dr. Hafiz Haseeb
-						</span>
-					</Link>
-				</div>
 
 				{/* ─── 3 HALLMARK MASTERCLASSES (Compact, High-Signal) ─── */}
 				<div className="mt-8 flex flex-col gap-6">

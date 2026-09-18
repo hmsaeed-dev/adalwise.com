@@ -8,7 +8,6 @@ import { cn } from "@/lib/utils";
 
 interface NewsItem {
 	id: string;
-	badge?: string;
 	text: string;
 	href?: string;
 }
@@ -16,20 +15,17 @@ interface NewsItem {
 const NEWS_UPDATES: NewsItem[] = [
 	{
 		id: "1",
-		badge: "Cohort",
-		text: "Applications for the Autumn Fellowship cycle are now open.",
+		text: "Autumn Fellowship cycle are now Open.",
 		href: "/majlis",
 	},
 	{
 		id: "2",
-		badge: "Lecture Series",
-		text: "New discourse: Constitutional Principles of the Charter of Madinah.",
+		text: "Charter of Madinah.",
 		href: "/lectures",
 	},
 	{
 		id: "3",
-		badge: "Publication",
-		text: "Twasi al-Haq monograph on Legal Philosophy released.",
+		text: "New Article released.",
 		href: "/twasi-al-haq",
 	},
 ];
@@ -63,18 +59,6 @@ export function Updates() {
 			{NEWS_UPDATES.map((item, index) => {
 				const content = (
 					<span className="inline-flex items-center gap-3">
-						{item.badge && (
-							<span
-								className={cn(
-									"rounded-full px-2 py-0.5 font-medium text-[10px] uppercase tracking-wider transition-colors",
-									isTransparentHero
-										? "bg-white/15 text-brand-warm-white border border-white/20"
-										: "bg-brand-primary/10 text-brand-primary border border-brand-primary/20",
-								)}
-							>
-								{item.badge}
-							</span>
-						)}
 						<span
 							className={cn(
 								"transition-colors duration-150 font-sans",

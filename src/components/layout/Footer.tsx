@@ -11,7 +11,7 @@ export function Footer() {
 				{/* Brand Bar */}
 				<div className="flex items-center justify-between pb-space-md  border-surface-container-highest">
 					<div className="flex items-center gap-space-xs">
-						<div className="relative w-9 h-9 rounded-full overflow-hidden bg-primary ring-1 ring-tertiary-container/40 p-0.5 shadow-sm shrink-0">
+						<div className="relative w-9 h-9 rounded-full overflow-hidden p-0.5 shrink-0">
 							<Image
 								src="/images/assets/mountain-mark.svg"
 								alt={`${siteConfig.name} Crest`}

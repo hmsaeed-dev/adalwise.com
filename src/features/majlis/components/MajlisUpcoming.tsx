@@ -126,12 +126,9 @@ export function MajlisUpcoming({ doc }: MajlisUpcomingProps) {
 							href={session.registrationUrl || "/join"}
 							className="inline-flex items-center justify-center gap-3 px-8 py-3.5 bg-brand-primary hover:bg-brand-primary-hover text-brand-warm-white rounded-full text-xs tracking-[0.2em] font-medium uppercase transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 group"
 						>
-							<span>Reserve Your Seat</span>
+							<span>Your Seat</span>
 							<ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
 						</Link>
-						<span className="text-xs text-brand-primary/60 font-sans tracking-wide">
-							Limited to 25 participants
-						</span>
 					</div>
 				</div>
 			</div>

@@ -13,7 +13,7 @@ const streams: StreamCard[] = [
 	{
 		title: "Twasi al-Haq",
 		description:
-			"Deliberative critiques, academic treatises, statecraft and  jurisprudence.",
+			"Deliberative critiques, academic treatises, statecraft and jurisprudence.",
 		href: "/twasi-al-haq",
 		image: "/images/twasi.jpg",
 	},
@@ -48,57 +48,57 @@ export function StreamsSection() {
 				</div>
 
 				{/* Streams */}
-				<div className="relative mt-6 md:mt-20">
-					{/* Mobile vertical connecting line */}
-					<div
-						aria-hidden="true"
-						className="absolute left-[18px] top-0 bottom-0 w-px bg-secondary/45 md:hidden "
-					/>
-
-					<div className="relative flex flex-col gap-12 md:grid md:grid-cols-3 md:gap-8 ">
+				<div className="mt-6 md:mt-20">
+					<div className="grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-8">
 						{streams.map((stream) => (
 							<Link
 								key={stream.title}
 								href={stream.href}
-								className="group relative pl-12 md:pl-0"
+								className="group relative block aspect-[16/10] overflow-hidden rounded-3xl border border-primary/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 md:aspect-[4/5]"
 							>
-								{/* Mobile connection node */}
-								<span
-									aria-hidden="true"
-									className="absolute left-[13px] top-7 h-3 w-3 rounded-full bg-primary md:hidden"
+								{/* Background Image */}
+								<Image
+									src={stream.image}
+									alt={stream.title}
+									fill
+									sizes="(max-width: 768px) 100vw, 33vw"
+									className="object-cover transition-transform duration-700 ease-out"
 								/>
 
-								{/* Card */}
-								<div className="overflow-hidden bg-surface-container-low transition-transform duration-500 ease-out group-hover:-translate-y-2 border rounded-3xl">
-									{/* Image */}
-									<div className="relative aspect-[16/10] overflow-hidden">
-										<Image
-											src={stream.image}
-											alt={stream.title}
-											fill
-											sizes="(max-width: 768px) 100vw, 33vw"
-											className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025]"
-										/>
+								{/* Subtle overall image treatment */}
+								<div
+									aria-hidden="true"
+									className="absolute inset-0 bg-primary/5 transition-colors duration-900 group-hover:bg-primary/0"
+								/>
 
-										<div className="absolute inset-0 bg-primary/5 transition-opacity duration-500 group-hover:opacity-0" />
-									</div>
+								{/* Bottom text gradient */}
+								<div
+									aria-hidden="true"
+									className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-black/75 via-black/35 to-transparent"
+								/>
 
-									{/* Content */}
-									<div className="px-5 pb-7 pt-6 md:px-6 md:pb-8 md:pt-7">
-										<h3 className="font-headline-sm text-2xl font-medium tracking-tight text-primary transition-colors duration-300 group-hover:text-secondary">
-											{stream.title}
-										</h3>
+								{/* Content */}
+								<div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
+									<h3 className="font-headline-sm text-2xl font-medium tracking-tight text-white transition-transform duration-500 md:text-3xl">
+										{stream.title}
+									</h3>
 
-										<p className="mt-3 font-body-md text-on-surface-variant">
-											{stream.description}
-										</p>
-									</div>
+									<p className="mt-2 max-w-[32rem] font-body-md leading-relaxed text-white/85">
+										{stream.description}
+									</p>
 								</div>
+
+								{/* Hover border */}
+								<div
+									aria-hidden="true"
+									className="absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/10 transition-all duration-500 group-hover:ring-white/25"
+								/>
 							</Link>
 						))}
 					</div>
 				</div>
 			</div>
+
 		</section>
 	);
 }

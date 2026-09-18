@@ -4,6 +4,7 @@ import {
 	StatsMarquee,
 	StreamsSection,
 	SynthesisSection,
+	HomeCTA,
 } from "@/features/home";
 import { siteConfig } from "@/config/site";
 import { constructMetadata } from "@/lib/seo/metadata";
@@ -18,11 +19,12 @@ export const metadata = constructMetadata({
 
 export default function HomePage() {
 	return (
-		<div className="flex flex-col w-full pb-space-2xl">
+		<div className="flex flex-col w-full">
 			<HeroSection />
 			<StatsMarquee />
-			<StreamsSection />
 			<SynthesisSection />
+			<StreamsSection />
+			<HomeCTA />
 		</div>
 	);
 }

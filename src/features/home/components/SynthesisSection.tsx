@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, ChevronRight, Compass } from "lucide-react";
+import { Compass } from "lucide-react";
 
 interface Pillar {
 	num: string;
@@ -107,49 +107,6 @@ export function SynthesisSection() {
 							</p>
 						</div>
 					))}
-				</div>
-			</div>
-
-			{/* ─── BANNER: Deep Forest / Onyx with High-Contrast Brass / Ivory Accents ─── */}
-			<div className="w-full relative overflow-hidden rounded-[20px] md:rounded-[24px] bg-[#00261a] border border-[#0f3d2e] shadow-[0_4px_24px_rgba(0,38,26,0.12)] p-6 sm:p-8 md:p-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 md:gap-8">
-				{/* Background Atmospheric Lighting */}
-				<div
-					className="absolute -right-24 -top-24 w-96 h-96 bg-brand-gold/10 rounded-full blur-3xl pointer-events-none"
-					aria-hidden="true"
-				/>
-				<div
-					className="absolute -left-20 -bottom-20 w-72 h-72 bg-primary-container/30 rounded-full blur-2xl pointer-events-none"
-					aria-hidden="true"
-				/>
-
-				{/* Left Side: Fellowship Overline & Pitch */}
-				<div className="relative z-10 flex flex-col gap-2 max-w-2xl">
-					<h3 className="font-serif text-2xl sm:text-3xl font-medium text-brand-warm-white tracking-tight">
-						Join the Circle
-					</h3>
-
-					<p className="font-sans text-xs sm:text-sm text-brand-warm-white/75 leading-relaxed mt-0.5">
-						Join a dedicated fellowship convening regularly for
-						deliberative critiques, research roundtables.
-					</p>
-				</div>
-
-				{/* Right Side: High-Contrast Actions */}
-				<div className="relative z-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 md:gap-4 shrink-0">
-					<Link
-						href="/join"
-						className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 bg-brand-warm-white hover:bg-white text-primary rounded-full text-xs font-semibold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 group text-center"
-					>
-						<span>Apply for Cohort</span>
-						<ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-					</Link>
-					<Link
-						href="/about"
-						className="inline-flex items-center justify-center gap-1.5 px-5 py-3.5 text-brand-warm-white/80 hover:text-brand-warm-white text-xs font-semibold tracking-widest uppercase transition-colors text-center"
-					>
-						<span>Our Method</span>
-						<ChevronRight className="w-3.5 h-3.5" />
-					</Link>
 				</div>
 			</div>
 		</section>

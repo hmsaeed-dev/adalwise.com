@@ -142,13 +142,26 @@ export function Header() {
 
 					{/* Action CTAs */}
 					<div className="flex items-center gap-2 shrink-0">
+						<Link
+							href="/join"
+							className={cn(
+								"hidden md:inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/15 text-brand-warm-white border border-white/20 text-xs font-bold uppercase tracking-widest transition-all duration-200",
+								isTransparentHero
+									? "text-brand-warm-white hover:bg-white/10"
+									: "text-brand-primary hover:bg-brand-primary/20 border-brand-primary/5",
+							)}
+						>
+							<span>Join Us</span>
+						</Link>
 						{/* Search Trigger */}
 						<button
 							type="button"
 							onClick={() => setIsSearchOpen(true)}
 							onMouseEnter={() => {
 								if (typeof window !== "undefined") {
-									fetch("/api/search/catalog", { priority: "low" } as RequestInit).catch(() => {});
+									fetch("/api/search/catalog", {
+										priority: "low",
+									} as RequestInit).catch(() => {});
 								}
 							}}
 							aria-label="Search Archive (Ctrl+K or /)"

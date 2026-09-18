@@ -48,12 +48,12 @@ export function CircleSection() {
 					<h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-primary font-semibold leading-[1.18] tracking-tight">
 						The Circle
 					</h2>
-					<span className="font-urdu text-sm text-tertiary font-bold dir-rtl">
+					<span className="font-urdu pt-10 text-3xl sm:text-4xl text-primary font-bold dir-rtl">
 						حلقۂ رفقاء
 					</span>
 					<p className="mt-3 font-serif italic text-base sm:text-lg text-secondary max-w-2xl font-medium">
 						Independent thinkers and researchers contributing
-						domain-specific rigor to the ongoing discourse—without
+						domain specific rigor to the ongoing discourse, without
 						artificial hierarchy or corporate titles.
 					</p>
 				</div>
@@ -77,17 +77,7 @@ export function CircleSection() {
 								</p>
 							</div>
 
-							{/* Focus Area Tags Footer */}
-							<div className="mt-6 pt-5  border-surface-container-high flex flex-wrap gap-1.5">
-								{person.focusAreas.map((area) => (
-									<span
-										key={area}
-										className="font-sans text-[11px] px-2.5 py-0.5 rounded-md bg-surface-container-lowest border border-surface-container-high text-on-surface-variant font-medium"
-									>
-										{area}
-									</span>
-								))}
-							</div>
+
 						</div>
 					))}
 				</div>

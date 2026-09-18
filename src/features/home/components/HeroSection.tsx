@@ -9,7 +9,7 @@ interface HeroSectionProps {
 
 export function HeroSection({
     desktopImageSrc = "/images/home-hero-desktop.jpg",
-    mobileImageSrc = "/images/home-hero-mobile.jpg",
+    mobileImageSrc = "/images/home-hero-mobile.png",
 }: HeroSectionProps) {
     return (
         <section className="relative w-full h-[100svh] min-h-[560px] md:h-screen md:min-h-[680px] flex flex-col justify-start bg-brand-parchment overflow-hidden">

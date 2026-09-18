@@ -27,13 +27,6 @@ export function AboutHero() {
 							thought & living jurisprudence.
 						</h1>
 
-						{/* Subtitle with High Contrast */}
-						<p className="mt-5 font-sans text-sm sm:text-base text-brand-warm-white/85 leading-relaxed max-w-xl">
-							Grounding contemporary legal reasoning, public
-							ethics, and constitutional equity in the classical
-							epistemological traditions of Islam.
-						</p>
-
 						{/* Quick Action Anchors */}
 						<div className="mt-8 flex flex-wrap items-center gap-4">
 							<a
@@ -57,31 +50,10 @@ export function AboutHero() {
 					{/* Right: Grounded Calligraphic Plaque (Crest Anchor) */}
 					<div className="lg:col-span-5 flex justify-center lg:justify-end">
 						<div className="w-full max-w-md p-8 sm:p-10 flex flex-col items-center text-center relative overflow-hidden">
-							{/* Background Watermark Emblem */}
-							<div
-								aria-hidden="true"
-								className="absolute -right-10 -bottom-10 w-48 h-48 opacity-10 pointer-events-none select-none"
-							>
-								<Image
-									src="/images/assets/mountain-mark.svg"
-									alt=""
-									width={192}
-									height={192}
-									className="w-full h-full object-contain filter invert"
-								/>
-							</div>
-
-							{/* Plaque Header / Seal */}
-							<div className="w-12 h-12 flex items-center justify-center p-2.5 mb-5"></div>
 
 							{/* Nastaliq Calligraphic Mark */}
-							<span className="font-urdu text-5xl sm:text-6xl text-brand-gold font-bold leading-[1.5] dir-rtl select-none drop-shadow-md">
+							<span className="font-urdu py-20 text-5xl sm:text-6xl text-brand-gold font-bold leading-[1.5] dir-rtl select-none drop-shadow-md">
 								عدل و حکمت
-							</span>
-
-							{/* Urdu Subtitle */}
-							<span className="font-urdu text-lg sm:text-xl text-brand-warm-white/90 dir-rtl mt-2 select-none">
-								تفہیمِ دین و تحقیقِ قانون
 							</span>
 						</div>
 					</div>

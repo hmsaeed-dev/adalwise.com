@@ -62,7 +62,6 @@ export default async function MajlisSessionDetailPage({ params }: PageProps) {
     <article className="w-full max-w-4xl mx-auto px-6 md:px-8 py-12 md:py-16 flex flex-col gap-10">
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: siteConfig.url },
           { name: "Majlis", url: `${siteConfig.url}/majlis` },
           {
             name: session.title,
@@ -75,10 +74,6 @@ export default async function MajlisSessionDetailPage({ params }: PageProps) {
         aria-label="Breadcrumb"
         className="flex items-center gap-2 text-xs font-sans uppercase tracking-widest text-brand-primary/60"
       >
-        <Link href="/" className="hover:text-brand-primary transition-colors">
-          Home
-        </Link>
-        <span aria-hidden="true">/</span>
         <Link href="/majlis" className="hover:text-brand-primary transition-colors">
           Majlis
         </Link>
