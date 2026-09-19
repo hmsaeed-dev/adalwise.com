@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useMemo } from "react";
 
 interface StatItem {
 	value: string;
@@ -21,11 +21,9 @@ export interface StatsMarqueeProps {
 
 export function StatsMarquee({
 	className = "",
-	repeatCount = 3,
-	duration = 50,
+	repeatCount = 5,
+	duration = 40,
 }: StatsMarqueeProps) {
-	const [isInteracting, setIsInteracting] = useState(false);
-
 	// Repeating stats across the track ensures continuous density across all viewport resolutions
 	const marqueeStats = useMemo(() => {
 		return Array.from({ length: repeatCount }).flatMap(() => STATS);
@@ -33,22 +31,16 @@ export function StatsMarquee({
 
 	const trackStyle: React.CSSProperties = {
 		animationDuration: `${duration}s`,
-		animationPlayState: isInteracting ? "paused" : undefined,
 	};
 
 	return (
 		<section
-			className={`w-full bg-surface-container-low/90 border-y border-surface-container-high/60 shadow-[0_1px_3px_rgba(0,0,0,0.02)] py-3 md:py-3.5 select-none ${className}`}
+			className={`w-full bg-surface-container-low/90 border-y border-surface-container-high/60 shadow-[0_1px_3px_rgba(0,0,0,0.02)] py-3 md:py-3.5 select-none overflow-hidden ${className}`}
 			role="region"
 			aria-label="Key Statistics"
 		>
-			<div
-				className="marquee-strip flex w-full overflow-hidden"
-				data-paused={isInteracting ? "true" : "false"}
-				onTouchStart={() => setIsInteracting(true)}
-				onTouchEnd={() => setIsInteracting(false)}
-				onTouchCancel={() => setIsInteracting(false)}
-			>
+			{/* Simple, continuous, non-interactive infinite horizontal marquee */}
+			<div className="marquee-strip flex w-full overflow-hidden">
 				{/* Primary track (read once by screen readers) */}
 				<div className="marquee-track" style={trackStyle}>
 					{marqueeStats.map((stat, idx) => (
@@ -64,12 +56,11 @@ export function StatsMarquee({
 									{stat.label}
 								</span>
 							</div>
-
 						</div>
 					))}
 				</div>
 
-				{/* Cloned duplicate track for seamless infinite loop */}
+				{/* Cloned duplicate track for seamless infinite loop without visible jump */}
 				<div aria-hidden="true" className="marquee-track" style={trackStyle}>
 					{marqueeStats.map((stat, idx) => (
 						<div
@@ -84,7 +75,6 @@ export function StatsMarquee({
 									{stat.label}
 								</span>
 							</div>
-
 						</div>
 					))}
 				</div>

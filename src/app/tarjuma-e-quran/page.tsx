@@ -1,6 +1,10 @@
 import React from "react";
 import Link from "next/link";
-import { getTarjumaEditions } from "@/lib/lectures/tarjuma-quran";
+import {
+	getTarjumaEditions,
+	getAllSurahsWithSessions,
+} from "@/lib/lectures/tarjuma-quran";
+import { getLisanUlQuranSessions } from "@/lib/lectures/lisan-ul-quran";
 import { constructMetadata } from "@/lib/seo/metadata";
 import { BreadcrumbJsonLd, CourseJsonLd } from "@/lib/seo/jsonld";
 import { siteConfig } from "@/config/site";
@@ -8,14 +12,14 @@ import { TarjumaCurriculumView } from "@/features/lectures";
 import { BookOpen, Clock, FileText } from "lucide-react";
 
 export const metadata = constructMetadata({
-	title: "Tarjuma-e-Quran | Systematic Exegesis",
+	title: "Tarjuma-e-Quran — دورۂ ترجمۂ قرآن",
 	description:
-		"Systematic verse-by-verse exegesis and linguistic tafsir across all 114 Surahs delivered by Dr. Hafiz Haseeb across annual Ramadan cycles.",
-	canonicalUrl: "/lectures/tarjuma-e-quran",
+		"Systematic verse-by-verse exegesis, linguistic tafsir across all 114 Surahs, and Lisan-ul-Quran Arabic grammar curriculum delivered by Dr. Hafiz Haseeb.",
+	canonicalUrl: "/tarjuma-e-quran",
 });
 
 interface PageProps {
-	searchParams: Promise<{ session?: string }>;
+	searchParams: Promise<{ session?: string; view?: string }>;
 }
 
 export default async function TarjumaQuranCoursePage({
@@ -24,6 +28,8 @@ export default async function TarjumaQuranCoursePage({
 	const resolvedParams = await searchParams;
 	const initialSessionSlug = resolvedParams?.session;
 	const editions = getTarjumaEditions();
+	const surahs = getAllSurahsWithSessions();
+	const lisanSessions = getLisanUlQuranSessions();
 
 	return (
 		<div className="flex flex-col w-full bg-background text-on-surface pb-28 selection:bg-primary/20 selection:text-primary">
@@ -31,10 +37,9 @@ export default async function TarjumaQuranCoursePage({
 			<BreadcrumbJsonLd
 				items={[
 					{ name: "Home", url: siteConfig.url },
-					{ name: "Lectures", url: `${siteConfig.url}/lectures` },
 					{
 						name: "Tarjuma-e-Quran",
-						url: `${siteConfig.url}/lectures/tarjuma-e-quran`,
+						url: `${siteConfig.url}/tarjuma-e-quran`,
 					},
 				]}
 			/>
@@ -42,12 +47,12 @@ export default async function TarjumaQuranCoursePage({
 			<CourseJsonLd
 				name="Tarjuma-e-Quran — دورۂ ترجمۂ قرآن"
 				description="A systematic, verse-by-verse exegesis and thematic reflection across all 114 Surahs delivered by Dr. Hafiz Haseeb across annual Ramadan cycles."
-				url={`${siteConfig.url}/lectures/tarjuma-e-quran`}
+				url={`${siteConfig.url}/tarjuma-e-quran`}
 				numberOfLessons={114}
 			/>
 
 			{/* ================= COURSE HEADER: DOMINANT DEEP FOREST GREEN ANCHOR ================= */}
-			<section className="relative w-full bg-[#0a2318] text-brand-warm-white pt-28 sm:pt-36 md:pt-40 pb-14 sm:pb-18  border-primary-container/60 overflow-hidden">
+			<section className="relative w-full bg-[#0a2318] text-brand-warm-white pt-28 sm:pt-36 md:pt-40 pb-14 sm:pb-18 border-primary-container/60 overflow-hidden">
 				{/* Classical Rub el Hizb (8-Point Star) Watermark Lattice */}
 				<div
 					className="absolute inset-0 opacity-[0.038] pointer-events-none"
@@ -66,14 +71,14 @@ export default async function TarjumaQuranCoursePage({
 				<div className="relative z-10 w-full max-w-container-max mx-auto px-gutter-mobile md:px-gutter-desktop">
 					<div className="flex pb-4 items-center gap-2 text-xs font-sans">
 						<Link
-							href="/lectures"
-							className="text-brand-warm-white hover:text-secondary transition-colors font-medium"
+							href="/"
+							className="text-brand-warm-white/80 hover:text-brand-warm-white transition-colors font-medium"
 						>
-							Lectures
+							Home
 						</Link>
-						<span className="text-brand-warm-white">/</span>
+						<span className="text-brand-warm-white/50">/</span>
 						<span className="text-brand-warm-white font-semibold">
-							Tarjum e Quran
+							Tarjuma-e-Quran
 						</span>
 					</div>
 
@@ -88,7 +93,7 @@ export default async function TarjumaQuranCoursePage({
 							</h2>
 						</div>
 
-						<p className="mt-5 text-sm sm:text-base text-brand-warm-white/85 leading-relaxed font-sans">
+						<p className="mt-5 text-sm sm:text-base text-brand-warm-white/85 leading-relaxed font-sans max-w-3xl">
 							A systematic, verse-by-verse exegesis and thematic
 							reflection across all 114 Surahs delivered by Dr.
 							Hafiz Haseeb. Preserving the integrity of the Arabic
@@ -96,18 +101,18 @@ export default async function TarjumaQuranCoursePage({
 							across annual Ramadan cycles.
 						</p>
 
-						<div className="mt-8 flex flex-wrap items-center gap-6 text-xs font-sans text-brand-warm-white/70 pt-5  border-white/10">
+						<div className="mt-8 flex flex-wrap items-center gap-6 text-xs font-sans text-brand-warm-white/70 pt-5 border-t border-white/10">
 							<div className="flex items-center gap-2">
 								<BookOpen className="w-4 h-4 text-brand-gold shrink-0" />
 								<span>All 114 Surahs</span>
 							</div>
 							<div className="flex items-center gap-2">
 								<Clock className="w-4 h-4 text-brand-gold shrink-0" />
-								<span>Ramadan Cycles (2023–26)</span>
+								<span>Ramadan Cycles</span>
 							</div>
 							<Link
 								href="/lectures/notes"
-								className="flex items-center gap-2 font-medium"
+								className="flex items-center gap-2 font-medium hover:text-brand-warm-white transition-colors"
 							>
 								<FileText className="w-4 h-4 text-brand-gold shrink-0" />
 								<span>Grammar Notes</span>
@@ -121,6 +126,8 @@ export default async function TarjumaQuranCoursePage({
 			<section className="w-full max-w-container-max mx-auto px-gutter-mobile md:px-gutter-desktop pt-10 sm:pt-12">
 				<TarjumaCurriculumView
 					editions={editions}
+					surahs={surahs}
+					lisanSessions={lisanSessions}
 					initialSessionSlug={initialSessionSlug}
 				/>
 			</section>

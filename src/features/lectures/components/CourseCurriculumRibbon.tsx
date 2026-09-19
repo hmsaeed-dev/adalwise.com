@@ -50,7 +50,7 @@ export function CourseCurriculumRibbon() {
 						</Link>
 
 						<Link
-							href="/lectures/tarjuma-e-quran"
+							href="/tarjuma-e-quran"
 							className="group inline-flex h-9 items-center gap-1.5 rounded-full bg-primary px-4 text-xs font-semibold text-brand-warm-white shadow-sm transition-all duration-200 hover:bg-primary/90 hover:shadow active:scale-[0.98]"
 						>
 							<span>Syllabus</span>

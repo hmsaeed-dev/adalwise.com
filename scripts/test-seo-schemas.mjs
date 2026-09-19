@@ -35,7 +35,7 @@ for (const item of sitemapItems) {
 const staticUrls = [
 	"https://adlwise.com",
 	"https://adlwise.com/lectures",
-	"https://adlwise.com/lectures/tarjuma-e-quran",
+	"https://adlwise.com/tarjuma-e-quran",
 	"https://adlwise.com/lectures/notes",
 	"https://adlwise.com/twasi-al-haq",
 	"https://adlwise.com/majlis",
@@ -176,13 +176,13 @@ const courseSchema = extractSchema(
 	jsonldModule.CourseJsonLd({
 		name: "Tarjuma-e-Quran",
 		description: "114 Surahs curriculum",
-		url: "/lectures/tarjuma-e-quran",
+		url: "/tarjuma-e-quran",
 		numberOfLessons: 114,
 	})
 );
 assert.strictEqual(courseSchema["@type"], "Course");
 assert.strictEqual(courseSchema.name, "Tarjuma-e-Quran");
-assert.strictEqual(courseSchema.url, "https://adlwise.com/lectures/tarjuma-e-quran");
+assert.strictEqual(courseSchema.url, "https://adlwise.com/tarjuma-e-quran");
 assert.strictEqual(courseSchema.provider["@type"], "EducationalOrganization");
 console.log("✓ CourseJsonLd schema verified.");
 

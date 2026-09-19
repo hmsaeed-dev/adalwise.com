@@ -45,7 +45,7 @@ export function MoharClose() {
 								href="/lectures"
 								className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-brand-gold hover:bg-[#c99e4c] text-[#00261a] text-xs font-bold uppercase tracking-widest transition-all duration-200 shadow-md hover:shadow-lg hover:-translate-y-0.5 group"
 							>
-								<span>Lectures</span>
+								<span>Listen</span>
 								<ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
 							</Link>
 

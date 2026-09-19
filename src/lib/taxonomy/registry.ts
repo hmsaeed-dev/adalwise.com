@@ -52,15 +52,16 @@ export const PRIMARY_DOMAINS: PrimaryDomain[] = [
 		description:
 			"Social cohesion, ethics of disagreement (Adab al-Ikhtilaf), and family jurisprudence.",
 	},
-	{
-		id: "lisan-ul-quran",
-		slug: "lisan-ul-quran",
-		title: "Lisan-ul-Quran",
-		urduTitle: "لسان القرآن",
-		description:
-			"Quranic Arabic morphology, classical grammar, and direct textual comprehension.",
-	},
 ];
+
+export const LISAN_UL_QURAN_DOMAIN: PrimaryDomain = {
+	id: "lisan-ul-quran",
+	slug: "lisan-ul-quran",
+	title: "Lisan-ul-Quran",
+	urduTitle: "لسان القرآن",
+	description:
+		"Quranic Arabic morphology, classical grammar, and direct textual comprehension.",
+};
 
 export const SERIES_LIST: Series[] = [
 	{
@@ -173,5 +174,53 @@ export const TOPICS_LIST: Topic[] = [
 		slug: "maslahah",
 		name: "Public Welfare (Maslahah)",
 		urduName: "مصلحتِ عامہ",
+	},
+	{
+		id: "social-family-ethics",
+		slug: "social-family-ethics",
+		name: "Social & Family Ethics",
+		urduName: "معاشرتی و خاندانی اخلاقیات",
+	},
+	{
+		id: "prophetic-era-seerah",
+		slug: "prophetic-era-seerah",
+		name: "Prophetic Era (Seerah)",
+		urduName: "عہدِ نبوی اور سیرت",
+	},
+	{
+		id: "quranic-exegesis",
+		slug: "quranic-exegesis",
+		name: "Quranic Exegesis",
+		urduName: "تفسیر و فہمِ قرآن",
+	},
+	{
+		id: "amendments-legal-history",
+		slug: "amendments-legal-history",
+		name: "Amendments & Legal History",
+		urduName: "دستوری ترامیم و تاریخ",
+	},
+	{
+		id: "zarb-e-kalim",
+		slug: "zarb-e-kalim",
+		name: "Zarb-e-Kalim",
+		urduName: "ضربِ کلیم",
+	},
+	{
+		id: "ummah-geopolitics",
+		slug: "ummah-geopolitics",
+		name: "Ummah & Geopolitics",
+		urduName: "مسائلِ امت اور عالمی سیاست",
+	},
+	{
+		id: "scholarly-lineage",
+		slug: "scholarly-lineage",
+		name: "Scholarly Lineage & Mentorship",
+		urduName: "اساتذہ اور علمی روایات",
+	},
+	{
+		id: "hajj-pilgrimage",
+		slug: "hajj-pilgrimage",
+		name: "Hajj & Prophetic Pilgrimage",
+		urduName: "حج اور اسفارِ سیرت",
 	},
 ];

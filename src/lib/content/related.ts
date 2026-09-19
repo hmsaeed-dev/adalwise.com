@@ -1,10 +1,10 @@
-import { getAllArticles } from "./client";
+import { getAllArticles, getAllMajlisSessions } from "./client";
 import { getAllLectures } from "@/lib/lectures/client";
 import { LectureItem } from "@/lib/lectures/types";
-import { ArticleDoc } from "./schemas";
+import { ArticleDoc, MajlisDoc } from "./schemas";
 
 export interface UnifiedRelatedItem {
-	type: "article" | "lectures";
+	type: "article" | "lectures" | "majlis";
 	title: string;
 	urduTitle?: string;
 	slug: string;
@@ -18,7 +18,7 @@ export interface UnifiedRelatedItem {
 }
 
 export async function getRelatedContent(params: {
-	currentType: "article" | "lectures";
+	currentType: "article" | "lectures" | "majlis";
 	currentSlug: string;
 	explicitSlugs?: string[];
 	seriesId?: string;
@@ -38,9 +38,10 @@ export async function getRelatedContent(params: {
 		limit = 3,
 	} = params;
 
-	const [articles, lectureList] = await Promise.all([
+	const [articles, lectureList, majlisSessions] = await Promise.all([
 		getAllArticles(),
 		getAllLectures(),
+		getAllMajlisSessions(),
 	]);
 
 	const results: { item: UnifiedRelatedItem; score: number }[] = [];
@@ -76,7 +77,21 @@ export async function getRelatedContent(params: {
 		topics: m.topics || [],
 	}));
 
-	const pool = [...unifiedArticles, ...unifiedLectures];
+	// Convert majlis symposia to unified model
+	const unifiedMajlis: UnifiedRelatedItem[] = majlisSessions.map((ms) => ({
+		type: "majlis",
+		title: ms.session.title,
+		urduTitle: ms.session.urduTitle,
+		slug: ms.slug,
+		url: `/majlis/${ms.slug}`,
+		excerpt: ms.session.thesis || ms.session.description || "",
+		category: "Statecraft",
+		publishedAt: ms.session.date,
+		thumbnailUrl: "/images/majlis-hero.jpg",
+		topics: ms.session.topics || [],
+	}));
+
+	const pool = [...unifiedArticles, ...unifiedLectures, ...unifiedMajlis];
 	const poolMap = new Map<string, UnifiedRelatedItem>(
 		pool.map((item) => [item.slug, item]),
 	);
@@ -90,8 +105,9 @@ export async function getRelatedContent(params: {
 		}
 	}
 
-	// 2. Check Inferred Reverse References (e.g. if an article references this lecture item)
+	// 2. Check Inferred Reverse References
 	if (currentType === "lectures") {
+		// Check if an article references this lecture
 		for (const a of articles) {
 			if (
 				a.frontmatter.relatedLectureSlugs.includes(currentSlug) &&
@@ -100,6 +116,18 @@ export async function getRelatedContent(params: {
 				const item = poolMap.get(a.slug);
 				if (item) {
 					results.push({ item, score: 90 });
+					addedSlugs.add(item.slug);
+				}
+			}
+		}
+		// Check if a Majlis deliberation references this lecture
+		for (const ms of majlisSessions) {
+			const matchesRecording = ms.session.recordingSlug === currentSlug;
+			const matchesRelated = ms.session.relatedLectureSlugs.includes(currentSlug);
+			if ((matchesRecording || matchesRelated) && !addedSlugs.has(ms.slug)) {
+				const item = poolMap.get(ms.slug);
+				if (item) {
+					results.push({ item, score: 95 });
 					addedSlugs.add(item.slug);
 				}
 			}

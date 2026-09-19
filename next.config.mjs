@@ -102,12 +102,7 @@ const nextConfig = {
       },
       {
         source: "/quran",
-        destination: "/lectures/tarjuma-e-quran",
-        permanent: true,
-      },
-      {
-        source: "/tarjuma-e-quran",
-        destination: "/lectures/tarjuma-e-quran",
+        destination: "/tarjuma-e-quran",
         permanent: true,
       },
       {

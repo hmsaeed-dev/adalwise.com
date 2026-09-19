@@ -14,13 +14,13 @@ export const mainNavItems: NavItem[] = [
 		icon: "home",
 	},
 	{
-		title: "Twasi al-Haq",
-		urduTitle: "تواصی بالحق",
-		href: "/twasi-al-haq",
-		icon: "balance",
+		title: "Quran",
+		urduTitle: "دورۂ قرآن",
+		href: "/tarjuma-e-quran",
+		icon: "book",
 	},
 	{
-		title: "Lectures",
+		title: "Listen",
 		urduTitle: "درس و خطابات",
 		href: "/lectures",
 		icon: "video_library",
@@ -47,8 +47,8 @@ export const footerNav = {
 		{ title: "Majlis", href: "/majlis" },
 	],
 	curriculum: [
-		{ title: "Tarjuma-e-Quran", href: "/lectures/tarjuma-e-quran" },
-		{ title: "Notes & References", href: "/lectures/notes" },
+		{ title: "Tarjuma-e-Quran", href: "/tarjuma-e-quran" },
+		{ title: "References", href: "/lectures/notes" },
 	],
 	academy: [
 		{ title: "About Us", href: "/about" },

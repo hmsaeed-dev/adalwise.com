@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Calendar, MapPin, Video } from "lucide-react";
 import { getAllMajlisSessions, getMajlisSessionBySlug } from "@/lib/content/client";
+import { getLectureBySlug } from "@/lib/lectures/client";
 import { MDXRenderer } from "@/components/content/MDXRenderer";
 import { constructMetadata } from "@/lib/seo/metadata";
 import { BreadcrumbJsonLd } from "@/lib/seo/jsonld";
@@ -57,6 +58,18 @@ export default async function MajlisSessionDetailPage({ params }: PageProps) {
       ? session.keyInquiries
       : session.discussionPoints;
   const formattedDate = formatSessionDate(session.date);
+
+  // Hydrate cross-referenced lectures from catalogue
+  const relatedSlugs = Array.from(
+    new Set([
+      ...(session.recordingSlug ? [session.recordingSlug] : []),
+      ...(session.relatedLectureSlugs || []),
+    ])
+  );
+  const lectureResults = await Promise.all(
+    relatedSlugs.map((s) => getLectureBySlug(s))
+  );
+  const relatedLectures = lectureResults.filter((l): l is NonNullable<typeof l> => Boolean(l));
 
   return (
     <article className="w-full max-w-4xl mx-auto px-6 md:px-8 py-12 md:py-16 flex flex-col gap-10">
@@ -140,28 +153,43 @@ export default async function MajlisSessionDetailPage({ params }: PageProps) {
         </section>
       )}
 
-      {/* Recording Reference if available */}
-      {session.recordingSlug && (
-        <div className="p-5 rounded-xl bg-surface-container border border-surface-container-high flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <Video className="w-5 h-5 text-brand-primary shrink-0" aria-hidden="true" />
-            <div>
-              <h3 className="font-headline-sm text-sm text-brand-primary font-bold">
-                Recording Available
-              </h3>
-              <p className="font-body-sm text-xs text-on-surface-variant">
-                Explore the recording or related lectures in the video archive.
-              </p>
+      {/* Related Recorded Discourses & Archive Links */}
+      {relatedLectures.length > 0 && (
+        <section aria-labelledby="related-discourses-heading" className="space-y-4 p-6 rounded-2xl bg-surface-container border border-surface-container-high">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <Video className="w-5 h-5 text-brand-primary" aria-hidden="true" />
+              <h2 id="related-discourses-heading" className="font-sans text-xs uppercase tracking-[0.2em] font-semibold text-brand-primary/80">
+                Related Recorded Discourses ({relatedLectures.length})
+              </h2>
             </div>
+            <span className="text-[11px] text-on-surface-variant font-sans">
+              Video Archive Cross-References
+            </span>
           </div>
-          <Link
-            href={`/lectures/${session.recordingSlug}`}
-            className="inline-flex items-center gap-1.5 px-4 py-2 bg-brand-primary text-brand-warm-white text-xs uppercase tracking-wider font-semibold rounded-full hover:bg-brand-primary-hover transition-colors shrink-0"
-          >
-            <span>View Lecture</span>
-            <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
-          </Link>
-        </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+            {relatedLectures.map((lec) => (
+              <Link
+                key={lec.slug}
+                href={`/lectures/${lec.slug}`}
+                className="p-3.5 rounded-xl bg-surface-container-lowest hover:bg-surface-container-low border border-surface-container-high hover:border-brand-gold/40 transition-all flex items-center justify-between gap-3 group"
+              >
+                <div className="min-w-0">
+                  <h3 className="font-headline-sm text-sm font-semibold text-brand-primary group-hover:text-brand-primary-hover truncate">
+                    {lec.title}
+                  </h3>
+                  {lec.urduTitle && (
+                    <p className="font-urdu text-xs text-on-surface-variant dir-rtl truncate mt-0.5">
+                      {lec.urduTitle}
+                    </p>
+                  )}
+                </div>
+                <ArrowUpRight className="w-4 h-4 text-brand-gold shrink-0 group-hover:translate-x-0.5 transition-transform" aria-hidden="true" />
+              </Link>
+            ))}
+          </div>
+        </section>
       )}
 
       {/* Main Prose Content */}

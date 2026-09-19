@@ -41,7 +41,7 @@ export function AboutHero() {
 								href="/lectures"
 								className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 hover:bg-white/15 text-brand-warm-white border border-white/20 text-xs font-semibold uppercase tracking-widest transition-all duration-200"
 							>
-								<span>Lectures</span>
+								<span>Listen</span>
 								<ArrowRight className="w-3.5 h-3.5" />
 							</Link>
 						</div>

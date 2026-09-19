@@ -25,18 +25,6 @@ const interlocutors: Interlocutor[] = [
 			"Critical examination of the modern international order, sovereignty, political philosophy, and civilizational statecraft.",
 		focusAreas: ["International Order", "Political Theory", "Sovereignty"],
 	},
-	{
-		name: "Dr. Abdul Sami",
-		urduName: "ڈاکٹر عبد السمیع",
-		domain: "Classical Jurisprudence & Kalam",
-		description:
-			"Methodological examination of classical legal maxims (Qawa’id Fiqhiyyah), theology, and systemic institutional reform.",
-		focusAreas: [
-			"Usul al-Fiqh",
-			"Theology (Kalam)",
-			"Institutional Reform",
-		],
-	},
 ];
 
 export function CircleSection() {

@@ -1,14 +1,13 @@
 import React, { Suspense } from "react";
 import {
-	getPaginatedLectures,
 	getCuratedStartHerePicks,
+	getThematicArchiveLectures,
 } from "@/lib/lectures/client";
 import {
 	LecturesHero,
 	StartHereSection,
 	CourseCurriculumRibbon,
-	LecturesSearchFilter,
-	LecturesGrid,
+	LecturesArchiveInteractive,
 } from "@/features/lectures";
 import { constructMetadata } from "@/lib/seo/metadata";
 import { BreadcrumbJsonLd } from "@/lib/seo/jsonld";
@@ -30,6 +29,8 @@ interface PageProps {
 		q?: string;
 		page?: string;
 		series?: string;
+		format?: string;
+		sort?: string;
 	}>;
 }
 
@@ -49,27 +50,13 @@ function LecturesSearchFilterSkeleton() {
 
 export default async function LecturesCatalogPage({ searchParams }: PageProps) {
 	const resolvedParams = await searchParams;
-	const page = resolvedParams.page ? parseInt(resolvedParams.page, 10) : 1;
-	const category = resolvedParams.category;
-	const domain = resolvedParams.domain;
-	const query = resolvedParams.q;
-	const seriesId = resolvedParams.series;
 
-	// Fetch curated foundational masterclasses and paginated catalog in parallel
-	// The 324-session translation course is exclusively hosted in /lectures/tarjuma-e-quran
-	const [curatedPicks, result] = await Promise.all([
+	// Fetch curated foundational masterclasses and the entire thematic holdings in parallel
+	// The 324-session translation course is exclusively hosted in /tarjuma-e-quran
+	const [curatedPicks, allThematicLectures] = await Promise.all([
 		getCuratedStartHerePicks(),
-		getPaginatedLectures({
-			page,
-			limit: 18,
-			category,
-			domain,
-			query,
-			seriesId,
-			includeCoursework: false,
-		}),
+		getThematicArchiveLectures(),
 	]);
-
 
 	return (
 		<div className="flex flex-col w-full bg-surface text-on-surface">
@@ -83,27 +70,20 @@ export default async function LecturesCatalogPage({ searchParams }: PageProps) {
 			{/* 1. Hero: Dignified Lockup */}
 			<LecturesHero />
 
-			{/* 2. Core Inquiries: 3 Hallmark Masterclasses ONLY (No 10-item list) */}
+			{/* 2. Core Inquiries: 3 Hallmark Masterclasses ONLY */}
 			<StartHereSection curatedPicks={curatedPicks.slice(0, 3)} />
 
 			{/* ZONE 2: The Living Library ("Explore & Search the Holdings") */}
 			{/* 3. The 324-Session Course Ribbon (Compact 1-row capsule) */}
 			<CourseCurriculumRibbon />
 
-			{/* 4. Instant Search & Typographic Filter Rails */}
+			{/* 4. Zero-Latency Interactive Archive (Search, Domain Rails, Format Chips, Multi-dimensional Sorting & Grid) */}
 			<Suspense fallback={<LecturesSearchFilterSkeleton />}>
-				<LecturesSearchFilter />
+				<LecturesArchiveInteractive
+					allLectures={allThematicLectures}
+					initialParams={resolvedParams}
+				/>
 			</Suspense>
-
-			{/* 5. Holdings Grid & Colophon */}
-			<LecturesGrid
-				items={result.items}
-				total={result.total}
-				page={result.page}
-				totalPages={result.totalPages}
-				hasMore={result.hasMore}
-				searchParams={resolvedParams}
-			/>
 		</div>
 	);
 }

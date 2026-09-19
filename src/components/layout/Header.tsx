@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Search, Menu, X, Home, Scale, Video, Users, User } from "lucide-react";
+import { Search, Menu, X, Home, Scale, Video, Users, User, BookOpen, FileText } from "lucide-react";
 import { mainNavItems } from "@/config/nav";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
@@ -107,7 +107,9 @@ export function Header() {
 							const isActive =
 								item.href === "/"
 									? pathname === "/"
-									: pathname.startsWith(item.href);
+									: item.href === "/lectures"
+										? pathname === "/lectures"
+										: pathname.startsWith(item.href);
 
 							return (
 								<Link
@@ -142,17 +144,7 @@ export function Header() {
 
 					{/* Action CTAs */}
 					<div className="flex items-center gap-2 shrink-0">
-						<Link
-							href="/join"
-							className={cn(
-								"hidden md:inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/15 text-brand-warm-white border border-white/20 text-xs font-bold uppercase tracking-widest transition-all duration-200",
-								isTransparentHero
-									? "text-brand-warm-white hover:bg-white/10"
-									: "text-brand-primary hover:bg-brand-primary/20 border-brand-primary/5",
-							)}
-						>
-							<span>Join Us</span>
-						</Link>
+
 						{/* Search Trigger */}
 						<button
 							type="button"
@@ -177,6 +169,18 @@ export function Header() {
 								strokeWidth={2}
 							/>
 						</button>
+						<Link
+							href="/join"
+							className={cn(
+								"hidden md:inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/15 text-brand-warm-white border border-white/20 text-xs font-bold uppercase tracking-widest transition-all duration-200",
+								isTransparentHero
+									? "text-brand-warm-white hover:bg-white/10"
+									: "text-brand-primary hover:bg-brand-primary/20 border-brand-primary/5",
+							)}
+						>
+							<span>Join Us</span>
+						</Link>
+
 
 						{/* Mobile Hamburger Toggle */}
 						<button
@@ -246,12 +250,14 @@ export function Header() {
 												{item.href === "/" && (
 													<Home className="w-[18px] h-[18px] text-tertiary-container shrink-0" />
 												)}
-												{item.href ===
-													"/twasi-al-haq" && (
-													<Scale className="w-[18px] h-[18px] text-tertiary-container shrink-0" />
+												{item.href === "/tarjuma-e-quran" && (
+													<BookOpen className="w-[18px] h-[18px] text-tertiary-container shrink-0" />
 												)}
 												{item.href === "/lectures" && (
 													<Video className="w-[18px] h-[18px] text-tertiary-container shrink-0" />
+												)}
+												{item.href === "/lectures/notes" && (
+													<FileText className="w-[18px] h-[18px] text-tertiary-container shrink-0" />
 												)}
 												{item.href === "/majlis" && (
 													<Users className="w-[18px] h-[18px] text-tertiary-container shrink-0" />

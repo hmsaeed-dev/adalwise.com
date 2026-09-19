@@ -20,7 +20,7 @@ export default async function Image({
 	const lectures = await getlecturesBySlug(slug);
 
 	const title = lectures?.title || "Adlwise Lecture";
-	const speaker = lectures?.speaker.name || "Dr. Hafiz Haseeb";
+	const speaker = lectures?.speaker?.name || "Dr. Hafiz Haseeb";
 	const category = lectures?.category || "Archival Lecture";
 	const duration = lectures ? formatDuration(lectures.durationSeconds) : "";
 

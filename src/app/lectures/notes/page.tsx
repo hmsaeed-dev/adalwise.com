@@ -17,7 +17,7 @@ export default function StudyNotesArchivePage() {
 			<BreadcrumbJsonLd
 				items={[
 					{ name: "Home", url: siteConfig.url },
-					{ name: "Lectures", url: `${siteConfig.url}/lectures` },
+					{ name: "Listen", url: `${siteConfig.url}/lectures` },
 					{ name: "Study Notes", url: `${siteConfig.url}/lectures/notes` },
 				]}
 			/>

@@ -78,6 +78,24 @@ function cleanDescription(desc = "") {
 		.trim();
 }
 
+function createCleanSummary(description = "", maxLength = 160) {
+	const clean = (description || "").replace(/\s+/g, " ").trim();
+	if (!clean) return "";
+	if (clean.length <= maxLength) return clean;
+
+	const firstSentenceMatch = clean.match(/^.*?[.!?۔](?:\s|$)/);
+	if (firstSentenceMatch && firstSentenceMatch[0].length >= 40 && firstSentenceMatch[0].length <= maxLength) {
+		return firstSentenceMatch[0].trim();
+	}
+
+	const truncated = clean.slice(0, maxLength);
+	const lastSpace = truncated.lastIndexOf(" ");
+	if (lastSpace > 40) {
+		return `${truncated.slice(0, lastSpace).replace(/[,;:\-–—]+$/, "")}...`;
+	}
+	return `${truncated}...`;
+}
+
 function parseDurationFormatted(formatted) {
 	if (!formatted || typeof formatted !== "string") return 0;
 	const parts = formatted.split(":").map((p) => parseInt(p, 10) || 0);
@@ -387,7 +405,7 @@ async function compile() {
 				avatarUrl: "/images/haseeb-02.jpg",
 			},
 			description,
-			summary: description.slice(0, 160),
+			summary: createCleanSummary(description),
 			durationSeconds,
 			publishedAt,
 			thumbnailUrl,

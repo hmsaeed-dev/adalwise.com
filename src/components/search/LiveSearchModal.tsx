@@ -341,7 +341,7 @@ export function LiveSearchModal({ isOpen, onClose }: LiveSearchModalProps) {
 				{/* Search Input Bar */}
 				<form
 					onSubmit={handleFullSearch}
-					className="flex items-center px-space-md py-space-sm border-surface-container-high gap-space-xs"
+					className="flex items-center pl-space-md px-space-xl py-space-md border-surface-container-high gap-space-xs"
 				>
 					<Search className="w-5 h-5 text-tertiary-container shrink-0" />
 					<input
@@ -350,8 +350,8 @@ export function LiveSearchModal({ isOpen, onClose }: LiveSearchModalProps) {
 						value={query}
 						onChange={(e) => setQuery(e.target.value)}
 						onKeyDown={handleInputKeyDown}
-						placeholder="Search lectures, articles, surahs (e.g. 2:255)..."
-						className="w-full bg-transparent text-on-surface placeholder:text-on-surface-variant/60 font-body-md focus:outline-none"
+						placeholder="Search lectures, topic, surahs (2:255)..."
+						className="pl-4 w-full bg-transparent text-on-surface placeholder:text-on-surface-variant/60 font-body-md focus:outline-none"
 					/>
 					{loading && (
 						<Loader2 className="w-4 h-4 animate-spin text-brand-gold shrink-0" />
@@ -360,7 +360,7 @@ export function LiveSearchModal({ isOpen, onClose }: LiveSearchModalProps) {
 						<button
 							type="button"
 							onClick={clearQuery}
-							title="Clear search"
+							title="Close"
 							className="p-1 text-on-surface-variant hover:text-primary rounded-full transition-colors"
 						>
 							<X className="w-4 h-4" />
@@ -372,9 +372,6 @@ export function LiveSearchModal({ isOpen, onClose }: LiveSearchModalProps) {
 						aria-label="Close search"
 						className="p-1 text-on-surface-variant hover:text-primary rounded-full transition-colors ml-1"
 					>
-						<span className="text-[11px] font-mono px-1.5 py-0.5 rounded bg-surface-container border border-surface-container-high hidden sm:inline">
-							ESC
-						</span>
 					</button>
 				</form>
 
@@ -391,7 +388,7 @@ export function LiveSearchModal({ isOpen, onClose }: LiveSearchModalProps) {
 									<div className="flex items-center justify-between text-[11px] font-bold text-secondary uppercase tracking-wider">
 										<span className="flex items-center gap-1">
 											<Clock className="w-3 h-3" />
-											<span>Recent Searches</span>
+											<span>Recent</span>
 										</span>
 										<button
 											type="button"
@@ -418,13 +415,13 @@ export function LiveSearchModal({ isOpen, onClose }: LiveSearchModalProps) {
 
 							<div className="flex flex-col gap-2">
 								<span className="text-[11px] font-bold text-secondary uppercase tracking-wider">
-									Suggested Inquiries
+									Suggested
 								</span>
 								<div className="flex flex-wrap gap-1.5">
 									{[
 										"Charter of Medina",
 										"Quran & Justice",
-										"Iqbalian Thought",
+										"Iqbalian",
 										"Surah Al-Asr",
 									].map((topic) => (
 										<button
@@ -444,20 +441,54 @@ export function LiveSearchModal({ isOpen, onClose }: LiveSearchModalProps) {
 					{/* Soft Fallback Notice */}
 					{results.length > 0 && results[0]?.isRelaxedMatch && (
 						<div className="px-3 py-2 text-[11px] text-secondary font-medium tracking-wide">
-							No exact match for all words. Showing closest matching holdings:
+							Showing closest matches
 						</div>
 					)}
 
-					{/* No Results Fallback */}
+					{/* No Results Fallback with Rich Discovery Recovery */}
 					{query && results.length === 0 && !loading && (
-						<div className="py-space-xl text-center flex flex-col items-center gap-1.5">
-							<Search className="w-8 h-8 text-on-surface-variant/40 mb-1" />
-							<p className="font-body-sm text-on-surface font-medium">
-								No matching records found for “{query}”
-							</p>
-							<p className="text-xs text-on-surface-variant/70 max-w-xs">
-								Try searching for broader keywords, Surah notations (e.g. 2:255), or concepts.
-							</p>
+						<div className="py-space-lg px-2 text-center flex flex-col items-center gap-3">
+							<div className="w-10 h-10 rounded-full bg-surface-container-high/60 flex items-center justify-center text-on-surface-variant/60">
+								<Search className="w-5 h-5" />
+							</div>
+							<div>
+								<p className="font-headline-sm text-xl text-on-surface font-semibold">
+									No records matching “{query}”
+								</p>
+							</div>
+
+							{/* Suggested Query Chips */}
+							<div className="w-full max-w-sm pt-1">
+								<p className="text-[11px] font-semibold text-secondary uppercase tracking-wider mb-2">
+									Suggested Topics
+								</p>
+								<div className="flex flex-wrap justify-center gap-1.5">
+									{[
+										"Adl & Social Compact",
+										"Surah Al-Kahf",
+										"Constitution of Pakistan",
+										"Pre-Prophetic Forty Years",
+										"Halal Earnings",
+										"Allama Iqbal",
+									].map((suggestion) => (
+										<button
+											key={suggestion}
+											type="button"
+											onClick={() => {
+												setQuery(suggestion);
+												if (inputRef.current) {
+													inputRef.current.value = suggestion;
+													inputRef.current.focus();
+												}
+											}}
+											className="px-2.5 py-1 rounded-full text-[11px] bg-surface-container hover:bg-surface-container-high text-primary border border-surface-container-highest transition-colors cursor-pointer"
+										>
+											{suggestion}
+										</button>
+									))}
+								</div>
+							</div>
+
 						</div>
 					)}
 
@@ -501,7 +532,7 @@ export function LiveSearchModal({ isOpen, onClose }: LiveSearchModalProps) {
 									<div className="flex items-center justify-between gap-2">
 										<div className="flex items-center gap-1.5 truncate">
 											<span className="font-label-sm text-[10px] text-secondary uppercase tracking-wider font-bold">
-												{item.type} • {item.category}
+												{item.category}
 											</span>
 											{item.isCoursework && (
 												<span className="font-sans text-[9px] uppercase tracking-wider font-semibold bg-secondary/15 text-secondary px-1.5 py-0.2 rounded">
@@ -509,11 +540,6 @@ export function LiveSearchModal({ isOpen, onClose }: LiveSearchModalProps) {
 												</span>
 											)}
 										</div>
-										{item.meta && (
-											<span className="text-[11px] text-on-surface-variant/80 shrink-0 font-sans">
-												{item.meta}
-											</span>
-										)}
 									</div>
 									<h4 className="font-headline-sm text-[15px] text-primary font-bold line-clamp-1 group-hover:text-secondary transition-colors">
 										{item.title}
@@ -538,18 +564,6 @@ export function LiveSearchModal({ isOpen, onClose }: LiveSearchModalProps) {
 							</kbd>
 							<span>Navigate</span>
 						</span>
-						<span className="hidden sm:inline-flex items-center gap-1">
-							<kbd className="px-1.5 py-0.5 rounded bg-surface-container border border-surface-container-high font-mono text-[10px]">
-								↵
-							</kbd>
-							<span>Select</span>
-						</span>
-						<span className="hidden sm:inline-flex items-center gap-1">
-							<kbd className="px-1.5 py-0.5 rounded bg-surface-container border border-surface-container-high font-mono text-[10px]">
-								Esc
-							</kbd>
-							<span>Close</span>
-						</span>
 					</div>
 
 					{query.trim() && (
@@ -558,7 +572,7 @@ export function LiveSearchModal({ isOpen, onClose }: LiveSearchModalProps) {
 							onClick={() => handleFullSearch()}
 							className="text-primary font-semibold hover:underline flex items-center gap-1 ml-auto"
 						>
-							<span>View all matching results</span>
+							<span>View All</span>
 							<ArrowRight className="w-3.5 h-3.5" />
 						</button>
 					)}

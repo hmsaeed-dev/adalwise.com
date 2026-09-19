@@ -50,6 +50,16 @@
   line-height: 2.2;
 }
 
+.font-urdu-title {
+  font-family: var(--font-urdu), "Noto Nastaliq Urdu", serif;
+  line-height: 1.7;
+}
+
+.font-urdu-compact {
+  font-family: var(--font-urdu), "Noto Nastaliq Urdu", serif;
+  line-height: 1.4;
+}
+
 .font-quran {
   font-family: var(--font-amiri), "Amiri", serif;
 }
@@ -76,10 +86,10 @@
 
 @keyframes marqueeScroll {
   0% {
-    transform: translate3d(0, 0, 0);
+    transform: translateX(0%);
   }
   100% {
-    transform: translate3d(-100%, 0, 0);
+    transform: translateX(-100%);
   }
 }
 
@@ -91,28 +101,18 @@
 }
 
 .marquee-track {
-  display: flex;
-  flex-shrink: 0;
-  min-width: 100%;
-  align-items: center;
-  justify-content: space-around;
-  animation: marqueeScroll 28s linear infinite;
+  display: flex !important;
+  flex-shrink: 0 !important;
+  align-items: center !important;
+  animation-name: marqueeScroll !important;
+  animation-timing-function: linear !important;
+  animation-iteration-count: infinite !important;
+  animation-duration: var(--marquee-duration, 35s);
   will-change: transform;
 }
 
-.marquee-strip:hover .marquee-track,
-.marquee-strip:focus-within .marquee-track,
-.marquee-strip[data-paused="true"] .marquee-track {
-  animation-play-state: paused;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  *,
-  ::before,
-  ::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+  html {
+    scroll-behavior: auto;
   }
 }

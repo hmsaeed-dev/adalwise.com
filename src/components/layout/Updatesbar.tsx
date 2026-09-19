@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { mainNavItems } from "@/config/nav";
@@ -37,6 +37,12 @@ export function Updates() {
 	const isMainNavRoot = mainNavItems.some((item) => item.href === pathname);
 	const isTransparentHero = isMainNavRoot && !isScrolled;
 
+	// Repetition ensures density across ultrawide monitors without gaps or jumps
+	const repeatedUpdates = useMemo(
+		() => Array.from({ length: 4 }).flatMap(() => NEWS_UPDATES),
+		[]
+	);
+
 	useEffect(() => {
 		let ticking = false;
 		const handleScroll = () => {
@@ -53,10 +59,10 @@ export function Updates() {
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
 
-	// Reusable track items renderer
+	// Reusable track items renderer with consistent trailing gap
 	const renderTrackItems = (keyPrefix: string) => (
 		<div className="flex shrink-0 items-center gap-10 pr-10">
-			{NEWS_UPDATES.map((item, index) => {
+			{repeatedUpdates.map((item, index) => {
 				const content = (
 					<span className="inline-flex items-center gap-3">
 						<span
@@ -64,7 +70,7 @@ export function Updates() {
 								"transition-colors duration-150 font-sans",
 								isTransparentHero
 									? "hover:text-brand-warm-white"
-									: "hover:text-brand-primary font-medium",
+									: "hover:text-brand-primary font-medium"
 							)}
 						>
 							{item.text}
@@ -98,8 +104,8 @@ export function Updates() {
 			className={cn(
 				"fixed top-0 left-0 w-full z-50 h-10 select-none overflow-hidden transition-[background-color,border-color,color] duration-300 text-xs tracking-wide",
 				isTransparentHero
-					? "bg-transparent text-brand-warm-white/80  border-white/10 drop-shadow-sm"
-					: "bg-surface/90 backdrop-blur-xl text-brand-charcoal/80  border-surface-container-high/40 shadow-[0_1px_4px_rgba(0,0,0,0.02)]",
+					? "bg-transparent text-brand-warm-white/80 border-white/10 drop-shadow-sm"
+					: "bg-surface/90 backdrop-blur-xl text-brand-charcoal/80 border-surface-container-high/40 shadow-[0_1px_4px_rgba(0,0,0,0.02)]"
 			)}
 		>
 			{/* Edge Fade Gradients */}
@@ -108,7 +114,7 @@ export function Updates() {
 					"pointer-events-none absolute inset-y-0 left-0 z-10 w-16 transition-colors duration-300",
 					isTransparentHero
 						? "bg-gradient-to-r from-black/20 to-transparent"
-						: "bg-gradient-to-r from-surface to-transparent",
+						: "bg-gradient-to-r from-surface to-transparent"
 				)}
 			/>
 			<div
@@ -116,18 +122,22 @@ export function Updates() {
 					"pointer-events-none absolute inset-y-0 right-0 z-10 w-16 transition-colors duration-300",
 					isTransparentHero
 						? "bg-gradient-to-l from-black/20 to-transparent"
-						: "bg-gradient-to-l from-surface to-transparent",
+						: "bg-gradient-to-l from-surface to-transparent"
 				)}
 			/>
 
-			{/* Seamless Infinite Dual Track */}
-			<div className="group flex h-full w-max items-center">
-				<div className="flex shrink-0 animate-marquee items-center group-hover:[animation-play-state:paused]">
+			{/* Continuous Horizontal Infinite Dual Track (No Hover Pausing) */}
+			<div className="marquee-strip flex h-full w-full overflow-hidden items-center">
+				<div
+					className="marquee-track"
+					style={{ animationDuration: "45s" }}
+				>
 					{renderTrackItems("track-1")}
 				</div>
 				<div
 					aria-hidden="true"
-					className="flex shrink-0 animate-marquee items-center group-hover:[animation-play-state:paused]"
+					className="marquee-track"
+					style={{ animationDuration: "45s" }}
 				>
 					{renderTrackItems("track-2")}
 				</div>

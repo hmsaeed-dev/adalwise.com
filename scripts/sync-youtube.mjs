@@ -90,6 +90,24 @@ function sanitizeDescription(description = "") {
         .trim();
 }
 
+function createCleanSummary(description = "", maxLength = 160) {
+    const clean = cleanText(description).replace(/\s+/g, " ").trim();
+    if (!clean) return "";
+    if (clean.length <= maxLength) return clean;
+
+    const firstSentenceMatch = clean.match(/^.*?[.!?۔](?:\s|$)/);
+    if (firstSentenceMatch && firstSentenceMatch[0].length >= 40 && firstSentenceMatch[0].length <= maxLength) {
+        return firstSentenceMatch[0].trim();
+    }
+
+    const truncated = clean.slice(0, maxLength);
+    const lastSpace = truncated.lastIndexOf(" ");
+    if (lastSpace > 40) {
+        return `${truncated.slice(0, lastSpace).replace(/[,;:\-–—]+$/, "")}...`;
+    }
+    return `${truncated}...`;
+}
+
 function parseIsoDuration(duration) {
     if (!duration || typeof duration !== "string") return 0;
 
@@ -463,21 +481,21 @@ function normalizeVideo(video, existingItem, usedSlugs) {
         youtubeId: videoId,
         title,
         urduTitle: urduTitle || undefined,
-        speaker,
+        speakerId: "dr-hafiz-haseeb",
         description,
-        summary: description.slice(0, 160),
+        summary: createCleanSummary(description),
         durationSeconds,
         publishedAt: snippet.publishedAt,
         thumbnailUrl,
         category,
         domainId,
         format,
+        seriesId: isCoursework ? "tarjuma-e-quran-course" : undefined,
         isCoursework,
         isKhutba,
         topics,
         tags: ytTags,
         relatedArticleSlugs: [],
-        searchText,
     };
 }
 

@@ -1,4 +1,31 @@
 import { MainCategory } from "@/lib/taxonomy/types";
+import { Speaker } from "@/lib/speakers/registry";
+
+export type LectureFormat =
+	| "Standalone Keynote"
+	| "Serial Coursework"
+	| "Sermon / Khutba"
+	| "Thematic Academic Seminar"
+	| "Public Dialogue";
+
+export type PrimaryDomainId =
+	| "tafsir"
+	| "seerah"
+	| "constitutional-law"
+	| "iqbal"
+	| "civic-ethics"
+	| "lisan-ul-quran";
+
+export interface QuranContext {
+	surahNumber: number;
+	surahNameEnglish: string;
+	surahNameUrdu: string;
+	surahEndNumber?: number;
+	ayahStart?: number;
+	ayahEnd?: number;
+	juzNumber: number;
+	juzEndNumber?: number;
+}
 
 export interface LectureSpeaker {
 	name: string;
@@ -13,18 +40,21 @@ export interface LectureItem {
 	youtubeId: string;
 	title: string;
 	urduTitle?: string;
-	speaker: LectureSpeaker;
+	speakerId?: string;
+	speaker?: LectureSpeaker | Speaker;
 	description: string;
 	summary?: string;
 	durationSeconds: number;
 	publishedAt: string;
 	thumbnailUrl: string;
 	category: MainCategory;
-	domainId?: string;
+	domainId?: PrimaryDomainId | string;
 	subCategory?: string;
-	format?: string;
+	format?: LectureFormat | string;
 	seriesId?: string;
 	seriesTitle?: string;
+	batchYear?: number;
+	broadcastContext?: string;
 	isCoursework?: boolean;
 	isKhutba?: boolean;
 	topics: string[];
@@ -32,6 +62,7 @@ export interface LectureItem {
 	relatedArticleSlugs?: string[];
 	audioUrl?: string;
 	hasNotes?: boolean;
+	quranContext?: QuranContext;
 	searchText?: string;
 }
 

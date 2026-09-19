@@ -180,7 +180,7 @@ export function StudyNotesArchiveView() {
 
 						{/* Quick Cross-Link to Quranic Coursework */}
 						<Link
-							href="/lectures/tarjuma-e-quran"
+							href="/tarjuma-e-quran"
 							className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-surface-container hover:bg-surface-container-high text-primary border border-surface-container-highest text-xs font-sans font-bold uppercase tracking-wider transition-colors shrink-0"
 						>
 							<span>Tarjuma-e-Quran</span>

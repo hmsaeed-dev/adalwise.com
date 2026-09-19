@@ -101,7 +101,7 @@ async function getSearchPool(): Promise<IndexedSearchResult[]> {
 					title: lecture.title,
 					urduTitle: lecture.urduTitle,
 					url: lecture.isCoursework
-						? `/lectures/tarjuma-e-quran?session=${lecture.slug}`
+						? `/tarjuma-e-quran?session=${lecture.slug}`
 						: `/lectures/${lecture.slug}`,
 					excerpt: lecture.description,
 					category: lecture.category,

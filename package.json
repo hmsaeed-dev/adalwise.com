@@ -11,7 +11,10 @@
 		"build": "next build",
 		"start": "next start",
 		"sync:youtube": "node scripts/sync-youtube.mjs",
-		"audit:catalog": "node scripts/audit-catalogue.mjs"
+		"split:catalog": "node scripts/split-catalog.mjs",
+		"merge:catalog": "node scripts/merge-catalog.mjs",
+		"audit:catalog": "node scripts/audit-catalogue.mjs",
+		"test": "npm run audit:catalog && tsc --noEmit"
 	},
 	"keywords": [],
 	"author": "",

@@ -56,7 +56,7 @@ export default function NotFound() {
         </Link>
 
         <Link
-          href="/lectures/tarjuma-e-quran"
+          href="/tarjuma-e-quran"
           className="p-3.5 rounded-2xl bg-surface-container-low hover:bg-surface-container border border-surface-container-high flex items-center gap-3 transition-colors group"
         >
           <div className="w-9 h-9 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-on-primary transition-colors">

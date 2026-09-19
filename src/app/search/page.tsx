@@ -98,7 +98,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
 					<div className="flex items-center gap-2 overflow-x-auto pb-1">
 						{[
 							{ value: "all", label: "All" },
-							{ value: "lectures", label: "Lectures" },
+							{ value: "lectures", label: "Listen" },
 							{ value: "article", label: "Articles" },
 							{ value: "majlis", label: "Majlis" },
 						].map((filter) => {
@@ -122,16 +122,101 @@ export default async function SearchPage({ searchParams }: PageProps) {
 				</div>
 			)}
 
-			{/* Results List */}
+			{/* Results List or Zero-Results Guided Recovery Portal */}
 			{query && results.length === 0 ? (
-				<div className="py-space-2xl text-center flex flex-col items-center justify-center gap-space-xs">
-					<SearchX className="w-12 h-12 text-on-surface-variant/40" />
-					<h3 className="font-headline-md text-primary font-bold">
-						No Records Found
-					</h3>
-					<p className="font-body-sm text-on-surface-variant max-w-sm">
-						Try searching for broader keywords, Surah notations (e.g. 2:255), or concepts.
-					</p>
+				<div className="w-full max-w-2xl mx-auto py-10 px-4 flex flex-col items-center text-center gap-6">
+					<div className="flex flex-col items-center gap-2">
+						<div className="w-14 h-14 rounded-2xl bg-surface-container-high/60 flex items-center justify-center text-on-surface-variant/60 shadow-xs">
+							<SearchX className="w-7 h-7" />
+						</div>
+						<h3 className="font-headline-md text-primary font-bold text-xl sm:text-2xl mt-2">
+							No Records Found for “{query}”
+						</h3>
+						<p className="font-body-sm text-on-surface-variant max-w-md text-sm">
+							We couldn't find an exact match across our holdings. Try broader search terms, Arabic terms, or explore curated gateway portals below.
+						</p>
+					</div>
+
+					{/* Suggested Topics */}
+					<div className="w-full bg-surface-container-low border border-surface-container-high/60 rounded-2xl p-5 flex flex-col items-center gap-3 shadow-xs">
+						<span className="text-xs font-semibold text-secondary uppercase tracking-wider">
+							Suggested Canonical Inquiries
+						</span>
+						<div className="flex flex-wrap justify-center gap-2">
+							{[
+								"Adl & Social Compact",
+								"Surah Al-Kahf",
+								"Constitution of Pakistan",
+								"Pre-Prophetic Forty Years",
+								"Halal Earnings",
+								"Zarb-e-Kaleem",
+								"Third-Way Economics",
+							].map((topic) => (
+								<Link
+									key={topic}
+									href={`/search?q=${encodeURIComponent(topic)}`}
+									className="px-3.5 py-1.5 rounded-full text-xs font-medium bg-surface-container hover:bg-surface-container-high text-primary border border-surface-container-highest transition-colors"
+								>
+									{topic}
+								</Link>
+							))}
+						</div>
+					</div>
+
+					{/* Foundational Discovery Portals */}
+					<div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-3 text-left">
+						<Link
+							href="/tarjuma-e-quran?view=surahs"
+							className="p-4 rounded-2xl bg-surface-container-low hover:bg-surface-container border border-surface-container-high/60 transition-all group flex flex-col gap-1 shadow-xs"
+						>
+							<div className="flex items-center gap-2 text-primary font-bold text-sm group-hover:text-secondary transition-colors">
+								<span>📖 114-Surah Matrix</span>
+								<ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+							</div>
+							<p className="text-xs text-on-surface-variant line-clamp-2">
+								Systematic exegesis and linguistic tafsir across all 114 Quranic Surahs.
+							</p>
+						</Link>
+
+						<Link
+							href="/lectures/notes"
+							className="p-4 rounded-2xl bg-surface-container-low hover:bg-surface-container border border-surface-container-high/60 transition-all group flex flex-col gap-1 shadow-xs"
+						>
+							<div className="flex items-center gap-2 text-primary font-bold text-sm group-hover:text-secondary transition-colors">
+								<span>📑 Companion Study Notes</span>
+								<ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+							</div>
+							<p className="text-xs text-on-surface-variant line-clamp-2">
+								High-resolution analytical infographics and downloadable grammar treatises.
+							</p>
+						</Link>
+
+						<Link
+							href="/majlis"
+							className="p-4 rounded-2xl bg-surface-container-low hover:bg-surface-container border border-surface-container-high/60 transition-all group flex flex-col gap-1 shadow-xs"
+						>
+							<div className="flex items-center gap-2 text-primary font-bold text-sm group-hover:text-secondary transition-colors">
+								<span>⚖️ Majlis Symposia</span>
+								<ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+							</div>
+							<p className="text-xs text-on-surface-variant line-clamp-2">
+								Deliberations on constitutional jurisprudence and institutional ethics.
+							</p>
+						</Link>
+
+						<Link
+							href="/lectures"
+							className="p-4 rounded-2xl bg-surface-container-low hover:bg-surface-container border border-surface-container-high/60 transition-all group flex flex-col gap-1 shadow-xs"
+						>
+							<div className="flex items-center gap-2 text-primary font-bold text-sm group-hover:text-secondary transition-colors">
+								<span>🏛️ Thematic Lecture Archive</span>
+								<ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+							</div>
+							<p className="text-xs text-on-surface-variant line-clamp-2">
+								Filter 279 thematic discourses by domain, format, and chronological order.
+							</p>
+						</Link>
+					</div>
 				</div>
 			) : (
 				<div className="w-full max-w-2xl mx-auto flex flex-col gap-3">

@@ -121,7 +121,7 @@ async function buildSearchIndex(): Promise<{
 		const isCoursework = Boolean(lecture.isCoursework);
 
 		const url = isCoursework
-			? `/lectures/tarjuma-e-quran?session=${lecture.slug}`
+			? `/tarjuma-e-quran?session=${lecture.slug}`
 			: `/lectures/${lecture.slug}`;
 
 		const allText = [

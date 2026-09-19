@@ -57,6 +57,8 @@ export const MajlisSessionSchema = z.object({
 	}),
 	status: z.enum(["upcoming", "completed"]).default("completed"),
 	recordingSlug: z.string().optional(),
+	relatedLectureSlugs: z.array(z.string()).default([]),
+	topics: z.array(z.string()).default([]),
 	discussionPoints: z.array(z.string()).default([]),
 	keyInquiries: z.array(z.string()).default([]),
 	registrationUrl: z.string().optional(),

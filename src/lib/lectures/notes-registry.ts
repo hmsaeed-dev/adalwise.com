@@ -133,4 +133,26 @@ export const STUDY_NOTES_REGISTRY: StudyNote[] = [
 		description: "The moral and social foundation of the Prophet (SAW) prior to revelation.",
 		relatedSeriesId: "online-seerat-sessions",
 	},
+
+	// Statecraft & Third-Way Economics Treatises
+	{
+		id: "third-way-economics-treatise",
+		title: "Third-Way Economics: Islamic Alternative to Capitalism",
+		urduTitle: "تیسرا معاشی راستہ: سرمایہ دارانہ نظام کا اسلامی متبادل",
+		category: "Statecraft",
+		type: "pdf",
+		filePath: "/study-notes/treatises/third-way-economics-article.pdf",
+		description: "Academic treatise analyzing sovereign debt, currency equity, and the abolition of usurious finance.",
+		relatedSeriesId: "special-lecture-series",
+	},
+	{
+		id: "third-way-economics-treatise-urdu",
+		title: "Third-Way Economics (Urdu Monograph)",
+		urduTitle: "تیسرا معاشی راستہ (اردو مقالہ)",
+		category: "Statecraft",
+		type: "pdf",
+		filePath: "/study-notes/treatises/third-way-economics-article-urdu.pdf",
+		description: "مکمل تحقیقی مقالہ: اسلامی معاشی حکمتِ عملی اور متبادل فریم ورک۔",
+		relatedSeriesId: "special-lecture-series",
+	},
 ];

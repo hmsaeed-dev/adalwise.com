@@ -1,5 +1,5 @@
-import catalogData from "./catalog.json";
-import { LectureItem } from "./types";
+import { TAFSIR_LECTURES_RAW } from "./catalog-loader";
+import { LectureItem, QuranContext } from "./types";
 
 export interface QuranSurahMeta {
 	number: number;
@@ -8,6 +8,7 @@ export interface QuranSurahMeta {
 	urdu: string;
 	verses: number;
 	juz: number[];
+	type: "Makki" | "Madani";
 }
 
 export interface QuranJuzMeta {
@@ -31,10 +32,11 @@ export interface ParsedTarjumaSession {
 	durationFormatted: string;
 	publishedAt: string;
 	juzList: number[];
-	edition: "2026" | "2025" | "2024" | "2023";
+	edition: "2026" | "2025" | "2024" | "2023" | "lisan";
 	rawTitle: string;
 	thumbnailUrl: string;
 	summary?: string;
+	quranContext?: QuranContext;
 }
 
 export interface TarjumaEditionMeta {
@@ -80,7 +82,11 @@ export const QURAN_JUZ_LIST: QuranJuzMeta[] = [
 	{ number: 30, arabicName: "عَمَّ", urduName: "عم (عم یتساءلون)", transliteration: "Amma" },
 ];
 
-export const QURAN_SURAHS: QuranSurahMeta[] = [
+export const MADANI_SURAH_NUMBERS = new Set<number>([
+	2, 3, 4, 5, 8, 9, 13, 22, 24, 33, 47, 48, 49, 55, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 76, 98, 99, 110,
+]);
+
+const RAW_QURAN_SURAHS: Omit<QuranSurahMeta, "type">[] = [
 	{ number: 1, name: "Al-Fatiha", arabic: "الفاتحة", urdu: "سورۃ الفاتحہ", verses: 7, juz: [1] },
 	{ number: 2, name: "Al-Baqarah", arabic: "البقرة", urdu: "سورۃ البقرہ", verses: 286, juz: [1, 2, 3] },
 	{ number: 3, name: "Ali 'Imran", arabic: "آل عمران", urdu: "سورۃ آل عمران", verses: 200, juz: [3, 4] },
@@ -197,6 +203,11 @@ export const QURAN_SURAHS: QuranSurahMeta[] = [
 	{ number: 114, name: "An-Nas", arabic: "الناس", urdu: "سورۃ الناس", verses: 6, juz: [30] },
 ];
 
+export const QURAN_SURAHS: QuranSurahMeta[] = RAW_QURAN_SURAHS.map((s) => ({
+	...s,
+	type: MADANI_SURAH_NUMBERS.has(s.number) ? "Madani" : "Makki",
+}));
+
 // Mapping helper to detect Surahs from title string
 const SURAH_ALIASES: { alias: string; surahNum: number }[] = [
 	{ alias: "fatiha", surahNum: 1 },
@@ -235,6 +246,8 @@ const SURAH_ALIASES: { alias: string; surahNum: number }[] = [
 	{ alias: "nahl", surahNum: 16 },
 	{ alias: "isra", surahNum: 17 },
 	{ alias: "bani israel", surahNum: 17 },
+	{ alias: "bani israeel", surahNum: 17 },
+	{ alias: "israeel", surahNum: 17 },
 	{ alias: "kahaf", surahNum: 18 },
 	{ alias: "kahf", surahNum: 18 },
 	{ alias: "maryam", surahNum: 19 },
@@ -288,6 +301,7 @@ const SURAH_ALIASES: { alias: string; surahNum: number }[] = [
 	{ alias: "jasiyah", surahNum: 45 },
 	{ alias: "jathiyah", surahNum: 45 },
 	{ alias: "ahqaf", surahNum: 46 },
+	{ alias: "ahqaaf", surahNum: 46 },
 	{ alias: "muhammad", surahNum: 47 },
 	{ alias: "fatah", surahNum: 48 },
 	{ alias: "fath", surahNum: 48 },
@@ -381,12 +395,17 @@ const SURAH_ALIASES: { alias: string; surahNum: number }[] = [
 ];
 
 function classifyEdition(item: LectureItem): "2026" | "2025" | "2024" | "2023" {
+	if (item.batchYear === 2026) return "2026";
+	if (item.batchYear === 2025) return "2025";
+	if (item.batchYear === 2024) return "2024";
+	if (item.batchYear === 2023) return "2023";
+
 	const s = item.seriesTitle || "";
 	const t = item.title;
-	if (s === "Tarjuma Quran in Ramazan 2026") return "2026";
-	if (s === "Ramazan 2025") return "2025";
-	if (s === "Live Ramazan 2024") return "2024";
-	if (s === "Dora Tarjuma Quran 2023") return "2023";
+	if (s.includes("2026") || s === "Tarjuma Quran in Ramazan 2026") return "2026";
+	if (s.includes("2025") || s === "Ramazan 2025") return "2025";
+	if (s.includes("2024") || s === "Live Ramazan 2024") return "2024";
+	if (s.includes("2023") || s === "Dora Tarjuma Quran 2023") return "2023";
 	if (t.includes("Ramzan 26") || t.includes("2026")) return "2026";
 	if (t.includes("2025") || t.includes("Ramzan 25")) return "2025";
 	if (t.includes("2024") || t.includes("Ramzan 24")) return "2024";
@@ -432,6 +451,7 @@ function extractCleanSurahAndRange(title: string): {
 	urduTitle: string;
 	rangeLabel?: string;
 	juzList: number[];
+	quranContext?: QuranContext;
 } {
 	let t = title.trim();
 	// Remove trailing meta suffixes
@@ -443,7 +463,7 @@ function extractCleanSurahAndRange(title: string): {
 	// Check special cases
 	if (/istiqbal/i.test(title)) {
 		return {
-			cleanTitle: "Welcoming the Month of Quran (Istiqbal-e-Ramazan)",
+			cleanTitle: "Welcoming Ramadan",
 			urduTitle: "استقبالِ رمضان المبارک",
 			rangeLabel: "Opening Discourse",
 			juzList: [1],
@@ -451,8 +471,8 @@ function extractCleanSurahAndRange(title: string): {
 	}
 	if (/ramazan\s*&\s*dora/i.test(title)) {
 		return {
-			cleanTitle: "Ramadan & Systematic Quranic Contemplation (Khutbah)",
-			urduTitle: "خطبہ جمعۃ المبارک: فہمِ قرآن اور رمضان",
+			cleanTitle: "Ramadan & Quranic (Khutbah)",
+			urduTitle: "فہمِ قرآن اور رمضان",
 			rangeLabel: "Introductory Khutbah",
 			juzList: [1],
 		};
@@ -466,14 +486,19 @@ function extractCleanSurahAndRange(title: string): {
 		};
 	}
 
-	// Detect covered surahs
-	const lower = t.toLowerCase();
+	// Detect covered surahs with diacritic and punctuation normalization
+	const cleanForMatch = t
+		.normalize("NFD")
+		.replace(/[\u0300-\u036f]/g, "")
+		.replace(/["'’`]/g, "")
+		.toLowerCase();
+
 	const matchedSurahNums = new Set<number>();
 
 	for (const { alias, surahNum } of SURAH_ALIASES) {
-		// match word boundary or start/end
-		const rx = new RegExp(`(?:^|[\\s\\-_/,&])${alias}(?:$|[\\s\\-_/,&0-9])`, "i");
-		if (rx.test(lower)) {
+		const escaped = alias.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+		const rx = new RegExp(`(?:^|[\\s\\-_/,&.:;!?])${escaped}(?:$|[\\s\\-_/,&.:;!?0-9])`, "i");
+		if (rx.test(cleanForMatch)) {
 			matchedSurahNums.add(surahNum);
 		}
 	}
@@ -528,16 +553,35 @@ function extractCleanSurahAndRange(title: string): {
 	// Default Juz 1 if none found
 	const juzList = juzSet.size > 0 ? Array.from(juzSet).sort((a, b) => a - b) : [1];
 
+	let quranContext: QuranContext | undefined;
+	if (surahs.length > 0) {
+		const sFirst = surahs[0];
+		const sLast = surahs[surahs.length - 1];
+		quranContext = {
+			surahNumber: sFirst.number,
+			surahNameEnglish: sFirst.name,
+			surahNameUrdu: sFirst.urdu,
+			juzNumber: sFirst.juz[0],
+		};
+		if (surahs.length > 1) {
+			quranContext.surahEndNumber = sLast.number;
+			quranContext.surahNameEnglish = `${sFirst.name} to ${sLast.name}`;
+			quranContext.surahNameUrdu = `${sFirst.urdu} تا ${sLast.urdu}`;
+			quranContext.juzEndNumber = sLast.juz[sLast.juz.length - 1];
+		}
+	}
+
 	return {
 		cleanTitle,
 		urduTitle,
 		rangeLabel,
 		juzList,
+		quranContext,
 	};
 }
 
 export function parseAllTarjumaLectures(): ParsedTarjumaSession[] {
-	const all = (catalogData as unknown) as LectureItem[];
+	const all = TAFSIR_LECTURES_RAW;
 	// Filter out coursework with 0 duration (broken placeholder/livestream records)
 	const coursework = all.filter((item) => item.isCoursework && item.durationSeconds > 0);
 
@@ -545,7 +589,7 @@ export function parseAllTarjumaLectures(): ParsedTarjumaSession[] {
 		const edition = classifyEdition(item);
 		const sessionCode = extractSessionCode(item.title);
 		const sortOrder = calculateSortKey(item.title);
-		const { cleanTitle, urduTitle, rangeLabel, juzList } = extractCleanSurahAndRange(item.title);
+		const { cleanTitle, urduTitle, rangeLabel, juzList, quranContext } = extractCleanSurahAndRange(item.title);
 
 		const mins = Math.max(1, Math.round(item.durationSeconds / 60));
 		const durationFormatted = `${mins} min`;
@@ -568,6 +612,7 @@ export function parseAllTarjumaLectures(): ParsedTarjumaSession[] {
 			rawTitle: item.title,
 			thumbnailUrl: item.thumbnailUrl,
 			summary: item.summary,
+			quranContext: item.quranContext || quranContext,
 		};
 	});
 }
@@ -609,7 +654,7 @@ export function getTarjumaEditions(): TarjumaEditionMeta[] {
 		{
 			id: "2023",
 			year: 2023,
-			label: "2023 (Granular Archive)",
+			label: "2023 Edition",
 			badge: "116 Master Sessions",
 			description:
 				"The most granular verse-by-verse breakdown available, systematically exploring every Ruku and linguistic inflection.",
@@ -628,3 +673,34 @@ export function getTarjumaEditions(): TarjumaEditionMeta[] {
 		};
 	});
 }
+
+export interface QuranSurahWithSessions extends QuranSurahMeta {
+	sessionCount: number;
+	sessions: ParsedTarjumaSession[];
+}
+
+export function getSurahByNumber(num: number): QuranSurahMeta | undefined {
+	return QURAN_SURAHS.find((s) => s.number === num);
+}
+
+export function getAllSurahsWithSessions(): QuranSurahWithSessions[] {
+	const allSessions = parseAllTarjumaLectures();
+	return QURAN_SURAHS.map((surah) => {
+		const matching = allSessions.filter((s) => {
+			if (s.quranContext) {
+				if (s.quranContext.surahEndNumber) {
+					return surah.number >= s.quranContext.surahNumber && surah.number <= s.quranContext.surahEndNumber;
+				}
+				return s.quranContext.surahNumber === surah.number;
+			}
+			return false;
+		});
+
+		return {
+			...surah,
+			sessionCount: matching.length,
+			sessions: matching,
+		};
+	});
+}
+

@@ -1,5 +1,5 @@
 import { cache } from "react";
-import catalogData from "./catalog.json";
+import { ALL_LECTURES_RAW } from "./catalog-loader";
 import {
 	LectureItem,
 	LectureQueryParams,
@@ -8,7 +8,14 @@ import {
 import { CURATED_START_HERE_PICKS, CuratedPick } from "./curated-picks";
 import { searchLectureCatalog } from "./matcher";
 
-const lecturesCatalog = (catalogData as unknown) as LectureItem[];
+import { getSpeakerById } from "@/lib/speakers/registry";
+
+const rawCatalog = ALL_LECTURES_RAW;
+
+const lecturesCatalog: LectureItem[] = rawCatalog.map((item) => ({
+	...item,
+	speaker: item.speaker || getSpeakerById(item.speakerId),
+}));
 
 // Fast in-memory lookup map by slug
 const lecturesBySlugMap = new Map<string, LectureItem>(
@@ -70,6 +77,13 @@ export const getTarjumaQuranLectures = cache(
 	},
 );
 
+// Thematic archive lectures (excluding coursework) for zero-latency interactive archive
+export const getThematicArchiveLectures = cache(
+	async (): Promise<LectureItem[]> => {
+		return lecturesCatalog.filter((item) => !item.isCoursework);
+	},
+);
+
 export const getPaginatedLectures = cache(
 	async (
 		params: LectureQueryParams & { includeCoursework?: boolean } = {},
@@ -89,7 +103,7 @@ export const getPaginatedLectures = cache(
 		let filtered = lecturesCatalog;
 
 		// 1. Strictly separate daily repetitive coursework from the open thematic lecture archive.
-		// Coursework has its own dedicated room (/lectures/tarjuma-e-quran) and must never pollute
+		// Coursework has its own dedicated page (/tarjuma-e-quran) and must never pollute
 		// the thematic video catalog even during catalog search.
 		if (!includeCoursework) {
 			filtered = filtered.filter((item) => !item.isCoursework);

@@ -120,7 +120,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 					</span>
 				</div>
 
-				<h1 className="font-display-lg text-[32px] sm:text-display-lg text-primary font-bold font-serif leading-tight mt-space-2xs">
+				<h1 className="font-display-lg text-[32px] sm:text-display-lg text-primary font-bold leading-tight mt-space-2xs">
 					{frontmatter.title}
 				</h1>
 
@@ -141,7 +141,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 						/>
 					</div>
 					<div className="flex flex-col">
-						<span className="font-headline-sm text-[15px] text-primary font-semibold font-serif">
+						<span className="font-headline-sm text-[15px] text-primary font-semibold">
 							{frontmatter.author.name}
 						</span>
 						<span className="font-body-sm text-[12px] text-on-surface-variant">
@@ -187,7 +187,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 											: "Article"}{" "}
 										• {item.category}
 									</span>
-									<h4 className="font-headline-sm text-[15px] text-primary font-bold font-serif line-clamp-2">
+									<h4 className="font-headline-sm text-[15px] text-primary font-bold line-clamp-2">
 										{item.title}
 									</h4>
 									<p className="font-body-sm text-[12px] text-on-surface-variant line-clamp-2">
