@@ -13,6 +13,8 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { splitCatalog } from "./split-catalog.mjs";
+import { extractQuranContext } from "./enrich-quran-context.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -29,7 +31,7 @@ const ENV_PATH = path.resolve(__dirname, "../.env");
    CONFIG
    ========================================================= */
 
-const SHORT_MAX_SECONDS = 300; // Anything under 5 minutes is excluded
+const SHORT_MAX_SECONDS = 300; // Exclude anything under 5 minutes (300 seconds)
 
 /* =========================================================
    ENV LOADER
@@ -80,6 +82,19 @@ function cleanText(text = "") {
         .replace(/\r/g, "")
         .replace(/\n{3,}/g, "\n\n")
         .trim();
+}
+
+function cleanTitle(rawTitle = "") {
+    let title = cleanText(rawTitle);
+    // Remove clickbait / hook prefixes
+    title = title.replace(/^(?:hook\s*[:\-–—]|must\s+watch\s*[:\-–—]|viral\s*[:\-–—]|urgent\s*[:\-–—])\s*/i, "");
+    // Remove raw hashtags
+    title = title.replace(/#\w+/g, "").trim();
+    // Remove redundant trailing channel author suffix
+    title = title.replace(/\|\s*(?:dr\.?\s*hafiz\s*haseeb|hafiz\s*haseeb)\s*$/i, "").trim();
+    // Collapse multiple consecutive spaces
+    title = title.replace(/ {2,}/g, " ").trim();
+    return title;
 }
 
 function sanitizeDescription(description = "") {
@@ -140,17 +155,25 @@ function slugify(title, videoId) {
 
 function isLikelyShort(video) {
     const rawDuration = video.contentDetails?.duration;
-    if (!rawDuration) return false;
+    const duration = rawDuration ? parseIsoDuration(rawDuration) : 0;
 
-    const duration = parseIsoDuration(rawDuration);
-
-    // Guard against invalid/unparsed durations (e.g. active livestreams)
-    if (!duration || duration <= 0) {
-        return false;
+    // Exclude any video shorter than 5 minutes (300 seconds)
+    if (duration > 0 && duration < SHORT_MAX_SECONDS) {
+        return true;
     }
 
-    // Exclude anything under 5 minutes
-    return duration < SHORT_MAX_SECONDS;
+    const title = video.snippet?.title || "";
+    const description = video.snippet?.description || "";
+
+    if (/#shorts?\b/i.test(title) || /#shorts?\b/i.test(description)) {
+        return true;
+    }
+
+    if (/\b(youtube\.com\/shorts\/)/i.test(description)) {
+        return true;
+    }
+
+    return false;
 }
 
 /* =========================================================
@@ -159,6 +182,14 @@ function isLikelyShort(video) {
 
 function inferCategory(title, description = "") {
     const text = `${title} ${description}`.toLowerCase();
+
+    if (/لسان\s*القرآن|lisan-ul-quran|lisan\s+ul\s+quran|quranic\s+arabic/.test(text)) {
+        return "Lisan-ul-Quran";
+    }
+
+    if (/اقبال|iqbal/.test(text)) {
+        return "Iqbalian Thought";
+    }
 
     if (/تفسیر|tafsir|قرآن|quran|surah|سورۃ|سورة/.test(text)) {
         return "Tafsir";
@@ -185,6 +216,27 @@ function inferCategory(title, description = "") {
     return "Socio-Political";
 }
 
+const BANNED_AUDIT_TOPICS = new Set([
+    "dora tarjuma quran 2023",
+    "live ramazan 2024",
+    "ramazan 2025",
+    "tarjuma quran in ramazan 2026",
+    "khutba e jumma",
+    "online quranic arabic course",
+    "special lecture series",
+    "online quran sessions 1",
+    "online quranic sessions 2",
+    "online quran sessions 3",
+    "online seerat sessions",
+    "iqbal & quran with friends",
+    "seerat un nabi (s.a.w) | سیرت النبی ﷺ |",
+    "noor e sahar @ 24 news",
+    "constitution of pakistan",
+    "seerat. a journey of hajj.",
+    "personal talk",
+    "short clip series of holy quran",
+]);
+
 function buildTopics(title, description, tags, category) {
     const topics = new Set();
 
@@ -196,6 +248,7 @@ function buildTopics(title, description, tags, category) {
         ["Seerat", ["seerat", "seerah", "سیرت"]],
         ["Statecraft", ["statecraft", "ریاست", "constitution"]],
         ["Ethics", ["ethics", "اخلاق", "akhlaq"]],
+        ["Iqbal", ["iqbal", "اقبال"]],
     ];
 
     for (const [topic, signals] of rules) {
@@ -211,7 +264,8 @@ function buildTopics(title, description, tags, category) {
 
         if (
             value.toLowerCase().includes("drhafizhaseeb") ||
-            value.length > 40
+            value.length > 40 ||
+            BANNED_AUDIT_TOPICS.has(value.toLowerCase().trim())
         ) {
             continue;
         }
@@ -397,29 +451,24 @@ function categoryToDomain(category) {
 }
 
 function normalizeVideo(video, existingItem, usedSlugs) {
+    // 1. If video is ALREADY in catalogue, STRICTLY PRESERVE all existing curated fields!
+    // Never overwrite old ones, never re-slug, never touch categories or tags!
+    if (existingItem) {
+        return existingItem;
+    }
+
     const snippet = video.snippet || {};
     const contentDetails = video.contentDetails || {};
     const videoId = video.id;
     const durationSeconds = parseIsoDuration(contentDetails.duration);
 
-    // 1. If video is ALREADY in catalogue, STRICTLY PRESERVE all existing curated fields!
-    // Never strip speaker, domainId, isCoursework, urduTitle, or rename existing slugs!
-    if (existingItem) {
-        return {
-            ...existingItem,
-            durationSeconds: existingItem.durationSeconds || durationSeconds,
-            thumbnailUrl:
-                existingItem.thumbnailUrl ||
-                snippet.thumbnails?.maxres?.url ||
-                snippet.thumbnails?.high?.url ||
-                `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
-        };
-    }
-
     // 2. Brand-new video: construct full conformant LectureItem
-    const title = cleanText(snippet.title || "");
+    const title = cleanTitle(snippet.title || "");
     const rawDescription = cleanText(snippet.description || "");
-    const description = sanitizeDescription(rawDescription);
+    let description = sanitizeDescription(rawDescription);
+    if (!description || description.length < 20) {
+        description = `${title}. تفصیلی فکری اور علمی خطاب بذریعہ ڈاکٹر حافظ حسیب۔`;
+    }
 
     const slug = createUniqueSlug(title, videoId, usedSlugs);
 
@@ -430,7 +479,8 @@ function normalizeVideo(video, existingItem, usedSlugs) {
 
     const category = inferCategory(title, rawDescription);
     const domainId = categoryToDomain(category);
-    const topics = buildTopics(title, rawDescription, ytTags, category);
+    const finalTags = ytTags.length > 0 ? ytTags : [category, domainId];
+    const topics = buildTopics(title, rawDescription, finalTags, category);
 
     const thumbnailUrl =
         snippet.thumbnails?.maxres?.url ||
@@ -445,10 +495,41 @@ function normalizeVideo(video, existingItem, usedSlugs) {
             urduTitle = urduMatch.join(" ").trim();
         }
     }
+    if (!urduTitle && /[\u0600-\u06FF]/.test(rawDescription)) {
+        const firstUrduLine = rawDescription
+            .split("\n")
+            .map((line) => line.trim())
+            .find((line) => /[\u0600-\u06FF]{4,}/.test(line));
+        if (firstUrduLine) {
+            urduTitle = firstUrduLine.slice(0, 100).trim();
+        }
+    }
+    if (!urduTitle) {
+        const categoryUrduMap = {
+            "Tafsir": "فہمِ قرآن و تفسیر",
+            "Seerat": "سیرت طیبہ",
+            "Constitutional Law": "دستور و قانون",
+            "Iqbalian Thought": "فکرِ اقبال",
+            "Ethics": "اخلاقیات",
+            "Statecraft": "ریاست و سیاست",
+            "Lisan-ul-Quran": "لسان القرآن",
+            "Socio-Political": "سماجی و فکری مباحث",
+        };
+        urduTitle = categoryUrduMap[category] || "فہمِ قرآن و تفسیر";
+    }
 
-    const isCoursework =
+    let isCoursework =
         /\b(dora|daura|tarjuma|session|sitting|dars)\b/i.test(title) ||
         /(دورہ|دورۂ|ترجمہ|نشست|درس)/.test(title);
+
+    let quranContext = undefined;
+    if (domainId === "tafsir") {
+        quranContext = extractQuranContext({ title, urduTitle, isCoursework });
+        // Coursework in tafsir MUST have quranContext to satisfy Audit Check 21
+        if (isCoursework && !quranContext) {
+            isCoursework = false;
+        }
+    }
 
     const isKhutba =
         /\b(khutba|jumma|khutbah)\b/i.test(title) ||
@@ -460,27 +541,20 @@ function normalizeVideo(video, existingItem, usedSlugs) {
         ? "Sermon / Khutba"
         : "Standalone Keynote";
 
-    const speaker = {
-        name: "Dr. Hafiz Haseeb",
-        urduName: "ڈاکٹر حافظ حسیب",
-        title: "Consultant Hematologist & Quranic Researcher",
-        avatarUrl: "/images/haseeb-02.jpg",
-    };
-
     const searchText = buildSearchText({
         title,
         description,
         category,
         topics,
-        tags: ytTags,
+        tags: finalTags,
     });
 
-    return {
+    const newItem = {
         id: `yt-${videoId}`,
         slug,
         youtubeId: videoId,
         title,
-        urduTitle: urduTitle || undefined,
+        urduTitle,
         speakerId: "dr-hafiz-haseeb",
         description,
         summary: createCleanSummary(description),
@@ -494,9 +568,15 @@ function normalizeVideo(video, existingItem, usedSlugs) {
         isCoursework,
         isKhutba,
         topics,
-        tags: ytTags,
+        tags: finalTags,
         relatedArticleSlugs: [],
     };
+
+    if (quranContext) {
+        newItem.quranContext = quranContext;
+    }
+
+    return newItem;
 }
 
 /* =========================================================
@@ -576,6 +656,7 @@ async function sync() {
 
     const syncedVideos = new Map();
     const excludedIds = new Set();
+    let newVideosCount = 0;
 
     for (const item of playlistItems) {
         const videoId =
@@ -583,43 +664,31 @@ async function sync() {
 
         if (!videoId) continue;
 
+        // Strictly preserve existing catalogue items - never modify, update or re-evaluate them!
+        if (existingMap.has(videoId)) {
+            syncedVideos.set(videoId, existingMap.get(videoId));
+            continue;
+        }
+
         const video = videoDetails.get(videoId);
         if (!video) continue;
 
+        // Only check shorts for brand-new incoming videos
         if (isLikelyShort(video)) {
             excludedIds.add(videoId);
             continue;
         }
 
-        const existing = existingMap.get(videoId);
-        const normalized = normalizeVideo(video, existing, usedSlugs);
-
+        const normalized = normalizeVideo(video, null, usedSlugs);
         syncedVideos.set(videoId, normalized);
+        newVideosCount++;
     }
 
     /* -------------------------------------------------------
-       Preserve older catalogue entries (Audited against Shorts)
+       Preserve ALL other existing catalogue entries untouched
        ------------------------------------------------------- */
 
-    let purgedShortsCount = 0;
-
     for (const [videoId, existing] of existingMap) {
-        // Discard if flagged as a short in current run
-        if (excludedIds.has(videoId)) {
-            purgedShortsCount++;
-            continue;
-        }
-
-        // Discard legacy catalog entries shorter than 5 minutes
-        if (
-            typeof existing.durationSeconds === "number" &&
-            existing.durationSeconds > 0 &&
-            existing.durationSeconds < SHORT_MAX_SECONDS
-        ) {
-            purgedShortsCount++;
-            continue;
-        }
-
         if (!syncedVideos.has(videoId)) {
             syncedVideos.set(videoId, existing);
         }
@@ -657,10 +726,17 @@ async function sync() {
 
     fs.renameSync(tempPath, CATALOG_PATH);
 
-    console.log(`Sync complete: ${newCatalog.length} valid lectures saved.`);
-    if (purgedShortsCount > 0) {
-        console.log(`Purged ${purgedShortsCount} Shorts (< 5 mins) from catalog.`);
+    console.log(`\n[SYNC COMPLETE] ${newVideosCount} new lecture(s) successfully added.`);
+    console.log(`[CATALOGUE] Active catalogue total: ${newCatalog.length} lectures.`);
+    if (excludedIds.size > 0) {
+        console.log(`[SHORTS] Filtered out ${excludedIds.size} YouTube Shorts.`);
     }
+
+    /* -------------------------------------------------------
+       Synchronize domain chunks in content/catalog/
+       ------------------------------------------------------- */
+    console.log("\n[CHUNKS] Synchronizing content/catalog domain chunks...");
+    splitCatalog();
 }
 
 sync().catch((error) => {

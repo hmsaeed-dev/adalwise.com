@@ -70,14 +70,7 @@ export default async function LecturesCatalogPage({ searchParams }: PageProps) {
 			{/* 1. Hero: Dignified Lockup */}
 			<LecturesHero />
 
-			{/* 2. Core Inquiries: 3 Hallmark Masterclasses ONLY */}
-			<StartHereSection curatedPicks={curatedPicks.slice(0, 3)} />
-
-			{/* ZONE 2: The Living Library ("Explore & Search the Holdings") */}
-			{/* 3. The 324-Session Course Ribbon (Compact 1-row capsule) */}
-			<CourseCurriculumRibbon />
-
-			{/* 4. Zero-Latency Interactive Archive (Search, Domain Rails, Format Chips, Multi-dimensional Sorting & Grid) */}
+			{/* 3. Zero-Latency Interactive Archive (Search, Domain Rails, Format Chips, Multi-dimensional Sorting & Grid) */}
 			<Suspense fallback={<LecturesSearchFilterSkeleton />}>
 				<LecturesArchiveInteractive
 					allLectures={allThematicLectures}

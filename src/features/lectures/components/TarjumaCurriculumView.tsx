@@ -15,7 +15,6 @@ import {
 	ChevronLeft,
 	ChevronRight,
 	Calendar,
-	LayoutGrid,
 } from "lucide-react";
 import type {
 	TarjumaEditionMeta,
@@ -28,7 +27,6 @@ import type {
 } from "@/lib/lectures/lisan-ul-quran";
 import { QURAN_JUZ_LIST } from "@/lib/lectures/tarjuma-quran";
 import { YouTubeEmbed } from "@/components/lectures/YouTubeEmbed";
-import { SurahMatrixNavigator } from "./SurahMatrixNavigator";
 import { LisanUlQuranCourseView } from "./LisanUlQuranCourseView";
 import Image from "next/image";
 import MiniSearch from "minisearch";
@@ -87,40 +85,48 @@ export function TarjumaCurriculumView({
 	// 3. Active Juz filter (null means All Juz)
 	const [selectedJuz, setSelectedJuz] = useState<number | null>(null);
 
-	// 4. Search query
+	// 4. Active Surah filter (null means All Surahs)
+	const [selectedSurahNumber, setSelectedSurahNumber] = useState<number | null>(null);
+
+	// 5. Search query
 	const [searchQuery, setSearchQuery] = useState<string>("");
 	const deferredSearchQuery = useDeferredValue(searchQuery);
 
-	// 5. View Mode: "curriculum" (Ramadan Cycles) vs "surahs" (114-Surah Directory) vs "lisan" (Quranic Arabic Grammar)
-	const [viewMode, setViewMode] = useState<"curriculum" | "surahs" | "lisan">(
-		initialMatch?.mode || "curriculum"
+	// 6. Top-Level Track: "curriculum" (Ramadan Cycles) vs "lisan" (Lisan-ul-Quran)
+	const [viewMode, setViewMode] = useState<"curriculum" | "lisan">(
+		initialMatch?.mode === "lisan" ? "lisan" : "curriculum"
 	);
 
-	// Sync view mode with URL query params (?view=surahs | ?view=lisan)
+	// Sync view mode with URL query params (?view=lisan | ?surah=...)
 	useEffect(() => {
 		if (typeof window !== "undefined") {
 			const url = new URL(window.location.href);
 			const v = url.searchParams.get("view");
+			const surahParam = url.searchParams.get("surah");
 			if (v === "lisan") {
 				setViewMode("lisan");
-			} else if (v === "surahs" || url.searchParams.has("surah")) {
-				setViewMode("surahs");
+			} else {
+				setViewMode("curriculum");
+			}
+
+			if (surahParam) {
+				const num = parseInt(surahParam, 10);
+				if (!isNaN(num)) {
+					setSelectedSurahNumber(num);
+				}
 			}
 		}
 	}, []);
 
-	const handleSwitchView = (mode: "curriculum" | "surahs" | "lisan") => {
+	const handleSwitchView = (mode: "curriculum" | "lisan") => {
 		setViewMode(mode);
 		if (typeof window !== "undefined") {
 			const url = new URL(window.location.href);
-			if (mode === "surahs") {
-				url.searchParams.set("view", "surahs");
-			} else if (mode === "lisan") {
+			if (mode === "lisan") {
 				url.searchParams.set("view", "lisan");
 				url.searchParams.delete("surah");
 			} else {
 				url.searchParams.delete("view");
-				url.searchParams.delete("surah");
 			}
 			window.history.replaceState(null, "", url.toString());
 		}
@@ -188,9 +194,25 @@ export function TarjumaCurriculumView({
 		return ms;
 	}, [activeEdition.sessions]);
 
-	// Filter sessions by Juz and Search Query
+	// Filter sessions by Selected Surah, Juz and Search Query
 	const filteredSessions = useMemo(() => {
 		let list = activeEdition.sessions;
+
+		// Filter by Selected Surah
+		if (selectedSurahNumber !== null) {
+			list = list.filter((s) => {
+				if (s.quranContext) {
+					if (s.quranContext.surahEndNumber) {
+						return (
+							selectedSurahNumber >= s.quranContext.surahNumber &&
+							selectedSurahNumber <= s.quranContext.surahEndNumber
+						);
+					}
+					return s.quranContext.surahNumber === selectedSurahNumber;
+				}
+				return false;
+			});
+		}
 
 		// Filter by Juz
 		if (selectedJuz !== null) {
@@ -228,7 +250,40 @@ export function TarjumaCurriculumView({
 		}
 
 		return list;
-	}, [activeEdition, selectedJuz, deferredSearchQuery, editionSearchEngine]);
+	}, [activeEdition, selectedSurahNumber, selectedJuz, deferredSearchQuery, editionSearchEngine]);
+
+	// Progressive loading: initially 12 sessions, revealed in increments of 12
+	const SESSIONS_PER_PAGE = 12;
+	const [visibleCount, setVisibleCount] = useState<number>(() => {
+		if (initialMatch?.session) {
+			const idx = editions
+				.find((e) => e.id === (initialMatch.editionId || "2026"))
+				?.sessions.findIndex((s) => s.slug === initialMatch.session.slug) ?? -1;
+			if (idx !== -1) {
+				return Math.max(
+					SESSIONS_PER_PAGE,
+					Math.ceil((idx + 1) / SESSIONS_PER_PAGE) * SESSIONS_PER_PAGE,
+				);
+			}
+		}
+		return SESSIONS_PER_PAGE;
+	});
+
+	// Reset to initial 12 whenever filters or selected edition change
+	useEffect(() => {
+		setVisibleCount(SESSIONS_PER_PAGE);
+	}, [selectedEditionId, selectedSurahNumber, selectedJuz, deferredSearchQuery]);
+
+	// Sliced sessions to render in DOM (prevents rendering & image fetching of unrevealed items)
+	const visibleSessions = useMemo(() => {
+		return filteredSessions.slice(0, visibleCount);
+	}, [filteredSessions, visibleCount]);
+
+	const hasMoreSessions = visibleCount < filteredSessions.length;
+
+	const handleSeeMore = () => {
+		setVisibleCount((prev) => prev + SESSIONS_PER_PAGE);
+	};
 
 	// Find Prev and Next session indices within the current edition
 	const { prevSession, nextSession } = useMemo(() => {
@@ -275,6 +330,7 @@ export function TarjumaCurriculumView({
 
 	const handleClearFilters = () => {
 		setSelectedJuz(null);
+		setSelectedSurahNumber(null);
 		setSearchQuery("");
 	};
 
@@ -361,12 +417,12 @@ export function TarjumaCurriculumView({
 				</div>
 			)}
 
-			{/* ================= PRIMARY VIEW SWITCHER: CURRICULUM VS 114-SURAH DIRECTORY ================= */}
-			<div className="flex flex-col sm:flex-row sm:w-full items-center justify-between gap-4 pb-2 ">
+			{/* ================= PRIMARY VIEW SWITCHER: RAMADAN CYCLES VS LISAN-UL-QURAN ================= */}
+			<div className="flex flex-col sm:flex-row sm:w-full items-center justify-between gap-4 pb-2">
 				<div
 					className="inline-flex p-1 bg-surface-container-high/90 rounded-xl shadow-xs w-full sm:w-auto"
 					role="tablist"
-					aria-label="Tarjuma-e-Quran Exploration Mode"
+					aria-label="Quran Curriculum Tracks"
 				>
 					<button
 						onClick={() => handleSwitchView("curriculum")}
@@ -380,19 +436,6 @@ export function TarjumaCurriculumView({
 					>
 						<Calendar className="w-4 h-4 text-brand-gold shrink-0" />
 						<span>Ramadan Cycles</span>
-					</button>
-					<button
-						onClick={() => handleSwitchView("surahs")}
-						role="tab"
-						aria-selected={viewMode === "surahs"}
-						className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
-							viewMode === "surahs"
-								? "bg-primary text-brand-warm-white shadow-xs border border-brand-gold/30"
-								: "text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low"
-						}`}
-					>
-						<LayoutGrid className="w-4 h-4 text-brand-gold shrink-0" />
-						<span>Surah Directory</span>
 					</button>
 					<button
 						onClick={() => handleSwitchView("lisan")}
@@ -411,14 +454,14 @@ export function TarjumaCurriculumView({
 			</div>
 
 			{viewMode === "curriculum" && (
-				<>
-					{/* ================= CONTROLS: COMPACT YEAR TABS & JUZ RAIL ================= */}
+				<div className="space-y-6">
+					{/* ================= CONTROLS: YEAR TABS & SURAH QUICK-SELECT ================= */}
 					<div className="space-y-4">
-						{/* Top Bar: Year Selector & Quick Summary */}
-						<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3">
+						{/* Top Bar: Year Selector */}
+						<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-1">
 							{/* High-Contrast Year Switcher */}
 							<div
-								className="inline-flex p-1 w-full justify-between bg-surface-container-high/80 rounded-xl border border-surface-container-highest shadow-xs"
+								className="inline-flex p-1 bg-surface-container-high/80 rounded-xl border border-surface-container-highest shadow-xs"
 								role="tablist"
 								aria-label="Ramadan Editions"
 							>
@@ -433,10 +476,11 @@ export function TarjumaCurriculumView({
 													edition.id,
 												);
 												setSelectedJuz(null);
+												setSelectedSurahNumber(null);
 											}}
 											role="tab"
 											aria-selected={isSelected}
-											className={`px-3.5 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm transition-all flex items-center justify-between gap-2 ${
+											className={`px-3.5 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm transition-all flex items-center gap-2 ${
 												isSelected
 													? "bg-primary text-brand-warm-white font-bold shadow-sm border border-brand-gold/30"
 													: "text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low font-medium"
@@ -449,10 +493,10 @@ export function TarjumaCurriculumView({
 							</div>
 						</div>
 
-						{/* Search & 30-Juz Quick-Jump Rail */}
-						<div className="space-y-3">
-							{/* High-Contrast Search Bar */}
-							<div className="relative w-full">
+						{/* Direct Surah Search & Select Bar */}
+						<div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+							{/* Search Input */}
+							<div className="relative flex-1">
 								<Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-primary" />
 								<input
 									type="text"
@@ -461,7 +505,7 @@ export function TarjumaCurriculumView({
 										setSearchQuery(e.target.value)
 									}
 									placeholder="Search by surah, session or ayah..."
-									className="w-full pl-11 pr-10 py-3 text-sm bg-surface-container-lowest border border-surface-container-high rounded-xl text-on-surface placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all shadow-xs"
+									className="w-full pl-11 pr-10 py-2.5 text-xs sm:text-sm bg-surface-container-lowest border border-surface-container-high rounded-xl text-on-surface placeholder:text-on-surface-variant/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all shadow-xs"
 								/>
 								{searchQuery && (
 									<button
@@ -473,10 +517,87 @@ export function TarjumaCurriculumView({
 									</button>
 								)}
 							</div>
+
+							{/* Direct Surah Select Dropdown */}
+							<div className="relative shrink-0">
+								<select
+									value={selectedSurahNumber ?? ""}
+									onChange={(e) =>
+										setSelectedSurahNumber(
+											e.target.value
+												? parseInt(e.target.value, 10)
+												: null
+										)
+									}
+									aria-label="Select Surah"
+									className="w-full sm:w-auto px-3.5 py-2.5 text-xs font-medium bg-surface-container-lowest border border-surface-container-high rounded-xl text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all shadow-xs cursor-pointer"
+								>
+									<option value="">All Surahs (1–114)</option>
+									{surahs.map((s) => (
+										<option key={s.number} value={s.number}>
+											{s.number.toString().padStart(3, "0")}. {s.name} ({s.arabic})
+										</option>
+									))}
+								</select>
+							</div>
+
+							{/* Juz Quick Dropdown */}
+							<div className="relative shrink-0">
+								<select
+									value={selectedJuz ?? ""}
+									onChange={(e) =>
+										setSelectedJuz(
+											e.target.value
+												? parseInt(e.target.value, 10)
+												: null
+										)
+									}
+									aria-label="Filter by Juz"
+									className="w-full sm:w-auto px-3.5 py-2.5 text-xs font-medium bg-surface-container-lowest border border-surface-container-high rounded-xl text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all shadow-xs cursor-pointer"
+								>
+									<option value="">All Parahs (1–30)</option>
+									{QURAN_JUZ_LIST.map((j) => (
+										<option key={j.number} value={j.number}>
+											Juz {j.number}: {j.transliteration}
+										</option>
+									))}
+								</select>
+							</div>
 						</div>
+
+						{/* Active Filter Indicators */}
+						{(searchQuery || selectedSurahNumber !== null || selectedJuz !== null) && (
+							<div className="flex items-center justify-between text-xs text-on-surface-variant px-1">
+								<span>
+									Showing{" "}
+									<strong className="text-primary font-bold font-mono">
+										{filteredSessions.length}
+									</strong>{" "}
+									session{filteredSessions.length === 1 ? "" : "s"}
+									{selectedSurahNumber !== null && (
+										<span>
+											{" "}
+											· Surah{" "}
+											<strong className="text-primary font-semibold">
+												{surahs.find((s) => s.number === selectedSurahNumber)?.name}
+											</strong>
+										</span>
+									)}
+									{selectedJuz !== null && (
+										<span> · Juz {selectedJuz}</span>
+									)}
+								</span>
+								<button
+									onClick={handleClearFilters}
+									className="text-primary hover:underline font-semibold cursor-pointer"
+								>
+									Reset filters
+								</button>
+							</div>
+						)}
 					</div>
 
-					{/* ================= CURRICULUM LEDGER (DOMINANT FOREST GREEN HEADER + CREAM BODY) ================= */}
+					{/* ================= CURRICULUM LEDGER ================= */}
 					{filteredSessions.length === 0 ? (
 						<div className="rounded-2xl border border-surface-container-high bg-surface-container-lowest py-16 px-6 text-center shadow-sm">
 							<BookOpen className="w-10 h-10 text-primary/40 mx-auto mb-3" />
@@ -494,6 +615,7 @@ export function TarjumaCurriculumView({
 							</button>
 						</div>
 					) : (
+						<>
 						<div className="rounded-2xl border border-surface-container-high bg-surface-container-lowest overflow-hidden shadow-md">
 							{/* Table Column Header: DOMINANT DEEP FOREST GREEN ANCHOR */}
 							<div className="hidden sm:grid grid-cols-12 gap-4 px-6 py-3.5 bg-[#0a2318]  border-brand-gold/30 text-[11px] font-mono font-bold uppercase tracking-widest text-brand-gold">
@@ -510,7 +632,7 @@ export function TarjumaCurriculumView({
 
 							{/* Ledger Rows on Warm Cream Parchment */}
 							<div className="divide-y divide-surface-container-high/60">
-								{filteredSessions.map((session) => {
+								{visibleSessions.map((session) => {
 									const isCurrentlyActive =
 										activeSession?.slug === session.slug;
 
@@ -614,15 +736,25 @@ export function TarjumaCurriculumView({
 								})}
 							</div>
 						</div>
-					)}
-				</>
-			)}
 
-			{viewMode === "surahs" && (
-				<SurahMatrixNavigator
-					surahs={surahs}
-					onSelectSession={handleSelectSession}
-				/>
+						{/* Progressive "See More" Loading Pattern */}
+						{hasMoreSessions && (
+							<div className="pt-2 flex flex-col items-center justify-center gap-2">
+								<button
+									type="button"
+									onClick={handleSeeMore}
+									className="inline-flex items-center justify-center gap-2 px-8 py-2.5 bg-primary text-brand-warm-white hover:bg-primary-hover rounded-full text-xs sm:text-sm font-semibold transition-all shadow-sm cursor-pointer border border-brand-gold/30 hover:scale-[1.02] active:scale-[0.98]"
+								>
+									<span>See More</span>
+								</button>
+								<p className="text-[11px] font-mono text-on-surface-variant/80">
+									Showing {visibleSessions.length} of {filteredSessions.length} sessions
+								</p>
+							</div>
+						)}
+						</>
+					)}
+				</div>
 			)}
 
 			{viewMode === "lisan" && effectiveLisanSessions.length > 0 && (

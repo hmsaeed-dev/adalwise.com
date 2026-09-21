@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Play, BookOpen, FileText, Search, X } from "lucide-react";
@@ -20,6 +20,26 @@ export function LisanUlQuranCourseView({
 }: LisanUlQuranCourseViewProps) {
 	const [searchQuery, setSearchQuery] = useState("");
 
+	// Progressive loading: initially 12 sessions, revealed in increments of 12
+	const SESSIONS_PER_PAGE = 12;
+	const [visibleCount, setVisibleCount] = useState<number>(() => {
+		if (activeSessionSlug) {
+			const idx = sessions.findIndex((s) => s.slug === activeSessionSlug);
+			if (idx !== -1) {
+				return Math.max(
+					SESSIONS_PER_PAGE,
+					Math.ceil((idx + 1) / SESSIONS_PER_PAGE) * SESSIONS_PER_PAGE,
+				);
+			}
+		}
+		return SESSIONS_PER_PAGE;
+	});
+
+	// Reset to initial 12 when search query changes
+	useEffect(() => {
+		setVisibleCount(SESSIONS_PER_PAGE);
+	}, [searchQuery]);
+
 	// Filter sessions solely by search query
 	const filteredSessions = useMemo(() => {
 		if (!searchQuery.trim()) return sessions;
@@ -31,6 +51,17 @@ export function LisanUlQuranCourseView({
 				s.sessionCode.toLowerCase().includes(q)
 		);
 	}, [sessions, searchQuery]);
+
+	// Sliced sessions to render in DOM
+	const visibleSessions = useMemo(() => {
+		return filteredSessions.slice(0, visibleCount);
+	}, [filteredSessions, visibleCount]);
+
+	const hasMoreSessions = visibleCount < filteredSessions.length;
+
+	const handleSeeMore = () => {
+		setVisibleCount((prev) => prev + SESSIONS_PER_PAGE);
+	};
 
 	return (
 		<div className="flex flex-col gap-6 w-full">
@@ -55,14 +86,6 @@ export function LisanUlQuranCourseView({
 
 			{/* Minimal Controls: Session Count & Fast Search */}
 			<div className="flex items-center justify-between gap-3">
-				<div className="flex items-center gap-2">
-					<span className="font-mono text-xs font-bold text-primary px-2.5 py-1 rounded-md bg-primary/10 border border-primary/20">
-						{sessions.length} Lessons
-					</span>
-					<span className="text-xs text-on-surface-variant hidden sm:inline">
-						Quranic Arabic Series
-					</span>
-				</div>
 
 				{/* Search Field */}
 				<div className="relative w-full max-w-xs">
@@ -98,7 +121,8 @@ export function LisanUlQuranCourseView({
 					</p>
 				</div>
 			) : (
-				<div className="rounded-2xl border border-surface-container-high bg-surface-container-lowest overflow-hidden shadow-md">
+				<>
+					<div className="rounded-2xl border border-surface-container-high bg-surface-container-lowest overflow-hidden shadow-md">
 					{/* Table Column Header: Deep Forest Green Anchor */}
 					<div className="hidden sm:grid grid-cols-12 gap-4 px-6 py-3.5 bg-[#0a2318] border-brand-gold/30 text-[11px] font-mono font-bold uppercase tracking-widest text-brand-gold">
 						<div className="col-span-2 md:col-span-2">Lesson</div>
@@ -108,7 +132,7 @@ export function LisanUlQuranCourseView({
 
 					{/* Ledger Rows on Warm Cream Parchment */}
 					<div className="divide-y divide-surface-container-high/60">
-						{filteredSessions.map((session) => {
+						{visibleSessions.map((session) => {
 							const isCurrentlyActive =
 								activeSessionSlug === session.slug;
 
@@ -196,6 +220,23 @@ export function LisanUlQuranCourseView({
 						})}
 					</div>
 				</div>
+
+				{/* Progressive "See More" Loading Pattern */}
+				{hasMoreSessions && (
+					<div className="pt-2 flex flex-col items-center justify-center gap-2">
+						<button
+							type="button"
+							onClick={handleSeeMore}
+							className="inline-flex items-center justify-center gap-2 px-8 py-2.5 bg-primary text-brand-warm-white hover:bg-primary-hover rounded-full text-xs sm:text-sm font-semibold transition-all shadow-sm cursor-pointer border border-brand-gold/30 hover:scale-[1.02] active:scale-[0.98]"
+						>
+							<span>See More</span>
+						</button>
+						<p className="text-[11px] font-mono text-on-surface-variant/80">
+							Showing {visibleSessions.length} of {filteredSessions.length} lessons
+						</p>
+					</div>
+				)}
+				</>
 			)}
 		</div>
 	);

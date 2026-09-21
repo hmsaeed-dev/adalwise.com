@@ -512,8 +512,8 @@ export function runCatalogueAudit() {
 		const desc = item.description || "";
 		const reasons = [];
 
-		if (dur > 0 && dur <= 60) {
-			reasons.push(`Duration is ${dur}s (<= 60s is standard YouTube Short)`);
+		if (dur > 0 && dur < 300) {
+			reasons.push(`Duration is ${dur}s (< 300s is shorter than 5 minutes threshold)`);
 		}
 		if (/#shorts?\b/i.test(title)) {
 			reasons.push(`Title contains #shorts hashtag`);

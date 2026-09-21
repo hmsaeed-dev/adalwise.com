@@ -5,18 +5,17 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const tarjumaContent = fs.readFileSync(path.join(__dirname, "../src/lib/lectures/tarjuma-quran.ts"), "utf-8");
 
-const surahsMatch = tarjumaContent.match(/export const QURAN_SURAHS: QuranSurahMeta\[\] = (\[[\s\S]*?\]);/);
-const aliasesMatch = tarjumaContent.match(/const SURAH_ALIASES: \{ alias: string; surahNum: number \}\[\] = (\[[\s\S]*?\]);/);
+const surahsMatch = tarjumaContent.match(/(?:export const QURAN_SURAHS|const RAW_QURAN_SURAHS)[^=]*=\s*(\[[\s\S]*?\]);/);
+const aliasesMatch = tarjumaContent.match(/const SURAH_ALIASES[^=]*=\s*(\[[\s\S]*?\]);/);
 
-const QURAN_SURAHS = eval(surahsMatch[1]);
-const SURAH_ALIASES = eval(aliasesMatch[1]);
+const QURAN_SURAHS = surahsMatch ? eval(surahsMatch[1]) : [];
+const SURAH_ALIASES = aliasesMatch ? eval(aliasesMatch[1]) : [];
 
-SURAH_ALIASES.push({ alias: "bani israeel", surahNum: 17 });
-SURAH_ALIASES.push({ alias: "israeel", surahNum: 17 });
-SURAH_ALIASES.push({ alias: "ahqaaf", surahNum: 46 });
-
-const catalogPath = path.join(__dirname, "../src/lib/lectures/catalog.json");
-const catalog = JSON.parse(fs.readFileSync(catalogPath, "utf-8"));
+if (SURAH_ALIASES.length > 0) {
+  SURAH_ALIASES.push({ alias: "bani israeel", surahNum: 17 });
+  SURAH_ALIASES.push({ alias: "israeel", surahNum: 17 });
+  SURAH_ALIASES.push({ alias: "ahqaaf", surahNum: 46 });
+}
 
 function normalizeText(text) {
   return text
@@ -120,16 +119,20 @@ export function extractQuranContext(item) {
   return ctx;
 }
 
-let enrichedCount = 0;
-for (const item of catalog) {
-  const ctx = extractQuranContext(item);
-  if (ctx) {
-    item.quranContext = ctx;
-    enrichedCount++;
-  } else {
-    delete item.quranContext;
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  const catalogPath = path.join(__dirname, "../src/lib/lectures/catalog.json");
+  const catalog = JSON.parse(fs.readFileSync(catalogPath, "utf-8"));
+  let enrichedCount = 0;
+  for (const item of catalog) {
+    const ctx = extractQuranContext(item);
+    if (ctx) {
+      item.quranContext = ctx;
+      enrichedCount++;
+    } else {
+      delete item.quranContext;
+    }
   }
-}
 
-fs.writeFileSync(catalogPath, JSON.stringify(catalog, null, 2), "utf-8");
-console.log(`Enriched ${enrichedCount} lectures with structured quranContext in catalog.json`);
+  fs.writeFileSync(catalogPath, JSON.stringify(catalog, null, 2), "utf-8");
+  console.log(`Enriched ${enrichedCount} lectures with structured quranContext in catalog.json`);
+}

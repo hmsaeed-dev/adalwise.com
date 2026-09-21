@@ -33,16 +33,6 @@ export default async function TarjumaQuranCoursePage({
 
 	return (
 		<div className="flex flex-col w-full bg-background text-on-surface pb-28 selection:bg-primary/20 selection:text-primary">
-			{/* Breadcrumb Schema */}
-			<BreadcrumbJsonLd
-				items={[
-					{ name: "Home", url: siteConfig.url },
-					{
-						name: "Tarjuma-e-Quran",
-						url: `${siteConfig.url}/tarjuma-e-quran`,
-					},
-				]}
-			/>
 			{/* Course Structured Data */}
 			<CourseJsonLd
 				name="Tarjuma-e-Quran — دورۂ ترجمۂ قرآن"
@@ -69,18 +59,6 @@ export default async function TarjumaQuranCoursePage({
 				<div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(212,163,115,0.12),transparent_75%)] pointer-events-none" />
 
 				<div className="relative z-10 w-full max-w-container-max mx-auto px-gutter-mobile md:px-gutter-desktop">
-					<div className="flex pb-4 items-center gap-2 text-xs font-sans">
-						<Link
-							href="/"
-							className="text-brand-warm-white/80 hover:text-brand-warm-white transition-colors font-medium"
-						>
-							Home
-						</Link>
-						<span className="text-brand-warm-white/50">/</span>
-						<span className="text-brand-warm-white font-semibold">
-							Tarjuma-e-Quran
-						</span>
-					</div>
 
 					<div>
 						<div className="flex sm:flex-row gap-20 justify-between">
@@ -94,14 +72,11 @@ export default async function TarjumaQuranCoursePage({
 						</div>
 
 						<p className="mt-5 text-sm sm:text-base text-brand-warm-white/85 leading-relaxed font-sans max-w-3xl">
-							A systematic, verse-by-verse exegesis and thematic
-							reflection across all 114 Surahs delivered by Dr.
-							Hafiz Haseeb. Preserving the integrity of the Arabic
-							syntax, covenantal ethics, and societal imperatives
-							across annual Ramadan cycles.
+							A systematic, verse-by-verse tafsir and thematic
+							reflection across all 114 Surahs.
 						</p>
 
-						<div className="mt-8 flex flex-wrap items-center gap-6 text-xs font-sans text-brand-warm-white/70 pt-5 border-t border-white/10">
+						<div className="mt-8 flex flex-wrap items-center gap-6 text-xs font-sans text-brand-warm-white/70 pt-5 ">
 							<div className="flex items-center gap-2">
 								<BookOpen className="w-4 h-4 text-brand-gold shrink-0" />
 								<span>All 114 Surahs</span>

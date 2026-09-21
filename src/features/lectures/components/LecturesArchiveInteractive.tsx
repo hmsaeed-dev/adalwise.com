@@ -282,7 +282,7 @@ export function LecturesArchiveInteractive({
 								: "text-on-surface-variant hover:text-primary"
 						}`}
 					>
-						All Discourses
+						All
 					</button>
 
 					{PRIMARY_DOMAINS.map((dom) => {
@@ -323,17 +323,13 @@ export function LecturesArchiveInteractive({
 							onClick={handleResetAllFilters}
 							className="text-xs text-secondary hover:text-primary font-semibold hover:underline transition-colors ml-1 cursor-pointer"
 						>
-							Reset filters
+							Reset
 						</button>
 					)}
 				</div>
 
 				{/* Multi-Dimensional Sorting Selector */}
 				<div className="flex items-center gap-2 self-end sm:self-auto shrink-0">
-					<label htmlFor="sort-select" className="text-xs text-on-surface-variant font-medium flex items-center gap-1">
-						<ArrowUpDown className="w-3.5 h-3.5" />
-						<span>Sort:</span>
-					</label>
 					<select
 						id="sort-select"
 						value={selectedSort}
@@ -359,7 +355,7 @@ export function LecturesArchiveInteractive({
 								No Lectures Found
 							</h3>
 							<p className="font-body-sm text-on-surface-variant max-w-md text-xs sm:text-sm">
-								No discourses match your current search and filter combination. Clear filters or browse by canonical domain below:
+								No matches for your search:
 							</p>
 						</div>
 
@@ -384,7 +380,7 @@ export function LecturesArchiveInteractive({
 							onClick={handleResetAllFilters}
 							className="mt-2 px-5 py-2 bg-primary text-on-primary text-xs font-semibold rounded-full hover:bg-primary/90 transition-colors shadow-sm cursor-pointer"
 						>
-							Reset All Filters
+							Reset
 						</button>
 					</div>
 				) : (
@@ -408,12 +404,10 @@ export function LecturesArchiveInteractive({
 								className="px-4 py-2 bg-surface-container hover:bg-surface-container-high text-primary rounded-full text-xs font-semibold transition-colors border border-surface-container-highest flex items-center gap-1 cursor-pointer shadow-sm"
 							>
 								<ChevronLeft className="w-4 h-4" />
-								<span>Prev</span>
 							</button>
 						) : (
 							<span className="px-4 py-2 bg-surface-container/40 text-on-surface-variant/40 rounded-full text-xs font-semibold cursor-not-allowed border border-surface-container-highest/40 flex items-center gap-1 select-none">
 								<ChevronLeft className="w-4 h-4" />
-								<span>Prev</span>
 							</span>
 						)}
 
@@ -430,12 +424,10 @@ export function LecturesArchiveInteractive({
 								onClick={() => handlePageChange(safeCurrentPage + 1)}
 								className="px-4 py-2 bg-primary text-on-primary hover:bg-primary/90 rounded-full text-xs font-semibold transition-colors shadow-sm flex items-center gap-1 cursor-pointer"
 							>
-								<span>Next</span>
 								<ChevronRight className="w-4 h-4" />
 							</button>
 						) : (
 							<span className="px-4 py-2 bg-surface-container/40 text-on-surface-variant/40 rounded-full text-xs font-semibold cursor-not-allowed border border-surface-container-highest/40 flex items-center gap-1 select-none">
-								<span>Next</span>
 								<ChevronRight className="w-4 h-4" />
 							</span>
 						)}

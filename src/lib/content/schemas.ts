@@ -39,6 +39,26 @@ export interface ArticleDoc {
 }
 
 
+export const MajlisSpeakerSchema = z.object({
+	name: z.string(),
+	urduName: z.string().optional(),
+	title: z.string(),
+	role: z.string().default("Contributor"),
+	topic: z.string(),
+	avatarUrl: z.string().optional(),
+});
+
+export const MajlisGalleryItemSchema = z.object({
+	url: z.string(),
+	caption: z.string().optional(),
+	category: z.enum(["gathering", "deliberation", "fellowship", "venue"]).optional(),
+});
+
+export const MajlisKeyTakeawaySchema = z.object({
+	title: z.string(),
+	summary: z.string(),
+});
+
 export const MajlisSessionSchema = z.object({
 	number: z.string().optional(),
 	year: z.string().optional(),
@@ -50,6 +70,7 @@ export const MajlisSessionSchema = z.object({
 	theme: z.string().optional(),
 	thesis: z.string().optional(),
 	description: z.string().optional(),
+	objective: z.string().optional(),
 	host: AuthorSchema.default({
 		name: "Dr. Hafiz Haseeb",
 		urduName: "ڈاکٹر حافظ حسیب",
@@ -58,10 +79,19 @@ export const MajlisSessionSchema = z.object({
 	status: z.enum(["upcoming", "completed"]).default("completed"),
 	recordingSlug: z.string().optional(),
 	relatedLectureSlugs: z.array(z.string()).default([]),
+	relatedArticleSlugs: z.array(z.string()).default([]),
 	topics: z.array(z.string()).default([]),
 	discussionPoints: z.array(z.string()).default([]),
 	keyInquiries: z.array(z.string()).default([]),
 	registrationUrl: z.string().optional(),
+	gallery: z.array(MajlisGalleryItemSchema).default([]),
+	speakers: z.array(MajlisSpeakerSchema).default([]),
+	slidesUrl: z.string().optional(),
+	slidesTitle: z.string().optional(),
+	slidesCount: z.number().optional(),
+	workingPaperUrl: z.string().optional(),
+	workingPaperTitle: z.string().optional(),
+	keyTakeaways: z.array(MajlisKeyTakeawaySchema).default([]),
 });
 
 export type MajlisSession = z.infer<typeof MajlisSessionSchema>;

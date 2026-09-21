@@ -8,14 +8,13 @@ export const CATEGORIES: MainCategory[] = [
 	"Ethics",
 	"Statecraft",
 	"Socio-Political",
-	"Lisan-ul-Quran",
 ];
 
 export const PRIMARY_DOMAINS: PrimaryDomain[] = [
 	{
 		id: "tafsir",
 		slug: "tafsir",
-		title: "Quranic Tafsir",
+		title: "Tafsir",
 		urduTitle: "تفسیر و فہمِ قرآن",
 		description:
 			"Systematic exegesis, thematic surah studies, and epistemological principles of Quranic interpretation.",
