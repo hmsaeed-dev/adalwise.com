@@ -53,6 +53,11 @@ export const PRIMARY_DOMAINS: PrimaryDomain[] = [
 	},
 ];
 
+// Domains active within the open /lectures thematic archive (Iqbal is hosted in dedicated /iqbal ecosystem)
+export const LECTURE_ARCHIVE_DOMAINS: PrimaryDomain[] = PRIMARY_DOMAINS.filter(
+	(dom) => dom.id !== "iqbal",
+);
+
 export const LISAN_UL_QURAN_DOMAIN: PrimaryDomain = {
 	id: "lisan-ul-quran",
 	slug: "lisan-ul-quran",

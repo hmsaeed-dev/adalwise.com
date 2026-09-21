@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Search, X, Loader2 } from "lucide-react";
-import { PRIMARY_DOMAINS } from "@/lib/taxonomy/registry";
+import { LECTURE_ARCHIVE_DOMAINS } from "@/lib/taxonomy/registry";
 
 export function LecturesSearchFilter() {
 	const router = useRouter();
@@ -125,7 +125,7 @@ export function LecturesSearchFilter() {
 					All
 				</button>
 
-				{PRIMARY_DOMAINS.map((dom) => {
+				{LECTURE_ARCHIVE_DOMAINS.map((dom) => {
 					const isActive = currentDomain === dom.slug;
 					return (
 						<button

@@ -6,6 +6,7 @@ import {
 import {
 	LecturesHero,
 	LecturesStatsStrip,
+	IqbalGatewaySection,
 	StartHereSection,
 	CourseCurriculumRibbon,
 	LecturesArchiveInteractive,
@@ -81,6 +82,9 @@ export default async function LecturesCatalogPage({ searchParams }: PageProps) {
 					initialParams={resolvedParams}
 				/>
 			</Suspense>
+
+			{/* 4. Dedicated Iqbal Collection Gateway */}
+			<IqbalGatewaySection />
 		</div>
 	);
 }

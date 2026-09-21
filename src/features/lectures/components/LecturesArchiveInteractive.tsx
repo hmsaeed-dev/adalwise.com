@@ -4,7 +4,7 @@ import React, { useState, useMemo, useCallback } from "react";
 import MiniSearch from "minisearch";
 import { Search, X, ChevronLeft, ChevronRight, SearchX, ArrowUpDown } from "lucide-react";
 import { LectureItem } from "@/lib/lectures/types";
-import { PRIMARY_DOMAINS } from "@/lib/taxonomy/registry";
+import { LECTURE_ARCHIVE_DOMAINS } from "@/lib/taxonomy/registry";
 import { LecturesCard } from "./LecturesCard";
 
 interface LecturesArchiveInteractiveProps {
@@ -285,7 +285,7 @@ export function LecturesArchiveInteractive({
 						All
 					</button>
 
-					{PRIMARY_DOMAINS.map((dom) => {
+					{LECTURE_ARCHIVE_DOMAINS.map((dom) => {
 						const isActive = selectedDomain === dom.slug;
 						return (
 							<button
@@ -360,7 +360,7 @@ export function LecturesArchiveInteractive({
 						</div>
 
 						<div className="flex flex-wrap justify-center gap-2 max-w-lg pt-1">
-							{PRIMARY_DOMAINS.map((d) => (
+							{LECTURE_ARCHIVE_DOMAINS.map((d) => (
 								<button
 									key={d.slug}
 									type="button"

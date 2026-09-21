@@ -77,10 +77,31 @@ export const getTarjumaQuranLectures = cache(
 	},
 );
 
-// Thematic archive lectures (excluding coursework) for zero-latency interactive archive
+// Thematic archive lectures (excluding coursework and dedicated Allama Iqbal collection)
 export const getThematicArchiveLectures = cache(
 	async (): Promise<LectureItem[]> => {
-		return lecturesCatalog.filter((item) => !item.isCoursework);
+		return lecturesCatalog.filter(
+			(item) =>
+				!item.isCoursework &&
+				item.domainId !== "iqbal" &&
+				item.category !== "Iqbalian Thought",
+		);
+	},
+);
+
+// Dedicated Allama Iqbal collection discourses
+export const getIqbalLectures = cache(
+	async (): Promise<LectureItem[]> => {
+		return lecturesCatalog
+			.filter(
+				(item) =>
+					item.domainId === "iqbal" ||
+					item.category === "Iqbalian Thought",
+			)
+			.sort(
+				(a, b) =>
+					new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+			);
 	},
 );
 
