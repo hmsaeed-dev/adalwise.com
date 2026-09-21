@@ -10,4 +10,5 @@ export { StudyNotesArchiveView } from "./components/StudyNotesArchiveView";
 export { TarjumaCurriculumView } from "./components/TarjumaCurriculumView";
 export { SurahMatrixNavigator } from "./components/SurahMatrixNavigator";
 export { LisanUlQuranCourseView } from "./components/LisanUlQuranCourseView";
+export { LecturesStatsStrip } from "./components/LecturesStatsStrip";
 

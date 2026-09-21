@@ -1,0 +1,188 @@
+{
+  "generatedAt": "2026-09-21T18:51:35.203Z",
+  "channel": {
+    "channelId": "UC-kXQOPfwXspzHaxsPd9PEg",
+    "title": "Dr Hafiz Haseeb",
+    "subscriberCount": 1230,
+    "totalChannelViews": 87839,
+    "totalChannelVideosUploaded": 659
+  },
+  "catalogSummary": {
+    "totalCatalogLectures": 570,
+    "totalCatalogHours": 507.9,
+    "totalCatalogMinutes": 30477,
+    "averageDurationMinutes": 53,
+    "totalViewsInCatalog": 62315,
+    "totalLikesInCatalog": 3922,
+    "totalCommentsInCatalog": 335,
+    "estimatedWatchHours": 17913,
+    "maximumPotentialWatchHours": 51179
+  },
+  "domainBreakdown": {
+    "Tafsir": {
+      "lecturesCount": 349,
+      "totalHours": 346.5,
+      "totalViews": 25642,
+      "totalLikes": 1795
+    },
+    "Seerat": {
+      "lecturesCount": 44,
+      "totalHours": 39.4,
+      "totalViews": 13648,
+      "totalLikes": 728
+    },
+    "Iqbalian Thought": {
+      "lecturesCount": 20,
+      "totalHours": 8.8,
+      "totalViews": 3246,
+      "totalLikes": 230
+    },
+    "Ethics": {
+      "lecturesCount": 109,
+      "totalHours": 67.5,
+      "totalViews": 15771,
+      "totalLikes": 890
+    },
+    "Lisan-ul-Quran": {
+      "lecturesCount": 26,
+      "totalHours": 34.6,
+      "totalViews": 1703,
+      "totalLikes": 109
+    },
+    "Constitutional Law": {
+      "lecturesCount": 22,
+      "totalHours": 11.2,
+      "totalViews": 2305,
+      "totalLikes": 170
+    }
+  },
+  "formatBreakdown": {
+    "Standalone Keynote": {
+      "count": 170,
+      "seconds": 499234,
+      "views": 32266
+    },
+    "Serial Coursework": {
+      "count": 324,
+      "seconds": 1184971,
+      "views": 21523
+    },
+    "Sermon / Khutba": {
+      "count": 48,
+      "seconds": 77515,
+      "views": 4303
+    },
+    "Public Dialogue": {
+      "count": 4,
+      "seconds": 13110,
+      "views": 1369
+    },
+    "Thematic Academic Seminar": {
+      "count": 24,
+      "seconds": 53768,
+      "views": 2854
+    }
+  },
+  "top10MostViewed": [
+    {
+      "slug": "if-you-feel-ummah-as-your-own-watch-it",
+      "youtubeId": "ioPGsbAOYFc",
+      "title": "If you feel ummah as your own, Watch it!",
+      "category": "Seerat",
+      "durationSeconds": 697,
+      "views": 9513,
+      "likes": 396,
+      "comments": 67
+    },
+    {
+      "slug": "5-establish-deen-real-meaning",
+      "youtubeId": "d80GswKPEgg",
+      "title": "5. Establish DEEN? Real meaning | اقامتِ دین کا وسیع تصور",
+      "category": "Tafsir",
+      "durationSeconds": 3947,
+      "views": 1452,
+      "likes": 7,
+      "comments": 0
+    },
+    {
+      "slug": "1-fatiha-to-baqara-27-ramzan-26",
+      "youtubeId": "pDfLWACswqY",
+      "title": "1. Fatiha to Baqara 27 | Ramzan 26",
+      "category": "Tafsir",
+      "durationSeconds": 4610,
+      "views": 773,
+      "likes": 26,
+      "comments": 0
+    },
+    {
+      "slug": "discussion-of-aiman",
+      "youtubeId": "un38nadMzwU",
+      "title": "Discussion of Aiman",
+      "category": "Ethics",
+      "durationSeconds": 3611,
+      "views": 728,
+      "likes": 7,
+      "comments": 0
+    },
+    {
+      "slug": "iqbal-quran-with-friends-ep10",
+      "youtubeId": "NUo9qrIKmPY",
+      "title": "معراج | Iqbal & Quran with friends | ضربِ کلیم | Ep.10",
+      "category": "Iqbalian Thought",
+      "durationSeconds": 795,
+      "views": 690,
+      "likes": 12,
+      "comments": 1
+    },
+    {
+      "slug": "5a-pursuits-vs-purpose-of-life",
+      "youtubeId": "p2XpUjtBJcI",
+      "title": "5A. Pursuits vs Purpose of Life",
+      "category": "Ethics",
+      "durationSeconds": 3716,
+      "views": 636,
+      "likes": 8,
+      "comments": 0
+    },
+    {
+      "slug": "2nd-a-khilafat-and-knowledge",
+      "youtubeId": "YjlANGnT5UA",
+      "title": "2nd A. Khilafat and knowledge | خلافت اور علم",
+      "category": "Tafsir",
+      "durationSeconds": 3741,
+      "views": 612,
+      "likes": 10,
+      "comments": 0
+    },
+    {
+      "slug": "4a-who-is-allah-toheed-in-modern-times",
+      "youtubeId": "VGc6Rpx4GFA",
+      "title": "4A. Who is Allah | Toheed in Modern times",
+      "category": "Ethics",
+      "durationSeconds": 3760,
+      "views": 608,
+      "likes": 4,
+      "comments": 0
+    },
+    {
+      "slug": "6a-3-point-agenda-for-revival-of-ummah",
+      "youtubeId": "TqPmBLScX4I",
+      "title": "6A. 3 point agenda for revival of ummah",
+      "category": "Ethics",
+      "durationSeconds": 3791,
+      "views": 591,
+      "likes": 7,
+      "comments": 0
+    },
+    {
+      "slug": "spouse-relation-in-quran",
+      "youtubeId": "XapDmzTgUYo",
+      "title": "Spouse relation in Quran",
+      "category": "Ethics",
+      "durationSeconds": 3756,
+      "views": 561,
+      "likes": 11,
+      "comments": 0
+    }
+  ]
+}

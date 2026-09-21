@@ -5,6 +5,7 @@ import {
 } from "@/lib/lectures/client";
 import {
 	LecturesHero,
+	LecturesStatsStrip,
 	StartHereSection,
 	CourseCurriculumRibbon,
 	LecturesArchiveInteractive,
@@ -69,6 +70,9 @@ export default async function LecturesCatalogPage({ searchParams }: PageProps) {
 			{/* ZONE 1: Curated Foundations ("Where should I start?") */}
 			{/* 1. Hero: Dignified Lockup */}
 			<LecturesHero />
+
+			{/* 2. Compact Statistics Strip */}
+			<LecturesStatsStrip />
 
 			{/* 3. Zero-Latency Interactive Archive (Search, Domain Rails, Format Chips, Multi-dimensional Sorting & Grid) */}
 			<Suspense fallback={<LecturesSearchFilterSkeleton />}>
