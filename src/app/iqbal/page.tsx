@@ -60,7 +60,7 @@ export default async function IqbalCollectionPage() {
 							className="hover:text-brand-gold transition-colors inline-flex items-center gap-1.5"
 						>
 							<ArrowLeft className="w-3.5 h-3.5" aria-hidden="true" />
-							<span>General Lectures Archive</span>
+							<span>Lectures</span>
 						</Link>
 						<span aria-hidden="true" className="text-brand-warm-white/30">/</span>
 						<span className="text-brand-gold font-semibold">Allama Iqbal</span>
@@ -68,19 +68,13 @@ export default async function IqbalCollectionPage() {
 
 					{/* Title & Identity Lockup */}
 					<div className="flex flex-col gap-3 max-w-3xl">
-						<div className="flex items-center gap-2 text-brand-gold">
-							<Sparkles className="w-4 h-4" aria-hidden="true" />
-							<span className="font-mono text-xs uppercase tracking-[0.25em] font-semibold">
-								Specialized Intellectual Collection
-							</span>
-						</div>
 
 						<div className="flex items-baseline gap-4 flex-wrap">
 							<h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-brand-warm-white tracking-tight leading-[1.12]">
 								Allama Iqbal
 							</h1>
 							<span className="font-urdu text-2xl sm:text-3xl md:text-4xl text-brand-gold font-bold dir-rtl select-none">
-								حکیم الامت علامہ محمد اقبال
+								علامہ اقبال
 							</span>
 						</div>
 
@@ -101,9 +95,6 @@ export default async function IqbalCollectionPage() {
 							<Clock className="w-4 h-4 text-brand-gold" aria-hidden="true" />
 							<span className="font-medium text-brand-warm-white">{totalHours} Hours of Analysis</span>
 						</div>
-						<span className="text-brand-gold font-mono text-xs uppercase tracking-wider hidden sm:inline">
-							· Kalaam-e-Iqbal &amp; The Quran
-						</span>
 					</div>
 				</div>
 			</section>

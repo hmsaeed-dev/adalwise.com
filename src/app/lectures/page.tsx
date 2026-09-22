@@ -75,6 +75,9 @@ export default async function LecturesCatalogPage({ searchParams }: PageProps) {
 			{/* 2. Compact Statistics Strip */}
 			<LecturesStatsStrip />
 
+			{/* 4. Dedicated Iqbal Collection Gateway */}
+			<IqbalGatewaySection />
+
 			{/* 3. Zero-Latency Interactive Archive (Search, Domain Rails, Format Chips, Multi-dimensional Sorting & Grid) */}
 			<Suspense fallback={<LecturesSearchFilterSkeleton />}>
 				<LecturesArchiveInteractive
@@ -83,8 +86,7 @@ export default async function LecturesCatalogPage({ searchParams }: PageProps) {
 				/>
 			</Suspense>
 
-			{/* 4. Dedicated Iqbal Collection Gateway */}
-			<IqbalGatewaySection />
+
 		</div>
 	);
 }

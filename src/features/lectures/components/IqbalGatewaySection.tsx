@@ -23,12 +23,6 @@ export function IqbalGatewaySection() {
 				<div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
 					{/* Left: Editorial Context Lockup */}
 					<div className="lg:col-span-7 flex flex-col gap-3 sm:gap-3.5">
-						<div className="flex items-center gap-2">
-							<span className="w-1.5 h-1.5 rounded-full bg-brand-gold" aria-hidden="true" />
-							<span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.25em] font-semibold text-brand-gold">
-								Dedicated Collection · کلام و فکر
-							</span>
-						</div>
 
 						<div className="flex items-baseline gap-3.5 sm:gap-4 flex-wrap">
 							<h2
@@ -38,19 +32,19 @@ export function IqbalGatewaySection() {
 								Allama Iqbal
 							</h2>
 							<span className="font-urdu text-xl sm:text-2xl md:text-3xl text-brand-gold font-bold dir-rtl select-none">
-								علامہ محمد اقبال
+								علامہ اقبال
 							</span>
 						</div>
 
 						<p className="font-sans text-xs sm:text-sm md:text-[15px] text-on-surface-variant/90 max-w-xl leading-relaxed font-normal">
-							A dedicated intellectual pathway exploring the Reconstruction of Religious Thought,
+							A dedicated pathway exploring the Reconstruction of Religious Thought,
 							the juristic principle of <em>Ijtihad</em>, and civilizational revival through Dr. Hafiz Haseeb&apos;s
 							thematic discourses on <em>Zarb-e-Kaleem</em> and modern Islamic philosophy.
 						</p>
 
 						<div className="pt-1.5">
 							<span className="inline-flex items-center gap-2 text-xs sm:text-sm font-sans uppercase tracking-widest font-semibold text-primary group-hover:text-brand-gold transition-colors">
-								<span>Explore the Iqbal Collection</span>
+								<span>Explore</span>
 								<ArrowUpRight
 									className="w-4 h-4 text-brand-gold group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
 									aria-hidden="true"
@@ -67,11 +61,6 @@ export function IqbalGatewaySection() {
 								<br />
 								لیا جائے گا تجھ سے کام دنیا کی امامت کا
 							</p>
-							<div className="mt-2 text-center">
-								<span className="font-mono text-[10px] uppercase tracking-widest text-brand-gold font-medium">
-									— ضربِ کلیم · عدل و امامت
-								</span>
-							</div>
 						</div>
 					</div>
 				</div>
