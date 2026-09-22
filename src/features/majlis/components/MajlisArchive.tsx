@@ -1,20 +1,10 @@
 import React from "react";
 import { MajlisDoc } from "@/lib/content/schemas";
 import { MajlisArchiveItem } from "./MajlisArchiveItem";
+import { Archive } from "lucide-react";
 
 interface MajlisArchiveProps {
 	sessions: MajlisDoc[];
-}
-
-function getSessionYear(dateStr: string, fallbackYear?: string): string {
-	if (fallbackYear) return fallbackYear;
-	try {
-		const d = new Date(dateStr);
-		if (!isNaN(d.getTime())) return d.getFullYear().toString();
-	} catch {
-		// fallback
-	}
-	return new Date().getFullYear().toString();
 }
 
 export function MajlisArchive({ sessions }: MajlisArchiveProps) {
@@ -23,28 +13,34 @@ export function MajlisArchive({ sessions }: MajlisArchiveProps) {
 	}
 
 	return (
-		<section aria-labelledby="majlis-archive-heading">
-			{/* Chronological Spine & Entries */}
-			<div>
-				{sessions.map((item, index) => {
-					const itemYear = getSessionYear(
-						item.session.date,
-						item.session.year,
-					);
-					const prevYear =
-						index > 0
-							? getSessionYear(
-									sessions[index - 1].session.date,
-									sessions[index - 1].session.year,
-								)
-							: null;
-					const isFirstOfYear = index === 0 || itemYear !== prevYear;
+		<section
+			id="majlis-archive-section"
+			aria-labelledby="majlis-archive-heading"
+			className="w-full space-y-6 sm:space-y-8"
+		>
+			{/* Section Header */}
+			<div className="flex items-baseline justify-between flex-wrap gap-3 pb-4">
+				<div className="flex items-center gap-2.5">
+					<Archive className="w-5 h-5 text-brand-gold shrink-0" aria-hidden="true" />
+					<div>
+						<h2
+							id="majlis-archive-heading"
+							className="font-serif text-2xl sm:text-3xl font-semibold text-primary"
+						>
+							Gatherings
+						</h2>
+					</div>
+				</div>
+			</div>
 
+			{/* Chronological Spine & Entries */}
+			<div className="space-y-4 sm:space-y-5">
+				{sessions.map((item, index) => {
 					return (
 						<MajlisArchiveItem
 							key={item.slug}
 							doc={item}
-							isFirstOfYear={isFirstOfYear}
+							isFirstOfYear={index === 0}
 						/>
 					);
 				})}

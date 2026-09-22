@@ -1,67 +1,91 @@
 import React from "react";
 import Link from "next/link";
+import {
+	ArrowRight,
+	Calendar,
+	MapPin,
+	Camera,
+	Video,
+	FileText,
+	BookOpen,
+} from "lucide-react";
 import { MajlisDoc } from "@/lib/content/schemas";
 
 interface MajlisArchiveItemProps {
 	doc: MajlisDoc;
-	isFirstOfYear: boolean;
+	isFirstOfYear?: boolean;
 }
 
 function formatSessionDate(dateStr: string): string {
 	try {
-    const d = new Date(dateStr);
-    if (isNaN(d.getTime())) return dateStr;
-    return d.toLocaleDateString("en-GB", {
-    	day: "numeric",
-    	month: "long",
-    	year: "numeric",
-    });
+		const d = new Date(dateStr);
+		if (isNaN(d.getTime())) return dateStr;
+		return d.toLocaleDateString("en-GB", {
+			day: "numeric",
+			month: "long",
+			year: "numeric",
+		});
 	} catch {
-    return dateStr;
+		return dateStr;
 	}
 }
 
 export function MajlisArchiveItem({
 	doc,
-	isFirstOfYear,
 }: MajlisArchiveItemProps) {
 	const { session, slug } = doc;
 	const href = `/majlis/${slug}`;
-	const inquiries =
-    session.keyInquiries.length > 0
-    	? session.keyInquiries
-    	: session.discussionPoints;
 	const formattedDate = formatSessionDate(session.date);
 
 	return (
-		<article className="group w-full relative gap-0 focus-within:ring-1 rounded-lg focus-within:ring-brand-gold/40 p-8 transition-colors hover:bg-primary/10 hover:cursor-pointer hover:shadow-lg">
-			<div className="grid grid-cols-1 gap-0">
-				<div className="md:col-span-6 space-y-3">
-					<div className="flex items-baseline justify-between gap-0 flex-wrap">
-						<Link
-							href={href}
-							className="after:absolute after:inset-0 after:content-[''] font-serif text-xl sm:text-2xl text-brand-primary hover:text-brand-primary-hover transition-colors underline-offset-4 decoration-1 decoration-brand-primary/30 focus:outline-none"
-						>
-							{session.title}
-						</Link>
+		<article className="group relative rounded-2xl bg-surface-container-lowest border border-surface-container-high/60 hover:border-brand-gold/50 p-6 sm:p-8 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
+			<div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
+				{/* Left: Numeral & Meta */}
+				<div className="flex flex-row md:flex-col items-center md:items-start justify-between md:justify-start gap-4 md:gap-2 shrink-0 md:w-32">
+					<span className="font-serif text-4xl sm:text-5xl font-light text-primary/30 group-hover:text-brand-gold transition-colors select-none leading-none">
+						{session.number || "01"}
+					</span>
+				</div>
+
+				{/* Middle: Content Dossier */}
+				<div className="flex-1 space-y-3.5">
+					{/* Venue, Date & Format Badges */}
+					<div className="flex items-center gap-3 flex-wrap text-xs text-on-surface-variant">
+						<span className="flex items-center gap-1.5 font-medium text-primary">
+							<Calendar className="w-3.5 h-3.5 text-brand-gold" aria-hidden="true" />
+							<span>{formattedDate}</span>
+						</span>
+					</div>
+
+					{/* Title Lockup */}
+					<div className="flex items-baseline justify-between gap-3 flex-wrap">
+						<h3 className="font-serif text-xl sm:text-2xl font-semibold text-primary group-hover:text-primary-hover transition-colors">
+							<Link
+								href={href}
+								className="after:absolute after:inset-0 after:content-[''] focus:outline-none"
+							>
+								{session.title}
+							</Link>
+						</h3>
+
 						{session.urduTitle && (
-							<span className="font-urdu text-lg sm:text-xl text-brand-primary/70 font-semibold select-none dir-rtl">
+							<span className="font-urdu text-xl sm:text-2xl text-brand-gold font-bold dir-rtl select-none">
 								{session.urduTitle}
 							</span>
 						)}
 					</div>
 
-					{/* Discourse Thesis */}
+					{/* Thesis / Description */}
 					{(session.thesis || session.description) && (
-						<p className="font-serif text-sm sm:text-base text-brand-primary/80 leading-relaxed max-w-xl">
+						<p className="font-serif text-sm sm:text-base text-on-surface/85 leading-relaxed max-w-2xl">
 							{session.thesis || session.description}
 						</p>
 					)}
+				</div>
 
-					{/* Metadata */}
-					<div className="flex items-center text-xs text-brand-primary/60 font-sans tracking-wide">
-						<span>{formattedDate}</span>
-					</div>
+				{/* Right: Action Arrow */}
+				<div className="hidden lg:flex items-center justify-center self-center shrink-0 w-10 h-10 rounded-full bg-surface-container-low group-hover:bg-primary group-hover:text-brand-warm-white text-primary transition-all duration-300">
+					<ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
 				</div>
 			</div>
 		</article>

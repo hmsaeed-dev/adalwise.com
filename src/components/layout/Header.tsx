@@ -4,7 +4,18 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Search, Menu, X, Home, Scale, Video, Users, User, BookOpen, FileText } from "lucide-react";
+import {
+	Search,
+	Menu,
+	X,
+	Home,
+	Scale,
+	Video,
+	Users,
+	User,
+	BookOpen,
+	FileText,
+} from "lucide-react";
 import { mainNavItems } from "@/config/nav";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
@@ -55,9 +66,15 @@ export function Header() {
 				setIsSearchOpen((prev) => !prev);
 			}
 			if (e.key === "/" && !isSearchOpen) {
-				const activeTag = document.activeElement?.tagName?.toLowerCase();
-				const isEditable = (document.activeElement as HTMLElement)?.isContentEditable;
-				if (activeTag !== "input" && activeTag !== "textarea" && !isEditable) {
+				const activeTag =
+					document.activeElement?.tagName?.toLowerCase();
+				const isEditable = (document.activeElement as HTMLElement)
+					?.isContentEditable;
+				if (
+					activeTag !== "input" &&
+					activeTag !== "textarea" &&
+					!isEditable
+				) {
 					e.preventDefault();
 					setIsSearchOpen(true);
 				}
@@ -95,7 +112,12 @@ export function Header() {
 								alt={`${siteConfig.name} Emblem`}
 								width={36}
 								height={36}
-								className="w-full h-full object-contain rounded-full"
+								className={cn(
+									"w-full h-full object-contain rounded-full",
+									isTransparentHero
+										? "brightness-0 invert "
+										: "brightness-100",
+								)}
 								priority
 							/>
 						</div>
@@ -144,7 +166,6 @@ export function Header() {
 
 					{/* Action CTAs */}
 					<div className="flex items-center gap-2 shrink-0">
-
 						{/* Search Trigger */}
 						<button
 							type="button"
@@ -180,7 +201,6 @@ export function Header() {
 						>
 							<span>Join Us</span>
 						</Link>
-
 
 						{/* Mobile Hamburger Toggle */}
 						<button
@@ -250,13 +270,15 @@ export function Header() {
 												{item.href === "/" && (
 													<Home className="w-[18px] h-[18px] text-tertiary-container shrink-0" />
 												)}
-												{item.href === "/tarjuma-e-quran" && (
+												{item.href ===
+													"/tarjuma-e-quran" && (
 													<BookOpen className="w-[18px] h-[18px] text-tertiary-container shrink-0" />
 												)}
 												{item.href === "/lectures" && (
 													<Video className="w-[18px] h-[18px] text-tertiary-container shrink-0" />
 												)}
-												{item.href === "/lectures/notes" && (
+												{item.href ===
+													"/lectures/notes" && (
 													<FileText className="w-[18px] h-[18px] text-tertiary-container shrink-0" />
 												)}
 												{item.href === "/majlis" && (

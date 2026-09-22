@@ -51,7 +51,16 @@ export const MajlisSpeakerSchema = z.object({
 export const MajlisGalleryItemSchema = z.object({
 	url: z.string(),
 	caption: z.string().optional(),
-	category: z.enum(["gathering", "deliberation", "fellowship", "venue"]).optional(),
+	category: z
+		.enum([
+			"gathering",
+			"deliberation",
+			"fellowship",
+			"hospitality",
+			"assembly",
+			"venue",
+		])
+		.optional(),
 });
 
 export const MajlisKeyTakeawaySchema = z.object({
@@ -65,9 +74,12 @@ export const MajlisSessionSchema = z.object({
 	title: z.string(),
 	urduTitle: z.string().optional(),
 	date: z.string(),
+	time: z.string().optional(),
+	format: z.string().optional(),
 	location: z.string(),
 	venue: z.string().optional(),
 	theme: z.string().optional(),
+	urduTheme: z.string().optional(),
 	thesis: z.string().optional(),
 	description: z.string().optional(),
 	objective: z.string().optional(),
@@ -84,6 +96,8 @@ export const MajlisSessionSchema = z.object({
 	discussionPoints: z.array(z.string()).default([]),
 	keyInquiries: z.array(z.string()).default([]),
 	registrationUrl: z.string().optional(),
+	mapsUrl: z.string().optional(),
+	videoUrl: z.string().optional(),
 	gallery: z.array(MajlisGalleryItemSchema).default([]),
 	speakers: z.array(MajlisSpeakerSchema).default([]),
 	slidesUrl: z.string().optional(),

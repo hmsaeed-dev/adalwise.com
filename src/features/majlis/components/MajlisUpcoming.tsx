@@ -84,11 +84,6 @@ export function MajlisUpcoming({ doc }: MajlisUpcomingProps) {
 							>
 								{session.title}
 							</h2>
-							{session.urduTitle && (
-								<span className="font-urdu text-2xl sm:text-3xl text-brand-primary/80 font-bold select-none dir-rtl">
-									{session.urduTitle}
-								</span>
-							)}
 						</div>
 
 						{(session.thesis || session.description) && (

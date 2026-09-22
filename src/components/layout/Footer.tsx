@@ -6,7 +6,7 @@ import { footerNav } from "@/config/nav";
 
 export function Footer() {
 	return (
-		<footer className="w-full bg-surface-container-low px-gutter-mobile md:px-gutter-desktop pt-space-2xl pb-space-3xl mt-space-2xl text-on-surface  border-surface-container-high/40">
+		<footer className="w-full bg-primary px-gutter-mobile md:px-gutter-desktop pt-space-2xl pb-space-3xl mt-space-2xl text-brand-warm-white ">
 			<div className="max-w-container-max mx-auto flex flex-col gap-space-xl">
 				{/* Brand Bar */}
 				<div className="flex items-center justify-between pb-space-md  border-surface-container-highest">
@@ -17,11 +17,11 @@ export function Footer() {
 								alt={`${siteConfig.name} Crest`}
 								width={36}
 								height={36}
-								className="w-full h-full object-contain rounded-full"
+								className="brightness-0 invert w-full h-full object-contain rounded-full"
 							/>
 						</div>
 						<div className="flex flex-col">
-							<span className="font-headline-sm text-headline-sm text-primary font-bold tracking-wider uppercase leading-none">
+							<span className="font-headline-sm text-headline-sm text-brand-warm-white font-bold tracking-wider uppercase leading-none">
 								{siteConfig.name}
 							</span>
 						</div>
@@ -31,15 +31,15 @@ export function Footer() {
 				{/* Links Grid */}
 				<div className="grid grid-cols-2 md:grid-cols-3 gap-space-lg">
 					<div className="flex flex-col gap-space-xs">
-						<span className="font-label-md text-label-md text-primary font-bold uppercase tracking-wider">
+						<span className="font-label-md text-label-md text-brand-warm-white font-bold uppercase tracking-wider">
 							Holdings
 						</span>
-						<div className="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface-variant">
+						<div className="flex flex-col gap-space-xs font-body-sm text-body-sm text-brand-warm-white">
 							{footerNav.navigation.map((item) => (
 								<Link
 									key={item.href}
 									href={item.href}
-									className="hover:text-primary transition-colors"
+									className="hover:text-tertiary hover:underline transition-colors"
 								>
 									{item.title}
 								</Link>
@@ -48,15 +48,15 @@ export function Footer() {
 					</div>
 
 					<div className="flex flex-col gap-space-xs">
-						<span className="font-label-md text-label-md text-primary font-bold uppercase tracking-wider">
+						<span className="font-label-md text-label-md text-brand-warm-white font-bold uppercase tracking-wider">
 							Curriculum
 						</span>
-						<div className="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface-variant">
+						<div className="flex flex-col gap-space-xs font-body-sm text-body-sm text-brand-warm-white">
 							{footerNav.curriculum.map((item) => (
 								<Link
 									key={item.href}
 									href={item.href}
-									className="hover:text-primary transition-colors"
+									className="hover:text-tertiary hover:underline transition-colors"
 								>
 									{item.title}
 								</Link>
@@ -65,15 +65,15 @@ export function Footer() {
 					</div>
 
 					<div className="flex flex-col gap-space-xs">
-						<span className="font-label-md text-label-md text-primary font-bold uppercase tracking-wider">
+						<span className="font-label-md text-label-md text-brand-warm-white font-bold uppercase tracking-wider">
 							Initiative
 						</span>
-						<div className="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface-variant">
+						<div className="flex flex-col gap-space-xs font-body-sm text-body-sm text-brand-warm-white">
 							{footerNav.academy.map((item) => (
 								<Link
 									key={item.href}
 									href={item.href}
-									className="hover:text-primary transition-colors"
+									className="hover:text-tertiary hover:underline transition-colors"
 								>
 									{item.title}
 								</Link>
@@ -84,11 +84,11 @@ export function Footer() {
 
 				{/* Copyright & Meta */}
 				<div className="pt-space-md  border-surface-container-highest flex flex-col sm:flex-row items-center justify-between gap-space-xs text-center sm:text-left">
-					<p className="font-label-sm text-label-sm text-on-surface-variant text-[11px] tracking-wide">
+					<p className="font-label-sm text-label-sm text-brand-warm-white text-[11px] tracking-wide">
 						© {new Date().getFullYear()} Adlwise. All rights
 						reserved.
 					</p>
-					<span className="font-urdu text-[12px] text-tertiary">
+					<span className="font-urdu text-[18px] text-brand-warm-white">
 						عدل و حکمت
 					</span>
 				</div>
