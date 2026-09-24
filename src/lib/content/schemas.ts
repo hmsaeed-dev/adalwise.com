@@ -109,6 +109,7 @@ export const MajlisSessionSchema = z.object({
 });
 
 export type MajlisSession = z.infer<typeof MajlisSessionSchema>;
+export type MajlisKeyTakeaway = z.infer<typeof MajlisKeyTakeawaySchema>;
 
 export interface MajlisDoc {
 	slug: string;

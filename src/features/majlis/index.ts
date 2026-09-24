@@ -5,14 +5,8 @@ export { MajlisArchive } from "./components/MajlisArchive";
 export { MajlisArchiveItem } from "./components/MajlisArchiveItem";
 export { MajlisChrono } from "./components/MajlisChrono";
 
-// Majlis Slug Detail Components
+// Majlis Slug Detail Components (Consolidated Editorial Architecture)
 export { MajlisDetailHeader } from "./components/detail/MajlisDetailHeader";
-export { MajlisDetailMedia } from "./components/detail/MajlisDetailMedia";
-export { MajlisDetailCharter } from "./components/detail/MajlisDetailCharter";
-export { MajlisDetailExperience } from "./components/detail/MajlisDetailExperience";
-export { MajlisDetailGallery } from "./components/detail/MajlisDetailGallery";
-export { MajlisDetailSpeakers } from "./components/detail/MajlisDetailSpeakers";
-export { MajlisDetailTakeaways } from "./components/detail/MajlisDetailTakeaways";
-export { MajlisDetailMaterials } from "./components/detail/MajlisDetailMaterials";
-export { MajlisDetailProceedings } from "./components/detail/MajlisDetailProceedings";
+export { MajlisDetailBriefing } from "./components/detail/MajlisDetailBriefing";
+export { MajlisDetailChronicle } from "./components/detail/MajlisDetailChronicle";
 export { MajlisDetailFooter } from "./components/detail/MajlisDetailFooter";

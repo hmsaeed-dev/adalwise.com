@@ -32,13 +32,10 @@ export function MajlisChrono({ sessions }: MajlisChronoProps) {
 					latestCompleted && <MajlisFeaturedArchive doc={latestCompleted} />
 				)}
 
-				{/* Complete Chronological Archive of All Gatherings */}
-				<MajlisArchive sessions={sessions} />
-
 				{/* Institutional Manifesto: The Spirit of Majlis */}
 				<section
 					aria-labelledby="spirit-of-majlis-heading"
-					className="relative rounded-3xl overflow-hidden bg-surface-container-low border border-surface-container-high/80 p-8 sm:p-10 md:p-12"
+					className="relative rounded-3xl overflow-hidden p-8 sm:p-10 md:p-12"
 				>
 					<div className="max-w-3xl space-y-5">
 
@@ -47,15 +44,15 @@ export function MajlisChrono({ sessions }: MajlisChronoProps) {
 								id="spirit-of-majlis-heading"
 								className="font-serif text-2xl sm:text-3xl md:text-4xl font-semibold text-primary leading-tight"
 							>
-								Reviving the Classical Suhbah: Deliberation, Text &amp; Shared Bread
+								Reviving the Classical Suhbah
 							</h3>
 						</div>
 
-						<p className="font-serif italic text-base sm:text-lg text-primary/80 leading-relaxed">
-							&ldquo;A Majlis is neither a passive lecture hall nor an academic formality. It is an authentic return to the classical tradition of living companionship—where scholars, legal minds, students, and youth break bread together on the dastarkhwan, examine primary texts, and deliberate the structural renewal of society.&rdquo;
+						<p className="font-serif text-base sm:text-lg text-primary/80 leading-relaxed">
+							A Majlis is neither a passive lecture hall nor an academic formality. It is an authentic return to the classical tradition of living companionship—where scholars, legal minds, students, and youth break bread together on the dastarkhwan, examine primary texts, and deliberate the structural renewal of society.
 						</p>
 
-						<div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-surface-container-high">
+						<div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
 							<div className="flex items-start gap-3">
 								<Coffee className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" />
 								<div>
@@ -96,7 +93,7 @@ export function MajlisChrono({ sessions }: MajlisChronoProps) {
 						<div className="pt-3">
 							<Link
 								href="/join"
-								className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-primary hover:text-brand-gold transition-colors"
+								className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary hover:text-brand-gold transition-colors"
 							>
 								<span>Join Us</span>
 								<ArrowRight className="w-4 h-4" />
@@ -104,6 +101,10 @@ export function MajlisChrono({ sessions }: MajlisChronoProps) {
 						</div>
 					</div>
 				</section>
+
+				{/* Complete Chronological Archive of All Gatherings */}
+				<MajlisArchive sessions={sessions} />
+
 			</div>
 		</div>
 	);

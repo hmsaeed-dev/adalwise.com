@@ -7,14 +7,8 @@ import { BreadcrumbJsonLd } from "@/lib/seo/jsonld";
 import { siteConfig } from "@/config/site";
 import {
 	MajlisDetailHeader,
-	MajlisDetailMedia,
-	MajlisDetailCharter,
-	MajlisDetailExperience,
-	MajlisDetailGallery,
-	MajlisDetailSpeakers,
-	MajlisDetailTakeaways,
-	MajlisDetailMaterials,
-	MajlisDetailProceedings,
+	MajlisDetailBriefing,
+	MajlisDetailChronicle,
 	MajlisDetailFooter,
 } from "@/features/majlis";
 
@@ -80,12 +74,8 @@ export default async function MajlisSessionDetailPage({ params }: PageProps) {
 	const nextSession =
 		currentIndex < allSessions.length - 1 ? allSessions[currentIndex + 1] : null;
 
-	const hasRetreatSchedule =
-		session.number === "03" ||
-		Boolean(session.format?.toLowerCase().includes("retreat"));
-
 	return (
-		<article className="w-full max-w-5xl mx-auto px-4 sm:px-6 md:px-8 py-8 sm:py-12 md:py-16 flex flex-col gap-10 sm:gap-14 md:gap-16">
+		<article className="w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-8 sm:py-12 md:py-16 flex flex-col gap-10 sm:gap-14 md:gap-16">
 			<BreadcrumbJsonLd
 				items={[
 					{ name: "Home", url: siteConfig.url },
@@ -97,55 +87,23 @@ export default async function MajlisSessionDetailPage({ params }: PageProps) {
 				]}
 			/>
 
-			{/* 1. Header & Navigation */}
+			{/* Act 1: Unified Masthead & Video Dispatch */}
 			<MajlisDetailHeader session={session} />
 
-			{/* 2. Media Masthead & Video Dispatch */}
-			<MajlisDetailMedia session={session} />
+			{/* Act 2: The Core Deliberation Briefing (Inquiries + Takeaways) */}
+			<MajlisDetailBriefing
+				takeaways={session.keyTakeaways}
+				inquiries={inquiries}
+			/>
 
-			{/* 3. Charter of Deliberation */}
-			{session.objective && (
-				<MajlisDetailCharter objective={session.objective} />
-			)}
+			{/* Act 3: Living Chronicle & Companion Resources */}
+			<MajlisDetailChronicle
+				session={session}
+				content={content}
+				relatedLectures={relatedLectures}
+			/>
 
-			{/* 4. The Experience (Retreat Anatomy) */}
-			{hasRetreatSchedule && <MajlisDetailExperience />}
-
-			{/* 5. Photographic Chronicle */}
-			{session.gallery && session.gallery.length > 0 && (
-				<MajlisDetailGallery gallery={session.gallery} />
-			)}
-
-			{/* 6. Speakers & Deliberation Panel */}
-			{session.speakers && session.speakers.length > 0 && (
-				<MajlisDetailSpeakers speakers={session.speakers} />
-			)}
-
-			{/* 7. Key Points & Juristic Takeaways */}
-			{((session.keyTakeaways && session.keyTakeaways.length > 0) ||
-				inquiries.length > 0) && (
-				<MajlisDetailTakeaways
-					takeaways={session.keyTakeaways}
-					inquiries={inquiries}
-				/>
-			)}
-
-			{/* 8. Deliberation Materials & Video Lectures */}
-			{(session.slidesUrl ||
-				session.workingPaperUrl ||
-				relatedLectures.length > 0) && (
-				<MajlisDetailMaterials
-					session={session}
-					relatedLectures={relatedLectures}
-				/>
-			)}
-
-			{/* 9. Full Proceedings Text */}
-			{content && content.trim().length > 0 && (
-				<MajlisDetailProceedings content={content} />
-			)}
-
-			{/* 10. Footer Navigation */}
+			{/* Act 4: Colophon & Session Navigation */}
 			<MajlisDetailFooter
 				prevSession={prevSession}
 				nextSession={nextSession}

@@ -49,12 +49,9 @@ export function MajlisFeaturedArchive({ doc }: MajlisFeaturedArchiveProps) {
 				<div className="flex items-center gap-2.5">
 					<span className="w-2 h-2 rounded-full bg-brand-gold" aria-hidden="true" />
 					<span className="font-mono text-xs uppercase tracking-[0.25em] font-semibold text-primary">
-						Latest Gathering
+						Latest Majlis
 					</span>
 				</div>
-				<span className="text-xs font-mono text-on-surface-variant/80 uppercase tracking-wider">
-					Session {session.number || "03"}
-				</span>
 			</div>
 
 			{/* Main Editorial Card Container */}
@@ -106,13 +103,6 @@ export function MajlisFeaturedArchive({ doc }: MajlisFeaturedArchiveProps) {
 							{session.theme && (
 								<p className="text-sm sm:text-base font-sans font-medium text-brand-gold tracking-wide">
 									{session.theme}
-								</p>
-							)}
-
-							{/* Thesis / Abstract */}
-							{(session.thesis || session.description) && (
-								<p className="font-serif italic text-base sm:text-lg text-brand-warm-white/85 leading-relaxed">
-									&ldquo;{session.thesis || session.description}&rdquo;
 								</p>
 							)}
 

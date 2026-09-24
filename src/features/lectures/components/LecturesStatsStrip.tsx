@@ -11,7 +11,7 @@ interface StatItem {
 const STATS_DATA: StatItem[] = [
 	{ value: 507, decimals: 0, label: "Hours" },
 	{ value: 88256, decimals: 0, label: "Views" },
-	{ value: 4258, decimals: 0, label: "Watch Hours" },
+	{ value: 4258, decimals: 0, label: "Watch Hrs" },
 ];
 
 function formatNumber(num: number, decimals: number): string {
@@ -107,14 +107,6 @@ export function LecturesStatsStrip() {
 				<div className="flex items-center justify-around sm:justify-center sm:gap-10 md:gap-14 lg:gap-20">
 					{STATS_DATA.map((stat, idx) => (
 						<React.Fragment key={stat.label}>
-							{idx > 0 && (
-								<span
-									aria-hidden="true"
-									className="text-on-surface-variant/30 text-xs sm:text-sm select-none shrink-0"
-								>
-									•
-								</span>
-							)}
 							<div className="flex flex-col sm:flex-row items-center sm:items-baseline gap-0.5 sm:gap-2 whitespace-nowrap">
 								<span
 									className="font-serif text-lg sm:text-xl md:text-2xl font-bold text-primary tracking-tight tabular-nums leading-none select-none"

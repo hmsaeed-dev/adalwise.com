@@ -41,7 +41,7 @@ export function MajlisHero({
         {/* Bilingual Header: Urdu Nastaliq */}
         <div className="flex items-center justify-center gap-3 sm:gap-4 mb-3 sm:mb-4 animate-fade-in-up flex-wrap">
           <h1 className="font-urdu text-6xl sm:text-7xl md:text-8xl md:mb-6 text-brand-warm-white font-bold leading-none dir-rtl select-none drop-shadow-sm">
-            مجلسِ مکالمہ
+            مجلسِ
           </h1>
         </div>
 

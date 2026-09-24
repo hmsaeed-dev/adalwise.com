@@ -220,11 +220,6 @@ export default async function SearchPage({ searchParams }: PageProps) {
 				</div>
 			) : (
 				<div className="w-full max-w-2xl mx-auto flex flex-col gap-3">
-					{results[0]?.isRelaxedMatch && (
-						<div className="px-4 py-2.5 rounded-xl bg-surface-container/50 border border-surface-container-high/60 text-xs text-on-surface-variant font-medium">
-							No exact match found for all terms. Showing closest matching holdings:
-						</div>
-					)}
 					{results.map((res: SearchResult) => {
 						const typeLabels: Record<
 							string,
