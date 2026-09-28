@@ -10,14 +10,14 @@ interface AcademicCitationButtonProps {
 	className?: string;
 }
 
-type CitationFormat = "apa" | "chicago" | "mla" | "bibtex" | "plain";
+type CitationFormat = "plain";
 
 export function AcademicCitationButton({
 	lecture,
 	className,
 }: AcademicCitationButtonProps) {
 	const [isOpen, setIsOpen] = useState(false);
-	const [format, setFormat] = useState<CitationFormat>("apa");
+	const [format, setFormat] = useState<CitationFormat>("plain");
 	const [copied, setCopied] = useState(false);
 
 	const cleanTitle = useMemo(() => {
@@ -60,22 +60,6 @@ export function AcademicCitationButton({
 		const citeKey = `haseeb${year}_${lecture.slug.replace(/[^a-zA-Z0-9]/g, "_").slice(0, 30)}`;
 
 		return {
-			apa: {
-				label: "APA (7th)",
-				text: `Haseeb, H. (${year}). ${cleanTitle} [Video discourse]. Adlwise Archives. ${lectureUrl}`,
-			},
-			chicago: {
-				label: "Chicago (17th)",
-				text: `Haseeb, Hafiz. "${cleanTitle}." Video lecture, ${year}. Adlwise Archives, ${lectureUrl}.`,
-			},
-			mla: {
-				label: "MLA (9th)",
-				text: `Haseeb, Hafiz. "${cleanTitle}." Adlwise Archives, ${dateFormatted}, ${lectureUrl}.`,
-			},
-			bibtex: {
-				label: "BibTeX",
-				text: `@misc{${citeKey},\n  author = {Hafiz Haseeb},\n  title = {{${cleanTitle}}},\n  year = {${year}},\n  month = {${monthShort}},\n  howpublished = {Adlwise Archives},\n  url = {${lectureUrl}}\n}`,
-			},
 			plain: {
 				label: "Plain Text",
 				text: `Dr. Hafiz Haseeb. "${cleanTitle}" (${year}). Adlwise Digital Humanities Archives: ${lectureUrl}`,
@@ -114,7 +98,7 @@ export function AcademicCitationButton({
 				title="Cite this academic discourse"
 			>
 				<Quote className="w-3.5 h-3.5 text-brand-gold transition-transform group-hover:rotate-12" />
-				<span>Cite Discourse</span>
+				<span>Cite</span>
 			</button>
 
 			{isOpen && (
@@ -130,7 +114,7 @@ export function AcademicCitationButton({
 						onClick={(e) => e.stopPropagation()}
 					>
 						{/* Header */}
-						<div className="flex items-center justify-between gap-2 border-b border-surface-container pb-3">
+						<div className="flex items-center justify-between gap-2pb-3">
 							<div className="flex items-center gap-2">
 								<div className="w-8 h-8 rounded-full bg-brand-gold/15 text-brand-gold flex items-center justify-center">
 									<BookMarked className="w-4 h-4" />
@@ -142,9 +126,6 @@ export function AcademicCitationButton({
 									>
 										Academic Citation
 									</h2>
-									<p className="text-[11px] text-on-surface-variant font-sans">
-										Export standardized citation for research treatises
-									</p>
 								</div>
 							</div>
 							<button
@@ -157,29 +138,6 @@ export function AcademicCitationButton({
 							</button>
 						</div>
 
-						{/* Format Tabs */}
-						<div className="flex items-center gap-1.5 overflow-x-auto pb-1">
-							{(["apa", "chicago", "mla", "bibtex", "plain"] as CitationFormat[]).map(
-								(f) => {
-									const active = format === f;
-									return (
-										<button
-											key={f}
-											type="button"
-											onClick={() => setFormat(f)}
-											className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-colors shrink-0 cursor-pointer ${
-												active
-													? "bg-primary text-brand-warm-white shadow-xs"
-													: "bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-primary"
-											}`}
-										>
-											{citations[f].label}
-										</button>
-									);
-								}
-							)}
-						</div>
-
 						{/* Citation Box */}
 						<div className="relative p-4 rounded-2xl bg-surface-container-low border border-surface-container-high text-xs font-mono leading-relaxed text-on-surface select-all break-words whitespace-pre-wrap max-h-48 overflow-y-auto">
 							{citations[format].text}
@@ -187,10 +145,6 @@ export function AcademicCitationButton({
 
 						{/* Actions */}
 						<div className="flex items-center justify-between gap-3 pt-1">
-							<div className="flex items-center gap-1 text-[11px] text-on-surface-variant font-sans">
-								<Sparkles className="w-3 h-3 text-brand-gold" />
-								<span>Adlwise Scholarly Repository</span>
-							</div>
 
 							<button
 								type="button"
@@ -204,12 +158,12 @@ export function AcademicCitationButton({
 								{copied ? (
 									<>
 										<Check className="w-3.5 h-3.5" />
-										<span>Copied to Clipboard!</span>
+										<span>Copy</span>
 									</>
 								) : (
 									<>
 										<Copy className="w-3.5 h-3.5" />
-										<span>Copy {citations[format].label}</span>
+										<span>Copy</span>
 									</>
 								)}
 							</button>

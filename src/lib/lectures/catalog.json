@@ -1,5 +1,59 @@
 [
   {
+    "id": "yt-CdYzxfATL6E",
+    "slug": "ryasat-e-madina-statecraft-institutions",
+    "youtubeId": "CdYzxfATL6E",
+    "title": "Ryasat e Madina | Statecraft & Institutions",
+    "urduTitle": "ریاست و سیاست",
+    "speakerId": "dr-hafiz-haseeb",
+    "description": "📌 KEY POINTS\n\n\n\n⏱ TIMESTAMPS\n\n\n\nREFERENCES\n\n\n\n🔗 LINKS\n\n🔔 Subscribe:\n\n\n▶ Playlists:\n\n#HASHTAGS",
+    "summary": "📌 KEY POINTS ⏱ TIMESTAMPS REFERENCES 🔗 LINKS 🔔 Subscribe: ▶ Playlists: #HASHTAGS",
+    "durationSeconds": 3469,
+    "publishedAt": "2026-09-27T08:43:42Z",
+    "thumbnailUrl": "https://i.ytimg.com/vi/CdYzxfATL6E/maxresdefault.jpg",
+    "category": "Statecraft",
+    "domainId": "constitutional-law",
+    "format": "Standalone Keynote",
+    "isCoursework": false,
+    "isKhutba": false,
+    "topics": [
+      "Statecraft",
+      "constitutional-law"
+    ],
+    "tags": [
+      "Statecraft",
+      "constitutional-law"
+    ],
+    "relatedArticleSlugs": []
+  },
+  {
+    "id": "yt-_L5pt4EhBEg",
+    "slug": "03-the-hijrah",
+    "youtubeId": "_L5pt4EhBEg",
+    "title": "03- The Hijrah | بیعت عقبہ و میثاق مدینہ",
+    "urduTitle": "بیعت عقبہ و میثاق مدینہ",
+    "speakerId": "dr-hafiz-haseeb",
+    "description": "📌 KEY POINTS\n\n\n\n⏱ TIMESTAMPS\n\n\n\nREFERENCES\n\n\n\n🔗 LINKS\n\n🔔 Subscribe:\n\n\n▶ Playlists:\n\n#HASHTAGS",
+    "summary": "📌 KEY POINTS ⏱ TIMESTAMPS REFERENCES 🔗 LINKS 🔔 Subscribe: ▶ Playlists: #HASHTAGS",
+    "durationSeconds": 3886,
+    "publishedAt": "2026-09-24T07:52:24Z",
+    "thumbnailUrl": "https://i.ytimg.com/vi/_L5pt4EhBEg/maxresdefault.jpg",
+    "category": "Seerat",
+    "domainId": "seerah",
+    "format": "Standalone Keynote",
+    "isCoursework": false,
+    "isKhutba": false,
+    "topics": [
+      "Seerat",
+      "seerah"
+    ],
+    "tags": [
+      "Seerat",
+      "seerah"
+    ],
+    "relatedArticleSlugs": []
+  },
+  {
     "id": "yt-CdCbvPohFD4",
     "slug": "earn-halal-earn-well-this-life-hereafter",
     "youtubeId": "CdCbvPohFD4",
@@ -3696,6 +3750,49 @@
     ],
     "relatedArticleSlugs": [],
     "speakerId": "dr-hafiz-haseeb"
+  },
+  {
+    "id": "yt-P5nE1i1m2mQ",
+    "slug": "1-sorat-fatiha-baqara-dora-quran-2026",
+    "youtubeId": "P5nE1i1m2mQ",
+    "title": "1. Sorat Fatiha & Baqara # Dora Quran 2026",
+    "urduTitle": "فہمِ قرآن و تفسیر",
+    "speakerId": "dr-hafiz-haseeb",
+    "description": "#quran #ramazan #tarjuma #tarjumaequran #muhammad \nA complete translation & short explanation of the Holy Quran; the Book of our only Lord; ALLAH.\nPlease subscribe to our channel And Press the bell Button.\nAlso, like our videos and share them with family and friends...",
+    "summary": "#quran #ramazan #tarjuma #tarjumaequran #muhammad A complete translation & short explanation of the Holy Quran; the Book of our only Lord; ALLAH.",
+    "durationSeconds": 0,
+    "publishedAt": "2026-02-15T02:54:09Z",
+    "thumbnailUrl": "https://i.ytimg.com/vi/P5nE1i1m2mQ/maxresdefault_live.jpg",
+    "category": "Tafsir",
+    "domainId": "tafsir",
+    "format": "Serial Coursework",
+    "seriesId": "tarjuma-e-quran-course",
+    "isCoursework": true,
+    "isKhutba": false,
+    "topics": [
+      "Quran",
+      "Tarjuma",
+      "Translation",
+      "Tafseer",
+      "Seerat"
+    ],
+    "tags": [
+      "Quran",
+      "Tarjuma",
+      "Translation",
+      "Tafseer",
+      "Seerat",
+      "Dora Tarjuma Quran"
+    ],
+    "relatedArticleSlugs": [],
+    "quranContext": {
+      "surahNumber": 1,
+      "surahNameEnglish": "Al-Fatiha to Al-Baqarah",
+      "surahNameUrdu": "سورۃ الفاتحہ تا سورۃ البقرہ",
+      "juzNumber": 1,
+      "surahEndNumber": 2,
+      "juzEndNumber": 3
+    }
   },
   {
     "id": "yt-0cthinX6KYk",
