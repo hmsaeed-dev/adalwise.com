@@ -1076,6 +1076,10 @@ function generateMarkdownReport(report) {
 	}
 	md += `\n`;
 
+	const reportDir = path.dirname(reportPath);
+	if (!fs.existsSync(reportDir)) {
+		fs.mkdirSync(reportDir, { recursive: true });
+	}
 	fs.writeFileSync(reportPath, md, "utf8");
 	console.log(`[INFO] Written complete audit report to ${path.relative(ROOT_DIR, reportPath)}`);
 

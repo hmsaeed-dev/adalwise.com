@@ -665,13 +665,29 @@ async function sync() {
         if (!videoId) continue;
 
         // Strictly preserve existing catalogue items - never modify, update or re-evaluate them!
+        // (Except if an entry was recorded with invalid 0 duration)
         if (existingMap.has(videoId)) {
-            syncedVideos.set(videoId, existingMap.get(videoId));
+            const existing = existingMap.get(videoId);
+            if (!existing.durationSeconds || existing.durationSeconds <= 0) {
+                console.warn(`[PURGE] Skipping invalid 0-duration entry from catalogue: ${existing.slug || videoId}`);
+                continue;
+            }
+            syncedVideos.set(videoId, existing);
             continue;
         }
 
         const video = videoDetails.get(videoId);
         if (!video) continue;
+
+        // Skip upcoming/live broadcasts or videos where YouTube has not processed duration yet
+        const rawDuration = video.contentDetails?.duration;
+        const durationSeconds = rawDuration ? parseIsoDuration(rawDuration) : 0;
+        const liveBroadcast = video.snippet?.liveBroadcastContent;
+
+        if (liveBroadcast === "upcoming" || liveBroadcast === "live" || durationSeconds <= 0) {
+            console.log(`[SKIP] Skipping unprocessed or live broadcast: ${video.snippet?.title || videoId} (duration: ${durationSeconds}s)`);
+            continue;
+        }
 
         // Only check shorts for brand-new incoming videos
         if (isLikelyShort(video)) {
@@ -690,6 +706,10 @@ async function sync() {
 
     for (const [videoId, existing] of existingMap) {
         if (!syncedVideos.has(videoId)) {
+            if (!existing.durationSeconds || existing.durationSeconds <= 0) {
+                console.warn(`[PURGE] Removing invalid 0-duration entry from catalog: ${existing.slug || videoId}`);
+                continue;
+            }
             syncedVideos.set(videoId, existing);
         }
     }
