@@ -36,10 +36,17 @@ export interface MiniSearchDocument {
 
 let cachedEngine: MiniSearch<MiniSearchDocument> | null = null;
 let cachedDocumentsMap: Map<string, SearchResult> | null = null;
+let buildIndexPromise: Promise<{
+	engine: MiniSearch<MiniSearchDocument>;
+	docsMap: Map<string, SearchResult>;
+}> | null = null;
+let cachedLightweightCatalog: ClientSearchItem[] | null = null;
 
 export function invalidateSearchPoolCache(): void {
 	cachedEngine = null;
 	cachedDocumentsMap = null;
+	buildIndexPromise = null;
+	cachedLightweightCatalog = null;
 }
 
 async function buildSearchIndex(): Promise<{
@@ -49,96 +56,97 @@ async function buildSearchIndex(): Promise<{
 	if (cachedEngine && cachedDocumentsMap) {
 		return { engine: cachedEngine, docsMap: cachedDocumentsMap };
 	}
-
-	const [articles, lectureList, majlisList] = await Promise.all([
-		getAllArticles(),
-		getAllLectures(),
-		getAllMajlisSessions(),
-	]);
-
-	const docsMap = new Map<string, SearchResult>();
-	const searchDocs: MiniSearchDocument[] = [];
-
-	// 1. Articles (Twasi al-Haq)
-	for (const article of articles) {
-		const docId = `art-${article.slug}`;
-		const title = article.frontmatter.title || "";
-		const urduTitle = article.frontmatter.urduTitle || "";
-		const excerpt = article.frontmatter.excerpt || "";
-		const tagsList = article.frontmatter.tags || [];
-		const category = article.frontmatter.category || "Article";
-
-		const allText = [title, urduTitle, excerpt, category, ...tagsList, article.content]
-			.filter(Boolean)
-			.join(" ");
-
-		const synonyms = getSynonymsForText(allText).join(" ");
-
-		const searchResult: SearchResult = {
-			type: "article",
-			id: article.slug,
-			title,
-			urduTitle: urduTitle || undefined,
-			url: `/twasi-al-haq/${article.slug}`,
-			excerpt,
-			category,
-			tags: tagsList,
-			date: formatISODate(article.frontmatter.publishedAt),
-			meta: article.frontmatter.readTime,
-			slug: article.slug,
-		};
-
-		docsMap.set(docId, searchResult);
-		searchDocs.push({
-			id: docId,
-			type: "article",
-			title,
-			urduTitle,
-			cleanUrduTitle: normalizeUrduArabic(urduTitle),
-			excerpt,
-			category,
-			domainId: "articles",
-			tags: tagsList.join(" "),
-			synonyms,
-			corpus: article.content.slice(0, 5000),
-			url: searchResult.url,
-			date: searchResult.date,
-			meta: searchResult.meta,
-			slug: article.slug,
-		});
+	if (buildIndexPromise) {
+		return buildIndexPromise;
 	}
 
-	// 2. Lectures (Audio & Video Catalog)
-	for (const lecture of lectureList) {
-		const docId = `lec-${lecture.slug}`;
-		const title = lecture.title || "";
-		const urduTitle = lecture.urduTitle || "";
-		const excerpt = lecture.description || "";
-		const tagsList = lecture.tags || [];
-		const topicsList = lecture.topics || [];
-		const category = lecture.category || "Lecture";
-		const domainId = lecture.domainId || "";
-		const isCoursework = Boolean(lecture.isCoursework);
+	buildIndexPromise = (async () => {
+		const [articles, lectureList, majlisList] = await Promise.all([
+			getAllArticles(),
+			getAllLectures(),
+			getAllMajlisSessions(),
+		]);
 
-		const url = isCoursework
-			? `/tarjuma-e-quran?session=${lecture.slug}`
-			: `/lectures/${lecture.slug}`;
+		const docsMap = new Map<string, SearchResult>();
+		const searchDocs: MiniSearchDocument[] = [];
 
-		const allText = [
-			title,
-			urduTitle,
-			excerpt,
-			category,
-			domainId,
-			lecture.seriesTitle,
-			lecture.searchText,
-			...topicsList,
-			...tagsList,
-		]
-			.filter(Boolean)
-			.join(" ");
+		// 1. Articles (Twasi al-Haq)
+		for (const article of articles) {
+			const docId = `art-${article.slug}`;
+			const title = article.frontmatter.title || "";
+			const urduTitle = article.frontmatter.urduTitle || "";
+			const excerpt = article.frontmatter.excerpt || "";
+			const tagsList = article.frontmatter.tags || [];
+			const category = article.frontmatter.category || "Article";
 
-		const synonyms = getSynonymsForText(allText).join(" ");
+			const coreText = [title, urduTitle, category, ...tagsList]
+				.filter(Boolean)
+				.join(" ");
+			const synonyms = getSynonymsForText(coreText).join(" ");
+
+			const searchResult: SearchResult = {
+				type: "article",
+				id: article.slug,
+				title,
+				urduTitle: urduTitle || undefined,
+				url: `/twasi-al-haq/${article.slug}`,
+				excerpt,
+				category,
+				tags: tagsList,
+				date: formatISODate(article.frontmatter.publishedAt),
+				meta: article.frontmatter.readTime,
+				slug: article.slug,
+			};
+
+			docsMap.set(docId, searchResult);
+			searchDocs.push({
+				id: docId,
+				type: "article",
+				title,
+				urduTitle,
+				cleanUrduTitle: normalizeUrduArabic(urduTitle),
+				excerpt,
+				category,
+				domainId: "articles",
+				tags: tagsList.join(" "),
+				synonyms,
+				corpus: article.content.slice(0, 5000),
+				url: searchResult.url,
+				date: searchResult.date,
+				meta: searchResult.meta,
+				slug: article.slug,
+			});
+		}
+
+		// 2. Lectures (Audio & Video Catalog)
+		for (const lecture of lectureList) {
+			const docId = `lec-${lecture.slug}`;
+			const title = lecture.title || "";
+			const urduTitle = lecture.urduTitle || "";
+			const excerpt = lecture.description || "";
+			const tagsList = lecture.tags || [];
+			const topicsList = lecture.topics || [];
+			const category = lecture.category || "Lecture";
+			const domainId = lecture.domainId || "";
+			const isCoursework = Boolean(lecture.isCoursework);
+
+			const url = isCoursework
+				? `/tarjuma-e-quran?session=${lecture.slug}`
+				: `/lectures/${lecture.slug}`;
+
+			const coreText = [
+				title,
+				urduTitle,
+				category,
+				domainId,
+				lecture.seriesTitle,
+				...topicsList,
+				...tagsList,
+			]
+				.filter(Boolean)
+				.join(" ");
+
+			const synonyms = getSynonymsForText(coreText).join(" ");
 
 		const searchResult: SearchResult = {
 			type: "lectures",
@@ -327,6 +335,9 @@ async function buildSearchIndex(): Promise<{
 	cachedDocumentsMap = docsMap;
 
 	return { engine, docsMap };
+	})();
+
+	return buildIndexPromise;
 }
 
 export class MiniSearchProvider implements SearchProvider {
@@ -450,22 +461,99 @@ export interface ClientSearchItem {
 }
 
 export async function getSearchCatalogLightweight(): Promise<ClientSearchItem[]> {
-	const { docsMap } = await buildSearchIndex();
+	if (cachedLightweightCatalog) {
+		return cachedLightweightCatalog;
+	}
+
+	if (cachedDocumentsMap) {
+		const items: ClientSearchItem[] = [];
+		for (const doc of cachedDocumentsMap.values()) {
+			items.push({
+				id: doc.id,
+				type: doc.type,
+				title: doc.title,
+				urduTitle: doc.urduTitle,
+				url: doc.url,
+				category: doc.category,
+				meta: doc.meta,
+				isCoursework: doc.isCoursework,
+				slug: doc.slug,
+				tags: doc.tags,
+			});
+		}
+		cachedLightweightCatalog = items;
+		return cachedLightweightCatalog;
+	}
+
+	const [articles, lectureList, majlisList] = await Promise.all([
+		getAllArticles(),
+		getAllLectures(),
+		getAllMajlisSessions(),
+	]);
+
 	const items: ClientSearchItem[] = [];
-	for (const doc of docsMap.values()) {
+
+	for (const article of articles) {
 		items.push({
-			id: doc.id,
-			type: doc.type,
-			title: doc.title,
-			urduTitle: doc.urduTitle,
-			url: doc.url,
-			category: doc.category,
-			meta: doc.meta,
-			isCoursework: doc.isCoursework,
-			slug: doc.slug,
-			tags: doc.tags,
+			id: `art-${article.slug}`,
+			type: "article",
+			title: article.frontmatter.title || "",
+			urduTitle: article.frontmatter.urduTitle || undefined,
+			url: `/twasi-al-haq/${article.slug}`,
+			category: article.frontmatter.category || "Article",
+			meta: article.frontmatter.readTime,
+			slug: article.slug,
+			tags: article.frontmatter.tags,
 		});
 	}
-	return items;
+
+	for (const lecture of lectureList) {
+		const isCoursework = Boolean(lecture.isCoursework);
+		items.push({
+			id: `lec-${lecture.slug}`,
+			type: "lectures",
+			title: lecture.title || "",
+			urduTitle: lecture.urduTitle || undefined,
+			url: isCoursework
+				? `/tarjuma-e-quran?session=${lecture.slug}`
+				: `/lectures/${lecture.slug}`,
+			category: lecture.category || "Lecture",
+			meta: formatDuration(lecture.durationSeconds),
+			isCoursework,
+			slug: lecture.slug,
+			tags: lecture.tags,
+		});
+	}
+
+	for (const majlis of majlisList) {
+		items.push({
+			id: `maj-${majlis.slug}`,
+			type: "majlis",
+			title: majlis.session.title || "",
+			urduTitle: majlis.session.urduTitle || undefined,
+			url: `/majlis/${majlis.slug}`,
+			category: "Majlis",
+			meta: majlis.session.location,
+			slug: majlis.slug,
+			tags: ["Majlis", "Lahore"],
+		});
+	}
+
+	for (const note of STUDY_NOTES_REGISTRY) {
+		items.push({
+			id: `note-${note.id}`,
+			type: "note",
+			title: note.title || "",
+			urduTitle: note.urduTitle || undefined,
+			url: `/lectures/notes`,
+			category: note.category || "Study Note",
+			meta: note.type.toUpperCase(),
+			slug: note.id,
+			tags: [note.category, note.type],
+		});
+	}
+
+	cachedLightweightCatalog = items;
+	return cachedLightweightCatalog;
 }
 

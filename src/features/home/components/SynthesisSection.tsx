@@ -46,35 +46,16 @@ export function SynthesisSection() {
 			<div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
 				{/* LEFT: Archival / Abstract Visual Anchor Plate */}
 				<div className="lg:col-span-5 flex flex-col">
-					<div className="relative w-full h-[320px] sm:h-[380px] lg:h-full min-h-[320px] lg:min-h-[440px] rounded-[20px] md:rounded-[24px] overflow-hidden border border-surface-container-high/80 bg-primary shadow-sm flex flex-col justify-between p-6 sm:p-8 select-none group">
+					<div className="relative w-full h-[320px] sm:h-[380px] lg:h-full min-h-[320px] lg:min-h-[440px] rounded-[20px] md:rounded-[24px] overflow-hidden flex flex-col justify-between p-6 sm:p-8 select-none group">
 						{/* Archival Artwork with Duotone Treatment */}
 						<div className="absolute inset-0 z-0">
 							<Image
-								src="/images/twasi.jpg"
+								src="/images/haseeb-02.jpg"
 								alt="Archival treatises and scholastic notations"
 								fill
 								sizes="(max-width: 1024px) 100vw, 40vw"
-								className="object-cover object-center grayscale contrast-125 opacity-30 mix-blend-luminosity group-hover:scale-105 transition-transform duration-700 ease-out"
+								className="object-cover object-top"
 							/>
-							{/* Duotone Gradient Overlay in Brand Primary Forest Green */}
-							<div className="absolute inset-0 bg-gradient-to-t from-[#00261a] via-[#00261a]/85 to-[#00261a]/60" />
-							{/* Hairline Inner Frame for Archival Plate Look */}
-							<div className="absolute inset-3 border border-tertiary-fixed/15 rounded-[14px] pointer-events-none" />
-						</div>
-
-						{/* Center Watermark Crest */}
-						<div className="relative z-10 flex flex-col items-center justify-center my-auto py-6 opacity-35 group-hover:opacity-55 transition-opacity duration-500">
-							<div className="w-16 h-16 rounded-full border border-brand-gold/40 flex items-center justify-center p-3">
-								<Compass className="w-full h-full text-brand-gold stroke-1" />
-							</div>
-						</div>
-
-						{/* Bottom Plate Inscription */}
-						<div className="relative z-10 flex flex-col gap-1.5  border-brand-warm-white/10 pt-4">
-							<span className="font-serif italic text-base sm:text-lg text-brand-warm-white leading-snug">
-								&ldquo;Justice without wisdom is rigidity;
-								wisdom without justice is compromise.&rdquo;
-							</span>
 						</div>
 					</div>
 				</div>

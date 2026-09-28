@@ -115,8 +115,33 @@ export function TarjumaCurriculumView({
 					setSelectedSurahNumber(num);
 				}
 			}
+
+			const sessionParam = url.searchParams.get("session");
+			if (sessionParam) {
+				for (const ed of editions) {
+					const found = ed.sessions.find(
+						(s) => s.slug === sessionParam,
+					);
+					if (found) {
+						setSelectedEditionId(ed.id);
+						setActiveSession(found);
+						setViewMode("curriculum");
+						break;
+					}
+				}
+				if (effectiveLisanSessions.length > 0) {
+					const found = effectiveLisanSessions.find(
+						(s) => s.slug === sessionParam,
+					);
+					if (found) {
+						setSelectedEditionId("lisan");
+						setActiveSession(found);
+						setViewMode("lisan");
+					}
+				}
+			}
 		}
-	}, []);
+	}, [editions, effectiveLisanSessions]);
 
 	const handleSwitchView = (mode: "curriculum" | "lisan") => {
 		setViewMode(mode);
@@ -340,7 +365,7 @@ export function TarjumaCurriculumView({
 			{activeSession && (
 				<div
 					ref={theaterRef}
-					className="scroll-mt-28 w-full rounded-2xl overflow-hidden border border-brand-gold/30 shadow-xl bg-black animate-fade-in"
+					className="scroll-mt-28 w-full md:w-4/5 mx-auto rounded-2xl overflow-hidden border border-brand-gold/30 shadow-xl bg-black animate-fade-in"
 				>
 					{/* Flush Top Utility Bar */}
 					<div className="flex items-center justify-between px-3 sm:px-4 py-2 bg-[#0a2318]  border-brand-gold/25 text-xs text-brand-warm-white">
@@ -352,8 +377,8 @@ export function TarjumaCurriculumView({
 										handleSelectSession(prevSession)
 									}
 									className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-[#0e3120] hover:bg-brand-gold hover:text-[#06170e] text-brand-warm-white transition-colors border border-brand-gold/25 shadow-xs"
-									title={`Previous: ${prevSession.cleanSurahTitle}`}
-									aria-label={`Previous: ${prevSession.cleanSurahTitle}`}
+									title={`${prevSession.cleanSurahTitle}`}
+									aria-label={`${prevSession.cleanSurahTitle}`}
 								>
 									<ChevronLeft className="w-4 h-4" />
 								</button>
@@ -367,15 +392,9 @@ export function TarjumaCurriculumView({
 							<span className="font-mono text-xs font-bold text-brand-gold shrink-0">
 								Session {activeSession.sessionCode}
 							</span>
-							<span className="text-white/40 hidden sm:inline">
-								·
-							</span>
-							<span className="font-serif text-xs sm:text-sm font-semibold text-white truncate">
-								{activeSession.cleanSurahTitle}
-							</span>
 							{activeSession.urduTitle && (
-								<span className="font-urdu text-sm sm:text-base text-brand-gold hidden md:inline dir-rtl">
-									({activeSession.urduTitle})
+								<span className="font-urdu text-sm sm:text-base text-white hidden md:inline dir-rtl py-4">
+									{activeSession.urduTitle}
 								</span>
 							)}
 						</div>
@@ -387,9 +406,9 @@ export function TarjumaCurriculumView({
 									onClick={() =>
 										handleSelectSession(nextSession)
 									}
-									className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-[#0e3120] hover:bg-brand-gold hover:text-[#06170e] text-brand-warm-white transition-colors border border-brand-gold/25 shadow-xs"
-									title={`Next: ${nextSession.cleanSurahTitle}`}
-									aria-label={`Next: ${nextSession.cleanSurahTitle}`}
+									className="inline-flex items-center justify-center w-8 h-8 rounded-lg hover:bg-brand-gold hover:text-[#06170e] text-brand-warm-white transition-colors shadow-xs"
+									title={`${nextSession.cleanSurahTitle}`}
+									aria-label={`${nextSession.cleanSurahTitle}`}
 								>
 									<ChevronRight className="w-4 h-4" />
 								</button>
@@ -526,7 +545,7 @@ export function TarjumaCurriculumView({
 										setSelectedSurahNumber(
 											e.target.value
 												? parseInt(e.target.value, 10)
-												: null
+												: null,
 										)
 									}
 									aria-label="Select Surah"
@@ -535,7 +554,10 @@ export function TarjumaCurriculumView({
 									<option value="">All Surahs (1–114)</option>
 									{surahs.map((s) => (
 										<option key={s.number} value={s.number}>
-											{s.number.toString().padStart(3, "0")}. {s.name} ({s.arabic})
+											{s.number
+												.toString()
+												.padStart(3, "0")}
+											. {s.name} ({s.arabic})
 										</option>
 									))}
 								</select>
@@ -549,7 +571,7 @@ export function TarjumaCurriculumView({
 										setSelectedJuz(
 											e.target.value
 												? parseInt(e.target.value, 10)
-												: null
+												: null,
 										)
 									}
 									aria-label="Filter by Juz"
@@ -566,20 +588,29 @@ export function TarjumaCurriculumView({
 						</div>
 
 						{/* Active Filter Indicators */}
-						{(searchQuery || selectedSurahNumber !== null || selectedJuz !== null) && (
+						{(searchQuery ||
+							selectedSurahNumber !== null ||
+							selectedJuz !== null) && (
 							<div className="flex items-center justify-between text-xs text-on-surface-variant px-1">
 								<span>
 									Showing{" "}
 									<strong className="text-primary font-bold font-mono">
 										{filteredSessions.length}
 									</strong>{" "}
-									session{filteredSessions.length === 1 ? "" : "s"}
+									session
+									{filteredSessions.length === 1 ? "" : "s"}
 									{selectedSurahNumber !== null && (
 										<span>
 											{" "}
 											· Surah{" "}
 											<strong className="text-primary font-semibold">
-												{surahs.find((s) => s.number === selectedSurahNumber)?.name}
+												{
+													surahs.find(
+														(s) =>
+															s.number ===
+															selectedSurahNumber,
+													)?.name
+												}
 											</strong>
 										</span>
 									)}
@@ -616,142 +647,146 @@ export function TarjumaCurriculumView({
 						</div>
 					) : (
 						<>
-						<div className="rounded-2xl border border-surface-container-high bg-surface-container-lowest overflow-hidden shadow-md">
-							{/* Table Column Header: DOMINANT DEEP FOREST GREEN ANCHOR */}
-							<div className="hidden sm:grid grid-cols-12 gap-4 px-6 py-3.5 bg-[#0a2318]  border-brand-gold/30 text-[11px] font-mono font-bold uppercase tracking-widest text-brand-gold">
-								<div className="col-span-2 md:col-span-1">
-									Session
+							<div className="rounded-2xl border border-surface-container-high bg-surface-container-lowest overflow-hidden shadow-md">
+								{/* Table Column Header: DOMINANT DEEP FOREST GREEN ANCHOR */}
+								<div className="hidden sm:grid grid-cols-12 gap-4 px-6 py-3.5 bg-[#0a2318]  border-brand-gold/30 text-[11px] font-mono font-bold uppercase tracking-widest text-brand-gold">
+									<div className="col-span-2 md:col-span-1">
+										Session
+									</div>
+									<div className="col-span-6 md:col-span-8">
+										Surah
+									</div>
+									<div className="col-span-4 md:col-span-3 text-right">
+										Recording
+									</div>
 								</div>
-								<div className="col-span-6 md:col-span-8">
-									Surah
-								</div>
-								<div className="col-span-4 md:col-span-3 text-right">
-									Recording
-								</div>
-							</div>
 
-							{/* Ledger Rows on Warm Cream Parchment */}
-							<div className="divide-y divide-surface-container-high/60">
-								{visibleSessions.map((session) => {
-									const isCurrentlyActive =
-										activeSession?.slug === session.slug;
+								{/* Ledger Rows on Warm Cream Parchment */}
+								<div className="divide-y divide-surface-container-high/60">
+									{visibleSessions.map((session) => {
+										const isCurrentlyActive =
+											activeSession?.slug ===
+											session.slug;
 
-									return (
-										<button
-											key={session.slug}
-											type="button"
-											onClick={() =>
-												handleSelectSession(session)
-											}
-											className={`w-full text-left group block transition-all duration-150 ${
-												isCurrentlyActive
-													? "bg-[#f4efe0] border-l-4 border-l-brand-gold shadow-xs"
-													: "bg-surface-container-lowest hover:bg-[#f8f5ea] focus:bg-[#f8f5ea] focus:outline-none"
-											}`}
-										>
-											{/* Responsive Ledger Row (Unified single subtree) */}
-											<div className="p-3.5 sm:px-6 sm:py-4 flex flex-col sm:grid sm:grid-cols-12 gap-2.5 sm:gap-4 sm:items-center">
-												{/* Session Number / Code */}
-												<div className="sm:col-span-2 md:col-span-1 flex items-center">
-													<span
-														className={`font-mono text-xs font-bold px-2 sm:px-2.5 py-0.5 sm:py-1 rounded sm:rounded-md transition-colors shadow-xs ${
-															isCurrentlyActive
-																? "bg-primary text-brand-gold font-extrabold border border-brand-gold/40"
-																: "bg-primary/10 text-primary border border-primary/20 group-hover:bg-primary group-hover:text-brand-gold"
-														}`}
-													>
-														<span className="sm:hidden">
-															Session{" "}
-														</span>
-														{session.sessionCode}
-													</span>
-												</div>
-
-												{/* Content & Media Container (flex on mobile, contents on desktop) */}
-												<div className="flex items-start justify-between gap-3 sm:contents">
-													{/* Surah Title & Range */}
-													<div className="flex-1 min-w-0 sm:col-span-6 md:col-span-8 pr-0 sm:pr-2">
-														<div className="flex flex-wrap items-baseline gap-x-2 sm:gap-x-3 gap-y-0.5 sm:gap-y-1">
-															<span
-																className={`font-serif text-sm sm:text-base font-bold sm:font-semibold transition-colors leading-snug ${
-																	isCurrentlyActive
-																		? "text-primary"
-																		: "text-on-surface group-hover:text-primary"
-																}`}
-															>
-																{
-																	session.cleanSurahTitle
-																}
+										return (
+											<button
+												key={session.slug}
+												type="button"
+												onClick={() =>
+													handleSelectSession(session)
+												}
+												className={`w-full text-left group block transition-all duration-150 ${
+													isCurrentlyActive
+														? "bg-[#f4efe0] border-l-4 border-l-brand-gold shadow-xs"
+														: "bg-surface-container-lowest hover:bg-[#f8f5ea] focus:bg-[#f8f5ea] focus:outline-none"
+												}`}
+											>
+												{/* Responsive Ledger Row (Unified single subtree) */}
+												<div className="p-3.5 sm:px-6 sm:py-4 flex flex-col sm:grid sm:grid-cols-12 gap-2.5 sm:gap-4 sm:items-center">
+													{/* Session Number / Code */}
+													<div className="sm:col-span-2 md:col-span-1 flex items-center">
+														<span
+															className={`font-mono text-xs font-bold px-2 sm:px-2.5 py-0.5 sm:py-1 rounded sm:rounded-md transition-colors shadow-xs ${
+																isCurrentlyActive
+																	? "bg-primary text-brand-gold font-extrabold border border-brand-gold/40"
+																	: "bg-primary/10 text-primary border border-primary/20 group-hover:bg-primary group-hover:text-brand-gold"
+															}`}
+														>
+															<span className="sm:hidden">
+																Session{" "}
 															</span>
-															{session.urduTitle && (
-																<span className="font-urdu text-base sm:text-lg text-tertiary font-bold dir-rtl">
+															{
+																session.sessionCode
+															}
+														</span>
+													</div>
+
+													{/* Content & Media Container (flex on mobile, contents on desktop) */}
+													<div className="flex items-start justify-between gap-3 sm:contents">
+														{/* Surah Title & Range */}
+														<div className="flex-1 min-w-0 sm:col-span-6 md:col-span-8 pr-0 sm:pr-2">
+															<div className="flex flex-wrap items-baseline gap-x-2 sm:gap-x-3 gap-y-0.5 sm:gap-y-1">
+																<span
+																	className={`font-serif text-sm sm:text-base font-bold sm:font-semibold transition-colors leading-snug ${
+																		isCurrentlyActive
+																			? "text-primary"
+																			: "text-on-surface group-hover:text-primary"
+																	}`}
+																>
 																	{
-																		session.urduTitle
+																		session.cleanSurahTitle
+																	}
+																</span>
+																{session.urduTitle && (
+																	<span className="font-urdu text-base sm:text-lg text-tertiary font-bold dir-rtl">
+																		{
+																			session.urduTitle
+																		}
+																	</span>
+																)}
+															</div>
+															{session.rangeLabel && (
+																<span className="inline-block mt-0.5 font-sans text-[11px] text-on-surface-variant">
+																	{
+																		session.rangeLabel
 																	}
 																</span>
 															)}
 														</div>
-														{session.rangeLabel && (
-															<span className="inline-block mt-0.5 font-sans text-[11px] text-on-surface-variant">
-																{
-																	session.rangeLabel
-																}
-															</span>
-														)}
-													</div>
 
-													{/* Video Thumbnail with Play Button Overlay */}
-													<div className="shrink-0 sm:col-span-4 md:col-span-3 text-right flex justify-end">
-														<div className="relative w-20 h-12 sm:w-28 md:w-32 sm:aspect-video rounded-md sm:rounded-lg overflow-hidden border border-surface-container-high shrink-0 shadow-xs bg-black/10 group-hover:border-primary/40 transition-colors">
-															{session.thumbnailUrl && (
-																<Image
-																	src={
-																		session.thumbnailUrl
-																	}
-																	alt={
-																		session.cleanSurahTitle
-																	}
-																	fill
-																	sizes="(max-width: 640px) 80px, (max-width: 768px) 112px, 128px"
-																	className="object-cover transition-transform duration-300 group-hover:scale-105"
-																/>
-															)}
-															<div className="absolute inset-0 bg-black/25 group-hover:bg-black/15 transition-colors flex items-center justify-center">
-																<span
-																	className={`inline-flex items-center justify-center w-5 h-5 sm:w-7 sm:h-7 rounded-full transition-all shadow-xs ${
-																		isCurrentlyActive
-																			? "bg-brand-gold text-primary font-bold shadow-sm sm:scale-110"
-																			: "bg-surface-container-high/90 text-primary group-hover:bg-primary group-hover:text-brand-warm-white sm:group-hover:scale-110"
-																	}`}
-																>
-																	<Play className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-current ml-0.5" />
-																</span>
+														{/* Video Thumbnail with Play Button Overlay */}
+														<div className="shrink-0 sm:col-span-4 md:col-span-3 text-right flex justify-end">
+															<div className="relative w-20 h-12 sm:w-28 md:w-32 sm:aspect-video rounded-md sm:rounded-lg overflow-hidden border border-surface-container-high shrink-0 shadow-xs bg-black/10 group-hover:border-primary/40 transition-colors">
+																{session.thumbnailUrl && (
+																	<Image
+																		src={
+																			session.thumbnailUrl
+																		}
+																		alt={
+																			session.cleanSurahTitle
+																		}
+																		fill
+																		sizes="(max-width: 640px) 80px, (max-width: 768px) 112px, 128px"
+																		className="object-cover transition-transform duration-300 group-hover:scale-105"
+																	/>
+																)}
+																<div className="absolute inset-0 bg-black/25 group-hover:bg-black/15 transition-colors flex items-center justify-center">
+																	<span
+																		className={`inline-flex items-center justify-center w-5 h-5 sm:w-7 sm:h-7 rounded-full transition-all shadow-xs ${
+																			isCurrentlyActive
+																				? "bg-brand-gold text-primary font-bold shadow-sm sm:scale-110"
+																				: "bg-surface-container-high/90 text-primary group-hover:bg-primary group-hover:text-brand-warm-white sm:group-hover:scale-110"
+																		}`}
+																	>
+																		<Play className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-current ml-0.5" />
+																	</span>
+																</div>
 															</div>
 														</div>
 													</div>
 												</div>
-											</div>
-										</button>
-									);
-								})}
+											</button>
+										);
+									})}
+								</div>
 							</div>
-						</div>
 
-						{/* Progressive "See More" Loading Pattern */}
-						{hasMoreSessions && (
-							<div className="pt-2 flex flex-col items-center justify-center gap-2">
-								<button
-									type="button"
-									onClick={handleSeeMore}
-									className="inline-flex items-center justify-center gap-2 px-8 py-2.5 bg-primary text-brand-warm-white hover:bg-primary-hover rounded-full text-xs sm:text-sm font-semibold transition-all shadow-sm cursor-pointer border border-brand-gold/30 hover:scale-[1.02] active:scale-[0.98]"
-								>
-									<span>See More</span>
-								</button>
-								<p className="text-[11px] font-mono text-on-surface-variant/80">
-									Showing {visibleSessions.length} of {filteredSessions.length} sessions
-								</p>
-							</div>
-						)}
+							{/* Progressive "See More" Loading Pattern */}
+							{hasMoreSessions && (
+								<div className="pt-2 flex flex-col items-center justify-center gap-2">
+									<button
+										type="button"
+										onClick={handleSeeMore}
+										className="inline-flex items-center justify-center gap-2 px-8 py-2.5 bg-primary text-brand-warm-white hover:bg-primary-hover rounded-full text-xs sm:text-sm font-semibold transition-all shadow-sm cursor-pointer border border-brand-gold/30 hover:scale-[1.02] active:scale-[0.98]"
+									>
+										<span>See More</span>
+									</button>
+									<p className="text-[11px] font-mono text-on-surface-variant/80">
+										Showing {visibleSessions.length} of{" "}
+										{filteredSessions.length} sessions
+									</p>
+								</div>
+							)}
 						</>
 					)}
 				</div>

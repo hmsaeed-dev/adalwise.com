@@ -394,6 +394,14 @@ const SURAH_ALIASES: { alias: string; surahNum: number }[] = [
 	{ alias: "naas", surahNum: 114 },
 ];
 
+const COMPILED_SURAH_ALIASES = SURAH_ALIASES.map(({ alias, surahNum }) => {
+	const escaped = alias.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+	return {
+		rx: new RegExp(`(?:^|[\\s\\-_/,&.:;!?])${escaped}(?:$|[\\s\\-_/,&.:;!?0-9])`, "i"),
+		surahNum,
+	};
+});
+
 function classifyEdition(item: LectureItem): "2026" | "2025" | "2024" | "2023" {
 	if (item.batchYear === 2026) return "2026";
 	if (item.batchYear === 2025) return "2025";
@@ -495,9 +503,7 @@ function extractCleanSurahAndRange(title: string): {
 
 	const matchedSurahNums = new Set<number>();
 
-	for (const { alias, surahNum } of SURAH_ALIASES) {
-		const escaped = alias.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-		const rx = new RegExp(`(?:^|[\\s\\-_/,&.:;!?])${escaped}(?:$|[\\s\\-_/,&.:;!?0-9])`, "i");
+	for (const { rx, surahNum } of COMPILED_SURAH_ALIASES) {
 		if (rx.test(cleanForMatch)) {
 			matchedSurahNums.add(surahNum);
 		}
@@ -580,12 +586,17 @@ function extractCleanSurahAndRange(title: string): {
 	};
 }
 
+let cachedParsedTarjumaSessions: ParsedTarjumaSession[] | null = null;
+
 export function parseAllTarjumaLectures(): ParsedTarjumaSession[] {
+	if (cachedParsedTarjumaSessions) {
+		return cachedParsedTarjumaSessions;
+	}
 	const all = TAFSIR_LECTURES_RAW;
 	// Filter out coursework with 0 duration (broken placeholder/livestream records)
 	const coursework = all.filter((item) => item.isCoursework && item.durationSeconds > 0);
 
-	return coursework.map((item) => {
+	cachedParsedTarjumaSessions = coursework.map((item) => {
 		const edition = classifyEdition(item);
 		const sessionCode = extractSessionCode(item.title);
 		const sortOrder = calculateSortKey(item.title);
@@ -615,9 +626,16 @@ export function parseAllTarjumaLectures(): ParsedTarjumaSession[] {
 			quranContext: item.quranContext || quranContext,
 		};
 	});
+
+	return cachedParsedTarjumaSessions;
 }
 
+let cachedTarjumaEditions: TarjumaEditionMeta[] | null = null;
+
 export function getTarjumaEditions(): TarjumaEditionMeta[] {
+	if (cachedTarjumaEditions) {
+		return cachedTarjumaEditions;
+	}
 	const allSessions = parseAllTarjumaLectures();
 
 	const editionsData: {
@@ -661,7 +679,7 @@ export function getTarjumaEditions(): TarjumaEditionMeta[] {
 		},
 	];
 
-	return editionsData.map((meta) => {
+	cachedTarjumaEditions = editionsData.map((meta) => {
 		const sessions = allSessions
 			.filter((s) => s.edition === meta.id)
 			.sort((a, b) => a.sortOrder - b.sortOrder);
@@ -672,6 +690,8 @@ export function getTarjumaEditions(): TarjumaEditionMeta[] {
 			sessions,
 		};
 	});
+
+	return cachedTarjumaEditions;
 }
 
 export interface QuranSurahWithSessions extends QuranSurahMeta {
@@ -683,9 +703,14 @@ export function getSurahByNumber(num: number): QuranSurahMeta | undefined {
 	return QURAN_SURAHS.find((s) => s.number === num);
 }
 
+let cachedSurahsWithSessions: QuranSurahWithSessions[] | null = null;
+
 export function getAllSurahsWithSessions(): QuranSurahWithSessions[] {
+	if (cachedSurahsWithSessions) {
+		return cachedSurahsWithSessions;
+	}
 	const allSessions = parseAllTarjumaLectures();
-	return QURAN_SURAHS.map((surah) => {
+	cachedSurahsWithSessions = QURAN_SURAHS.map((surah) => {
 		const matching = allSessions.filter((s) => {
 			if (s.quranContext) {
 				if (s.quranContext.surahEndNumber) {
@@ -702,5 +727,7 @@ export function getAllSurahsWithSessions(): QuranSurahWithSessions[] {
 			sessions: matching,
 		};
 	});
+
+	return cachedSurahsWithSessions;
 }
 

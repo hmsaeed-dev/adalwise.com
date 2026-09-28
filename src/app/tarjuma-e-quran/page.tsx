@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Link from "next/link";
 import {
 	getTarjumaEditions,
@@ -18,15 +18,9 @@ export const metadata = constructMetadata({
 	canonicalUrl: "/tarjuma-e-quran",
 });
 
-interface PageProps {
-	searchParams: Promise<{ session?: string; view?: string }>;
-}
+export const dynamic = "force-static";
 
-export default async function TarjumaQuranCoursePage({
-	searchParams,
-}: PageProps) {
-	const resolvedParams = await searchParams;
-	const initialSessionSlug = resolvedParams?.session;
+export default async function TarjumaQuranCoursePage() {
 	const editions = getTarjumaEditions();
 	const surahs = getAllSurahsWithSessions();
 	const lisanSessions = getLisanUlQuranSessions();
@@ -99,12 +93,13 @@ export default async function TarjumaQuranCoursePage({
 
 			{/* ================= INTERACTIVE CURRICULUM HUB (WARM CREAM PARCHMENT CANVAS) ================= */}
 			<section className="w-full max-w-container-max mx-auto px-gutter-mobile md:px-gutter-desktop pt-10 sm:pt-12">
-				<TarjumaCurriculumView
-					editions={editions}
-					surahs={surahs}
-					lisanSessions={lisanSessions}
-					initialSessionSlug={initialSessionSlug}
-				/>
+				<Suspense fallback={null}>
+					<TarjumaCurriculumView
+						editions={editions}
+						surahs={surahs}
+						lisanSessions={lisanSessions}
+					/>
+				</Suspense>
 			</section>
 		</div>
 	);

@@ -22,19 +22,7 @@ export const metadata = constructMetadata({
 	canonicalUrl: "/lectures",
 });
 
-export const dynamic = "force-dynamic";
-
-interface PageProps {
-	searchParams: Promise<{
-		category?: string;
-		domain?: string;
-		q?: string;
-		page?: string;
-		series?: string;
-		format?: string;
-		sort?: string;
-	}>;
-}
+export const dynamic = "force-static";
 
 function LecturesSearchFilterSkeleton() {
 	return (
@@ -50,9 +38,7 @@ function LecturesSearchFilterSkeleton() {
 	);
 }
 
-export default async function LecturesCatalogPage({ searchParams }: PageProps) {
-	const resolvedParams = await searchParams;
-
+export default async function LecturesCatalogPage() {
 	// Fetch curated foundational masterclasses and the entire thematic holdings in parallel
 	// The 324-session translation course is exclusively hosted in /tarjuma-e-quran
 	const [curatedPicks, allThematicLectures] = await Promise.all([
@@ -82,11 +68,8 @@ export default async function LecturesCatalogPage({ searchParams }: PageProps) {
 			<Suspense fallback={<LecturesSearchFilterSkeleton />}>
 				<LecturesArchiveInteractive
 					allLectures={allThematicLectures}
-					initialParams={resolvedParams}
 				/>
 			</Suspense>
-
-
 		</div>
 	);
 }

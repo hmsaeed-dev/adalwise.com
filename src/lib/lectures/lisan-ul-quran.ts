@@ -82,7 +82,12 @@ function cleanLisanTopicTitle(rawTitle: string): {
 	};
 }
 
+let cachedLisanSessions: ParsedLisanSession[] | null = null;
+
 export function getLisanUlQuranSessions(): ParsedLisanSession[] {
+	if (cachedLisanSessions) {
+		return cachedLisanSessions;
+	}
 	const all = LISAN_UL_QURAN_LECTURES_RAW as LectureItem[];
 
 	const sessions = all.map((item) => {
@@ -112,12 +117,18 @@ export function getLisanUlQuranSessions(): ParsedLisanSession[] {
 		};
 	});
 
-	return sessions.sort((a, b) => a.sortOrder - b.sortOrder);
+	cachedLisanSessions = sessions.sort((a, b) => a.sortOrder - b.sortOrder);
+	return cachedLisanSessions;
 }
 
+let cachedLisanEditions: LisanEditionMeta[] | null = null;
+
 export function getLisanUlQuranEditions(): LisanEditionMeta[] {
+	if (cachedLisanEditions) {
+		return cachedLisanEditions;
+	}
 	const sessions = getLisanUlQuranSessions();
-	return [
+	cachedLisanEditions = [
 		{
 			id: "series",
 			label: "Lisan-ul-Quran Series",
@@ -128,4 +139,5 @@ export function getLisanUlQuranEditions(): LisanEditionMeta[] {
 			sessions,
 		},
 	];
+	return cachedLisanEditions;
 }

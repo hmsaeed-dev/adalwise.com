@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo, useCallback } from "react";
+import { useSearchParams } from "next/navigation";
 import MiniSearch from "minisearch";
 import { Search, X, ChevronLeft, ChevronRight, SearchX, ArrowUpDown } from "lucide-react";
 import { LectureItem } from "@/lib/lectures/types";
@@ -35,17 +36,28 @@ export function LecturesArchiveInteractive({
 	allLectures,
 	initialParams = {},
 }: LecturesArchiveInteractiveProps) {
+	const searchParams = useSearchParams();
+	const qParam = searchParams.get("q") ?? initialParams.q ?? "";
+	const domainParam =
+		searchParams.get("domain") ??
+		searchParams.get("category")?.toLowerCase() ??
+		initialParams.domain ??
+		initialParams.category?.toLowerCase() ??
+		"all";
+	const sortParam =
+		(searchParams.get("sort") as SortOption) ??
+		(initialParams.sort as SortOption) ??
+		"newest";
+	const seriesParam = searchParams.get("series") ?? initialParams.series ?? "";
+	const pageParam = searchParams.get("page") ?? initialParams.page;
+
 	// Initialize state from URL params
-	const [searchQuery, setSearchQuery] = useState(initialParams.q || "");
-	const [selectedDomain, setSelectedDomain] = useState(
-		initialParams.domain || initialParams.category?.toLowerCase() || "all",
-	);
-	const [selectedSort, setSelectedSort] = useState<SortOption>(
-		(initialParams.sort as SortOption) || "newest",
-	);
-	const [selectedSeries, setSelectedSeries] = useState(initialParams.series || "");
+	const [searchQuery, setSearchQuery] = useState(qParam);
+	const [selectedDomain, setSelectedDomain] = useState(domainParam);
+	const [selectedSort, setSelectedSort] = useState<SortOption>(sortParam);
+	const [selectedSeries, setSelectedSeries] = useState(seriesParam);
 	const [currentPage, setCurrentPage] = useState(
-		initialParams.page ? parseInt(initialParams.page, 10) : 1,
+		pageParam ? parseInt(pageParam, 10) : 1,
 	);
 
 	// Client-side in-memory MiniSearch index across thematic lectures

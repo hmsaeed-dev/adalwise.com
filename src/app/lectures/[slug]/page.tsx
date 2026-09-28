@@ -239,7 +239,7 @@ export default async function lecturesDetailPage({ params }: PageProps) {
 			<section className="bg-surface-container-low p-space-lg rounded-[24px] border border-surface-container-high flex flex-col gap-space-md">
 				<h2 className="font-headline-sm text-primary font-bold flex items-center gap-space-xs">
 					<BookOpen className="w-5 h-5 text-tertiary-container shrink-0" />
-					<span>Synopsis &amp; Breakdown</span>
+					<span>Synopsis</span>
 				</h2>
 
 				<p className="font-body-md text-on-surface leading-relaxed text-[16px]">
@@ -318,11 +318,8 @@ export default async function lecturesDetailPage({ params }: PageProps) {
 				<section className="mt-space-xl pt-space-md flex flex-col gap-space-md">
 					<div className="flex items-baseline justify-between">
 						<h3 className="font-headline-sm text-primary font-bold text-2xl">
-							Related Discourses & Deliberations
+							Related
 						</h3>
-						<span className="text-xs text-on-surface-variant">
-							Cross-domain references
-						</span>
 					</div>
 					<div className="grid grid-cols-1 sm:grid-cols-3 gap-space-md">
 						{related.map((r) => (

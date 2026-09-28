@@ -9,7 +9,6 @@ import {
 	Menu,
 	X,
 	Home,
-	Scale,
 	Video,
 	Users,
 	User,
@@ -38,23 +37,27 @@ export function Header() {
 	// Check if the current route is one of the main root-level nav items
 	const isMainNavRoot = mainNavItems.some((item) => item.href === pathname);
 
-	// Transparent dark mode applies ONLY to root navigation pages while unscrolled
+	// Transparent hero state applies ONLY to root navigation pages while unscrolled
 	const isTransparentHero = isMainNavRoot && !isScrolled;
 
 	// Scroll listener: toggles scrolled state past 40px using requestAnimationFrame throttle
 	useEffect(() => {
 		let ticking = false;
+
 		const handleScroll = () => {
 			if (!ticking) {
 				window.requestAnimationFrame(() => {
 					setIsScrolled(window.scrollY > 40);
 					ticking = false;
 				});
+
 				ticking = true;
 			}
 		};
+
 		handleScroll();
 		window.addEventListener("scroll", handleScroll, { passive: true });
+
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
 
@@ -65,11 +68,14 @@ export function Header() {
 				e.preventDefault();
 				setIsSearchOpen((prev) => !prev);
 			}
+
 			if (e.key === "/" && !isSearchOpen) {
 				const activeTag =
 					document.activeElement?.tagName?.toLowerCase();
+
 				const isEditable = (document.activeElement as HTMLElement)
 					?.isContentEditable;
+
 				if (
 					activeTag !== "input" &&
 					activeTag !== "textarea" &&
@@ -79,12 +85,15 @@ export function Header() {
 					setIsSearchOpen(true);
 				}
 			}
+
 			if (e.key === "Escape") {
 				setIsDrawerOpen(false);
 				setIsSearchOpen(false);
 			}
 		};
+
 		window.addEventListener("keydown", handleKeyDown);
+
 		return () => window.removeEventListener("keydown", handleKeyDown);
 	}, [isSearchOpen]);
 
@@ -99,8 +108,8 @@ export function Header() {
 				className={cn(
 					"fixed top-10 w-full z-50 pt-safe transition-[background-color,border-color,box-shadow] duration-300",
 					isTransparentHero
-						? "bg-transparent shadow-none  border-transparent"
-						: "bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]  border-surface-container-high/40",
+						? "bg-transparent shadow-none border-transparent"
+						: "bg-brand-primary shadow-[0_1px_8px_rgba(0,0,0,0.12)] border-brand-primary",
 				)}
 			>
 				<div className="h-16 md:h-14 px-6 max-w-7xl mx-auto flex items-center justify-between">
@@ -113,10 +122,7 @@ export function Header() {
 								width={36}
 								height={36}
 								className={cn(
-									"w-full h-full object-contain rounded-full",
-									isTransparentHero
-										? "brightness-0 invert "
-										: "brightness-100",
+									"w-full h-full brightness-0 invert object-contain rounded-full",
 								)}
 								priority
 							/>
@@ -138,24 +144,21 @@ export function Header() {
 									key={item.href}
 									href={item.href}
 									className={cn(
-										"py-1 transition-colors relative font-sans text-sm tracking-wide",
+										"py-1 transition-colors relative font-sans text-sm font-bold tracking-wide",
 										isTransparentHero
-											? isActive
-												? "text-brand-warm-white font-semibold drop-shadow"
-												: "text-brand-warm-white/80 hover:text-brand-warm-white"
-											: isActive
-												? "text-brand-primary font-semibold"
-												: "text-brand-charcoal/80 hover:text-brand-primary",
+											? "text-white font-semibold drop-shadow"
+											: "text-white/80 hover:text-white",
 									)}
 								>
 									{item.title}
+
 									{isActive && (
 										<span
 											className={cn(
 												"absolute -bottom-0.5 left-0 right-0 h-0.5 rounded-full",
 												isTransparentHero
 													? "bg-brand-gold"
-													: "bg-brand-primary",
+													: "bg-white",
 											)}
 										/>
 									)}
@@ -179,10 +182,7 @@ export function Header() {
 							}}
 							aria-label="Search Archive (Ctrl+K or /)"
 							className={cn(
-								"w-9 h-9 flex items-center justify-center rounded-full transition-colors",
-								isTransparentHero
-									? "text-brand-warm-white hover:bg-white/10"
-									: "text-brand-primary hover:bg-brand-primary/5",
+								"w-9 h-9 flex items-center text-white hover:bg-white/10 justify-center rounded-full transition-colors",
 							)}
 						>
 							<Search
@@ -190,14 +190,12 @@ export function Header() {
 								strokeWidth={2}
 							/>
 						</button>
+
+						{/* Join Us */}
 						<Link
 							href="/join"
 							className={cn(
-								"hidden md:inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/15 text-brand-warm-white border border-white/20 text-xs font-bold uppercase tracking-widest transition-all duration-200",
-								isTransparentHero
-									? "text-brand-warm-white hover:bg-white/10"
-									: "text-brand-primary hover:bg-brand-primary/20 border-brand-primary/5",
-							)}
+								"hidden md:inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-200 bg-white/10 hover:bg-white/15 text-white border border-white/20",)}
 						>
 							<span>Join Us</span>
 						</Link>
@@ -210,8 +208,8 @@ export function Header() {
 							className={cn(
 								"w-9 h-9 flex md:hidden items-center justify-center rounded-full transition-colors",
 								isTransparentHero
-									? "text-brand-warm-white hover:bg-white/10"
-									: "text-brand-primary hover:bg-brand-primary/5",
+									? "text-brand-primary hover:bg-brand-primary/10"
+									: "text-white hover:bg-white/10",
 							)}
 						>
 							<Menu className="w-6 h-6" strokeWidth={1.75} />
@@ -270,25 +268,32 @@ export function Header() {
 												{item.href === "/" && (
 													<Home className="w-[18px] h-[18px] text-tertiary-container shrink-0" />
 												)}
+
 												{item.href ===
 													"/tarjuma-e-quran" && (
 													<BookOpen className="w-[18px] h-[18px] text-tertiary-container shrink-0" />
 												)}
+
 												{item.href === "/lectures" && (
 													<Video className="w-[18px] h-[18px] text-tertiary-container shrink-0" />
 												)}
+
 												{item.href ===
 													"/lectures/notes" && (
 													<FileText className="w-[18px] h-[18px] text-tertiary-container shrink-0" />
 												)}
+
 												{item.href === "/majlis" && (
 													<Users className="w-[18px] h-[18px] text-tertiary-container shrink-0" />
 												)}
+
 												{item.href === "/about" && (
 													<User className="w-[18px] h-[18px] text-tertiary-container shrink-0" />
 												)}
+
 												<span>{item.title}</span>
 											</div>
+
 											{item.urduTitle && (
 												<span className="font-urdu text-[13px] text-on-surface-variant">
 													{item.urduTitle}
@@ -297,6 +302,7 @@ export function Header() {
 										</Link>
 									);
 								})}
+
 								<Link
 									href="/search"
 									className="py-space-xs px-space-sm rounded-xl flex items-center justify-between text-on-surface hover:bg-surface-container transition-colors"
@@ -309,7 +315,7 @@ export function Header() {
 							</nav>
 						</div>
 
-						<div className="pt-space-md  border-surface-container-high flex flex-col gap-space-xs">
+						<div className="pt-space-md border-surface-container-high flex flex-col gap-space-xs">
 							<Link
 								href="/join"
 								className="w-full py-space-sm bg-primary text-on-primary font-label-md text-center uppercase tracking-wider block rounded-full hover:bg-primary-container transition-colors shadow-sm"

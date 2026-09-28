@@ -48,8 +48,8 @@ export function MajlisFeaturedArchive({ doc }: MajlisFeaturedArchiveProps) {
 			<div className="flex items-center justify-between flex-wrap gap-3 mb-6">
 				<div className="flex items-center gap-2.5">
 					<span className="w-2 h-2 rounded-full bg-brand-gold" aria-hidden="true" />
-					<span className="font-mono text-xs uppercase tracking-[0.25em] font-semibold text-primary">
-						Latest Majlis
+					<span className="text-xs uppercase tracking-[0.25em] font-semibold text-primary">
+						Latest
 					</span>
 				</div>
 			</div>
@@ -76,13 +76,6 @@ export function MajlisFeaturedArchive({ doc }: MajlisFeaturedArchiveProps) {
 					{/* Right: Rich Editorial Content & Metadata */}
 					<div className="lg:col-span-7 p-6 sm:p-8 md:p-10 lg:p-12 flex flex-col justify-between gap-6 sm:gap-8">
 						<div className="space-y-4 sm:space-y-5">
-							{/* Location & Date */}
-							<div className="flex items-center gap-4 flex-wrap text-xs sm:text-sm text-brand-warm-white/75 font-sans">
-								<div className="flex items-center gap-1.5 text-brand-gold font-medium">
-									<Calendar className="w-4 h-4 shrink-0" aria-hidden="true" />
-									<span>{formattedDate}</span>
-								</div>
-							</div>
 
 							{/* Title & Urdu Title */}
 							<div className="flex items-baseline justify-between gap-4 flex-wrap">
@@ -101,7 +94,7 @@ export function MajlisFeaturedArchive({ doc }: MajlisFeaturedArchiveProps) {
 
 							{/* Concept Subtitle */}
 							{session.theme && (
-								<p className="text-sm sm:text-base font-sans font-medium text-brand-gold tracking-wide">
+								<p className="text-sm sm:text-base font-sans tracking-wide">
 									{session.theme}
 								</p>
 							)}
