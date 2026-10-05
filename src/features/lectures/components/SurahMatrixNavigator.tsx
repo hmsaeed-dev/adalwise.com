@@ -197,7 +197,7 @@ export function SurahMatrixNavigator({
 			</div>
 
 			{/* 114 Surahs Responsive Grid */}
-			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-4">
+			<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-4">
 				{filteredSurahs.map((surah) => {
 					const isSelected = activeSurah?.number === surah.number;
 					return (
@@ -212,38 +212,38 @@ export function SurahMatrixNavigator({
 									setActiveSurah(surah);
 								}
 							}}
-							className={`group relative p-4 rounded-xl text-left cursor-pointer transition-all border flex flex-col justify-between ${
+							className={`group relative p-3 sm:p-4 rounded-xl text-left cursor-pointer transition-all duration-200 border flex flex-col justify-between active:scale-[0.98] ${
 								isSelected
 									? "bg-primary-container/20 border-primary shadow-md ring-1 ring-primary"
 									: "bg-surface-container-lowest hover:bg-surface-container-low border-surface-container-high hover:border-primary/40 shadow-xs hover:shadow-sm"
 							}`}
 						>
 							{/* Card Top: Number, Revelation Tag, Session Count */}
-							<div className="flex items-center justify-between gap-2 pb-2">
-
-								<div className="flex items-center gap-1.5">
+							<div className="flex items-center justify-between gap-1.5 pb-1 sm:pb-2">
+								<span className="font-mono text-[11px] sm:text-xs font-bold text-brand-gold bg-primary/90 px-1.5 py-0.5 rounded">
+									#{surah.number}
+								</span>
+								<div className="flex items-center gap-1">
 									<span className="text-[10px] font-medium text-on-surface-variant bg-surface-container-high px-1.5 py-0.5 rounded-md">
 										{surah.sessionCount}{" "}
-										{surah.sessionCount === 1 ? "record" : "records"}
+										{surah.sessionCount === 1 ? "rec" : "recs"}
 									</span>
 								</div>
 							</div>
 
 							{/* Card Center: Titles */}
-							<div className="my-2 flex items-baseline justify-between gap-2">
+							<div className="my-1 sm:my-2 flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
 								<div className="min-w-0">
-									<h3 className="font-serif text-base font-semibold text-on-surface group-hover:text-primary transition-colors truncate">
+									<h3 className="font-serif text-sm sm:text-base font-semibold text-on-surface group-hover:text-primary transition-colors truncate">
 										{surah.name}
 									</h3>
 								</div>
 								<div className="shrink-0 text-right">
-									<span className="font-urdu text-lg font-bold text-primary dir-rtl block leading-tight">
+									<span className="font-urdu text-base sm:text-lg font-bold text-primary dir-rtl block leading-tight">
 										{surah.arabic}
 									</span>
 								</div>
 							</div>
-
-
 						</div>
 					);
 				})}
@@ -278,18 +278,17 @@ export function SurahMatrixNavigator({
 					role="dialog"
 					aria-modal="true"
 					aria-labelledby="surah-detail-title"
-					className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-xs animate-fade-in"
+					className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-6 bg-black/60 backdrop-blur-xs animate-fade-in"
 					onClick={() => setActiveSurah(null)}
 				>
 					<div
-						className="relative w-full max-w-2xl max-h-[90vh] flex flex-col bg-surface-container-lowest rounded-2xl border border-surface-container-high shadow-2xl overflow-hidden"
+						className="relative w-full max-w-2xl max-h-[85vh] sm:max-h-[90vh] flex flex-col bg-surface-container-lowest rounded-t-3xl sm:rounded-2xl border border-surface-container-high shadow-2xl overflow-hidden animate-sheet-in sm:animate-scale-in pb-safe"
 						onClick={(e) => e.stopPropagation()}
 					>
 						{/* Drawer Header */}
-						<div className="p-5 sm:p-6 bg-[#0a2318] text-brand-warm-white flex items-start justify-between gap-4 border-b border-brand-gold/30">
+						<div className="p-4 sm:p-6 bg-[#0a2318] text-brand-warm-white flex items-start justify-between gap-4 border-b border-brand-gold/30">
 							<div className="space-y-1">
-
-								<div className="flex items-baseline gap-4 pt-1">
+								<div className="flex items-baseline gap-3 sm:gap-4 pt-1">
 									<h2
 										id="surah-detail-title"
 										className="font-serif text-2xl sm:text-3xl text-brand-warm-white font-normal"
@@ -305,14 +304,14 @@ export function SurahMatrixNavigator({
 							<button
 								onClick={() => setActiveSurah(null)}
 								aria-label="Close details"
-								className="p-1.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors shrink-0"
+								className="w-11 h-11 flex items-center justify-center rounded-full text-white/80 hover:text-white hover:bg-white/10 active:scale-95 transition-colors shrink-0"
 							>
 								<X className="w-5 h-5" />
 							</button>
 						</div>
 
 						{/* Drawer Content: Sessions List */}
-						<div className="p-5 sm:p-6 overflow-y-auto space-y-4 flex-1">
+						<div className="p-4 sm:p-6 overflow-y-auto space-y-4 flex-1">
 							<div className="flex items-center justify-between pb-2 border-b border-surface-container-high">
 								<span className="text-xs uppercase tracking-wider font-semibold text-on-surface-variant">
 									Recordings ({activeSurah.sessions.length})
@@ -323,7 +322,7 @@ export function SurahMatrixNavigator({
 								{activeSurah.sessions.map((session) => (
 									<div
 										key={session.id}
-										className="p-4 rounded-xl bg-surface-container border border-surface-container-high hover:border-primary/40 transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 group"
+										className="p-3.5 sm:p-4 rounded-xl bg-surface-container border border-surface-container-high hover:border-primary/40 transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 group"
 									>
 										<div className="space-y-1 min-w-0 flex-1">
 											<div className="flex items-center gap-2 text-xs">
@@ -350,7 +349,7 @@ export function SurahMatrixNavigator({
 													onSelectSession(session);
 													setActiveSurah(null);
 												}}
-												className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-brand-warm-white text-xs font-semibold hover:bg-primary-hover shadow-xs transition-colors"
+												className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2 sm:py-1.5 rounded-lg bg-primary text-brand-warm-white text-xs font-semibold hover:bg-primary-hover shadow-xs active:scale-95 transition-all min-h-[40px] sm:min-h-0"
 											>
 												<Play className="w-3.5 h-3.5 fill-current" />
 												<span>Watch</span>

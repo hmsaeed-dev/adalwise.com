@@ -14,6 +14,7 @@ import {
 	BookOpen,
 	ChevronLeft,
 	ChevronRight,
+	ChevronDown,
 	Calendar,
 } from "lucide-react";
 import type {
@@ -368,7 +369,7 @@ export function TarjumaCurriculumView({
 					className="scroll-mt-28 w-full md:w-4/5 mx-auto rounded-2xl overflow-hidden border border-brand-gold/30 shadow-xl bg-black animate-fade-in"
 				>
 					{/* Flush Top Utility Bar */}
-					<div className="flex items-center justify-between px-3 sm:px-4 py-2 bg-[#0a2318]  border-brand-gold/25 text-xs text-brand-warm-white">
+					<div className="flex items-center justify-between px-3 sm:px-4 py-2.5 bg-[#0a2318] border-brand-gold/25 text-xs text-brand-warm-white">
 						{/* Prev Surah Icon Button */}
 						<div className="flex items-center">
 							{prevSession ? (
@@ -376,14 +377,14 @@ export function TarjumaCurriculumView({
 									onClick={() =>
 										handleSelectSession(prevSession)
 									}
-									className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-[#0e3120] hover:bg-brand-gold hover:text-[#06170e] text-brand-warm-white transition-colors border border-brand-gold/25 shadow-xs"
+									className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-[#0e3120] hover:bg-brand-gold hover:text-[#06170e] text-brand-warm-white transition-all active:scale-95 border border-brand-gold/25 shadow-xs"
 									title={`${prevSession.cleanSurahTitle}`}
 									aria-label={`${prevSession.cleanSurahTitle}`}
 								>
 									<ChevronLeft className="w-4 h-4" />
 								</button>
 							) : (
-								<div className="w-8 h-8" />
+								<div className="w-10 h-10" />
 							)}
 						</div>
 
@@ -406,7 +407,7 @@ export function TarjumaCurriculumView({
 									onClick={() =>
 										handleSelectSession(nextSession)
 									}
-									className="inline-flex items-center justify-center w-8 h-8 rounded-lg hover:bg-brand-gold hover:text-[#06170e] text-brand-warm-white transition-colors shadow-xs"
+									className="inline-flex items-center justify-center w-10 h-10 rounded-xl hover:bg-brand-gold hover:text-[#06170e] text-brand-warm-white transition-all active:scale-95 shadow-xs"
 									title={`${nextSession.cleanSurahTitle}`}
 									aria-label={`${nextSession.cleanSurahTitle}`}
 								>
@@ -417,7 +418,7 @@ export function TarjumaCurriculumView({
 							<button
 								onClick={handleCloseTheater}
 								aria-label="Close player"
-								className="inline-flex items-center justify-center w-8 h-8 rounded-lg hover:bg-white/10 text-white/60 hover:text-white transition-colors"
+								className="inline-flex items-center justify-center w-10 h-10 rounded-xl hover:bg-white/10 text-white/70 hover:text-white transition-all active:scale-95"
 							>
 								<X className="w-4 h-4" />
 							</button>
@@ -447,7 +448,7 @@ export function TarjumaCurriculumView({
 						onClick={() => handleSwitchView("curriculum")}
 						role="tab"
 						aria-selected={viewMode === "curriculum"}
-						className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
+						className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all active:scale-[0.98] ${
 							viewMode === "curriculum"
 								? "bg-primary text-brand-warm-white shadow-xs border border-brand-gold/30"
 								: "text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low"
@@ -460,7 +461,7 @@ export function TarjumaCurriculumView({
 						onClick={() => handleSwitchView("lisan")}
 						role="tab"
 						aria-selected={viewMode === "lisan"}
-						className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
+						className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all active:scale-[0.98] ${
 							viewMode === "lisan"
 								? "bg-primary text-brand-warm-white shadow-xs border border-brand-gold/30"
 								: "text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low"
@@ -549,7 +550,7 @@ export function TarjumaCurriculumView({
 										)
 									}
 									aria-label="Select Surah"
-									className="w-full sm:w-auto px-3.5 py-2.5 text-xs font-medium bg-surface-container-lowest border border-surface-container-high rounded-xl text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all shadow-xs cursor-pointer"
+									className="w-full sm:w-auto appearance-none pl-3.5 pr-8 py-2.5 text-xs font-semibold bg-surface-container-lowest border border-surface-container-high rounded-xl text-primary focus:outline-none focus:ring-2 focus:ring-brand-gold/30 focus:border-brand-gold transition-all shadow-xs cursor-pointer"
 								>
 									<option value="">All Surahs (1–114)</option>
 									{surahs.map((s) => (
@@ -561,6 +562,7 @@ export function TarjumaCurriculumView({
 										</option>
 									))}
 								</select>
+								<ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-on-surface-variant pointer-events-none" />
 							</div>
 
 							{/* Juz Quick Dropdown */}
@@ -575,7 +577,7 @@ export function TarjumaCurriculumView({
 										)
 									}
 									aria-label="Filter by Juz"
-									className="w-full sm:w-auto px-3.5 py-2.5 text-xs font-medium bg-surface-container-lowest border border-surface-container-high rounded-xl text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all shadow-xs cursor-pointer"
+									className="w-full sm:w-auto appearance-none pl-3.5 pr-8 py-2.5 text-xs font-semibold bg-surface-container-lowest border border-surface-container-high rounded-xl text-primary focus:outline-none focus:ring-2 focus:ring-brand-gold/30 focus:border-brand-gold transition-all shadow-xs cursor-pointer"
 								>
 									<option value="">All Parahs (1–30)</option>
 									{QURAN_JUZ_LIST.map((j) => (
@@ -584,6 +586,7 @@ export function TarjumaCurriculumView({
 										</option>
 									))}
 								</select>
+								<ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-on-surface-variant pointer-events-none" />
 							</div>
 						</div>
 

@@ -27,13 +27,24 @@ function easeOutCubic(t: number): number {
 
 export function LecturesStatsStrip() {
 	const containerRef = useRef<HTMLElement>(null);
-	const [counts, setCounts] = useState<number[]>([0, 0, 0]);
-	const [isVisible, setIsVisible] = useState(false);
+	const [counts, setCounts] = useState<number[]>(() =>
+		STATS_DATA.map((s) => s.value)
+	);
+	const [isVisible, setIsVisible] = useState(true);
 	const hasAnimatedRef = useRef(false);
 
 	useEffect(() => {
 		const element = containerRef.current;
 		if (!element || hasAnimatedRef.current) return;
+
+		// Skip count-up animation if user prefers reduced motion
+		if (
+			typeof window !== "undefined" &&
+			window.matchMedia("(prefers-reduced-motion: reduce)").matches
+		) {
+			hasAnimatedRef.current = true;
+			return;
+		}
 
 		let animationFrameId: number;
 		let timeoutId: NodeJS.Timeout;

@@ -118,14 +118,32 @@ const config: Config = {
       letterSpacing: {
         editorial: "var(--tracking-editorial)",
       },
+      transitionTimingFunction: {
+        editorial: "cubic-bezier(0.16, 1, 0.3, 1)",
+      },
       keyframes: {
         marquee: {
           "0%": { transform: "translateX(0%)" },
           "100%": { transform: "translateX(-100%)" },
         },
+        drawerSlideIn: {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(0)" },
+        },
+        sheetSlideUp: {
+          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        scaleIn: {
+          "0%": { opacity: "0", transform: "scale(0.97)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
+        },
       },
       animation: {
         marquee: "marquee var(--marquee-duration, 30s) linear infinite",
+        "drawer-in": "drawerSlideIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) both",
+        "sheet-in": "sheetSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) both",
+        "scale-in": "scaleIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) both",
       },
     },
   },

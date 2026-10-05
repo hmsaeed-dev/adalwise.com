@@ -54,7 +54,7 @@ export function StreamsSection() {
 							<Link
 								key={stream.title}
 								href={stream.href}
-								className="group relative block aspect-[16/10] overflow-hidden rounded-3xl border border-primary/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 md:aspect-[4/5]"
+								className="group relative block aspect-[16/10] overflow-hidden rounded-3xl border border-primary/10 hover:border-primary/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 md:aspect-[4/5] shadow-sm hover:shadow-xl transition-all duration-300 active:scale-[0.98]"
 							>
 								{/* Background Image */}
 								<Image
@@ -62,7 +62,7 @@ export function StreamsSection() {
 									alt={stream.title}
 									fill
 									sizes="(max-width: 768px) 100vw, 33vw"
-									className="object-cover transition-transform duration-700 ease-out"
+									className="object-cover transition-transform duration-700 ease-editorial group-hover:scale-105"
 								/>
 
 								{/* Subtle overall image treatment */}

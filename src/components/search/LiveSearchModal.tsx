@@ -336,8 +336,8 @@ export function LiveSearchModal({ isOpen, onClose }: LiveSearchModalProps) {
 	};
 
 	return (
-		<div className="fixed inset-0 z-50 bg-inverse-surface/60 backdrop-blur-sm flex items-start justify-center pt-16 sm:pt-24 p-gutter-mobile">
-			<div className="bg-surface-container-lowest max-w-2xl w-full rounded-[24px] shadow-2xl border border-surface-container-high overflow-hidden animate-in fade-in zoom-in-95 duration-150 flex flex-col max-h-[80vh]">
+		<div className="fixed inset-0 z-50 bg-inverse-surface/60 backdrop-blur-sm flex items-start justify-center pt-safe pt-8 sm:pt-20 p-2.5 sm:p-gutter-mobile">
+			<div className="bg-surface-container-lowest max-w-2xl w-full rounded-2xl sm:rounded-[24px] shadow-2xl border border-surface-container-high overflow-hidden animate-scale-in flex flex-col max-h-[calc(100dvh-3rem)] sm:max-h-[82vh]">
 				{/* Search Input Bar */}
 				<form
 					onSubmit={handleFullSearch}

@@ -11,7 +11,7 @@ interface LecturesCardProps {
 
 export function LecturesCard({ lectures }: LecturesCardProps) {
 	return (
-		<article className="group relative bg-surface-container-low rounded-2xl overflow-hidden border border-surface-container-high hover:border-brand-gold/60 hover:shadow-md hover:cursor-pointer transition-all flex flex-col justify-between h-full">
+		<article className="group relative bg-surface-container-low rounded-2xl overflow-hidden border border-surface-container-high hover:border-brand-gold/60 hover:shadow-md hover:cursor-pointer transition-all duration-300 active:scale-[0.99] flex flex-col justify-between h-full">
 			{/* Thumbnail Container */}
 			<div className="relative w-full aspect-video overflow-hidden bg-primary">
 				<Image
@@ -19,7 +19,7 @@ export function LecturesCard({ lectures }: LecturesCardProps) {
 					alt={lectures.title}
 					fill
 					sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-					className="object-cover group-hover:scale-103 transition-transform duration-500 opacity-95 group-hover:opacity-100"
+					className="object-cover group-hover:scale-105 transition-transform duration-500 ease-editorial opacity-95 group-hover:opacity-100"
 					unoptimized
 				/>
 				<div className="absolute inset-0 bg-primary/25 group-hover:bg-primary/10 transition-colors" />

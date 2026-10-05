@@ -206,10 +206,8 @@ export function Header() {
 							aria-label="Open Navigation Menu"
 							onClick={() => setIsDrawerOpen(true)}
 							className={cn(
-								"w-9 h-9 flex md:hidden items-center justify-center rounded-full transition-colors",
-								isTransparentHero
-									? "text-brand-primary hover:bg-brand-primary/10"
-									: "text-white hover:bg-white/10",
+								"w-10 h-10 flex md:hidden items-center justify-center rounded-full transition-colors active:scale-95",
+								"text-white hover:bg-white/10",
 							)}
 						>
 							<Menu className="w-6 h-6" strokeWidth={1.75} />
@@ -228,21 +226,25 @@ export function Header() {
 				<div className="fixed inset-0 z-50 flex">
 					{/* Backdrop */}
 					<div
-						className="fixed inset-0 bg-primary/40 backdrop-blur-sm transition-opacity"
+						className="fixed inset-0 bg-primary/50 backdrop-blur-sm transition-opacity duration-300"
 						onClick={() => setIsDrawerOpen(false)}
+						aria-hidden="true"
 					/>
 
 					{/* Drawer Panel */}
-					<div className="relative ml-auto w-4/5 max-w-xs bg-surface/75 backdrop-blur-2xl backdrop-saturate-150 border-l border-white/20 dark:border-white/10 h-full p-space-lg flex flex-col justify-between shadow-2xl z-10 overflow-y-auto">
+					<div className="relative ml-auto w-4/5 max-w-xs bg-surface/95 backdrop-blur-2xl backdrop-saturate-150 border-l border-surface-container-high h-full pt-safe pb-safe p-space-lg flex flex-col justify-between shadow-2xl z-10 overflow-y-auto animate-drawer-in">
 						<div className="flex flex-col gap-space-md">
-							<div className="flex items-center justify-end pb-space-sm ">
+							<div className="flex items-center justify-between pb-space-sm border-b border-surface-container-high/60">
+								<span className="font-serif text-xs font-semibold tracking-widest text-primary/70 uppercase">
+									Navigation
+								</span>
 								<button
 									type="button"
 									aria-label="Close Menu"
 									onClick={() => setIsDrawerOpen(false)}
-									className="w-8 h-8 flex place-items-end justify-end text-on-surface-variant hover:text-primary rounded-full transition-colors"
+									className="w-11 h-11 flex items-center justify-center text-on-surface-variant hover:text-primary rounded-full hover:bg-surface-container transition-colors active:scale-95"
 								>
-									<X className="w-5 h-5" strokeWidth={4} />
+									<X className="w-5 h-5" strokeWidth={2} />
 								</button>
 							</div>
 
@@ -258,7 +260,7 @@ export function Header() {
 											key={item.href}
 											href={item.href}
 											className={cn(
-												"py-space-xs px-space-sm rounded-xl flex items-center justify-between transition-colors",
+												"py-2.5 px-space-sm rounded-xl flex items-center justify-between transition-all duration-150 active:scale-[0.98]",
 												isActive
 													? "bg-surface-container-high text-primary font-semibold"
 													: "text-on-surface hover:bg-surface-container",
@@ -305,7 +307,7 @@ export function Header() {
 
 								<Link
 									href="/search"
-									className="py-space-xs px-space-sm rounded-xl flex items-center justify-between text-on-surface hover:bg-surface-container transition-colors"
+									className="py-2.5 px-space-sm rounded-xl flex items-center justify-between text-on-surface hover:bg-surface-container transition-all duration-150 active:scale-[0.98]"
 								>
 									<div className="flex items-center gap-space-xs">
 										<Search className="w-[18px] h-[18px] text-tertiary-container shrink-0" />
@@ -318,7 +320,7 @@ export function Header() {
 						<div className="pt-space-md border-surface-container-high flex flex-col gap-space-xs">
 							<Link
 								href="/join"
-								className="w-full py-space-sm bg-primary text-on-primary font-label-md text-center uppercase tracking-wider block rounded-full hover:bg-primary-container transition-colors shadow-sm"
+								className="w-full py-3 bg-primary text-on-primary font-label-md text-center uppercase tracking-wider block rounded-full hover:bg-primary-container transition-all duration-150 active:scale-[0.98] shadow-sm"
 							>
 								Join Us
 							</Link>
