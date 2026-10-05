@@ -198,6 +198,7 @@ export function LisanUlQuranCourseView({
 															fill
 															sizes="(max-width: 640px) 80px, (max-width: 768px) 112px, 128px"
 															className="object-cover transition-transform duration-300 group-hover:scale-105"
+															unoptimized
 														/>
 													)}
 													<div className="absolute inset-0 bg-black/25 group-hover:bg-black/15 transition-colors flex items-center justify-center">

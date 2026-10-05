@@ -167,6 +167,7 @@ export function MajlisDetailChronicle({
 													alt={lec.title}
 													fill
 													className="object-cover object-center group-hover:scale-105 transition-transform"
+													unoptimized
 												/>
 											) : (
 												<div className="w-full h-full flex items-center justify-center bg-primary text-brand-gold">

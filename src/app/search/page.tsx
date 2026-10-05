@@ -261,7 +261,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
 												fill
 												sizes="(max-width: 640px) 112px, 144px"
 												className="object-cover group-hover:scale-105 transition-transform duration-300"
-												unoptimized={thumbUrl.includes("ytimg.com")}
+												unoptimized={thumbUrl.includes("ytimg.com") || thumbUrl.includes("youtube.com")}
 											/>
 											{/* Video Play Badge */}
 											{isVideo && (

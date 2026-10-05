@@ -58,6 +58,7 @@ export function YouTubeEmbed({
 						className={`object-cover transition-all duration-500 group-hover:scale-105 ${
 							isImageLoaded ? "opacity-100" : "opacity-0"
 						}`}
+						unoptimized
 					/>
 
 					{/* Ambient Overlay */}
