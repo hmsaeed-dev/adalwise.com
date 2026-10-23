@@ -22,7 +22,7 @@ Register-ScheduledTask `
     -Action $Action `
     -Trigger $Trigger `
     -Settings $Settings `
-    -Description "Autonomous Nightly Lecture Ingestion & Verification for Dr. Haseeb's Brain"
+    -Description "Autonomous Nightly Lecture Ingestion and Verification for Haseeb-Brain"
 
-Write-Host "✓ Windows Scheduled Task '$TaskName' registered successfully!" -ForegroundColor Green
+Write-Host "[OK] Windows Scheduled Task '$TaskName' registered successfully!" -ForegroundColor Green
 Write-Host "It will automatically run every night at 2:00 AM." -ForegroundColor Cyan
