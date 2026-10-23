@@ -1,6 +1,6 @@
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
-import { BookOpen, Play, ArrowRight, ChevronLeft, ChevronRight, Sparkles, CheckCircle2, Quote } from "lucide-react";
+import { BookOpen, Play, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import {
 	getLectureBySlug,
 	getAllLectures,
@@ -235,20 +235,6 @@ export default async function lecturesDetailPage({ params }: PageProps) {
 				</div>
 			</header>
 
-			{/* Scholar Evergreen Trust Seal */}
-			{item.status === "evergreen" && (
-				<div className="flex items-center justify-between gap-3 p-3.5 sm:p-4 rounded-2xl bg-brand-gold/10 border border-brand-gold/30 text-xs sm:text-sm font-medium text-brand-gold">
-					<div className="flex items-center gap-2">
-						<CheckCircle2 className="w-4 h-4 shrink-0 text-brand-gold" />
-						<span>
-							<strong>Scholarly Signed-Off Dossier</strong> &bull; Reviewed & verified by {item.reviewedBy || "Dr. Hafiz Haseeb"}{item.reviewedAt ? ` on ${item.reviewedAt}` : ""}
-						</span>
-					</div>
-					<span className="hidden sm:inline-block text-[11px] uppercase tracking-wider font-bold px-2 py-0.5 rounded bg-brand-gold/20">
-						Evergreen Canon
-					</span>
-				</div>
-			)}
 
 			{/* Comprehensive Textual Summary */}
 			<section className="bg-surface-container-low p-space-lg rounded-[24px] border border-surface-container-high flex flex-col gap-space-md">
@@ -278,86 +264,7 @@ export default async function lecturesDetailPage({ params }: PageProps) {
 				</div>
 			</section>
 
-			{/* Verified Golden Quotes */}
-			{item.goldenQuotes && item.goldenQuotes.length > 0 && (
-				<section className="bg-surface-container-low p-space-lg rounded-[24px] border border-surface-container-high flex flex-col gap-space-md">
-					<div className="flex items-center justify-between border-b border-surface-container-high pb-space-xs">
-						<h2 className="font-headline-sm text-primary font-bold flex items-center gap-space-xs">
-							<Sparkles className="w-5 h-5 text-brand-gold shrink-0" />
-							<span>Verified Golden Quotes (اقوالِ زریں)</span>
-						</h2>
-						<span className="text-[11px] text-on-surface-variant font-medium">
-							Ground-Truth Grounded (&ge; 80%)
-						</span>
-					</div>
 
-					<div className="grid grid-cols-1 gap-3.5">
-						{item.goldenQuotes.map((q, idx) => (
-							<blockquote 
-								key={idx} 
-								className="p-4 sm:p-5 rounded-2xl bg-surface-container border border-surface-container-highest flex flex-col gap-3 shadow-xs"
-							>
-								<p className="text-base sm:text-lg font-urdu dir-rtl text-right leading-loose text-primary font-medium">
-									&ldquo;{q.quote}&rdquo;
-								</p>
-								<div className="flex items-center justify-between text-xs text-on-surface-variant pt-2 border-t border-surface-container-highest/60">
-									<span className="font-semibold text-secondary">
-										{q.speaker || "Dr. Hafiz Haseeb"}
-									</span>
-									<a
-										href={`https://youtu.be/${item.youtubeId}?t=${Math.floor(q.timestampSeconds)}`}
-										target="_blank"
-										rel="noreferrer"
-										className="px-2.5 py-1 rounded-lg bg-brand-gold/15 text-brand-gold hover:bg-brand-gold/25 font-mono font-bold flex items-center gap-1.5 transition-colors"
-										title="Listen in video at this timestamp"
-									>
-										<Play className="w-3 h-3 fill-current" />
-										<span>{q.timestamp}</span>
-									</a>
-								</div>
-							</blockquote>
-						))}
-					</div>
-				</section>
-			)}
-
-			{/* Primary Quranic Scripture */}
-			{item.quranCitations && item.quranCitations.length > 0 && (
-				<section className="bg-surface-container-low p-space-lg rounded-[24px] border border-surface-container-high flex flex-col gap-space-md">
-					<div className="flex items-center justify-between border-b border-surface-container-high pb-space-xs">
-						<h2 className="font-headline-sm text-primary font-bold flex items-center gap-space-xs">
-							<BookOpen className="w-5 h-5 text-tertiary-container shrink-0" />
-							<span>Primary Quranic Sources (تنزیل عثمانی)</span>
-						</h2>
-						<span className="text-[11px] text-brand-gold font-semibold">
-							✓ 6,236 Verses Database Check
-						</span>
-					</div>
-
-					<div className="grid grid-cols-1 gap-3">
-						{item.quranCitations.map((ay, idx) => (
-							<div 
-								key={idx} 
-								className="p-4 rounded-2xl bg-surface-container border border-surface-container-highest flex flex-col gap-2"
-							>
-								<div className="flex items-center justify-between text-xs font-semibold text-tertiary-container font-mono">
-									<span>{ay.ref}</span>
-									{ay.textVerified && (
-										<span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-700 border border-emerald-500/30">
-											✓ Tanzil Uthmani Verified
-										</span>
-									)}
-								</div>
-								{ay.arabicText && (
-									<p className="font-arabic text-xl sm:text-2xl text-primary dir-rtl text-right leading-loose pt-1 font-serif">
-										{ay.arabicText}
-									</p>
-								)}
-							</div>
-						))}
-					</div>
-				</section>
-			)}
 
 			{/* Embedded Companion Study Notes */}
 			{companionNotes.length > 0 && (
