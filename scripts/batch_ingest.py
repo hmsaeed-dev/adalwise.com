@@ -38,6 +38,7 @@ def main():
     parser = argparse.ArgumentParser(description="Batch Ingest Lectures into Haseeb-Brain")
     parser.add_argument("--limit", type=int, default=5, help="Number of lectures to process in this batch (default: 5)")
     parser.add_argument("--domain", type=str, default="all", help="Target domain (tafsir, civic-ethics, seerah, etc.) or 'all'")
+    parser.add_argument("--id", type=str, default=None, help="Target a specific lecture ID or YouTube ID directly")
     parser.add_argument("--dry-run", action="store_true", help="Print lectures to be processed without executing")
     args = parser.parse_args()
 
@@ -54,23 +55,35 @@ def main():
         if not lec.get('hasFullDossier', False)
     ]
 
-    if args.domain != 'all':
+    if args.id:
+        target = args.id.replace('yt-', '')
+        pending = [lec for lec in pending if lec.get('id') == args.id or lec.get('youtubeId') == target]
+        if not pending:
+            print(f"Lecture '{args.id}' not found in pending skeleton queue (may already have full dossier)!", flush=True)
+            return
+    elif args.domain != 'all':
         pending = [lec for lec in pending if lec.get('domain') == args.domain]
+
+    # Priority Sort: Processed first, then Staged/Prioritized items first, then domain, then title
+    pending.sort(key=lambda x: (not x.get('priority', False), x.get('domain', ''), x.get('title', '')))
 
     if not pending:
         print(f"✓ All lectures in domain '{args.domain}' already have full dossiers!", flush=True)
         return
 
+    prioritized_count = sum(1 for p in pending if p.get('priority', False))
     batch = pending[:args.limit]
 
     print(f"\n=======================================================", flush=True)
     print(f"Haseeb-Brain Batch Ingestion Engine", flush=True)
     print(f"Total Pending in Queue: {len(pending)}")
+    print(f"Staged Priorities in Queue: {prioritized_count}")
     print(f"Selected for this batch: {len(batch)} lectures (Domain: {args.domain})")
     print(f"=======================================================\n", flush=True)
 
     for idx, lec in enumerate(batch):
-        print(f"  {idx+1}. [{lec.get('domain')}] {lec.get('title')} ({lec.get('youtubeId')}) - {lec.get('durationMinutes')} mins")
+        tag = "[★ STAGED] " if lec.get('priority') else ""
+        print(f"  {idx+1}. {tag}[{lec.get('domain')}] {lec.get('title')} ({lec.get('youtubeId')}) - {lec.get('durationMinutes')} mins")
 
     if args.dry_run:
         print("\n[Dry run complete. No processing executed.]", flush=True)

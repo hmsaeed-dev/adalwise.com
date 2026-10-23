@@ -49,6 +49,7 @@ def generate_manifest():
         reviewed_by = get_val('reviewedBy', None)
         reviewed_at = get_val('reviewedAt', None)
         coverage_warn = get_val('coverageWarning', 'false').lower() == 'true'
+        is_priority = get_val('priority', 'false').lower() == 'true'
 
         try:
             dur_mins = int(get_val('durationMinutes', '0'))
@@ -106,11 +107,12 @@ def generate_manifest():
             "coverageWarning": coverage_warn,
             "reviewedBy": reviewed_by if reviewed_by != 'null' else None,
             "reviewedAt": reviewed_at if reviewed_at != 'null' else None,
+            "priority": is_priority,
             "noteRelativePath": os.path.relpath(npath, VAULT_ROOT).replace('\\', '/')
         })
 
-    # Sort: processed first, then domain, then title
-    entries.sort(key=lambda x: (not x['hasFullDossier'], x['domain'], x['title']))
+    # Sort: processed first, then priority, then domain, then title
+    entries.sort(key=lambda x: (not x['hasFullDossier'], not x.get('priority', False), x['domain'], x['title']))
 
     manifest_data = {
         "generatedAt": datetime.now().isoformat(),
