@@ -64,6 +64,29 @@ export interface LectureItem {
 	hasNotes?: boolean;
 	quranContext?: QuranContext;
 	searchText?: string;
+	status?: "draft" | "evergreen" | "flagged";
+	reviewedBy?: string | null;
+	reviewedAt?: string | null;
+	goldenQuotes?: Array<{
+		quote: string;
+		timestamp: string;
+		timestampSeconds: number;
+		speaker?: string;
+		editedByScholar?: boolean;
+	}>;
+	quranCitations?: Array<{
+		ref: string;
+		surah: number;
+		ayah: number;
+		arabicText?: string;
+		matched?: boolean;
+		textVerified?: boolean;
+	}>;
+	articleSeeds?: Array<{
+		title: string;
+		slug?: string;
+		angle?: string;
+	}>;
 }
 
 export interface LectureQueryParams {
