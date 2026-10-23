@@ -1,0 +1,16 @@
+{
+  "asr_engine": "gemini-chunked-verbatim",
+  "synthesis_models": [
+    "gemini-3.6-flash",
+    "gemini-3.5-flash",
+    "gemini-flash-latest",
+    "gemini-3.7-flash",
+    "gemini-3.8-flash"
+  ],
+  "chunk_duration_seconds": 300,
+  "chunk_overlap_seconds": 10,
+  "quote_containment_threshold": 0.80,
+  "request_timeout_seconds": 180,
+  "max_retries_per_lecture": 2,
+  "max_batch_cost_usd": 5.00
+}

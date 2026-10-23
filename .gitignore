@@ -42,3 +42,18 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# media & audio (NEVER commit)
+*.opus
+*.m4a
+*.mp3
+*.mp4
+*.part
+
+# python
+__pycache__/
+*.pyc
+temp_*
+cookies.txt
+*.cookie
+
+
